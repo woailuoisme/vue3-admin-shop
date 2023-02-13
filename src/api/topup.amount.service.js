@@ -1,0 +1,44 @@
+import request from '@/api/http.request'
+import { canUsed } from '@/utils/util'
+
+class TopUpAmountService {
+  list(data) {
+    const params = {
+      page: data.page,
+      per_page: data.perPage,
+    }
+    canUsed(data.keyword) ? (params.keyword = data.keyword) : null
+    return request.instance().get('/top_up_amount', { params })
+  }
+
+  show(id) {
+    return request.instance().get(`/top_up_amount/${id}`)
+  }
+
+  store(data) {
+    let body = {
+      integral: data.integral,
+      amount: data.amount,
+    }
+    return request.instance().post(`/top_up_amount`, body)
+  }
+
+  update(data) {
+    let body = {
+      integral: data.integral,
+      amount: data.amount,
+    }
+    return request.instance().put(`/top_up_amount/${data.id}`, body)
+  }
+
+  delete(id) {
+    const body = {
+      ids: [id],
+    }
+    return request.instance().delete(`/top_up_amount`, {
+      data: body,
+    })
+  }
+}
+
+export default new TopUpAmountService()
