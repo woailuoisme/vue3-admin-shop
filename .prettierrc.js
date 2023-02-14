@@ -1,5 +1,5 @@
 module.exports = {
-  "printWidth": 120, // 指定代码长度，超出换行
+  "printWidth": 160, // 指定代码长度，超出换行
   "tabWidth": 2, // tab 键的宽度
   "useTabs": false, // 不使用tab
   "semi": false, // 结尾加上分号

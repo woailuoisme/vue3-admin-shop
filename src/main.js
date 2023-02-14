@@ -8,13 +8,25 @@
 import App from './App.vue'
 
 // Composables
-import { createApp } from 'vue'
+import {createApp} from 'vue'
 
 // Plugins
-import { registerPlugins } from '@/plugins'
+import {registerPlugins} from '@/plugins'
 
 const app = createApp(App)
 
 registerPlugins(app)
 
 app.mount('#app')
+
+if (import.meta.env.MODE === 'dev') {
+  console.log(' import.meta.env.MODE: ', import.meta.env.MODE);
+  console.log(' import.meta.env.BASE_URL: ', import.meta.env.BASE_URL);
+  console.log(' import.meta.env.PROD: ', import.meta.env.PROD);
+  console.log(' import.meta.env.DEV: ', import.meta.env.DEV);
+  console.log(' import.meta.env.SSR: ', import.meta.env.SSR);
+  console.log(import.meta.env.VITE_BASE_URL)
+  console.log(import.meta.env.VITE_BASE_URL_ADMIN)
+}
+
+export default app;

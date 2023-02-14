@@ -1,12 +1,15 @@
 // Composables
-import { createRouter, createWebHistory } from 'vue-router'
+import {createRouter, createWebHistory} from 'vue-router'
 
 const routes = [
   {
     path: '/',
     name: 'home',
-    // component: () => import('../views/admin/AdminDashboard.vue')
-    component: () => import('@/views/auth/login.vue'),
+    component: () => import('@/views/admin/AdminDashboard.vue'),
+  },
+  {
+    path: "/:catchAll(.*)",
+    redirect: '/404',
   },
   {
     path: '/dashboard',
@@ -45,80 +48,77 @@ const routes = [
   {
     path: '/user/backend',
     name: 'user_backend',
-    component: () => import('../views/admin/AdminUser.vue'),
+    component: () => import('@/views/admin/AdminUser.vue'),
   },
 
   {
     path: '/product/list',
     name: 'product_list',
-    component: () => import('../views/admin/AdminProduct.vue'),
+    component: () => import('@/views/admin/AdminProduct.vue'),
   },
-  // {
-  //     path: "/product/detail/:productId",
-  //     name: "product_detail",
-  //     component: AdminProductDetail
-  // },
+
   {
-    path: '/product/new',
-    name: 'product_new',
-    component: () => import('../views/admin/AdminProductNew.vue'),
+    path: '/product/form',
+    name: 'product_test',
+    component: () => import('@/views/components/adminProduct/DialogEntityForm'),
   },
+
   {
     path: '/product/category',
     name: 'product_category',
-    component: () => import('../views/admin/AdminProductCategory.vue'),
+    component: () => import('@/views/admin/AdminProductCategory.vue'),
   },
 
   {
     path: '/order',
     name: 'order',
-    component: () => import('../views/admin/AdminOrder.vue'),
+    component: () => import('@/views/admin/AdminOrder.vue'),
   },
   {
     path: '/withdraw',
     name: 'withdraw',
-    component: () => import('../views/admin/AdminWithdraw.vue'),
+    component: () => import('@/views/admin/AdminWithdraw.vue'),
   },
   {
     path: '/feedback',
     name: 'feedback',
-    component: () => import('../views/admin/AdminFeedback.vue'),
+    component: () => import('@/views/admin/AdminFeedback.vue'),
   },
 
   {
     path: '/coupon',
     name: 'coupon',
-    component: () => import('../views/admin/AdminCoupon.vue'),
+    component: () => import('@/views/admin/AdminCoupon.vue'),
   },
   {
     path: '/promotion',
     name: 'promotion',
-    component: () => import('../views/admin/AdminPromotion.vue'),
+    component: () => import('@/views/admin/AdminPromotion.vue'),
   },
   {
     path: '/promotion_award',
     name: 'promotion_award',
-    component: () => import('../views/admin/AdminPromotionAward.vue'),
+    component: () => import('@/views/admin/AdminPromotionAward.vue'),
   },
   {
     path: '/refund',
     name: 'refund',
-    component: () => import('../views/admin/AdminRefund.vue'),
+    component: () => import('@/views/admin/AdminRefund.vue'),
   },
   {
     path: '/top_up_amount',
     name: 'top_up_amount',
-    component: () => import('../views/admin/AdminTopUpAmount.vue'),
+    component: () => import('@/views/admin/AdminTopUpAmount.vue'),
   },
   {
     path: '/top_up_record',
     name: 'top_up_record',
-    component: () => import('../views/admin/AdminTopUpRecord.vue'),
+    component: () => import('@/views/admin/AdminTopUpRecord.vue'),
   },
   {
     path: '/carousel',
     name: 'carousel',
-    component: () => import('../views/admin/AdminCarousel.vue'),
+    component: () => import('@/views/admin/AdminCarousel.vue'),
   },
   {
     path: '/about_us',
@@ -152,5 +152,15 @@ const router = createRouter({
 //     return '/account/login';
 //   }
 // });
+
+router.beforeEach((to, from, next) => {
+  let user = window.localStorage.getItem('user')
+  // console.log(user)
+  if (to.name !== 'login' && !user) next({name: 'login'})
+  else {
+    next()
+  }
+})
+
 
 export default router

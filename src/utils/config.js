@@ -1,4 +1,5 @@
-let environment = process.env.NODE_ENV
+// let environment = process.env.NODE_ENV
+let environment = 'dev'
 
 function getUrl(environment) {
   switch (environment) {

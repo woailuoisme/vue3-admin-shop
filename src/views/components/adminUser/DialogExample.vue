@@ -26,14 +26,21 @@ const props = defineProps({
   }
 })
 
-const dialog = ref(false)
-
 const emit = defineEmits(['update:modelValue'])
 
-watch(dialog, (value, oldValue) => {
-  console.log(value)
-  emit('update:modelValue', value)
+const dialog = computed({
+  get() {
+    return props.modelValue
+  },
+  set(val) {
+    emit('update:modelValue', val);
+  }
 })
+
+// watch(dialog, (value, oldValue) => {
+//   console.log(value)
+//   emit('update:modelValue', value)
+// })
 </script>
 <style scoped>
 </style>

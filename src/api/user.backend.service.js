@@ -9,7 +9,7 @@ class UserBackendService {
       perPage: data.perPage,
     }
     canUsed(data.keyword) ? (params.keyword = data.keyword) : null
-    return request.instance().get('/admin_users')
+    return request.instance().get('/admin_users', {params})
   }
 
   show(userId) {

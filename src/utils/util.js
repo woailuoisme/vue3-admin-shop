@@ -2,7 +2,7 @@ import { format } from 'date-fns'
 import { humanReadableFileSize } from 'vuetify/lib/util/helpers'
 
 export const canUsed = function (data) {
-  return typeof data !== 'undefined' && data !== null
+  return typeof data !== 'undefined' && data !== null && !!data
 }
 
 const formatDate = (d, dateFormat = 'MM/dd/yyyy') => {

@@ -1,10 +1,14 @@
 import UserBackendService from '../api/user.backend.service'
 import Toast from '../utils/toast'
+import {defineStore} from 'pinia'
 
-export default {
-  namespaced: true,
-  state: {
+/** Config Store */
+export default defineStore('admin-user', {
+  // Default Config State
+  state: () => ({
     managers: [],
+    editedIndex: -1,
+    loading: false,
     meta: {},
     initManagerMeta: {
       per_page: 10,
@@ -15,90 +19,114 @@ export default {
       to: 10,
     },
     managerInfo: {},
-  },
-  mutations: {
-    SET_MANAGERS(state, payload) {
-      state.managers = payload
+    editedItem: {
+      id: 0,
+      name: '',
+      email: '',
+      password: null,
+      avatar: null,
+      avatarFile: [],
+      role: '',
     },
-    SET_META(state, payload) {
-      state.meta = payload
+    defaultItem: {
+      id: 0,
+      name: '',
+      email: '',
+      password: null,
+      avatar: null,
+      avatarFile: [],
+      role: '',
     },
-    SET_MANAGER(state, payload) {
-      state.managerInfo = payload
-    },
-    DELETE_MANAGER(state, payload) {
-      const index = state.managers.findIndex((p) => p.id === payload)
-      state.managers.splice(index, 1)
-    },
-    CREATE_MANAGER(state, payload) {
-      // state.carousels.push(payload)
-      state.managers.unshift(payload)
-    },
-    UPDATE_MANAGER(state, payload) {
-      const index = state.managers.findIndex((p) => p.id === payload.id)
-      Object.assign(state.managers[index], payload)
-    },
-
-    RESET_MANAGER(state) {
-      state.managerInfo = {}
-    },
-  },
-  actions: {
-    async loadAllUsers({ commit }, payload) {
-      const res = await UserBackendService.list(payload)
-      if (res.data.data) {
-        commit('SET_MANAGERS', res.data.data.items)
-        commit('SET_META', res.data.data.meta)
-      }
-    },
-
-    async loadUser({ commit }, userId) {
-      const res = await UserBackendService.show(userId)
-      const user = res.data.data
-      commit('SET_MANAGER', user)
-    },
-
-    async createUser({ commit }, payload) {
-      const res = await UserBackendService.create(payload)
-      const user = res.data.data
-
-      commit('CREATE_MANAGER', user)
-      return true
-    },
-
-    async updateUser({ commit }, payload) {
-      const res = await UserBackendService.update(payload)
-      const user = res.data.data
-      commit('UPDATE_MANAGER', user, { root: true })
-    },
-
-    async deleteUser({ commit }, userId) {
-      const res = await UserBackendService.delete(userId)
-      if (res.data.success) {
-        commit('DELETE_MANAGER', userId)
-      } else {
-        Toast.error(res.data.message)
-      }
-    },
-  },
+  }),
+  // Getters
   getters: {
     hasData(state) {
       return !!state.managers.length
+    },
+    total(state) {
+      return state.meta.total ?? 0
     },
     getUsers(state) {
       return [...state.managers]
     },
     getUser(state) {
-      return { ...state.managerInfo }
+      return {...state.managerInfo}
+    },
+    isNew(state) {
+      return state.editedIndex === -1
+    },
+    getEditedItem(state) {
+      return state.editedItem
+    },
+    getEditedIndex(state) {
+      return state.editedIndex
     },
     findById: (state) => (id) => {
       return state.managers.find((user) => user.id === id)
     },
+    findIndexById: (state) => (id) => {
+      return state.managers.findIndex((user) => user.id === id)
+    },
     getMeta(state) {
-      return { ...state.meta }
+      return {...state.meta}
     },
     isDisplayPagination(state) {
       return !!(state.meta && state.meta.last_page && state.meta.last_page > 1)
     },
   },
-}
+  // Actions
+  actions: {
+    setEditedIndex(id) {
+      this.editedIndex = this.managers.findIndex((user) => user.id === id)
+    },
+    resetEdited() {
+      this.editedIndex = -1
+      this.editedItem = Object.assign({}, this.defaultItem)
+    },
+    findAndSetItem(item) {
+      this.editedIndex = this.managers.findIndex((user) => user.id === item.id)
+      this.editedItem = Object.assign({}, item)
+    },
+    async loadAllUsers(payload) {
+      this.loading = true
+      const res = await UserBackendService.list(payload)
+      if (res.data.data) {
+        this.managers = res.data.data.items
+        this.meta = res.data.data.meta
+      }
+      this.loading = false
+    },
+
+    async loadUser(userId) {
+      const res = await UserBackendService.show(userId)
+      this.managerInfo = res.data.data
+    },
+
+    async createUser(payload) {
+      const res = await UserBackendService.create(payload)
+      const user = res.data.data
+      this.managers.unshift(user)
+      return true
+    },
+
+    async updateUser(payload) {
+      this.editedIndex = this.managers.findIndex((p) => p.id === user.id)
+      this.editedItem = Object.assign({}, this.managers[this.editedIndex])
+      const res = await UserBackendService.update(payload)
+      const user = res.data.data
+      Object.assign(this.managers[index], user)
+    },
+
+    async deleteUser(userId) {
+      this.editedIndex = this.managers.findIndex((p) => p.id === userId)
+      const res = await UserBackendService.delete(userId)
+      if (res.data.success) {
+        this.editedItem = Object.assign({}, this.managers[this.editedIndex])
+        this.managers.splice(index, 1)
+      } else {
+        this.editedIndex = -1
+        Toast.error(res.data.message)
+      }
+    },
+  },
+})

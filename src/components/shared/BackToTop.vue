@@ -1,23 +1,81 @@
 <template>
-  <v-btn v-show="fab" v-scroll="onScroll" bottom color="primary" dark fab fixed right @click="toTop">
-    <v-icon>mdi-chevron-up</v-icon>
-  </v-btn>
+  <div
+    @click="scrollToTop()"
+    :class="['back-to-top-btn', {'go-top': isTop}]"
+  >
+    <!--    <i class='ri-arrow-up-s-line'></i>-->
+    <v-icon
+      end
+      icon="mdi-arrow-up"
+    ></v-icon>
+  </div>
 </template>
 
 <script setup>
-import vue from '../../main'
-import { ref } from 'vue'
+import {onMounted, ref} from 'vue'
 
-const fab = ref(false)
+const isTop = ref(false)
 
-const onScroll = (e) => {
-  if (typeof window === 'undefined') return
-  const top = window.pageYOffset || e.target.scrollTop || 0
-  this.fab = top > 20
+function scrollToTop() {
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth"
+  });
+
 }
-const toTop = (e) => {
-  vue.$vuetify.goTo(0)
-}
+
+onMounted(() => {
+  window.addEventListener('scroll', () => {
+    let scrollPos = window.scrollY
+    isTop.value = scrollPos >= 50;
+  })
+})
 </script>
 
-<style scoped></style>
+<style lang="scss" scoped>
+.back-to-top-btn {
+  position: fixed;
+  cursor: pointer;
+  bottom: -100px;
+  right: 20px;
+  color: #ffffff;
+  background-color: #1867C0;
+  z-index: 4;
+  width: 45px;
+  text-align: center;
+  height: 45px;
+  opacity: 0;
+  visibility: hidden;
+  border-radius: 50%;
+  font-size: 22px;
+  transition: .6s;
+  overflow: hidden;
+  box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.1);
+
+  i {
+    position: absolute;
+    right: 0;
+    left: 0;
+    top: 45%;
+    transform: translateY(-45%);
+    text-align: center;
+    font-size: 30px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  &.go-top {
+    opacity: 1;
+    visibility: visible;
+    bottom: 50px;
+  }
+
+  &:hover {
+    background-color: #1867C0;
+    color: #ffffff;
+    transition: .6s;
+    box-shadow: 0 4px 6px rgba(50, 50, 93, .11), 0 1px 3px rgba(0, 0, 0, .08);
+    transform: translateY(-5px);
+  }
+}
+</style>

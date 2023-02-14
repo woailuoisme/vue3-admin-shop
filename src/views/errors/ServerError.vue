@@ -1,9 +1,9 @@
 <template>
   <v-app class="exception">
-    <v-container fluid fill-height>
-      <v-layout align-center justify-center row>
+    <v-container fluid class="fill-height">
+      <v-layout class="align-center justify-center">
         <div class="mr-3 hidden-sm-and-down">
-          <img :src="require('@/assets/image/error/500.svg')" />
+          <img :src="img"/>
         </div>
         <div class="text-md-center">
           <h1>500</h1>
@@ -17,13 +17,12 @@
   </v-app>
 </template>
 
-<script>
-export default {
-  methods: {
-    goHome() {
-      this.$router.push({ path: '/' })
-    },
-  },
+<script setup>
+import router from '@/router'
+import img from '@/assets/image/error/500.svg'
+
+function goHome() {
+  router.push({path: '/'})
 }
 </script>
 <style lang="sass" scoped>

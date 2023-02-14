@@ -2,9 +2,7 @@
   <v-app>
     <AppHeader/>
     <v-main id="main-content" class="light-blue lighten-5">
-      <v-container>
-        <router-view/>
-      </v-container>
+      <router-view/>
       <BackToTop/>
     </v-main>
   </v-app>

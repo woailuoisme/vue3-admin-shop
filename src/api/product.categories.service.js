@@ -5,10 +5,10 @@ import { canUsed } from '@/utils/util'
 class CategoryService {
   list(data) {
     const params = {
-      page: data.page,
-      per_page: data.perPage,
+      page: data?.page,
+      per_page: data?.perPage,
     }
-    canUsed(data.keyword) ? (params.keyword = data.keyword) : null
+    canUsed(data?.keyword) ? (params.keyword = data?.keyword) : null
     return request.instance().get('/product_category', params)
   }
 

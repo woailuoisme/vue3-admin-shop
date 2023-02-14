@@ -1,10 +1,10 @@
 <template>
   <v-container class="fill-height" fruid>
     <v-row align="center" justify="center">
-      <v-col cols="12" sm="12" xm="12">
+      <v-col cols="12" lg="4" md="6" sm="8" xm="12">
         <v-card class="elevation-12 blue-grey lighten-4" :loading="loading" :disabled="loading">
-          <v-card-title class="justify-center">
-            <div class="primary--text h1">知锦优选管理系统</div>
+          <v-card-title class="text-center primary--text h1">
+            知锦优选管理系统
           </v-card-title>
           <v-card-text>
             <v-container fruid>
@@ -39,7 +39,7 @@
 
                 <v-row>
                   <v-col cols="12">
-                    <v-btn :disabled="!data.valid" block color="primary" @click="submitForm">登 录</v-btn>
+                    <v-btn variant="flat" :disabled="!data.valid" block color="primary" @click="submitForm">登 录</v-btn>
                   </v-col>
                 </v-row>
               </v-form>
@@ -74,8 +74,8 @@ const loading = computed(() => {
 })
 
 const submitForm = async () => {
-  if (await authStore.login(this.userInfo)) {
-    setTimeout(() => router.push({ name: 'dashboard' }), 200)
+  if (await authStore.login(data.userInfo)) {
+    setTimeout(() => router.push({name: 'dashboard'}), 200)
   }
   // this.$emit("submit", userInfo);
 }

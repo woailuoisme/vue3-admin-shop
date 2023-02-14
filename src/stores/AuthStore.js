@@ -1,27 +1,22 @@
 import { defineStore } from 'pinia'
 import AuthService from '../api/auth.service'
 import toast from '../utils/toast'
-
-/** Config Store */
 export default defineStore('auth', {
-  // Default Config State
   state: () => ({
     user: window.localStorage.getItem('user') ? JSON.parse(window.localStorage.getItem('user')) : {},
   }),
-  // Getters
   getters: {
-    // themeDark: () => this._themeDark,
-    getUser() {
-      return this.user
+    getUser(state) {
+      return state.user
     },
-    token() {
-      return this.user && this.user.token ? this.user.token : ''
+    token(state) {
+      return state.user && state.user.token ? state.user.token : ''
     },
-    role() {
-      return this.user && this.user.role ? this.user.role : ''
+    role(state) {
+      return state.user && state.user.role ? state.user.role : ''
     },
-    isAuthed() {
-      return !!this.user.value
+    isAuthed(state) {
+      return Object.keys(state.user).length > 0
     },
   },
   // Actions
@@ -43,6 +38,7 @@ export default defineStore('auth', {
       let response = await AuthService.logout()
       if (response.data.success) {
         window.localStorage.removeItem('user')
+        this.user = {}
         toast.success('用户登出成功')
         return true
       }
@@ -53,9 +49,4 @@ export default defineStore('auth', {
       window.localStorage.removeItem('user')
     },
   },
-  // Data persistence destination
-  //     persist: {
-  //         key: import.meta.env.VITE_APP_WEBSTORAGE_NAMESPACE || 'vuetify',
-  //         storage: window.sessionStorage,
-  //     },
 })

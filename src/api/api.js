@@ -4,7 +4,6 @@ import { baseUrl } from '@/utils/config'
 export default (auth = true) => {
   // let currentUserString = window.localStorage.currentUser;
   // let currentUser = currentUserString ? JSON.parse(currentUserString) : "";
-
   const userString = window.localStorage.user
   const user = userString ? JSON.parse(userString) : ''
   const token = user && user.token ? user.token : ''

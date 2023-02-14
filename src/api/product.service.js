@@ -5,7 +5,7 @@ class ProductService {
   list(data) {
     const params = {
       page: data.page,
-      per_page: data.perPage,
+      per_page: data.rowsPerPage,
     }
     canUsed(data.keyword) ? (params.keyword = data.keyword) : null
     canUsed(data.category_id) ? (params.category_id = data.category_id) : null

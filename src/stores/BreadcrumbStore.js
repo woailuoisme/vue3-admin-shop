@@ -278,7 +278,7 @@ export default defineStore('breadcrumb', {
       return state.withdraw
     },
 
-    getFeedback() {
+    getFeedback(state) {
       return state.feedback
     },
 

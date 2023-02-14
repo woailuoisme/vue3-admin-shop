@@ -1,8 +1,10 @@
 import FeedbackService from '@/api/feedback.service'
+import {defineStore} from 'pinia'
 
-export default {
-  namespaced: true,
-  state: {
+/** Config Store */
+export default defineStore('config', {
+  // Default Config State
+  state: () => ({
     feedback: [],
     meta: {},
     initMeta: {
@@ -14,34 +16,8 @@ export default {
       to: 7,
     },
     singleFeedback: {},
-  },
-  mutations: {
-    SET_FEEDBACK(state, payload) {
-      state.feedback = payload
-    },
-    SET_META(state, payload) {
-      state.meta = payload
-    },
-    SET_SINGLE_FEEDBACK(state, payload) {
-      state.singleFeedback = payload
-    },
-  },
-  actions: {
-    async loadAllFeedback({ commit }, payload) {
-      const res = await FeedbackService.list(payload)
-      if (res.data.data) {
-        commit('SET_FEEDBACK', res.data.data.items)
-        commit('SET_META', res.data.data.meta)
-      }
-    },
-
-    async loadSingleFeedback({ commit }, payload) {
-      const res = await FeedbackService.show(payload)
-      if (res.data.data) {
-        commit('SET_SINGLE_FEEDBACK', res.data.data)
-      }
-    },
-  },
+  }),
+  // Getters
   getters: {
     hasData(state) {
       return !!state.feedback.length
@@ -50,7 +26,7 @@ export default {
       return state.feedback
     },
     getMeta(state) {
-      return { ...state.meta }
+      return {...state.meta}
     },
     isDisplayPagination(state) {
       return !!(state.meta && state.meta.last_page && state.meta.last_page > 1)
@@ -92,4 +68,24 @@ export default {
       return mapFeedbackList
     },
   },
-}
+  // Actions
+  actions: {
+    async loadAllFeedback({commit}, payload) {
+      const res = await FeedbackService.list(payload)
+      if (res.data.data) {
+        commit('SET_FEEDBACK', res.data.data.items)
+        commit('SET_META', res.data.data.meta)
+      }
+    },
+
+    async loadSingleFeedback({commit}, payload) {
+      const res = await FeedbackService.show(payload)
+      if (res.data.data) {
+        commit('SET_SINGLE_FEEDBACK', res.data.data)
+      }
+    },
+  },
+
+})
+
+
