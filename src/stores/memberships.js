@@ -6,14 +6,7 @@ export default {
   state: {
     memberships: [],
     meta: {},
-    initMembershipMeta: {
-      per_page: 10,
-      last_page: 1,
-      current_page: 1,
-      total: 7,
-      from: 1,
-      to: 10,
-    },
+
     membershipInfo: {},
   },
 

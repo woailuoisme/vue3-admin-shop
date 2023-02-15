@@ -55,4 +55,22 @@ export const getColor = (calories) => {
   else return 'green'
 }
 
+export const orderStatusLabel = (value) => {
+  if (value === 'pending') {
+    return '未支付'
+  } else if (value === 'paid') {
+    return '已支付'
+  } else if (value === 'pending_finished') {
+    return '待完成'
+  } else if (value === 'pending_review') {
+    return '待评论'
+  } else if (value === 'express') {
+    return '运输中'
+  } else if (value === 'finished') {
+    return '已完成'
+  } else if (value === 'canceled') {
+    return '已取消'
+  }
+}
+
 export default {roleLabel}

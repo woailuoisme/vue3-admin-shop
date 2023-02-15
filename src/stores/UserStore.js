@@ -19,9 +19,49 @@ export default defineStore('user', {
       to: 10,
     },
     userInfo: {},
+    loading: false,
+    editedIndex: -1,
+    editedItem: {
+      id: 0,
+      name: '',
+      email: '',
+      password: null,
+      avatar: null,
+      avatarFile: [],
+      role: '',
+    },
+    defaultItem: {
+      id: 0,
+      name: '',
+      email: '',
+      password: null,
+      avatar: null,
+      avatarFile: [],
+      role: '',
+    },
   }),
   // Getters
   getters: {
+
+    total(state) {
+      return state.meta.total ?? 0
+    },
+    isNew(state) {
+      return state.editedIndex === -1
+    },
+    getEditedItem(state) {
+      return state.editedItem
+    },
+    getEditedIndex(state) {
+      return state.editedIndex
+    },
+
+    findById: (state) => (id) => {
+      return state.managers.find((user) => user.id === id)
+    },
+    findIndexById: (state) => (id) => {
+      return state.managers.findIndex((user) => user.id === id)
+    },
     hasData(state) {
       return !!state.users.length
     },
@@ -57,30 +97,32 @@ export default defineStore('user', {
       Toast.success(res.data.message)
     },
 
-    async createUser(payload) {
-      const res = await UserService.create(payload)
-      this.user = res.data.data
-      Toast.success(res.data.message)
-      return true
-    },
-
-    async updateUser(payload) {
-      const res = await UserService.update(payload)
-      this.user = res.data.data
-      Toast.success(res.data.message)
-    },
+    // async createUser(payload) {
+    //   const res = await UserService.create(payload)
+    //   this.user = res.data.data
+    //   Toast.success(res.data.message)
+    //   return true
+    // },
+    //
+    // async updateUser(payload) {
+    //   const res = await UserService.update(payload)
+    //   this.user = res.data.data
+    //   Toast.success(res.data.message)
+    // },
 
     async toggleLottery(payload) {
-      const res = await UserService.downloadExcel(payload)
+      const res = await UserService.toggleLottery(payload)
       if (res.data.data) {
-        this.user = res.data.data
+        const user = res.data.data
+        const index = this.users.findIndex((p) => p.id === payload.id)
+        this.users[index] = Object.assign({}, user)
         Toast.success(res.data.message)
       }
     },
 
-    async downloadExcel(payload) {
+    async downloadExcel() {
       try {
-        const res = await UserService.downloadExcel(payload)
+        const res = await UserService.downloadExcel()
         let blob = new Blob([res.data], {type: 'application/xlsx'})
         let link = document.createElement('a')
         link.href = window.URL.createObjectURL(blob)
@@ -92,16 +134,16 @@ export default defineStore('user', {
       }
     },
 
-    async deleteUser(userId) {
-      const res = await UserService.delete(userId)
-      if (res.data.success) {
-        const index = state.users.findIndex((p) => p.id === userId)
-        this.users.splice(index, 1)
-        Toast.success(res.data.message)
-      } else {
-        Toast.error(res.data.message)
-      }
-    },
+    // async deleteUser(userId) {
+    //   const res = await UserService.delete(userId)
+    //   if (res.data.success) {
+    //     const index = state.users.findIndex((p) => p.id === userId)
+    //     this.users.splice(index, 1)
+    //     Toast.success(res.data.message)
+    //   } else {
+    //     Toast.error(res.data.message)
+    //   }
+    // },
   },
 
 })

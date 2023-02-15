@@ -6,15 +6,18 @@
   </v-breadcrumbs>
 </template>
 
-<script>
-export default {
-  props: {
-    items: {
-      type: Array,
-      default: () => [],
-    },
+<script setup>
+
+import {defineProps} from 'vue'
+
+const props = defineProps({
+  items: {
+    type: Array,
+    required: true,
+    default: [],
   },
-}
+})
+
 </script>
 
 <style scoped></style>

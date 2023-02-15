@@ -3,24 +3,44 @@ import Toast from '../utils/toast'
 
 import {defineStore} from 'pinia'
 
-/** Config Store */
 export default defineStore('carousel', {
-  // Default Config State
   state: () => ({
     carousels: [],
     meta: {},
-    initCarouselMeta: {
-      per_page: 10,
-      last_page: 1,
-      current_page: 1,
-      total: 10,
-      from: 1,
-      to: 10,
-    },
     carouselInfo: {},
+    loading: false,
+    editedIndex: -1,
+    editedItem: {
+      id: -1,
+      order: '',
+      image: null,
+    },
+    defaultItem: {
+      id: -1,
+      order: '',
+      image: null,
+    },
   }),
   // Getters
   getters: {
+    total(state) {
+      return state.meta.total ?? 0
+    },
+    isNew(state) {
+      return state.editedIndex === -1
+    },
+    getEditedItem(state) {
+      return state.editedItem
+    },
+    getEditedIndex(state) {
+      return state.editedIndex
+    },
+    findById: (state) => (id) => {
+      return state.products.find((p) => p.id === id)
+    },
+    findIndexById: (state) => (id) => {
+      return state.products.findIndex((p) => p.id === id)
+    },
     hasData(state) {
       return !!state.carousels.length
     },
@@ -42,6 +62,18 @@ export default defineStore('carousel', {
   },
   // Actions
   actions: {
+    setEditedIndex(id) {
+      this.editedIndex = this.managers.findIndex((user) => user.id === id)
+    },
+    resetEdited() {
+      this.editedIndex = -1
+      this.editedItem = Object.assign({}, this.defaultItem)
+    },
+    findAndSetItem(item) {
+      this.editedIndex = this.managers.findIndex((user) => user.id === item.id)
+      this.editedItem = Object.assign({}, item)
+    },
+
     async loadAllCarousels(payload) {
       const res = await CarouselService.list(payload)
       if (res.data.data) {

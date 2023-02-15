@@ -17,6 +17,7 @@
                 v-model="editedItem.thumbnail"
                 chips
                 show-size
+                variant="outlined"
                 prepend-icon="mdi-camera"
                 accept="image/png, image/jpeg, image/bmp"
                 :rules="[rule.required('产品封面图')]"

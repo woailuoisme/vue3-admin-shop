@@ -15,13 +15,17 @@ import useProduct from './ProductStore'
 import useProductCategory from './ProductCategoryStore'
 import useOrder from './OrderStore'
 import useFeedback from './FeedbackStore'
+import useTopUpAmount from './TopUpAmountStore'
+import useTopUpRecord from './TopUpRecordStore'
+import useWithdraw from './WithdrawStore'
+import useRefund from './RefundStore'
+import useIntegralRecord from './integralRecordStore'
 
 /** Pinia Store */
 const pinia = createPinia()
 pinia.use(piniaPluginPersistedstate)
 
 export default pinia
-// Pinia Stores
 
 export {
   useConfig,
@@ -39,4 +43,9 @@ export {
   useOrder,
   useFeedback,
   useAbout,
+  useRefund,
+  useWithdraw,
+  useTopUpAmount,
+  useTopUpRecord,
+  useIntegralRecord
 }

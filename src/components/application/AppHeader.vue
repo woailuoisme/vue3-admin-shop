@@ -2,7 +2,7 @@
   <v-app-bar v-if="isAuthed && isShowHeader" app class="primary lighten-3" clipped-left>
     <v-app-bar-nav-icon v-if="isAuthed" @click.stop="drawer = !drawer"/>
     <v-toolbar-title class="headline">
-      <span>知锦优选</span>
+      <span>{{ appName }}</span>
     </v-toolbar-title>
     <v-spacer/>
     <v-divider class="mx-2" inset vertical/>
@@ -24,7 +24,6 @@
       </v-list>
     </v-menu>
   </v-app-bar>
-
   <v-navigation-drawer v-if="isAuthed" v-model="drawer" permanent temporary app>
     <v-list dense>
       <template v-for="item in menuItems">
@@ -51,15 +50,17 @@
 </template>
 
 <script setup>
-import { computed, ref } from 'vue'
-import { useAuth, useMenu } from '@/stores'
+import {computed, ref} from 'vue'
+import {useAuth, useMenu, useConfig} from '@/stores'
 import router from '@/router'
 const authStore = useAuth()
 const menuStore = useMenu()
+const configStore = useConfig()
 
 const drawer = ref(true)
 const menuItems = computed(() => menuStore.getMenuItems)
 const isAuthed = computed(() => authStore.isAuthed)
+const appName = computed(() => configStore.appName)
 const user = computed(() => authStore.getUser)
 const isShowHeader = computed(() => router.currentRoute.value.path !== '/login' || router.currentRoute.value.path !== '/')
 const userLogout = async () => {
@@ -69,5 +70,4 @@ const userLogout = async () => {
 }
 </script>
 
-<style scoped>
-</style>
+<style scoped></style>

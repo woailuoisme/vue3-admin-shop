@@ -2,22 +2,44 @@ import WithdrawService from '../api/withdraw.service'
 import {defineStore} from 'pinia'
 
 /** Config Store */
-export default defineStore('config', {
+export default defineStore('withdraw', {
   // Default Config State
   state: () => ({
     withdraw: [],
     meta: {},
-    initWithdrawMeta: {
-      per_page: 10,
-      last_page: 1,
-      current_page: 1,
-      total: 7,
-      from: 1,
-      to: 7,
+    loading: false,
+    editedIndex: -1,
+    editedItem: {
+      id: -1,
+      integral: 0,
+      amount: 0,
+    },
+    defaultItem: {
+      id: -1,
+      integral: 0,
+      amount: 0,
     },
   }),
   // Getters
   getters: {
+    total(state) {
+      return state.meta.total ?? 0
+    },
+    isNew(state) {
+      return state.editedIndex === -1
+    },
+    getEditedItem(state) {
+      return state.editedItem
+    },
+    getEditedIndex(state) {
+      return state.editedIndex
+    },
+    findById: (state) => (id) => {
+      return state.products.find((p) => p.id === id)
+    },
+    findIndexById: (state) => (id) => {
+      return state.products.findIndex((p) => p.id === id)
+    },
     getWithdraws(state) {
       return state.withdraw
     },
@@ -36,18 +58,31 @@ export default defineStore('config', {
   },
   // Actions
   actions: {
-    async loadAllWithdraws({commit}, payload) {
+
+    setEditedIndex(id) {
+      this.editedIndex = this.managers.findIndex((user) => user.id === id)
+    },
+    resetEdited() {
+      this.editedIndex = -1
+      this.editedItem = Object.assign({}, this.defaultItem)
+    },
+    findAndSetItem(item) {
+      this.editedIndex = this.managers.findIndex((user) => user.id === item.id)
+      this.editedItem = Object.assign({}, item)
+    },
+    async loadAllWithdraws(payload) {
       const res = await WithdrawService.list(payload)
       if (res.data.data) {
-        commit('SET_ORDER', res.data.data.items)
-        commit('SET_META', res.data.data.meta)
+        this.withdraw = res.data.data.items
+        this.meta = res.data.data.meta
       }
     },
 
-    async confirmedWithdraw({commit}, payload) {
+    async confirmedWithdraw(payload) {
       const res = await WithdrawService.confirmedWithdraw(payload)
       if (res.data.data) {
-        commit('UPDATE_WITHDRAW', res.data.data)
+        const index = this.withdraw.findIndex((p) => p.id === payload.id)
+        Object.assign(this.withdraw[index], res.data.data.items)
       }
     },
   },

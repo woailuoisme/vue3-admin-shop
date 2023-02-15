@@ -9,16 +9,8 @@ export default defineStore('product', {
   state: () => ({
     products: [],
     meta: {},
-    editedIndex: -1,
     loading: false,
-    initProductMeta: {
-      per_page: 10,
-      last_page: 1,
-      current_page: 1,
-      total: 7,
-      from: 1,
-      to: 10,
-    },
+    editedIndex: -1,
     editedItem: {
       category_id: 0,
       description: '',
@@ -41,9 +33,6 @@ export default defineStore('product', {
     productMerchants: [],
   }),
   getters: {
-    hasData(state) {
-      return !!state.products.length
-    },
     total(state) {
       return state.meta.total ?? 0
     },
@@ -69,7 +58,9 @@ export default defineStore('product', {
     getProductMerchants(state) {
       return state.productMerchants
     },
-
+    hasData(state) {
+      return !!state.products.length
+    },
     getProduct(state) {
       return {...state.productInfo}
     },

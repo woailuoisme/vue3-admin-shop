@@ -1,11 +1,149 @@
-<template>$END$</template>
-<script setup>
-import { defineProps, defineEmits, ref } from 'vue'
+<template>
+  <v-container fluid>
+    <v-row>
+      <v-col cols="12">
+        <v-card class="mb-4">
+          <Breadcrumb :items="breadcrumbs"/>
+        </v-card>
+      </v-col>
+    </v-row>
+    <v-row>
+      <v-col cols="12">
+        <v-card>
+          <v-toolbar flat>
+            <v-btn variant="flat" color="primary" dark class="mb-2">新 增</v-btn>
+            <v-spacer/>
+          </v-toolbar>
+        </v-card>
+      </v-col>
+    </v-row>
+    <v-row>
+      <v-col cols="12">
+        <v-card :loading="loading" :disabled="loading">
+          <EasyDataTable
+            buttons-pagination
+            alternating
+            header-text-direction="center"
+            body-text-direction="center"
+            table-class-name="customize-table"
+            v-model:server-options="requestParams"
+            :server-items-length="serverItemsLength"
+            :loading="loading"
+            :headers="headers"
+            :items="carousels"
+            :rows-items="[10, 20, 50]"
+          >
+            <template #item-id="{ id }">
+              <v-chip color="primary" small tile>{{ id }}</v-chip>
+            </template>
 
-const props = defineProps({
-  book: Object,
+            <template #item-image_url="{ image_url }">
+              <table-image :image="image_url" :max-height="40" max-height="40"></table-image>
+            </template>
+
+            <template #item-operation="item">
+              <v-btn color="info" tile small @click.stop="editItem(item)">修改</v-btn>
+              <v-btn class="ml-3" color="error" tile small @click.stop="deleteItem(item)">删除</v-btn>
+            </template>
+          </EasyDataTable>
+        </v-card>
+      </v-col>
+    </v-row>
+    <v-dialog v-model="dialogDelete" max-width="500px"></v-dialog>
+    <v-dialog v-model="dialogEntity" max-width="500px"></v-dialog>
+  </v-container>
+</template>
+
+<script setup>
+import Breadcrumb from '@/components/shared/Breadcrumb'
+import TableImage from '@/components/table/TableImage'
+import {computed, nextTick, onMounted, ref, watch} from 'vue'
+import {useBreadcrumb, useCarousel, useGlobal, useTableHeader} from '@/stores'
+
+const carouselStore = useCarousel()
+const globalStore = useGlobal()
+const breadcrumbStore = useBreadcrumb()
+const tableHeaderStore = useTableHeader()
+const headers = computed(() => tableHeaderStore.carousel)
+const breadcrumbs = computed(() => breadcrumbStore.carousel)
+const carousels = computed(() => carouselStore.getCarousels)
+const serverItemsLength = computed(() => carouselStore.total)
+const loading = computed(() => globalStore.isLoading)
+const isNew = computed(() => carouselStore.isNew)
+const editedItem = computed(() => carouselStore.getEditedItem)
+const editedIndex = computed(() => carouselStore.getEditedIndex)
+
+const dialogEntity = ref(false)
+const dialogDelete = ref(false)
+const requestParams = ref({
+  page: 1,
+  rowsPerPage: 10,
 })
 
-const emit = defineEmits(['update'])
+onMounted(() => {
+  carouselStore.loadAllCarousels(requestParams._rawValue)
+})
+
+watch(
+  requestParams,
+  (value) => {
+    carouselStore.loadAllCarousels(requestParams._rawValue)
+  },
+  {deep: true}
+)
+
+watch(dialogEntity, (val) => {
+  console.log(val)
+  val || close()
+})
+
+watch(dialogDelete, (val) => {
+  console.log(val)
+  val || closeDelete()
+})
+
+function editItem(item) {
+  carouselStore.findAndSetItem(item)
+  dialogEntity.value = true
+}
+
+function deleteItem(item) {
+  carouselStore.findAndSetItem(item)
+  dialogDelete.value = true
+}
+
+function deleteItemConfirm(item) {
+  carouselStore.deleteCarousel(editedItem.id)
+  dialogDelete.value = false
+  nextTick(() => {
+    carouselStore.resetEdited()
+  })
+}
+
+function close() {
+  dialogDelete.value = false
+  nextTick(() => {
+    carouselStore.resetEdited()
+  })
+}
+
+function closeDelete() {
+  if (editedIndex > -1) {
+    carouselStore.updateCarousel(editedItem)
+  } else {
+    carouselStore.createCarousel(editedItem)
+  }
+  this.close()
+}
+
+function save() {
+  if (this.editedIndex > -1) {
+    this.updateCarousel(data)
+  } else {
+    this.createCarousel(data)
+  }
+  this.close()
+}
 </script>
+
 <style scoped></style>

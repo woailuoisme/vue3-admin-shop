@@ -1,36 +1,13 @@
 import IntegralRecordService from '../api/integral.record.service'
+import {defineStore} from "pinia/dist/pinia";
 
-export default {
-  namespaced: true,
-  state: {
+export default defineStore('integral-record', {
+  // Default Config State
+  state: () => ({
     integralRecords: [],
     meta: {},
-    initProductMeta: {
-      per_page: 10,
-      last_page: 1,
-      current_page: 1,
-      total: 7,
-      from: 1,
-      to: 7,
-    },
-  },
-  mutations: {
-    SET_INTEGRAL_RECORD(state, payload) {
-      state.integralRecords = payload
-    },
-    SET_META(state, payload) {
-      state.meta = payload
-    },
-  },
-  actions: {
-    async loadAllRecords({ commit }, payload) {
-      const res = await IntegralRecordService.list(payload)
-      if (res.data.data) {
-        commit('SET_INTEGRAL_RECORD', res.data.data.items)
-        commit('SET_META', res.data.data.meta)
-      }
-    },
-  },
+  }),
+  // Getters
   getters: {
     hasData(state) {
       return !!state.integralRecords.length
@@ -39,7 +16,7 @@ export default {
       return state.integralRecords
     },
     getMeta(state) {
-      return { ...state.meta }
+      return {...state.meta}
     },
     isDisplayPagination(state) {
       return !!(state.meta && state.meta.last_page && state.meta.last_page > 1)
@@ -48,4 +25,17 @@ export default {
       return state.integralRecords.find((order) => order.id === id)
     },
   },
-}
+  // Actions
+  actions: {
+    async loadAllRecords(payload) {
+      const res = await IntegralRecordService.list(payload)
+      if (res.data.data) {
+        this.integralRecords = res.data.data.items
+        this.meta = res.data.data.meta
+      }
+    },
+  },
+})
+
+
+

@@ -2,19 +2,11 @@ import FeedbackService from '@/api/feedback.service'
 import {defineStore} from 'pinia'
 
 /** Config Store */
-export default defineStore('config', {
+export default defineStore('Feedback', {
   // Default Config State
   state: () => ({
     feedback: [],
     meta: {},
-    initMeta: {
-      per_page: 10,
-      last_page: 1,
-      current_page: 1,
-      total: 7,
-      from: 1,
-      to: 7,
-    },
     singleFeedback: {},
   }),
   // Getters

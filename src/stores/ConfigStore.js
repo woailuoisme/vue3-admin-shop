@@ -9,8 +9,8 @@ export default defineStore('config', {
   }),
   // Getters
   getters: {
-    themeDark: (state) => state.themeDark,
-    locale: (state) => state.locale,
+    // themeDark: (state) => state.themeDark,
+    // locale: (state) => state.locale,
   },
   // Actions
   actions: {

@@ -3,7 +3,7 @@ import Toast from '@/utils/toast'
 import {defineStore} from 'pinia'
 
 /** Global Store */
-export default defineStore('global', {
+export default defineStore('order', {
   // Default Global State
   state: () => ({
     orders: [],
@@ -16,9 +16,48 @@ export default defineStore('global', {
       from: 1,
       to: 7,
     },
+    loading: false,
+    editedIndex: -1,
+    editedItem: {
+      category_id: 0,
+      description: '',
+      content: '',
+      thumbnail: null,
+      sale_price: 1,
+      stock: 1,
+      is_sale: true,
+    },
+    defaultItem: {
+      category_id: 0,
+      description: '',
+      content: '',
+      thumbnail: [],
+      sale_price: 1,
+      stock: 1,
+      is_sale: true,
+    },
   }),
   // Getters
   getters: {
+
+    total(state) {
+      return state.meta.total ?? 0
+    },
+    isNew(state) {
+      return state.editedIndex === -1
+    },
+    getEditedItem(state) {
+      return state.editedItem
+    },
+    getEditedIndex(state) {
+      return state.editedIndex
+    },
+    findById: (state) => (id) => {
+      return state.orders.find((p) => p.id === id)
+    },
+    findIndexById: (state) => (id) => {
+      return state.orders.findIndex((p) => p.id === id)
+    },
     getOrders(state) {
       return state.orders
     },
@@ -33,10 +72,6 @@ export default defineStore('global', {
     },
     findByOrderNum: (state) => (num) => {
       return state.orders.find((order) => order.order_num === num)
-    },
-
-    findById: (state) => (id) => {
-      return state.orders.find((order) => order.id === id)
     },
     getMapOrder: (state) => (id) => {
       let order = state.orders.find((order) => order.id === id)
@@ -117,14 +152,14 @@ export default defineStore('global', {
   },
   // Actions
   actions: {
-    async loadAllOrders({commit}, payload) {
+    async loadAllOrders(payload) {
       const res = await OrderService.list(payload)
       if (res.data.data) {
         this.orders = res.data.data.items
         this.meta = res.data.data.meta
       }
     },
-    async updateOrderExpress({commit}, payload) {
+    async updateOrderExpress(payload) {
       const res = await OrderService.updateExpress(payload)
       const order = res.data.data
       const index = state.orders.findIndex((p) => p.id === payload.id)

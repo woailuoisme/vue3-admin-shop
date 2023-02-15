@@ -1,7 +1,7 @@
 <template>
   <v-tooltip :text="text" location="top">
     <template v-slot:activator="{ props }">
-      <div class="primary--text text-ellipsis" v-bind="props">{{ text }}</div>
+      <div class=" text-ellipsis text-center" v-bind="props">{{ text }}</div>
     </template>
   </v-tooltip>
 </template>
@@ -19,7 +19,7 @@ const props = defineProps({
 
 <style scoped>
 .text-ellipsis {
-  max-width: 110px;
+  max-width: 300px;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;

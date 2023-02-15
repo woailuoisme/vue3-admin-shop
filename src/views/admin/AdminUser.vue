@@ -71,11 +71,9 @@
         :is-new="isNew"
       ></dialog-entity-form>
     </v-dialog>
-    <my-editor></my-editor>
   </v-container>
 </template>
 <script setup>
-import myEditor from "@/components/myEditor";
 import TableImage from '@/components/table/TableImage'
 import Breadcrumb from '@/components/shared/Breadcrumb'
 import DialogConfirm from '@/views/components/adminUser/DialogConfirm'
@@ -83,15 +81,14 @@ import DialogEntityForm from '@/views/components/adminUser/DialogEntityForm'
 import {roleLabel} from '@/utils/table'
 import {computed, nextTick, onMounted, ref, watch} from 'vue'
 import {useAdminUser, useBreadcrumb, useGlobal, useTableHeader} from '@/stores'
-import MyEditor from "@/components/myEditor";
 
 const adminUserStore = useAdminUser()
 const globalStore = useGlobal()
 const breadcrumbStore = useBreadcrumb()
 const tableHeaderStore = useTableHeader()
 
-const headers = computed(() => tableHeaderStore.adminUserHeader)
-const breadcrumbs = computed(() => breadcrumbStore.getAdminUser)
+const headers = computed(() => tableHeaderStore.adminUsers)
+const breadcrumbs = computed(() => breadcrumbStore.adminUser)
 const users = computed(() => adminUserStore.getUsers)
 const serverItemsLength = computed(() => adminUserStore.total)
 const loading = computed(() => globalStore.isLoading)
@@ -105,8 +102,6 @@ const dialogDelete = ref(false)
 const requestParams = ref({
   page: 1,
   rowsPerPage: 20,
-  sortBy: 'age',
-  sortType: 'desc',
 })
 
 onMounted(() => {
@@ -120,7 +115,6 @@ watch(
   },
   {deep: true}
 )
-
 watch(dialogEntity, (val) => {
   console.log(val)
   val || close()

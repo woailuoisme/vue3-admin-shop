@@ -11,17 +11,19 @@
       <v-col cols="xs12 sm6 md3" class="pa-2">
         <v-card class="elevation-2">
           <v-card-title>
-            <v-row xs6>
-              <v-icon class="green--text" size="72">mdi-account</v-icon>
-            </v-row>
-            <v-row xs6 class="text-xs-right">
-              <h3 class="display-2 grey--text">72K</h3>
-              <h6 class="caption grey--text text--lighten-1">Customers</h6>
+            <v-row class="justify-center align-center">
+              <v-col cols="6">
+                <v-icon color="green-darken-1" size="72">mdi-account</v-icon>
+              </v-col>
+              <v-col cols="6">
+                <h3 class="display-2 text-green-darken-1 grey--text">72K</h3>
+                <h6 class="caption grey--text text--lighten-1">Customers</h6>
+              </v-col>
             </v-row>
           </v-card-title>
-          <v-divider />
+          <v-divider></v-divider>
           <v-card-actions>
-            <v-row align="center" justify="center">
+            <v-row class="justify-center align-center">
               <v-col cols="12" class="text-center">
                 <span class="body-1 grey--text text--lighten-1">THIS YEAR</span>
               </v-col>
@@ -29,15 +31,42 @@
           </v-card-actions>
         </v-card>
       </v-col>
+
       <v-col xl="12" sm="6" md="3" class="pa-2">
         <v-card class="elevation-2">
           <v-card-title>
-            <v-row xs6>
-              <v-icon class="amber--text" size="72">mdi-cart-outline</v-icon>
+            <v-row class="justify-center align-center">
+              <v-col cols="6">
+                <v-icon color="amber-darken-1" size="72">mdi-cart-outline</v-icon>
+              </v-col>
+              <v-col cols="6">
+                <h3 class="display-2 grey--text">31K</h3>
+                <h6 class="caption grey--text text--lighten-1">SALES</h6>
+              </v-col>
             </v-row>
-            <v-row xs6 class="text-xs-right">
-              <h3 class="display-2 grey--text">31K</h3>
-              <h6 class="caption grey--text text--lighten-1">SALES</h6>
+          </v-card-title>
+          <v-divider />
+          <v-card-actions>
+            <v-row align="center" justify="center">
+              <v-col cols="12" class="text-center">
+                <span class="body-1 grey--text text--lighten-1">THIS MONTH</span>
+              </v-col>
+            </v-row>
+          </v-card-actions>
+        </v-card>
+      </v-col>
+
+      <v-col xl="12" sm="6" md="3" class="pa-2">
+        <v-card class="elevation-2">
+          <v-card-title>
+            <v-row class="justify-center align-center">
+              <v-col cols="6">
+                <v-icon color="deep-orange-darken-1" size="72">mdi-currency-usd</v-icon>
+              </v-col>
+              <v-col cols="6">
+                <h3 class="display-2 grey--text">95K</h3>
+                <h6 class="caption grey--text text--lighten-1">Revenue</h6>
+              </v-col>
             </v-row>
           </v-card-title>
           <v-divider />
@@ -53,33 +82,14 @@
       <v-col xl="12" sm="6" md="3" class="pa-2">
         <v-card class="elevation-2">
           <v-card-title>
-            <v-row xs6>
-              <v-icon class="deep-orange--text" size="72">mdi-currency-usd</v-icon>
-            </v-row>
-            <v-row xs6 class="text-xs-right">
-              <h3 class="display-2 grey--text">95K</h3>
-              <h6 class="caption grey--text text--lighten-1">Revenue</h6>
-            </v-row>
-          </v-card-title>
-          <v-divider />
-          <v-card-actions>
             <v-row align="center" justify="center">
-              <v-col cols="12" class="text-center">
-                <span class="body-1 grey--text text--lighten-1">THIS MONTH</span>
+              <v-col cols="6">
+                <v-icon color="pink-darken-1" size="72">mdi-briefcase-outline</v-icon>
               </v-col>
-            </v-row>
-          </v-card-actions>
-        </v-card>
-      </v-col>
-      <v-col xl="12" sm="6" md="3" class="pa-2">
-        <v-card class="elevation-2">
-          <v-card-title>
-            <v-row xs6>
-              <v-icon class="pink--text" size="72">mdi-briefcase-outline</v-icon>
-            </v-row>
-            <v-row xs6 class="text-xs-right">
-              <h3 class="display-2 grey--text">4K</h3>
-              <h6 class="caption grey--text text--lighten-1">Bookings</h6>
+              <v-col cols="6">
+                <h3 class="display-2 grey--text">4K</h3>
+                <h6 class="caption grey--text text--lighten-1">Bookings</h6>
+              </v-col>
             </v-row>
           </v-card-title>
           <v-divider />
@@ -94,34 +104,33 @@
       </v-col>
     </v-row>
     <v-row>
-      <v-col sm="12" md="6" xl="4">
+      <v-col cols="12" sm="12" md="6" xl="4">
         <v-card>
           <v-card-text>
-            <apexchart type="line" :options="data.options" :series="data.series" />
+            <apexchart type="line" :options="data.options" :series="data.series"/>
           </v-card-text>
         </v-card>
       </v-col>
 
-      <v-col sm="12" md="6" xl="4">
+      <v-col cols="12" sm="12" md="6" xl="4">
         <v-card>
           <v-card-text>
-            <apexchart type="bar" :options="data.options" :series="data.series" />
+            <apexchart type="bar" :options="data.options" :series="data.series"/>
           </v-card-text>
         </v-card>
       </v-col>
 
-      <v-col sm="12" md="6" xl="4">
+      <v-col cols="12" sm="12" md="6" xl="4">
         <v-card>
           <v-card-text>
-            <apexchart type="pie" :options="data.donut.options" :series="data.donut.series" />
+            <apexchart type="pie" :options="data.donut.options" :series="data.donut.series"/>
           </v-card-text>
         </v-card>
       </v-col>
-
-      <v-col sm="12" md="6" xl="4">
+      <v-col cols="12" sm="12" md="6" xl="4">
         <v-card>
           <v-card-text>
-            <apexchart type="donut" :options="data.donutOptions" :series="data.donutOptions.series" />
+            <apexchart type="donut" :options="data.donutOptions" :series="data.donutOptions.series"/>
           </v-card-text>
         </v-card>
       </v-col>
@@ -131,9 +140,10 @@
 
 <script setup>
 import Breadcrumb from '@/Components/shared/breadcrumb.vue'
-import { reactive, onMounted, computed } from 'vue'
+import {computed, onMounted, reactive} from 'vue'
 
 import { useBreadcrumb } from '@/stores'
+
 const breadcrumbStore = useBreadcrumb()
 const data = reactive({
   statistics: [
@@ -183,20 +193,7 @@ const data = reactive({
   ],
   donutOptions: {
     series: [44, 55, 41, 17, 15, 10, 33, 90, 10, 12, 40, 6],
-    labels: [
-      'Create',
-      'Explore',
-      'Play',
-      'Evolve',
-      'Learn',
-      'Arouse',
-      'SHHHHHH',
-      'Nest',
-      'Revitalize',
-      'Fund',
-      'Lead',
-      'Sleep',
-    ],
+    labels: ['Create', 'Explore', 'Play', 'Evolve', 'Learn', 'Arouse', 'SHHHHHH', 'Nest', 'Revitalize', 'Fund', 'Lead', 'Sleep'],
   },
 })
 

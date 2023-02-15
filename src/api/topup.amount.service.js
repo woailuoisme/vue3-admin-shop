@@ -1,11 +1,11 @@
-import request from '@/api/http.request'
-import { canUsed } from '@/utils/util'
+import request from './http.client'
+import {canUsed} from '@/utils/util'
 
 class TopUpAmountService {
   list(data) {
     const params = {
       page: data.page,
-      per_page: data.perPage,
+      per_page: data.rowsPerPage,
     }
     canUsed(data.keyword) ? (params.keyword = data.keyword) : null
     return request.instance().get('/top_up_amount', { params })

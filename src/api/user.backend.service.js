@@ -6,7 +6,7 @@ class UserBackendService {
   list(data) {
     const params = {
       page: data.page,
-      perPage: data.perPage,
+      perPage: data.rowsPerPage,
     }
     canUsed(data.keyword) ? (params.keyword = data.keyword) : null
     return request.instance().get('/admin_users', {params})

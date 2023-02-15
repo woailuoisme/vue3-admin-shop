@@ -7,6 +7,7 @@
         </v-card>
       </v-col>
     </v-row>
+    <div>{{ isNotEmpty }} {{ idsSelected }}</div>
     <v-row>
       <v-col cols="12">
         <v-card>
@@ -25,6 +26,7 @@
             :loading="loading"
             :headers="headers"
             :items="products"
+            v-model:items-selected="itemsSelected"
             :rows-items="[10, 20, 50]"
           >
             <template #item-catetory="item">
@@ -89,8 +91,8 @@ const categoryStore = useProductCategory()
 
 const categories = computed(() => categoryStore.getCategories)
 
-const headers = computed(() => tableHeaderStore.productHeader)
-const breadcrumbs = computed(() => breadcrumbStore.getProduct)
+const headers = computed(() => tableHeaderStore.products)
+const breadcrumbs = computed(() => breadcrumbStore.product)
 const products = computed(() => productStore.getProducts)
 const serverItemsLength = computed(() => productStore.total)
 const loading = computed(() => globalStore.isLoading)
@@ -107,6 +109,9 @@ const requestParams = ref({
   rowsPerPage: 10,
 })
 let mapProduct;
+const itemsSelected = ref([])
+const idsSelected = computed(() => itemsSelected.value.map(item => item.id))
+const isNotEmpty = computed(() => idsSelected.value.length > 0)
 
 onMounted(() => {
   categoryStore.loadCategories()
@@ -160,7 +165,6 @@ function deleteItem(item) {
 }
 
 function deleteItemConfirm() {
-  debugger
   productStore.deleteProduct(editedItem.value.id)
   dialogDelete.value = false
   nextTick(() => {

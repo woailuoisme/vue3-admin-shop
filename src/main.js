@@ -25,6 +25,8 @@ if (import.meta.env.MODE === 'dev') {
   console.log(' import.meta.env.PROD: ', import.meta.env.PROD);
   console.log(' import.meta.env.DEV: ', import.meta.env.DEV);
   console.log(' import.meta.env.SSR: ', import.meta.env.SSR);
+  // console.log(app.$vuetify.display);
+  console.log(app);
   console.log(import.meta.env.VITE_BASE_URL)
   console.log(import.meta.env.VITE_BASE_URL_ADMIN)
 }

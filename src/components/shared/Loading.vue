@@ -12,13 +12,13 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
-
-export default {
-  computed: {
-    ...mapGetters({
-      loading: 'share/isLoading',
-    }),
-  },
-}
+// import { mapGetters } from 'vuex'
+//
+// export default {
+//   computed: {
+//     ...mapGetters({
+//       loading: 'share/isLoading',
+//     }),
+//   },
+// }
 </script>

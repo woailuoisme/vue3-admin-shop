@@ -6,7 +6,7 @@
           :src="image"
           class="d-flex mt-3"
           :aspect-ratio="6 / 5"
-          @error="image = require('@/assets/image/default_image_1.png')"
+          @error="image = errImg"
         >
           <template #placeholder>
             <v-row class="fill-height ma-0" align="center" justify="center">
@@ -21,7 +21,7 @@
             >
               <v-row class="fill-height flex-column" align="center" justify="center">
                 <div class="align-self-center">
-                  <v-btn color="error" @click.stop="$emit('delete', item)">删除</v-btn>
+                  <v-btn color="error" @click.stop="delete(id)">删除</v-btn>
                 </div>
               </v-row>
             </div>
@@ -32,23 +32,44 @@
   </v-hover>
 </template>
 
-<script>
-export default {
-  props: {
-    image: {
-      type: String,
-      default: '',
-    },
-    item: {
-      required: true,
-    },
+<script setup>
+import errImg from '@/assets/image/default_image_1.png'
+
+import {defineEmits, defineProps} from 'vue'
+
+const props = defineProps({
+  image: {
+    type: String,
+    default: '',
   },
-  methods: {
-    delete(item) {
-      console.log(item)
-    },
+  id: {
+    required: true,
   },
+})
+
+const emit = defineEmits(['delete'])
+
+function close() {
+  emit('delete')
 }
+
+
+// export default {
+//   props: {
+//     image: {
+//       type: String,
+//       default: '',
+//     },
+//     item: {
+//       required: true,
+//     },
+//   },
+//   methods: {
+//     delete(item) {
+//       console.log(item)
+//     },
+//   },
+// }
 </script>
 
 <style scoped></style>

@@ -7,18 +7,10 @@ export default defineStore('admin-user', {
   // Default Config State
   state: () => ({
     managers: [],
-    editedIndex: -1,
-    loading: false,
     meta: {},
-    initManagerMeta: {
-      per_page: 10,
-      last_page: 1,
-      current_page: 1,
-      total: 10,
-      from: 1,
-      to: 10,
-    },
     managerInfo: {},
+    loading: false,
+    editedIndex: -1,
     editedItem: {
       id: 0,
       name: '',
@@ -46,12 +38,6 @@ export default defineStore('admin-user', {
     total(state) {
       return state.meta.total ?? 0
     },
-    getUsers(state) {
-      return [...state.managers]
-    },
-    getUser(state) {
-      return {...state.managerInfo}
-    },
     isNew(state) {
       return state.editedIndex === -1
     },
@@ -61,11 +47,18 @@ export default defineStore('admin-user', {
     getEditedIndex(state) {
       return state.editedIndex
     },
+
     findById: (state) => (id) => {
       return state.managers.find((user) => user.id === id)
     },
     findIndexById: (state) => (id) => {
       return state.managers.findIndex((user) => user.id === id)
+    },
+    getUsers(state) {
+      return [...state.managers]
+    },
+    getUser(state) {
+      return {...state.managerInfo}
     },
     getMeta(state) {
       return {...state.meta}

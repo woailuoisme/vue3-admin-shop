@@ -5,7 +5,7 @@ export default defineStore('table-header', {
       {text: "ID", value: "id"},
       {text: "昵称", value: "name", sortable: true},
       {text: "头像", value: "avatar",},
-      {text: "积分", value: "integer"},
+      {text: "积分", value: "integral"},
       {text: "抽奖次数", value: "lottery_count"},
       {text: "启用每天抽奖", value: "is_active_lottery"},
       {text: "注册时间", value: "created_at",},
@@ -29,8 +29,8 @@ export default defineStore('table-header', {
     ],
     productCategories: [
       {text: "ID", value: "id"},
-      {text: "名称", value: "name"},
-      {text: "缩略图", value: "image",},
+      {text: "名称", value: "second_name"},
+      {text: "缩略图", value: "image_url",},
       {text: "排序", value: "order"},
       {text: "创建时间", value: "created_at",},
       {text: "操作", value: "operation"},
@@ -38,7 +38,7 @@ export default defineStore('table-header', {
     orders: [
       {text: "订单编号", value: "order_num"},
       {text: "订单状态", value: "order_status"},
-      {text: "姓名", value: "user_name",},
+      {text: "姓名", value: "user.name",},
       {text: "订单金额", value: "amount"},
       {text: "创建时间", value: "created_at",},
       {text: "操作", value: "operation"},
@@ -48,16 +48,46 @@ export default defineStore('table-header', {
       {text: "内容", value: "content"},
       {text: "创建时间", value: "created_at"},
       {text: "操作", value: "operation"},
+    ],
+    topUpRecord: [
+      {text: "ID", value: "id"},
+      {text: "姓名", value: 'user.name'},
+      {text: "订单状态", value: "status",},
+      {text: "订单金额", value: "integral"},
+      {text: "创建时间", value: "created_at",},
+      {text: "操作", value: "operation"},
+    ],
+    topUpAmount: [
+      {text: "ID", value: "id"},
+      {text: "金额", value: 'amount'},
+      {text: "积分", value: "integral",},
+      {text: "操作", value: "operation"},
+    ],
+    withdraw: [
+      {text: "ID", value: "id"},
+      {text: "姓名", value: 'user.nickname'},
+      {text: "提现金额", value: "amount",},
+      {text: "提现状态", value: "status"},
+      {text: "提现账号", value: "alipay_account"},
+      {text: "创建时间", value: "created_at",},
+      {text: "操作", value: "operation"},
+    ],
+    refund: [
+      {text: "订单编号", value: "id"},
+      {text: "订单状态", value: 'status'},
+      {text: "姓名", value: "user.nickname",},
+      {text: "退款原因", value: "remark"},
+      {text: "订单金额", value: "amount"},
+      {text: "创建时间", value: "created_at",},
+      {text: "操作", value: "operation"},
+    ],
+    carousel: [
+      {text: "ID", value: "id"},
+      {text: "排序", value: 'order'},
+      {text: "图片", value: "image_url",},
+      {text: "创建时间", value: "created_at",},
+      {text: "操作", value: "operation"},
     ]
   }),
-  // Getters
-  getters: {
-    adminUserHeader(state) {
-      return state.adminUsers
-    },
-    productHeader(state) {
-      return state.products
-    },
-  },
 
 });

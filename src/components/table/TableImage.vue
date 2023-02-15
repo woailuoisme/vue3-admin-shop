@@ -37,27 +37,7 @@ const props = defineProps({
   },
 })
 let modelImage = ref(props.image)
-// export default {
-//   props: {
-//     image: {
-//       type: String,
-//       default: '',
-//     },
-//     maxWidth: {
-//       type: Number,
-//       default: 100,
-//     },
-//     maxHeight: {
-//       type: Number,
-//       default: 100,
-//     },
-//   },
-//   data(){
-//     return{
-//       modelImage:this.image
-//     }
-//   }
-// }
+
 </script>
 
 <style scoped></style>
