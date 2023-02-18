@@ -1,6 +1,5 @@
 import FeedbackService from '@/api/feedback.service'
 import {defineStore} from 'pinia'
-
 /** Config Store */
 export default defineStore('Feedback', {
   // Default Config State
@@ -8,9 +7,28 @@ export default defineStore('Feedback', {
     feedback: [],
     meta: {},
     singleFeedback: {},
+    loading: false,
   }),
   // Getters
   getters: {
+    total(state) {
+      return state.meta.total ?? 0
+    },
+    isNew(state) {
+      return state.editedIndex === -1
+    },
+    getEditedItem(state) {
+      return state.editedItem
+    },
+    getEditedIndex(state) {
+      return state.editedIndex
+    },
+    findById: (state) => (id) => {
+      return state.feedback.find((p) => p.id === id)
+    },
+    findIndexById: (state) => (id) => {
+      return state.feedback.findIndex((p) => p.id === id)
+    },
     hasData(state) {
       return !!state.feedback.length
     },
@@ -23,10 +41,6 @@ export default defineStore('Feedback', {
     isDisplayPagination(state) {
       return !!(state.meta && state.meta.last_page && state.meta.last_page > 1)
     },
-    findById: (state) => (id) => {
-      return state.feedback.find((feedback) => feedback.id === id)
-    },
-
     getMapFeedback: (state) => (id) => {
       let feedback = state.feedback.find((feedback) => feedback.id === id)
       let mapFeedbackList = []
@@ -62,18 +76,18 @@ export default defineStore('Feedback', {
   },
   // Actions
   actions: {
-    async loadAllFeedback({commit}, payload) {
+    async loadAllFeedback(payload) {
       const res = await FeedbackService.list(payload)
       if (res.data.data) {
-        commit('SET_FEEDBACK', res.data.data.items)
-        commit('SET_META', res.data.data.meta)
+        this.feedback = res.data.data.items
+        this.meta = res.data.data.meta
       }
     },
 
-    async loadSingleFeedback({commit}, payload) {
+    async loadSingleFeedback(payload) {
       const res = await FeedbackService.show(payload)
       if (res.data.data) {
-        commit('SET_SINGLE_FEEDBACK', res.data.data)
+        this.singleFeedback = res.data.data
       }
     },
   },

@@ -77,22 +77,12 @@ import TableImage from "@/components/table/TableImage";
 import {isActivityLabel} from "@/utils/table"
 
 const props = defineProps({
-  // modelValue: {
-  //   type:Boolean,
-  //   default: false
-  // },
   product: {
     type: Object,
     required: true,
     default: {}
   }
 })
-// const dialog =ref(props.modelValue)
-//
-// watch(dialog,(newValue)=>{
-//   console.log(newValue)
-//   emit('update:modelValue',newValue)
-// })
 
 const emit = defineEmits(['update:modelValue', 'close'])
 

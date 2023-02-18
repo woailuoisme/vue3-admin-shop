@@ -1,5 +1,8 @@
 .customize-table {
-    --easy-table-footer-font-size: 14px;
+    --easy-table-header-font-size: 14px;
+    --easy-table-header-height: 50px;
+
+    --easy-table-footer-font-size: 16px;
     --easy-table-footer-padding: 0px 10px;
     --easy-table-footer-height: 70px;
 

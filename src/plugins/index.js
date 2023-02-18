@@ -28,12 +28,15 @@ import "vue-toastification/dist/index.css";
 import Vue3EasyDataTable from 'vue3-easy-data-table';
 import 'vue3-easy-data-table/dist/style.css';
 
+import i18n from './i18n'
+
 export function registerPlugins(app) {
   loadFonts()
   app
     .use(vuetify)
     .use(router)
     .use(pinia)
+    .use(i18n)
     .use(NProgress)
     .use(VueApexCharts)
     .use(Toast, {

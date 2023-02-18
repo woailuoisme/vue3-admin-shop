@@ -1,0 +1,17 @@
+about:
+  donations: 'Donations raised: {donations}'
+  header: About us
+cms: cms
+form:
+  add: add
+home:
+  created_by: This tutorial was brought to you by {company}.
+  header: Welcome to the Vue 3 I18n tutorial!
+  num_visits: This page hasn't been visited :( | This page has been visited {n} time
+    | This page has been visited {n} times
+locale:
+  en: English
+  ru: Russian
+nav:
+  about: About
+  home: Home

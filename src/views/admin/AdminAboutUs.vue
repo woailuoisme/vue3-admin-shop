@@ -20,182 +20,116 @@
     <v-row>
       <v-col cols="12">
         <v-card :loading="loading" :disabled="loading">
-          <v-card-text>
-            <v-container fluid>
-              <v-row>
-                <v-col v-if="!hasData" class="text-center" cols="12">暂无数据</v-col>
-                <v-col v-else cols="12">
-                  <v-simple-table>
-                    <template #default>
-                      <thead>
-                      <tr>
-                        <th class="text-center">id</th>
-                        <th class="text-center">类型</th>
-                        <th class="text-center">操作</th>
-                      </tr>
-                      </thead>
-                      <tbody>
-                      <tr v-for="(item, index) in about" :key="index">
-                        <td class="text-center">{{ item.id }}</td>
-                        <td class="text-center">{{ typeLabel(item.type) }}</td>
-                        <td class="text-center">
-                          <v-btn color="info" tile small @click.stop="editItem(item)">修改</v-btn>
-                        </td>
-                      </tr>
-                      </tbody>
-                    </template>
-                  </v-simple-table>
-                </v-col>
-              </v-row>
-            </v-container>
-          </v-card-text>
+          <EasyDataTable
+            buttons-pagination
+            alternating
+            header-text-direction="center"
+            body-text-direction="center"
+            table-class-name="customize-table"
+            v-model:server-options="requestParams"
+            :server-items-length="serverItemsLength"
+            :loading="loading"
+            :headers="headers"
+            :items="abouts"
+            :rows-items="[10, 20, 50]"
+          >
+            <template #item-operation="item">
+              <v-btn color="info" tile small @click.stop="editItem(item)">修改</v-btn>
+            </template>
+
+          </EasyDataTable>
         </v-card>
-        <v-dialog v-model="dialog" max-width="1300px">
-          <v-card>
-            <v-card-title>
-              <span class="text-h5">修改</span>
-            </v-card-title>
-            <v-card-text>
-              <v-container>
-                <v-row>
-                  <v-col cols="12">
-                    <div class="title">内容</div>
-                    <EditorTinyMCE v-model="editedItem.content" :upload-handler="mediaUpload"/>
-                  </v-col>
-                </v-row>
-              </v-container>
-            </v-card-text>
-            <v-card-actions>
-              <v-spacer/>
-              <v-btn color="blue darken-1" text @click="close">关闭</v-btn>
-              <v-btn color="primary" @click="save">保存</v-btn>
-            </v-card-actions>
-          </v-card>
+        <v-dialog v-model="dialogEntity" max-width="1300px">
+          <dialog-entity :item="editedItem"></dialog-entity>
         </v-dialog>
-        <v-dialog v-model="detailsDialog" max-width="800">
-          <v-card>
-            <v-card-title class="headline grey lighten-2" primary-title>订单详情</v-card-title>
-            <v-card-text>
-              <v-simple-table>
-                <template #default>
-                  <thead>
-                  <tr>
-                    <th class="text-center">关键字</th>
-                    <th class="text-center">值</th>
-                  </tr>
-                  </thead>
-                  <tbody>
-                  <tr v-for="(value, key, index) in order" :key="index">
-                    <td class="text-center">{{ key }}</td>
-                    <td class="text-center">{{ value }}</td>
-                  </tr>
-                  </tbody>
-                </template>
-              </v-simple-table>
-            </v-card-text>
-            <v-divider/>
-            <v-card-actions>
-              <v-spacer/>
-              <v-btn color="primary" text @click="detailsDialog = false">确定</v-btn>
-            </v-card-actions>
-          </v-card>
+        <v-dialog v-model="dialogDetail" max-width="800">
+          <dialog-detail :item="mapAbout"></dialog-detail>
         </v-dialog>
       </v-col>
     </v-row>
   </v-container>
 </template>
 
-<script>
-import {mapActions, mapGetters} from 'vuex'
-import {trim} from 'lodash/string'
-import api from '@/api/api'
+<script setup>
+import Breadcrumb from '@/components/shared/Breadcrumb'
+import DialogDetail from '@/views/components/adminAbout/DialogDetails'
+import DialogEntity from '@/views/components/adminAbout/DialogEntity'
+import {computed, nextTick, onMounted, ref, watch} from 'vue'
+import {useBreadcrumb, useAbout, useGlobal, useTableHeader} from '@/stores'
+import {trim} from "lodash/string";
 
-export default {
-  components: {},
-  computed: {
-    ...mapGetters({
-      breadcrumbs: 'breadcrumb/aboutUs',
-      about: 'aboutUs/getAbouts',
-      hasData: 'aboutUs/hasData',
-      loading: 'share/isLoading',
-    }),
-  },
-  created() {
-    this.loadAllAbouts(this.requestParams)
-  },
-  data() {
-    return {
-      dialog: false,
-      detailsDialog: false,
-      order: {},
-      requestParams: {
-        page: 1,
-        search: '',
-      },
-      editedItem: {
-        content: '',
-      },
-      defaultItem: {
-        content: '',
-      },
-    }
-  },
-  methods: {
-    ...mapActions({
-      loadAllAbouts: 'aboutUs/loadAllAbouts',
-      updateAbout: 'aboutUs/updateAbout',
-    }),
-    detail(item) {
-      this.order = this.findByOrderNum(item.id)
-      this.detailsDialog = true
-    },
+const aboutStore = useAbout()
+const globalStore = useGlobal()
+const breadcrumbStore = useBreadcrumb()
+const tableHeaderStore = useTableHeader()
+const headers = computed(() => tableHeaderStore.about)
+const breadcrumbs = computed(() => breadcrumbStore.aboutUs)
+const abouts = computed(() => aboutStore.getAbouts)
+const serverItemsLength = computed(() => aboutStore.total)
+const loading = computed(() => globalStore.isLoading)
+const isNew = computed(() => aboutStore.isNew)
+const editedItem = computed(() => aboutStore.getEditedItem)
+const editedIndex = computed(() => aboutStore.getEditedIndex)
 
-    typeLabel(value) {
-      if (trim(value) === 'about_us') {
-        return '关于我们'
-      } else if (trim(value) === 'user_agreement') {
-        return '用户协议'
-      } else if (trim(value) === 'privacy_agreement') {
-        return '隐私协议'
-      }
-    },
+const dialogEntity = ref(false)
+const dialogDetail = ref(false)
 
-    close() {
-      this.dialog = false
-      this.$nextTick(() => {
-        this.editedItem = Object.assign({}, this.defaultItem)
-        // this.editedIndex = -1
-      })
-    },
-    editItem(item) {
-      // this.editedIndex = this.orders.indexOf(item)
-      this.editedItem = Object.assign(this.editedItem, item)
-      this.dialog = true
-    },
-    save() {
-      this.updateAbout(this.editedItem)
-      this.close()
-    },
-  (blobInfo, success, failure)
-{
-  let data = new FormData()
-  data.append('image', blobInfo.blob(), blobInfo.filename())
-  // debugger;
-  api()
-    .post('/common/media_upload', data)
-    .then(function (res) {
-      success(res.data.data)
-    })
-    .catch(function (err) {
-      failure('HTTP Error: ' + err.message)
-    })
+let mapAbout = ref({})
+
+const requestParams = ref({
+  page: 1,
+  rowsPerPage: 10,
+})
+
+onMounted(() => {
+  aboutStore.loadAllAbouts(requestParams._rawValue)
+})
+
+watch(
+  requestParams,
+  (value) => {
+    aboutStore.loadAllAbouts(requestParams._rawValue)
+  },
+  {deep: true}
+)
+
+watch(dialogEntity, (val) => {
+  console.log(val)
+  val || close()
+})
+
+function detail(item) {
+  mapAbout.value = aboutStore.findById(item.id)
+  dialogDetail.value = true
 }
-,
-},
-filters: {
+
+function typeLabel(value) {
+  if (trim(value) === 'about_us') {
+    return '关于我们'
+  } else if (trim(value) === 'user_agreement') {
+    return '用户协议'
+  } else if (trim(value) === 'privacy_agreement') {
+    return '隐私协议'
+  }
 }
-,
+
+function close() {
+  dialogEntity.value = false
+  nextTick(() => {
+    aboutStore.resetEdited()
+  })
 }
+
+function editItem(item) {
+  aboutStore.findAndSetItem(item)
+  dialogEntity.value = true
+}
+
+function save() {
+  aboutStore.updateAbout(data)
+  this.close()
+}
+
 </script>
 
 <style scoped></style>

@@ -35,6 +35,7 @@
     <v-card-actions>
       <v-spacer/>
       <v-btn variant="flat" color="primary" text @click="close">确定</v-btn>
+      <v-spacer/>
     </v-card-actions>
   </v-card>
 </template>

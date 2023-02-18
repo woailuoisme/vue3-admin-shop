@@ -44,7 +44,8 @@ export default defineStore('table-header', {
       {text: "操作", value: "operation"},
     ],
     feedback: [
-      {text: "反馈人", value: "nickname"},
+      {text: "ID", value: "id"},
+      {text: "反馈人", value: "user.nickname"},
       {text: "内容", value: "content"},
       {text: "创建时间", value: "created_at"},
       {text: "操作", value: "operation"},
@@ -84,8 +85,13 @@ export default defineStore('table-header', {
     carousel: [
       {text: "ID", value: "id"},
       {text: "排序", value: 'order'},
-      {text: "图片", value: "image_url",},
-      {text: "创建时间", value: "created_at",},
+      {text: "图片", value: "image_url"},
+      {text: "创建时间", value: "created_at"},
+      {text: "操作", value: "operation"},
+    ],
+    about: [
+      {text: "ID", value: "id"},
+      {text: "类型", value: 'type'},
       {text: "操作", value: "operation"},
     ]
   }),

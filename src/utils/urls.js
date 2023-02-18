@@ -4,3 +4,6 @@ export const getApiUrl = (endpoint) => API_BASE_URL + endpoint
 
 export const POSTS = getApiUrl('/posts')
 export const DELETE_POSTS = getApiUrl('/todos/')
+
+export const TME_IMAGE_UPLOAD = getApiUrl('/common/media_upload')
+

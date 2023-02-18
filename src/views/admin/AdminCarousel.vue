@@ -11,7 +11,7 @@
       <v-col cols="12">
         <v-card>
           <v-toolbar flat>
-            <v-btn variant="flat" color="primary" dark class="mb-2">新 增</v-btn>
+            <v-btn variant="flat" color="primary" dark class="mb-2">{{ $t('form.add') }}</v-btn>
             <v-spacer/>
           </v-toolbar>
         </v-card>
@@ -138,12 +138,14 @@ function closeDelete() {
 
 function save() {
   if (this.editedIndex > -1) {
-    this.updateCarousel(data)
+    carouselStore.updateCarousel(data)
   } else {
-    this.createCarousel(data)
+    carouselStore.createCarousel(data)
   }
   this.close()
 }
 </script>
 
-<style scoped></style>
+<style scoped>
+@import '../../styles/data-table.css';
+</style>

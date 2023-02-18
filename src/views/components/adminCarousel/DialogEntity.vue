@@ -45,7 +45,7 @@
 import {defineEmits, defineProps, onMounted, reactive, ref, watch} from 'vue'
 
 const valid = ref(false)
-let editedItem = reactive(props.item)
+
 
 const props = defineProps({
   isNew: {
@@ -61,6 +61,7 @@ const props = defineProps({
     }
   }
 })
+const editedItem = reactive(props.item)
 
 const emit = defineEmits(['save', 'close'])
 
