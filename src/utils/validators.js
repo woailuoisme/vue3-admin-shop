@@ -62,49 +62,25 @@ let comparedPwd = (first) => {
   return (v) => v === first || '两次密码不一致'
 }
 
-// let v = validate;
-// const vl = {
-//     isNumber: function (value) {
-//         return typeof value === 'number' && !isNaN(value);
-//     },
-//
-// // Returns false if the object is not a function
-//     isFunction: function (value) {
-//         return typeof value === 'function';
-//     },
-//
-// // A simple check to verify that the value is an integer. Uses `isNumber`
-// // and a simple modulo check.
-//     isInteger: function (value) {
-//         return v.isNumber(value) && value % 1 === 0;
-//     },
-//
-// // Checks if the value is a boolean
-//     isBoolean: function (value) {
-//         return typeof value === 'boolean';
-//     },
-//
-// // Uses the `Object` function to check if the given argument is an object.
-//     isObject: function (obj) {
-//         return obj === Object(obj);
-//     },
-//
-// // Simply checks if the object is an instance of a date
-//     isDate: function (obj) {
-//         return obj instanceof Date;
-//     },
-//
-// // Returns false if the object is `null` of `undefined`
-//     isDefined: function (obj) {
-//         return obj !== null && obj !== undefined;
-//     },
-//
-// // Checks if the given argument is a promise. Anything with a `then`
-// // function is considered a promise.
-//     isPromise: function (p) {
-//         return !!p && v.isFunction(p.then);
-//     },
-// }
+const MAX_FILE_SIZE = 102400; //100KB
+
+const validFileExtensions = {image: ['jpg', 'gif', 'png', 'jpeg', 'svg', 'webp']};
+
+function isValidFileType(fileName, fileType) {
+  return fileName && validFileExtensions[fileType].indexOf(fileName.split('.').pop()) > -1;
+}
+
+import * as Yup from 'yup';
+
+Yup.object().shape({
+  image: Yup
+    .mixed()
+    .required("Required")
+    .test("is-valid-type", "Not a valid image type",
+      value => isValidFileType(value && value.name.toLowerCase(), "image"))
+    .test("is-valid-size", "Max allowed size is 100KB",
+      value => value && value.size <= MAX_FILE_SIZE)
+});
 
 export default {
   required,

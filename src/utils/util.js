@@ -1,12 +1,20 @@
-import { format } from 'date-fns'
-import { humanReadableFileSize } from 'vuetify/lib/util/helpers'
+// import { format } from 'date-fns'
+import {humanReadableFileSize} from 'vuetify/lib/util/helpers'
 
 export const canUsed = function (data) {
   return typeof data !== 'undefined' && data !== null && !!data
 }
 
-const formatDate = (d, dateFormat = 'MM/dd/yyyy') => {
-  return format(d, dateFormat)
+// const formatDate = (d, dateFormat = 'MM/dd/yyyy') => {
+//   return format(d, dateFormat)
+// }
+
+const formatDate = (dt) => {
+  if (typeof dt?.getMonth !== 'function') {
+    return false
+  }
+  const padL = (nr, len = 2, chr = `0`) => `${nr}`.padStart(2, chr)
+  return `${dt.getFullYear()}-${padL(dt.getMonth() + 1)}-${padL(dt.getDate())} ${padL(dt.getHours())}:${padL(dt.getMinutes())}:${padL(dt.getSeconds())}`
 }
 
 const randomElement = (arr = []) => {
@@ -21,20 +29,5 @@ const bytes = (byte) => {
   return humanReadableFileSize(byte)
 }
 
-const toggleFullScreen = () => {
-  let doc = window.document
-  let docEl = doc.documentElement
 
-  let requestFullScreen =
-    docEl.requestFullscreen || docEl.mozRequestFullScreen || docEl.webkitRequestFullScreen || docEl.msRequestFullscreen
-  let cancelFullScreen =
-    doc.exitFullscreen || doc.mozCancelFullScreen || doc.webkitExitFullscreen || doc.msExitFullscreen
-
-  if (!doc.fullscreenElement && !doc.mozFullScreenElement && !doc.webkitFullscreenElement && !doc.msFullscreenElement) {
-    requestFullScreen.call(docEl)
-  } else {
-    cancelFullScreen.call(doc)
-  }
-}
-
-export default { canUsed, formatDate, randomElement, kebab, toggleFullScreen, bytes }
+export default {canUsed, formatDate, randomElement, kebab, bytes}

@@ -4,10 +4,10 @@ import { canUsed } from '@/utils/util'
 class TopUpRecordService {
   list(data) {
     const params = {
-      page: data.page,
-      per_page: data.rowsPerPage,
+      page: data?.page,
+      per_page: data?.rowsPerPage,
+      keyword: data?.keyword,
     }
-    canUsed(data.keyword) ? (params.keyword = data.keyword) : null
     return request.instance().get('/top_up_records', { params })
   }
 

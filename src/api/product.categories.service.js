@@ -7,8 +7,8 @@ class CategoryService {
     const params = {
       page: data?.page,
       per_page: data?.rowsPerPage,
+      keyword: data?.keyword,
     }
-    canUsed(data?.keyword) ? (params.keyword = data?.keyword) : null
     return request.instance().get('/product_category', params)
   }
 

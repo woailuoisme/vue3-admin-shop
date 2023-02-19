@@ -9,24 +9,29 @@
     "build_prod": "vite build --mode prod",
     "preview": "vite preview",
     "gv": "node generate-build-version",
-    "lint": "eslint . --fix --ignore-path .gitignore"
+    "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore",
+    "lint-fix": "eslint src/**/**/*.vue --fix --cache --max-warnings=-1",
+    "lint-fix-all": "eslint \"src/**/*.js\" \"src/**/*.vue\" --color --cache --max-warnings=-1 --fix",
+    "format": "prettier --write \"src/**/*.js\" \"src/**/*.vue\"",
+    "prepare": "husky install"
   },
   "dependencies": {
     "@mdi/font": "^7.1.96",
     "@tinymce/tinymce-vue": "^4.0.7",
-    "@vuepic/vue-datepicker": "^3.6.8",
+    "@vuepic/vue-datepicker": "^4.0.1",
     "apexcharts": "^3.37.0",
     "axios": "^1.3.2",
     "core-js": "^3.8.3",
     "date-fns": "^2.29.3",
+    "dayjs": "^1.11.7",
     "lodash": "^4.17.21",
-    "moment": "^2.29.4",
     "nprogress": "^0.2.0",
     "pinia": "^2.0.23",
     "pinia-plugin-persistedstate": "^3.0.2",
     "roboto-fontface": "*",
     "tinymce": "^5.10.7",
     "validator": "^13.9.0",
+    "vee-validate": "^4.7.4",
     "vue": "^3.2.13",
     "vue-i18n": "^9.2.2",
     "vue-router": "^4.0.0",
@@ -35,16 +40,39 @@
     "vue3-apexcharts": "^1.4.1",
     "vue3-easy-data-table": "^1.5.31",
     "vuetify": "^3.0.0",
-    "webfontloader": "^1.0.0"
+    "webfontloader": "^1.0.0",
+    "yup": "^1.0.0",
+    "yup-locales": "^1.2.11"
   },
   "devDependencies": {
     "@intlify/unplugin-vue-i18n": "^0.8.2",
+    "@vitalets/google-translate-api": "^9.1.0",
     "@vitejs/plugin-vue": "^3.0.3",
+    "chalk": "^2.1.0",
     "eslint": "^8.22.0",
     "eslint-plugin-vue": "^9.3.0",
+    "fs-extra": "^11.1.0",
+    "husky": "^8.0.3",
+    "mkdirp": "^0.5.5",
+    "pluralize": "^8.0.0",
     "prettier": "^2.8.4",
     "sass": "^1.55.0",
     "vite": "^3.1.9",
-    "vite-plugin-vuetify": "^1.0.0-alpha.12"
+    "vite-plugin-vuetify": "^1.0.0-alpha.12",
+    "yargs": "^17.7.0"
+  },
+  "lint-staged": {
+    "*.js": [
+      "git add"
+    ],
+    "*.json": [
+      "prettier --write",
+      "git add"
+    ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
   }
 }

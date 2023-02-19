@@ -129,8 +129,6 @@
   </v-card>
 </template>
 <script setup>
-import myEditor from '@/components/myEditor'
-import vueDropzone from 'vue2-dropzone-vue3'
 import defaultImage from '@/assets/image/default_image_1.png'
 import {defineEmits, defineProps, reactive, ref} from 'vue'
 import {saleLabel} from '@/utils/table'
@@ -157,7 +155,6 @@ const props = defineProps({
     },
   },
 })
-
 const valid = ref(false)
 const editedItem = reactive(props.item)
 const rule = reactive({...validators})

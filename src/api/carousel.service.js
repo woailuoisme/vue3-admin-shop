@@ -1,19 +1,14 @@
 import client from './http.client'
-import { canUsed } from '@/utils/util'
 
 class CarouselService {
   list(data) {
     const params = {
-      page: data.page,
-      per_page: data.rowsPerPage,
+      page: data?.page,
+      per_page: data?.rowsPerPage,
+      keyword: data?.keyword,
     }
-    canUsed(data.keyword) ? (params.keyword = data.keyword) : null
     return client.instance().get('/carousels', { params })
   }
-
-  // listMedias(productId) {
-  //     return client.instance().get(`/products/${productId}/medias`);
-  // }
 
   show(id) {
     return client.instance().get(`/carousels/${id}`)

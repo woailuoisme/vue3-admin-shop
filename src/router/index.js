@@ -130,6 +130,13 @@ const routes = [
     name: 'gateway',
     component: () => import('@/views/admin/AdminGateway.vue'),
   },
+
+  {
+    path: '/form',
+    name: 'form',
+    component: () => import('@/views/FormVue.vue'),
+  },
+  //###//
 ]
 
 const router = createRouter({
@@ -153,14 +160,14 @@ const router = createRouter({
 //   }
 // });
 
-router.beforeEach((to, from, next) => {
-  let user = window.localStorage.getItem('user')
-  // console.log(user)
-  if (to.name !== 'login' && !user) next({name: 'login'})
-  else {
-    next()
-  }
-})
+// router.beforeEach((to, from, next) => {
+//   let user = window.localStorage.getItem('user')
+//   // console.log(user)
+//   if (to.name !== 'login' && !user) next({name: 'login'})
+//   else {
+//     next()
+//   }
+// })
 
 
 export default router

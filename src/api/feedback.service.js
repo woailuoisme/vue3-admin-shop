@@ -4,10 +4,10 @@ import { canUsed } from '@/utils/util'
 class FeedbackService {
   list(data) {
     const params = {
-      page: data?.page ?? 1,
-      per_page: data?.rowsPerPage ?? 10,
+      page: data?.page,
+      per_page: data?.rowsPerPage,
+      keyword: data?.keyword,
     }
-    canUsed(data.keyword) ? (params.keyword = data.keyword) : null
     return request.instance().get('/feedbacks', { params })
   }
 

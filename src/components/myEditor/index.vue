@@ -129,6 +129,9 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 
+.tox-tinymce-aux {
+  z-index: 5000 !important;
+}
 </style>

@@ -11,3 +11,10 @@
 <script setup>
 import AppHeader from '@/components/application/AppHeader.vue'
 import BackToTop from '@/components/shared/BackToTop.vue'</script>
+
+<style>
+/* fix tme */
+.tox-tinymce-aux {
+  z-index: 9999 !important;
+}
+</style>

@@ -5,10 +5,10 @@ import { canUsed } from '@/utils/util'
 class UserBackendService {
   list(data) {
     const params = {
-      page: data.page,
-      perPage: data.rowsPerPage,
+      page: data?.page,
+      per_page: data?.rowsPerPage,
+      keyword: data?.keyword,
     }
-    canUsed(data.keyword) ? (params.keyword = data.keyword) : null
     return request.instance().get('/admin_users', {params})
   }
 
