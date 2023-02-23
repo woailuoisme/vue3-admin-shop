@@ -22,6 +22,12 @@ const routes = [
     name: 'login',
     component: () => import('@/views/auth/login.vue'),
   },
+
+  {
+    path: '/drag',
+    name: '/drag',
+    component: () => import('@/components/shared/DragSorted.vue'),
+  },
   {
     path: '/404',
     name: 'not_found',

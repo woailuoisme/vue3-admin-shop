@@ -1,7 +1,7 @@
 import FeedbackService from '@/api/feedback.service'
 import {defineStore} from 'pinia'
 /** Config Store */
-export default defineStore('Feedback', {
+export default defineStore('feedback', {
   // Default Config State
   state: () => ({
     feedback: [],

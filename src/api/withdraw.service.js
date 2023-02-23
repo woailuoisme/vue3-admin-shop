@@ -6,8 +6,8 @@ class WithdrawService {
     const params = {
       page: data?.page,
       per_page: data?.rowsPerPage,
-      keyword: data?.keyword,
     }
+    if (data?.keyword) (params.keyword = data.keyword)
     return client.instance().get('/withdraw', { params })
   }
 

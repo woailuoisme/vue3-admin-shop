@@ -192,5 +192,5 @@ function statusClass(value) {
 </script>
 
 <style scoped>
-@import '../../styles/data-table.css';
+
 </style>

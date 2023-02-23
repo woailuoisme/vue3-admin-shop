@@ -10,7 +10,8 @@
     <v-row>
       <v-col cols="12">
         <v-card>
-          <v-btn prepend-icon="mdi-plus" variant="flat" color="primary" dark class="mb-2">新 增</v-btn>
+          <v-btn @click.stop="addItem" prepend-icon="mdi-plus" variant="flat" color="primary" dark class="mb-2">新 增
+          </v-btn>
           <v-spacer/>
         </v-card>
       </v-col>
@@ -31,7 +32,6 @@
             :items="amounts"
             :rows-items="[10, 20, 50]"
           >
-
             <template #item-operation="item">
               <v-btn color="info" size="small" @click.stop="editItem(item)">修改</v-btn>
               <v-btn class="ml-3" color="error" size="small" @click.stop="deleteItem(item)">删除</v-btn>
@@ -41,15 +41,20 @@
       </v-col>
     </v-row>
 
-    <v-dialog v-model="dialogDelete" max-width="500px"></v-dialog>
-    <v-dialog v-model="dialogEntity" max-width="500px"></v-dialog>
+    <v-dialog v-model="dialogEntity" max-width="500px" :persistent="!isNew">
+      <dialog-entity-form :item="editedItem" :is-new="isNew" @close="close" @save="save"></dialog-entity-form>
+    </v-dialog>
+    <v-dialog v-model="dialogDelete" max-width="500px">
+      <dialog-confirm @close="closeDelete" @confirm="deleteItemConfirm"></dialog-confirm>
+    </v-dialog>
   </v-container>
 </template>
 
 <script setup>
 import Breadcrumb from '@/components/shared/Breadcrumb'
-import DialogDetails from '@/views/components/adminProduct/DialogDetails'
-import {computed, nextTick, onMounted, ref, watch} from 'vue'
+import DialogConfirm from '@/views/components/common/DialogConfirm'
+import DialogEntityForm from '@/views/components/adminTopUpAmount/DialogEntityForm'
+import {computed, nextTick, onMounted, ref, toRaw, watch} from 'vue'
 import {useBreadcrumb, useGlobal, useTopUpAmount, useTableHeader} from '@/stores'
 
 const amountStore = useTopUpAmount()
@@ -73,13 +78,13 @@ const requestParams = ref({
 })
 
 onMounted(() => {
-  amountStore.loadAllAmount(requestParams._rawValue)
+  amountStore.loadAllAmount(toRaw(requestParams))
 })
 
 watch(
   requestParams,
   (value) => {
-    amountStore.loadAllAmount(requestParams._rawValue)
+    amountStore.loadAllAmount(toRaw(requestParams))
   },
   {deep: true}
 )
@@ -94,6 +99,10 @@ watch(dialogDelete, (val) => {
   val || closeDelete()
 })
 
+function addItem() {
+  dialogEntity.value = true
+}
+
 function editItem(item) {
   amountStore.findAndSetItem(item)
   dialogEntity.value = true
@@ -104,16 +113,16 @@ function deleteItem(item) {
   dialogDelete.value = true
 }
 
-function deleteItemConfirm(item) {
-  amountStore.deleteAmount(editedItem.value.id)
-  dialogDelete.value = false
+function close() {
+  dialogEntity.value = false
   nextTick(() => {
     amountStore.resetEdited()
   })
 }
 
-function close() {
-  dialogEntity.value = false
+function deleteItemConfirm(item) {
+  amountStore.deleteAmount(editedItem.value.id)
+  dialogDelete.value = false
   nextTick(() => {
     amountStore.resetEdited()
   })
@@ -143,7 +152,4 @@ function activeColor(value) {
   }
 }
 </script>
-<style scoped>
-@import '../../styles/data-table.css';
-
-</style>
+<style scoped></style>

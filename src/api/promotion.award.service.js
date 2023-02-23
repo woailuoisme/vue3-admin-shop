@@ -6,8 +6,8 @@ class PromotionService {
     const params = {
       page: data?.page,
       per_page: data?.rowsPerPage,
-      keyword: data?.keyword,
     }
+    if (data?.keyword) (params.keyword = data.keyword)
     return request.instance().get('/promotion_award', { params })
   }
   show(id) {

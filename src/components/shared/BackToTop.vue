@@ -67,7 +67,7 @@ onMounted(() => {
   &.go-top {
     opacity: 1;
     visibility: visible;
-    bottom: 50px;
+    bottom: 100px;
   }
 
   &:hover {

@@ -1,3 +1,4 @@
+/* datatable*/
 .customize-table {
     --easy-table-header-font-size: 14px;
     --easy-table-header-height: 50px;
@@ -12,4 +13,24 @@
     --easy-table-rows-per-page-selector-width: 70px;
     --easy-table-rows-per-page-selector-option-padding: 10px;
     --easy-table-rows-per-page-selector-z-index: 1;
+}
+
+/* for vuedraggable*/
+.ghost {
+    opacity: 0.5;
+    background: lightseagreen;
+    border-radius: 6px;
+}
+
+.drag {
+    transform: rotate(5deg) !important;
+}
+
+.not-draggable {
+    cursor: no-drop;
+}
+
+/* fix tinymc dialog*/
+.tox-tinymce-aux {
+    z-index: 9999 !important;
 }

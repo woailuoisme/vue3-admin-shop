@@ -126,5 +126,4 @@ function toggleActiveLottery(item) {
 
 <style scoped>
 
-@import '../../styles/data-table.css';
 </style>

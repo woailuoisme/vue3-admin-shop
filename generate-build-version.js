@@ -14,8 +14,17 @@ const jsonData = {
 }
 
 const jsonContent = JSON.stringify(jsonData)
+// fs.mkdirSync(path.dirname(__dirname))
 
 fs.writeFile('./public/version.json', jsonContent, 'utf8', (err) => {
+  if (err) {
+    console.log('An error occured while writing JSON Object to version.json')
+    return console.log(err)
+  }
+  return console.log(`version.json file has been saved with version ${appVersion}`)
+})
+
+fs.writeFile('./src/data/version.json', jsonContent, 'utf8', (err) => {
   if (err) {
     console.log('An error occured while writing JSON Object to version.json')
     return console.log(err)

@@ -1,5 +1,4 @@
 import {trim} from "lodash/string";
-import moment from "moment";
 import dayjs from "dayjs";
 
 export const roleLabel = (value) => {
@@ -13,7 +12,6 @@ export const roleLabel = (value) => {
     return 'unknow'
   }
 }
-
 
 export const sale = (isSale) => {
   if (isSale === '0') {

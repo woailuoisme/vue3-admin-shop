@@ -48,10 +48,7 @@
             <template #item-operation="item">
               <v-btn color="info" tile small @click.stop="detail(item)">查看</v-btn>
             </template>
-
           </EasyDataTable>
-
-
         </v-card>
         <v-dialog v-model="dialogDetail" max-width="800">
           <dialog-details :feedback="mapFeedback" @close="dialogDetail=false"></dialog-details>
@@ -65,7 +62,7 @@
 import Breadcrumb from '@/components/shared/Breadcrumb'
 import TextTooltip from '@/components/table/TextTooltip'
 import DialogDetails from '@/views/components/adminFeedback/DialogDetails'
-import {computed, onMounted, ref} from 'vue'
+import {computed, onMounted, ref, toRaw} from 'vue'
 import {useBreadcrumb, useFeedback, useGlobal, useTableHeader} from '@/stores'
 
 const feedbackStore = useFeedback()
@@ -75,8 +72,8 @@ const tableHeaderStore = useTableHeader()
 const headers = computed(() => tableHeaderStore.feedback)
 const breadcrumbs = computed(() => breadcrumbStore.feedback)
 const feedback = computed(() => feedbackStore.getFeedback)
-const serverItemsLength = computed(() => feedbackStore.total)
 const loading = computed(() => globalStore.isLoading)
+const serverItemsLength = computed(() => feedbackStore.total)
 const isNew = computed(() => feedbackStore.isNew)
 const editedItem = computed(() => feedbackStore.getEditedItem)
 const editedIndex = computed(() => feedbackStore.getEditedIndex)
@@ -91,7 +88,7 @@ const requestParams = ref({
 const dialogDetail = ref(false)
 
 onMounted(() => {
-  feedbackStore.loadAllFeedback(requestParams._rawValue)
+  feedbackStore.loadAllFeedback(toRaw(requestParams.value))
 })
 
 
@@ -104,5 +101,5 @@ function detail(item) {
 </script>
 
 <style scoped>
-@import '../../styles/data-table.css';
+
 </style>

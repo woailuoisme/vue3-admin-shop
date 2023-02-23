@@ -1,11 +1,11 @@
 import axios from 'axios'
 import Toast from '@/utils/toast'
-import router from "@/router";
+import router from '@/router'
 import {useGlobal, useAuth} from '@/stores'
 import NProgress from 'nprogress'
 
 class HttpClient {
-  instance(auth = true) {
+  instance(auth = true, withFile = false) {
     const globalStore = useGlobal()
     const authStore = useAuth()
     const userString = window.localStorage.user
@@ -15,9 +15,9 @@ class HttpClient {
       Accept: 'application/json',
       'Content-Type': 'application/json',
     }
-    if (auth) {
-      headers.Authorization = `Bearer ${token}`
-    }
+    if (auth) headers.Authorization = `Bearer ${token}`
+    if (withFile) headers['Content-Type'] = 'multipart/form-data'
+
     const client = axios.create({
       baseURL: import.meta.env.VITE_BASE_URL_ADMIN,
       crossDomain: true,
@@ -40,11 +40,6 @@ class HttpClient {
     )
     client.interceptors.response.use(
       (response) => {
-        // const res = response.data;
-        // if (['put', 'post', 'delete', 'patch'].includes(response.config.method) && response.data.success) {
-        //   Toast.success(response.data.message)
-        // }
-        // NProgress.done()
         NProgress.done()
         globalStore.setLoading(false)
         return Promise.resolve(response)
@@ -58,7 +53,7 @@ class HttpClient {
           Toast.error('网络异常')
         }
         if (error.response) {
-          console.log(error.response);
+          console.log(error.response)
           if (error.response.status) {
             switch (error.response.status) {
               case 400:
@@ -68,21 +63,24 @@ class HttpClient {
                 break
 
               case 401: // authentication error, logout the user
-                Toast.error('认证无效或已过期,请重新登录')
+                Toast.error('认证无效或已过期,请重新登录！')
                 authStore.resetUser()
-                router.replace('/login')
+                router.replace({name: 'login'})
+                // router.push({ name: 'dashboard' }
                 console.log('📡 API | Please login again', 'Session Expired')
                 localStorage.removeItem('user')
                 break
 
               case 403:
-                Toast.error('权限拒绝')
-                router.replace('/403')
+                Toast.error('权限拒绝！')
+                // router.replace('/403')
+                router.replace({name: 'forbidden'})
                 console.error(error.response.status, error.message)
                 console.log('📡 API | Access denied', 'Data Not Found')
                 break
 
               case 404:
+                Toast.error('未返回资源！')
                 console.error(error.response.status, error.message)
                 console.log('📡 API | Dataset not found', 'Data Not Found')
                 break
@@ -93,9 +91,8 @@ class HttpClient {
                 break
               case 500:
                 Toast.error('服务端异常')
-                router.replace('/500')
+                router.replace({name: 'server_error'})
                 break
-
               default:
                 console.error(error.response.status, error.message)
             }

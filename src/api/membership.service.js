@@ -1,14 +1,13 @@
 import request from './http.client'
-import { canUsed } from '@/utils/util'
 
 class MembershipService {
   //user 列表
   list(data) {
     const params = {
-      page: data.page,
-      per_page: data.rowsPerPage,
+      page: data?.page,
+      per_page: data?.rowsPerPage,
+      keyword: data?.keyword,
     }
-    canUsed(data.keyword) ? (params.keyword = data.keyword) : null
     return request.instance().get('/membership', { params })
   }
 }

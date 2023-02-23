@@ -7,11 +7,10 @@
 // Components
 import App from './App.vue'
 
-// Composables
 // import {createApp} from 'vue'
 import {createApp} from 'vue/dist/vue.esm-bundler'
 // data table scss style
-import '@/styles/data-table.css'
+import '@/styles/style.css'
 
 // Plugins
 import {registerPlugins} from '@/plugins'

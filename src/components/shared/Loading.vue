@@ -11,7 +11,9 @@
   </v-dialog>
 </template>
 
-<script>
+<script setup>
+import {computed} from "vue";
+
 // import { mapGetters } from 'vuex'
 //
 // export default {

@@ -45,7 +45,7 @@ export function registerPlugins(app) {
     .use(NProgress)
     .use(VueApexCharts)
     .use(Toast, {
-      transition: "Vue-Toastification__bounce",
+      transition: "Vue-Toastification__fade",
       maxToasts: 20,
       newestOnTop: true
     })

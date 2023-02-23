@@ -1,26 +1,21 @@
 import axios from 'axios'
-import { baseUrl } from '@/utils/config'
 
-export default (auth = true) => {
+export default (auth = true, withFile = false) => {
   // let currentUserString = window.localStorage.currentUser;
   // let currentUser = currentUserString ? JSON.parse(currentUserString) : "";
   const userString = window.localStorage.user
   const user = userString ? JSON.parse(userString) : ''
   const token = user && user.token ? user.token : ''
-
-  let headerWithAuth = {
-    Accept: 'application/json',
-    'Content-Type': 'application/json',
-    Authorization: `Bearer ${token}`,
-  }
-  let header = {
+  let headers = {
     Accept: 'application/json',
     'Content-Type': 'application/json',
   }
+  if (auth) headers.Authorization = `Bearer ${token}`
+  if (withFile) headers['Content-Type'] = 'multipart/form-data'
   // axios.defaults.headers.common['Access-Control-Allow-Origin'] = '*';
   return axios.create({
-    baseURL: baseUrl,
+    baseURL: import.meta.env.VITE_BASE_URL_ADMIN,
     withCredentials: false,
-    headers: auth ? headerWithAuth : header,
+    headers,
   })
 }

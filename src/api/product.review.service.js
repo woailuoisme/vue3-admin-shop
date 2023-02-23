@@ -1,5 +1,4 @@
 import request from './http.client'
-import { canUsed } from '@/utils/util'
 
 class OrderService {
   //user 列表
@@ -7,8 +6,8 @@ class OrderService {
     const params = {
       page: data?.page,
       per_page: data?.rowsPerPage,
-      keyword: data?.keyword,
     }
+    data?.keyword ? (params.keyword = data.keyword) : null
     return request.instance().get('/product_review', { params })
   }
 }

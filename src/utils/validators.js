@@ -1,5 +1,5 @@
 // import validate from "validate.js";
-import isEmail from 'validator/lib/isEmail'
+// import isEmail from 'validator/lib/isEmail'
 
 let required = (propertyType) => {
   return (v) => !!v || `必须输入 ${propertyType}`
@@ -21,9 +21,9 @@ let isNumber = (propertyType) => {
   return (v) => (typeof v === 'number' && !isNaN(v)) || `${propertyType} 必须是数字`
 }
 
-let email = (propertyType) => {
-  return (v) => isEmail(v) || `${propertyType} 必须是正确的email格式`
-}
+// let email = (propertyType) => {
+//   return (v) => isEmail(v) || `${propertyType} 必须是正确的email格式`
+// }
 
 let isInteger = (propertyType) => {
   return (value) => {

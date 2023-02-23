@@ -18,7 +18,7 @@ const props = defineProps({
 })
 let timer
 const isEnded = ref(false)
-let data = reactive({
+let data = ref({
   days: null,
   hours: null,
   minutes: null,
@@ -26,10 +26,10 @@ let data = reactive({
 })
 
 function updateRemaining(distance) {
-  this.days = Math.floor(distance / (1000 * 60 * 60 * 24))
-  this.hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))
-  this.minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60))
-  this.seconds = Math.floor((distance % (1000 * 60)) / 1000)
+  data.value.days = Math.floor(distance / (1000 * 60 * 60 * 24))
+  data.value.hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))
+  data.value.minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60))
+  data.value.seconds = Math.floor((distance % (1000 * 60)) / 1000)
 }
 
 function tick() {
@@ -44,7 +44,7 @@ function tick() {
 
 onMounted(() => {
   tick()
-  timer = setInterval(tick.bind(this), 1000)
+  timer = setInterval(tick, 1000)
 })
 
 onUnmounted(() => {

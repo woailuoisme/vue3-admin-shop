@@ -35,10 +35,10 @@ export default defineStore('top-up-amount', {
       return state.editedIndex
     },
     findById: (state) => (id) => {
-      return state.products.find((p) => p.id === id)
+      return state.amounts.find((p) => p.id === id)
     },
     findIndexById: (state) => (id) => {
-      return state.products.findIndex((p) => p.id === id)
+      return state.amounts.findIndex((p) => p.id === id)
     },
     hasData(state) {
       return !!state.amounts.length
@@ -54,14 +54,14 @@ export default defineStore('top-up-amount', {
   actions: {
 
     setEditedIndex(id) {
-      this.editedIndex = this.products.findIndex((user) => user.id === id)
+      this.editedIndex = this.amounts.findIndex((user) => user.id === id)
     },
     resetEdited() {
       this.editedIndex = -1
       this.editedItem = Object.assign({}, this.defaultItem)
     },
     findAndSetItem(item) {
-      this.editedIndex = this.products.findIndex((user) => user.id === item.id)
+      this.editedIndex = this.amounts.findIndex((user) => user.id === item.id)
       this.editedItem = Object.assign({}, item)
     },
 
@@ -88,7 +88,6 @@ export default defineStore('top-up-amount', {
 
     async updateAmount(payload) {
       const res = await TopUpAmountService.update(payload)
-      console.log(res)
       const amount = res.data.data
       debugger
       if (res.data.success) {

@@ -53,6 +53,7 @@
 import {computed, ref} from 'vue'
 import {useAuth, useMenu, useConfig} from '@/stores'
 import router from '@/router'
+
 const authStore = useAuth()
 const menuStore = useMenu()
 const configStore = useConfig()
@@ -60,9 +61,9 @@ const configStore = useConfig()
 const drawer = ref(true)
 const menuItems = computed(() => menuStore.getMenuItems)
 const isAuthed = computed(() => authStore.isAuthed)
-const appName = computed(() => configStore.appName)
 const user = computed(() => authStore.getUser)
-const isShowHeader = computed(() => router.currentRoute.value.path !== '/login' || router.currentRoute.value.path !== '/')
+const appName = computed(() => configStore.appName)
+const isShowHeader = computed(() => configStore.isShowHeader)
 const userLogout = async () => {
   if (await authStore.logout()) {
     await router.push({name: 'login'})
