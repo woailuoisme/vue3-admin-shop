@@ -1,13 +1,13 @@
-const path = require('path');
-const fs = require('fs');
-const _ = require('lodash');
+const path = require('path')
+const fs = require('fs')
+const _ = require('lodash')
 const pluralize = require('pluralize')
 
-const {apiFileContent} = require('./templates/api_sevice');
+const { apiFileContent } = require('./templates/api_sevice')
 
 const createSyncFile = (directory, filename, content) => {
-  fs.mkdirSync(directory, {recursive: true})
-  fs.writeFileSync(path.join(directory, filename), content, "UTF8")
+  fs.mkdirSync(directory, { recursive: true })
+  fs.writeFileSync(path.join(directory, filename), content, 'UTF8')
 }
 
 exports.createApiFile = (model) => {

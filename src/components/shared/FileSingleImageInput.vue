@@ -2,18 +2,18 @@
   <v-row>
     <v-col cols="8">
       <v-file-input
-        v-model="image"
         ref="refImage"
+        v-model="image"
         :label="imageLabel"
         :rules="imageRules"
         show-size
         accept="image/png, image/jpeg, image/bmp"
         variant="outlined"
         prepend-icon="mdi-camera"
+        hide-details
         @update:modelValue="change"
         @click:clear="clear"
-        hide-details
-      ></v-file-input>
+      />
     </v-col>
     <v-col v-if="imageUrl" cols="4" class="pl-3">
       <v-fab-transition>
@@ -23,7 +23,7 @@
       </v-fab-transition>
     </v-col>
   </v-row>
-  <v-row></v-row>
+  <v-row />
 </template>
 <script setup>
 import { defineEmits, defineProps, getCurrentInstance, onMounted, ref } from 'vue'

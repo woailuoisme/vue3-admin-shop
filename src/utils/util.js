@@ -78,6 +78,28 @@ export const readURL = (file) => {
   })
 }
 
+export const imageWidthAndHeight = (provideFile) => {
+  // take the given file (which should be an image) and return the width and height
+  const imgDimensions = { width: null, height: null }
+
+  return new Promise((resolve) => {
+    const reader = new FileReader()
+
+    reader.readAsDataURL(provideFile)
+    reader.onload = function () {
+      const img = new Image()
+      img.src = reader.result
+
+      img.onload = function () {
+        imgDimensions.width = img.width
+        imgDimensions.height = img.height
+
+        resolve(imgDimensions)
+      }
+    }
+  })
+}
+
 // Checks if tokenExpiration in localstorage date is past, if so then trigger an update
 export const checkIfTokenNeedsRefresh = () => {
   // Checks if time set in localstorage is past to check for refresh token
@@ -124,4 +146,4 @@ export const buildPayloadPagination = (pagination, search) => {
   return query
 }
 
-export default { canUsed, formatDate, randomElement, kebab, bytes, uuid, readURL }
+export default { canUsed, formatDate, randomElement, kebab, bytes, uuid, readURL, imageWidthAndHeight }

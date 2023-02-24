@@ -8,7 +8,7 @@
         <v-row>
           <v-col cols="12">
             <div class="title">内容</div>
-            <myEditor v-model="editedItem.content" :imgUploadUrl="TME_IMAGE_UPLOAD" />
+            <myEditor v-model="editedItem.content" :img-upload-url="TME_IMAGE_UPLOAD" />
           </v-col>
         </v-row>
       </v-container>

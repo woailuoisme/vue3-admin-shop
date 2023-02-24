@@ -21,12 +21,12 @@
       <v-col cols="12">
         <v-card :loading="loading" :disabled="loading">
           <EasyDataTable
+            v-model:server-options="requestParams"
             buttons-pagination
             alternating
             header-text-direction="center"
             body-text-direction="center"
             table-class-name="customize-table"
-            v-model:server-options="requestParams"
             :server-items-length="serverItemsLength"
             :loading="loading"
             :headers="headers"
@@ -39,10 +39,10 @@
           </EasyDataTable>
         </v-card>
         <v-dialog v-model="dialogEntity" max-width="1300px">
-          <dialog-entity :item="editedItem"></dialog-entity>
+          <dialog-entity :item="editedItem" />
         </v-dialog>
         <v-dialog v-model="dialogDetail" max-width="800">
-          <dialog-detail :item="mapAbout"></dialog-detail>
+          <dialog-detail :item="mapAbout" />
         </v-dialog>
       </v-col>
     </v-row>
@@ -81,13 +81,13 @@ const requestParams = ref({
 })
 
 onMounted(() => {
-  aboutStore.loadAllAbouts(requestParams._rawValue)
+  aboutStore.loadAllAbouts(requestParams.value._rawValue)
 })
 
 watch(
   requestParams,
   (value) => {
-    aboutStore.loadAllAbouts(requestParams._rawValue)
+    aboutStore.loadAllAbouts(requestParams.value._rawValue)
   },
   { deep: true }
 )

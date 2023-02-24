@@ -27,12 +27,12 @@
       <v-col cols="12">
         <v-card :loading="loading" :disabled="loading">
           <EasyDataTable
+            v-model:server-options="requestParams"
             buttons-pagination
             alternating
             header-text-direction="center"
             body-text-direction="center"
             table-class-name="customize-table"
-            v-model:server-options="requestParams"
             :server-items-length="serverItemsLength"
             :loading="loading"
             :headers="headers"
@@ -44,7 +44,7 @@
             </template>
 
             <template #item-avatar="{ avatar }">
-              <table-image :image="avatar"></table-image>
+              <table-image :image="avatar" />
             </template>
 
             <template #item-is_active_lottery="item">
@@ -62,7 +62,7 @@
             </template>
           </EasyDataTable>
         </v-card>
-        <v-dialog v-model="dialogDetail" max-width="800"></v-dialog>
+        <v-dialog v-model="dialogDetail" max-width="800" />
       </v-col>
     </v-row>
   </v-container>
@@ -99,7 +99,7 @@ let mapProduct
 watch(
   requestParams,
   (value) => {
-    userStore.loadAllUsers(requestParams._rawValue)
+    userStore.loadAllUsers(requestParams.value._rawValue)
   },
   { deep: true }
 )

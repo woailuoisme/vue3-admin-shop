@@ -2,49 +2,52 @@
   <v-container fluid>
     <v-row>
       <v-col cols="12">
-        <v-card class="mb-4">
+        <v-card>
           <Breadcrumb :items="breadcrumbs" />
         </v-card>
       </v-col>
     </v-row>
     <v-row>
       <v-col cols="12">
-        <v-card>
-          <v-btn @click.stop="addItem" prepend-icon="mdi-plus" variant="flat" color="primary" dark class="mb-2">新 增</v-btn>
+        <v-toolbar :elevation="2" flat>
+          <v-btn variant="flat" color="primary" @click.stop="addItem">
+            {{ $t('table.operation.add') }}
+          </v-btn>
           <v-spacer />
-        </v-card>
+          <v-text-field
+            v-model="requestParams.keyword"
+            variant="outlined"
+            append-inner-icon="mdi-magnify"
+            :placeholder="$t('table.search.keyword')"
+            single-line
+            hide-details
+          />
+        </v-toolbar>
       </v-col>
     </v-row>
     <v-row>
       <v-col cols="12">
         <v-card :loading="loading" :disabled="loading">
           <EasyDataTable
-            buttons-pagination
-            alternating
-            header-text-direction="center"
-            body-text-direction="center"
-            table-class-name="customize-table"
             v-model:server-options="requestParams"
             :server-items-length="serverItemsLength"
             :loading="loading"
             :headers="headers"
             :items="amounts"
-            :rows-items="[10, 20, 50]"
           >
             <template #item-operation="item">
-              <v-btn color="info" size="small" @click.stop="editItem(item)">修改</v-btn>
-              <v-btn class="ml-3" color="error" size="small" @click.stop="deleteItem(item)">删除</v-btn>
+              <v-btn color="info" @click.stop="editItem(item)">{{ $t('table.operation.update') }}</v-btn>
+              <v-btn class="mx-3" color="error" @click.stop="deleteItem(item)">{{ $t('table.operation.delete') }}</v-btn>
             </template>
           </EasyDataTable>
         </v-card>
       </v-col>
     </v-row>
-
-    <v-dialog v-model="dialogEntity" max-width="500px" :persistent="!isNew">
-      <dialog-entity-form :item="editedItem" :is-new="isNew" @close="close" @save="save"></dialog-entity-form>
+    <v-dialog v-model="dialogEntity" max-width="500px" persistent>
+      <dialog-entity-form :item="editedItem" :is-new="isNew" @close="close" @save="save" />
     </v-dialog>
     <v-dialog v-model="dialogDelete" max-width="500px">
-      <dialog-confirm @close="closeDelete" @confirm="deleteItemConfirm"></dialog-confirm>
+      <dialog-confirm @close="closeDelete" @confirm="deleteItemConfirm" />
     </v-dialog>
   </v-container>
 </template>
@@ -63,9 +66,9 @@ const tableHeaderStore = useTableHeader()
 
 const headers = computed(() => tableHeaderStore.topUpAmount)
 const breadcrumbs = computed(() => breadcrumbStore.topUpAmount)
+const loading = computed(() => globalStore.isLoading)
 const amounts = computed(() => amountStore.getAmount)
 const serverItemsLength = computed(() => amountStore.total)
-const loading = computed(() => globalStore.isLoading)
 const isNew = computed(() => amountStore.isNew)
 const editedItem = computed(() => amountStore.getEditedItem)
 const editedIndex = computed(() => amountStore.getEditedIndex)
@@ -74,29 +77,30 @@ const dialogDelete = ref(false)
 const requestParams = ref({
   page: 1,
   rowsPerPage: 10,
+  keyword: '',
 })
 
 onMounted(() => {
-  amountStore.loadAllAmount(toRaw(requestParams))
+  amountStore.loadAllAmount(toRaw(requestParams.value))
 })
 
 watch(
   requestParams,
   (value) => {
-    amountStore.loadAllAmount(toRaw(requestParams))
+    amountStore.loadAllAmount(toRaw(requestParams.value))
   },
   { deep: true }
 )
 
-watch(dialogEntity, (val) => {
-  console.log(val)
-  val || close()
-})
-
-watch(dialogDelete, (val) => {
-  console.log(val)
-  val || closeDelete()
-})
+watch(
+  [dialogEntity, dialogDelete, requestParams],
+  ([newEntry, newDelete, newRequestParams]) => {
+    console.log(newEntry, newDelete)
+    newEntry || close()
+    newDelete || closeDelete()
+  },
+  { deep: true }
+)
 
 function addItem() {
   dialogEntity.value = true
@@ -113,6 +117,7 @@ function deleteItem(item) {
 }
 
 function close() {
+  debugger
   dialogEntity.value = false
   nextTick(() => {
     amountStore.resetEdited()
@@ -134,21 +139,14 @@ function closeDelete() {
   })
 }
 
-function save() {
-  if (editedIndex > -1) {
-    amountStore.updateAmount(editedItem)
+function save(values) {
+  if (editedIndex.value > -1) {
+    const entity = { id: editedItem.value.id, ...values }
+    amountStore.updateAmount(entity)
   } else {
-    amountStore.createAmount(editedItem)
+    amountStore.createAmount(values)
   }
-  this.close()
-}
-
-function activeColor(value) {
-  if (value) {
-    return 'success'
-  } else {
-    return 'error'
-  }
+  close()
 }
 </script>
 <style scoped></style>

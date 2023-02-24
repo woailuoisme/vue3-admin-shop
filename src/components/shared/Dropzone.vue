@@ -3,12 +3,12 @@
     <v-col cols="12">
       <div class="title primary">{{ label }}</div>
       <div
+        :class="{ 'active-dropzone': active }"
+        class="dropzone"
         @dragenter.prevent="toggleActive"
         @dragleave.prevent="toggleActive"
         @dragover.prevent
         @drop.prevent="drop"
-        :class="{ 'active-dropzone': active }"
-        class="dropzone"
         @change.prevent="selectedFile"
       >
         <span>拖拽文件</span>
@@ -17,10 +17,10 @@
           <v-icon x-large>mdi-image-plus-outline</v-icon>
           添加文件
         </label>
-        <input ref="inputFile" multiple type="file" id="dropzoneFile" class="dropzoneFile" />
+        <input id="dropzoneFile" ref="inputFile" multiple type="file" class="dropzoneFile" />
       </div>
     </v-col>
-    <v-divider></v-divider>
+    <v-divider />
     <v-col cols="12">
       <div v-if="files.length > 0">
         <v-chip>{{ files.length }}</v-chip>
@@ -28,11 +28,11 @@
       <v-row v-if="files.length > 0">
         <v-col v-for="(file, index) in files" :key="index" cols="4">
           <div>{{ index }}--{{ file?.name }}--{{ file?.url }}</div>
-          <image-remove :url="file['url']" @delete="removeImage(file?.id)"></image-remove>
+          <image-remove :url="file['url']" @delete="removeImage(file?.id)" />
         </v-col>
       </v-row>
     </v-col>
-    <v-divider></v-divider>
+    <v-divider />
   </v-row>
 </template>
 

@@ -20,12 +20,12 @@
       <v-col cols="12">
         <v-card :loading="loading" :disabled="loading">
           <EasyDataTable
+            v-model:server-options="requestParams"
             buttons-pagination
             alternating
             header-text-direction="center"
             body-text-direction="center"
             table-class-name="customize-table"
-            v-model:server-options="requestParams"
             :server-items-length="serverItemsLength"
             :loading="loading"
             :headers="headers"
@@ -33,25 +33,25 @@
             :rows-items="[10, 20, 50]"
           >
             <template #item-image_url="{ image_url }">
-              <table-image :image="image_url"></table-image>
+              <table-image :image="image_url" />
             </template>
 
             <template #item-="{ avatar }">
-              <table-image :image="avatar"></table-image>
+              <table-image :image="avatar" />
             </template>
             <template #item-operation="item">
-              <v-btn class="ml-1" icon="mdi-pencil" color="warning" size="small" tile @click.stop="editItem(item)"></v-btn>
-              <v-btn class="ml-1" icon="mdi-delete" color="error" size="small" tile @click.stop="deleteItem(item)"></v-btn>
+              <v-btn class="ml-1" icon="mdi-pencil" color="warning" size="small" tile @click.stop="editItem(item)" />
+              <v-btn class="ml-1" icon="mdi-delete" color="error" size="small" tile @click.stop="deleteItem(item)" />
             </template>
           </EasyDataTable>
         </v-card>
       </v-col>
     </v-row>
     <v-dialog v-model="dialogDelete" max-width="300px">
-      <dialog-confirm @close="closeDelete" @confirm="deleteItemConfirm"></dialog-confirm>
+      <dialog-confirm @close="closeDelete" @confirm="deleteItemConfirm" />
     </v-dialog>
     <v-dialog v-model="dialogEntity" max-width="1300px">
-      <dialog-entity @close="dialogEntity = false" @save="save" :item="editedItem" :is-new="isNew"></dialog-entity>
+      <dialog-entity :item="editedItem" :is-new="isNew" @close="dialogEntity = false" @save="save" />
     </v-dialog>
   </v-container>
 </template>
@@ -94,7 +94,7 @@ onMounted(() => {
 watch(
   requestParams,
   (value) => {
-    categoryStore.loadCategories(requestParams._rawValue)
+    categoryStore.loadCategories(requestParams.value._rawValue)
   },
   { deep: true }
 )
@@ -147,7 +147,7 @@ function closeDelete() {
 }
 
 function save() {
-  if (editedIndex > -1) {
+  if (editedIndex.value > -1) {
     categoryStore.updateCategory(editedItem)
   } else {
     categoryStore.createCategory(editedItem)

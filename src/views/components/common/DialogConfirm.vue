@@ -2,7 +2,7 @@
   <v-card>
     <v-card-title class="text-center red accent-1">提 示</v-card-title>
     <v-card-text class="text-h5 text-center pt-6"><span>是否确认删除?</span></v-card-text>
-    <v-divider :thickness="2"></v-divider>
+    <v-divider :thickness="2" class="border-opacity-75" />
     <v-card-actions>
       <v-spacer />
       <v-btn variant="flat" color="blue lighten-2 " @click="close">取消</v-btn>

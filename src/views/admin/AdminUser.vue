@@ -15,12 +15,12 @@
             <v-spacer />
           </v-card-title>
           <EasyDataTable
+            v-model:server-options="requestParams"
             buttons-pagination
             alternating
             header-text-direction="center"
             body-text-direction="center"
             table-class-name="customize-table"
-            v-model:server-options="requestParams"
             :server-items-length="serverItemsLength"
             :loading="loading"
             :headers="headers"
@@ -31,7 +31,7 @@
             </template>
 
             <template #item-avatar="{ avatar }">
-              <table-image :image="avatar"></table-image>
+              <table-image :image="avatar" />
             </template>
 
             <template #item-role="{ role }">
@@ -39,18 +39,18 @@
             </template>
 
             <template #item-operation="item">
-              <v-btn class="ml-1" icon="mdi-pencil" color="warning" size="small" tile @click.stop="editItem(item)"></v-btn>
-              <v-btn class="ml-1" icon="mdi-delete" color="error" size="small" tile @click.stop="deleteItem(item)"></v-btn>
+              <v-btn class="ml-1" icon="mdi-pencil" color="warning" size="small" tile @click.stop="editItem(item)" />
+              <v-btn class="ml-1" icon="mdi-delete" color="error" size="small" tile @click.stop="deleteItem(item)" />
             </template>
           </EasyDataTable>
         </v-card>
       </v-col>
     </v-row>
     <v-dialog v-model="dialogDelete" max-width="300px">
-      <dialog-confirm @close="closeDelete" @confirm="deleteItemConfirm"></dialog-confirm>
+      <dialog-confirm @close="closeDelete" @confirm="deleteItemConfirm" />
     </v-dialog>
     <v-dialog v-model="dialogEntity" max-width="500px">
-      <dialog-entity-form @close="dialogEntity = false" @save="save" :item="editedItem" :is-new="isNew"></dialog-entity-form>
+      <dialog-entity-form :item="editedItem" :is-new="isNew" @close="dialogEntity = false" @save="save" />
     </v-dialog>
   </v-container>
 </template>
@@ -121,7 +121,7 @@ function deleteItem(item) {
 }
 
 function deleteItemConfirm() {
-  adminUserStore.deleteUser(editedItem.id)
+  adminUserStore.deleteUser(editedItem.value.id)
   dialogDelete.value = false
   nextTick(() => {
     adminUserStore.resetEdited()
@@ -143,7 +143,7 @@ function closeDelete() {
 }
 
 function save() {
-  if (editedIndex > -1) {
+  if (editedIndex.value > -1) {
     adminUserStore.updateUser(editedItem)
   } else {
     adminUserStore.createUser(editedItem)

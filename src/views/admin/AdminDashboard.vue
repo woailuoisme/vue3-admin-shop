@@ -21,7 +21,7 @@
               </v-col>
             </v-row>
           </v-card-title>
-          <v-divider></v-divider>
+          <v-divider />
           <v-card-actions>
             <v-row class="justify-center align-center">
               <v-col cols="12" class="text-center">

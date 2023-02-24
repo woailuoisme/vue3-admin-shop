@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <AppHeader></AppHeader>
+    <AppHeader />
     <v-main id="main-content" class="light-blue lighten-5">
       <router-view />
       <BackToTop />

@@ -4,8 +4,12 @@ const packageJson = require('./package.json')
 const appVersion = packageJson.version
 const dt = new Date()
 const padL = (nr, len = 2, chr = `0`) => `${nr}`.padStart(2, chr)
-const dFormat = `${dt.getFullYear()}-${padL(dt.getMonth() + 1)}-${padL(dt.getDate())} ${padL(dt.getHours())}:${padL(dt.getMinutes())}:${padL(dt.getSeconds())}`
-const versionEnd = `${dt.getFullYear()}${padL(dt.getMonth() + 1)}${padL(dt.getDate())}${padL(dt.getHours())}${padL(dt.getMinutes())}${padL(dt.getSeconds())}`;
+const dFormat = `${dt.getFullYear()}-${padL(dt.getMonth() + 1)}-${padL(dt.getDate())} ${padL(dt.getHours())}:${padL(
+  dt.getMinutes()
+)}:${padL(dt.getSeconds())}`
+const versionEnd = `${dt.getFullYear()}${padL(dt.getMonth() + 1)}${padL(dt.getDate())}${padL(dt.getHours())}${padL(dt.getMinutes())}${padL(
+  dt.getSeconds()
+)}`
 const jsonData = {
   version: `${appVersion}.${versionEnd}`,
   date: dFormat,

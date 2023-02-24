@@ -12,8 +12,6 @@ import { defineProps } from 'vue'
 const props = defineProps({
   items: {
     type: Array,
-    required: true,
-    default: [],
   },
 })
 </script>

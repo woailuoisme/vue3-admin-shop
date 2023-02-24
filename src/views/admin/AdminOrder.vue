@@ -22,17 +22,17 @@
       <v-col cols="12">
         <v-card :loading="loading" :disabled="loading">
           <EasyDataTable
+            v-model:server-options="requestParams"
             buttons-pagination
             alternating
             header-text-direction="center"
             body-text-direction="center"
             table-class-name="customize-table"
-            v-model:server-options="requestParams"
             :server-items-length="serverItemsLength"
             :loading="loading"
             :headers="headers"
             :items="orders"
-            :rowsPerPage="20"
+            :rows-per-page="20"
             :rows-items="[10, 20, 50]"
           >
             <template #item-order_num="item">
@@ -48,9 +48,9 @@
             </template>
           </EasyDataTable>
         </v-card>
-        <v-dialog v-model="dialogExpress" persistent max-width="600px"></v-dialog>
+        <v-dialog v-model="dialogExpress" persistent max-width="600px" />
         <v-dialog v-model="dialogDetail" max-width="800">
-          <dialog-details :category="mapCategory" @close="dialogDetail = false"></dialog-details>
+          <dialog-details :category="mapCategory" @close="dialogDetail = false" />
         </v-dialog>
       </v-col>
     </v-row>
@@ -93,13 +93,13 @@ let mapCategory
 
 onMounted(() => {
   console.log('onMounted')
-  orderStore.loadAllOrders(requestParams._rawValue)
+  orderStore.loadAllOrders(requestParams.value._rawValue)
 })
 
 watch(
   requestParams,
   (value) => {
-    orderStore.loadAllOrders(requestParams._rawValue)
+    orderStore.loadAllOrders(requestParams.value._rawValue)
   },
   { deep: true }
 )

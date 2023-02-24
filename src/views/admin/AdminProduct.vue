@@ -16,27 +16,21 @@
             <v-spacer />
           </v-card-title>
           <EasyDataTable
-            buttons-pagination
-            alternating
-            header-text-direction="center"
-            body-text-direction="center"
-            table-class-name="customize-table"
             v-model:server-options="requestParams"
+            v-model:items-selected="itemsSelected"
             :server-items-length="serverItemsLength"
             :loading="loading"
             :headers="headers"
             :items="products"
-            v-model:items-selected="itemsSelected"
-            :rows-items="[10, 20, 50]"
           >
             <template #item-catetory="item">
               <v-chip color="info" small>{{ item.category.second_name }}</v-chip>
             </template>
             <template #item-thumbnail="item">
-              <table-image :image="item.thumbnail"></table-image>
+              <table-image :image="item.thumbnail" />
             </template>
             <template #item-description="item">
-              <text-tooltip :text="item.description"></text-tooltip>
+              <text-tooltip :text="item.description" />
             </template>
             <template #item-created_at="item">
               {{ item.created_at }}
@@ -44,34 +38,34 @@
             <template #item-is_sale="item">
               <div class="d-flex justify-center">
                 <v-switch
+                  v-model="item.is_sale"
                   color="primary"
                   :true-value="1"
                   :false-value="0"
-                  v-model="item.is_sale"
                   :label="`${item.is_sale ? '是' : '否'}`"
-                  @change="toggleSale(item)"
                   inset
+                  @change="toggleSale(item)"
                 />
               </div>
             </template>
 
             <template #item-operation="item">
-              <v-btn class="ml-1" icon="mdi-eye" color="primary" size="small" tile @click.stop="viewItem(item)"></v-btn>
-              <v-btn class="ml-1" icon="mdi-pencil" color="warning" size="small" tile @click.stop="editItem(item)"></v-btn>
-              <v-btn class="ml-1" icon="mdi-delete" color="error" size="small" tile @click.stop="deleteItem(item)"></v-btn>
+              <v-btn class="ml-1" icon="mdi-eye" color="primary" size="small" tile @click.stop="viewItem(item)" />
+              <v-btn class="ml-1" icon="mdi-pencil" color="warning" size="small" tile @click.stop="editItem(item)" />
+              <v-btn class="ml-1" icon="mdi-delete" color="error" size="small" tile @click.stop="deleteItem(item)" />
             </template>
           </EasyDataTable>
         </v-card>
       </v-col>
     </v-row>
     <v-dialog v-model="dialogDelete" max-width="300px">
-      <dialog-confirm @close="closeDelete" @confirm="deleteItemConfirm"></dialog-confirm>
+      <dialog-confirm @close="closeDelete" @confirm="deleteItemConfirm" />
     </v-dialog>
     <v-dialog v-model="dialogEntity" max-width="1300px">
-      <dialog-entity-form @close="dialogEntity = false" @save="save" :item="editedItem" :is-new="isNew"></dialog-entity-form>
+      <dialog-entity-form :item="editedItem" :is-new="isNew" @close="dialogEntity = false" @save="save" />
     </v-dialog>
     <v-dialog v-model="dialogDetail" max-width="1300px">
-      <dialog-details :product="mapProduct" @close="dialogDetail = false"></dialog-details>
+      <dialog-details :product="mapProduct" @close="dialogDetail = false" />
     </v-dialog>
   </v-container>
 </template>
@@ -110,20 +104,20 @@ const requestParams = ref({
   page: 1,
   rowsPerPage: 10,
 })
-let mapProduct
+const mapProduct = ref([])
 const itemsSelected = ref([])
 const idsSelected = computed(() => itemsSelected.value.map((item) => item.id))
 const isNotEmpty = computed(() => idsSelected.value.length > 0)
 
 onMounted(() => {
   categoryStore.loadCategories()
-  productStore.loadAllProducts(requestParams._rawValue)
+  productStore.loadAllProducts(requestParams.value._rawValue)
 })
 
 watch(
   requestParams,
   (value) => {
-    productStore.loadAllProducts(requestParams._rawValue)
+    productStore.loadAllProducts(requestParams.value._rawValue)
   },
   { deep: true }
 )
@@ -152,7 +146,7 @@ function addItem() {
 }
 
 function viewItem(item) {
-  mapProduct = productStore.getMapProduct(item.id)
+  mapProduct.value = productStore.getMapProduct(item.id)
   dialogDetail.value = true
 }
 
@@ -196,12 +190,12 @@ function closeDelete() {
 }
 
 function save() {
-  if (editedIndex > -1) {
+  if (editedIndex.value > -1) {
     productStore.updateProduct(editedItem)
   } else {
     productStore.createProduct(editedItem)
   }
-  this.close()
+  close()
 }
 </script>
 

@@ -3,7 +3,7 @@
     <draggable :list="list" item-key="id" class="v-row" drag-class="drag" ghost-class="ghost" group="images" @change="onChange">
       <template #item="{ element }">
         <v-col cols="3">
-          <image-remove :url="element.url"></image-remove>
+          <image-remove :url="element.url" />
         </v-col>
       </template>
     </draggable>

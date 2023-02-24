@@ -3,8 +3,53 @@ module.exports = {
   env: {
     node: true,
   },
-  extends: [
-    'plugin:vue/vue3-essential',
-    'eslint:recommended',
-  ],
+  extends: ['eslint:recommended', 'plugin:vue/vue3-recommended', 'plugin:prettier/recommended'],
+  rules: {
+    // "no-console": process.env.NODE_ENV === "prod" ? "error" : "off",
+    // "no-debugger": process.env.NODE_ENV === "prod" ? "error" : "off",
+    'no-console': 'off',
+    'no-debugger': 'off',
+    'no-unused-vars': [
+      0,
+      {
+        ignoreRestSiblings: true,
+      },
+    ],
+    'vue/max-attributes-per-line': 'off',
+    'vue/no-template-shadow': 'off',
+    'vue/no-v-html': 'off',
+    'vue/require-default-prop': 'off',
+    'vue/no-unused-components': 'warn',
+    'vue/no-mutating-props': 'warn',
+    'vue/multi-word-component-names': 'warn',
+    'vue/html-self-closing': 'warn',
+    'prettier/prettier': [
+      'error',
+      {
+        endOfLine: 'auto',
+      },
+    ],
+    'space-before-function-paren': [0, 'always'],
+    'no-unused-expressions': [
+      0,
+      {
+        allowShortCircuit: true,
+        allowTernary: true,
+      },
+    ],
+    'arrow-body-style': [0, 'never'],
+    'func-names': 0,
+    'prefer-const': 0,
+    'no-extend-native': 0,
+    'no-param-reassign': 0,
+    'no-restricted-syntax': 0,
+    'no-eval': 0,
+    'no-continue': 0,
+    'no-underscore-dangle': 0,
+    'global-require': 0,
+    'import/no-extraneous-dependencies': 0,
+    'import/prefer-default-export': 0,
+    'import/no-unresolved': 0,
+    'import/extensions': 0,
+  },
 }

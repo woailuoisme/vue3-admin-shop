@@ -15,7 +15,7 @@ import './js/importTinymce'
 import { init } from './js/config'
 
 export default {
-  name: 'myEditor',
+  name: 'MyEditor',
   components: {
     Editor,
   },

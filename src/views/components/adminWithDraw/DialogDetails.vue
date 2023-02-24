@@ -31,7 +31,7 @@ const props = defineProps({
   withdraw: {
     type: Object,
     required: true,
-    default: {},
+    default: () => {},
   },
 })
 

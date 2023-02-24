@@ -3,11 +3,11 @@
     <v-card>
       <v-card-title>
         <v-dialog v-model="dialog" width="auto" persistent>
-          <template v-slot:activator="{ props }">
+          <template #activator="{ props }">
             <v-btn color="primary" v-bind="props">Open Dialog</v-btn>
           </template>
           <v-card>
-            <my-editor></my-editor>
+            <my-editor />
             <v-card-actions>
               <v-btn variant="flat" color="primary" block @click="dialog = false">Close Dialog</v-btn>
             </v-card-actions>
@@ -17,35 +17,37 @@
       <v-card-text>
         <v-form fast-fail @submit.prevent="submit">
           <v-text-field
+            v-model="name.value.value"
+            class="mb-3"
             variant="outlined"
             clearable
-            v-model="name.value.value"
             :counter="10"
+            single-line
             :error-messages="name.errorMessage.value"
             label="姓名"
-          ></v-text-field>
+          />
           <v-text-field
+            v-model="phone.value.value"
             variant="outlined"
             clearable
-            v-model="phone.value.value"
             :counter="7"
             :error-messages="phone.errorMessage.value"
             label="电话"
-          ></v-text-field>
+          />
           <v-text-field
+            v-model="email.value.value"
             variant="outlined"
             clearable
-            v-model="email.value.value"
             :error-messages="email.errorMessage.value"
             label="E-mail"
-          ></v-text-field>
+          />
           <v-select
-            variant="outlined"
             v-model="select.value.value"
+            variant="outlined"
             :items="items"
             :error-messages="select.errorMessage.value"
             label="Select"
-          ></v-select>
+          />
           <v-select
             label="星期"
             :items="[
@@ -55,7 +57,7 @@
             item-title="day"
             item-value="number"
             variant="outlined"
-          ></v-select>
+          />
           <v-select
             :items="['Alabama', 'Alaska', 'American Samoa', 'Arizona', 'Arkansas', 'California', 'Colorado', 'Connecticut']"
             label="国家"
@@ -63,7 +65,7 @@
             variant="outlined"
             hint="Pick your favorite states"
             persistent-hint
-          ></v-select>
+          />
           <v-checkbox
             v-model="checkbox.value.value"
             :error-messages="checkbox.errorMessage.value"
@@ -72,37 +74,39 @@
             value="1"
             label="Option"
             type="checkbox"
-          ></v-checkbox>
+          />
           <v-radio-group inline>
-            <v-radio label="Radio 1" color="warning" value="1"></v-radio>
-            <v-radio label="Radio 2" color="warning" value="2"></v-radio>
-            <v-radio label="Radio 3" color="warning" value="3"></v-radio>
+            <v-radio label="Radio 1" color="warning" value="1" />
+            <v-radio label="Radio 2" color="warning" value="2" />
+            <v-radio label="Radio 3" color="warning" value="3" />
           </v-radio-group>
 
-          <Dropzone v-model="images"></Dropzone>
-          <v-textarea variant="underlined" clearable clear-icon="mdi-close-circle" label="Text"></v-textarea>
+          <Dropzone v-model="images" />
+          <v-textarea variant="underlined" clearable clear-icon="mdi-close-circle" label="Text" />
           <v-file-input
-            label="File input"
+            v-model="image.value.value"
+            label="文件"
+            :error-messages="image.errorMessage.value"
             show-size
-            accept="image/png, image/jpeg, image/bmp"
             variant="outlined"
+            validate-on="blur"
             prepend-icon="mdi-camera"
-          ></v-file-input>
-          <file-single-image-input></file-single-image-input>
+          />
+          <file-single-image-input />
           <v-row>
             <v-col col="12">
               <div>{{ newDate }}</div>
-              <date-picker v-model="newDate"></date-picker>
+              <date-picker v-model="newDate" />
             </v-col>
           </v-row>
 
-          <my-editor></my-editor>
-          <v-row>
-            <v-col cols="12">
-              <div class="title">产品展示图组</div>
-              <FileMultiImageInput></FileMultiImageInput>
-            </v-col>
-          </v-row>
+          <my-editor />
+          <!--          <v-row>-->
+          <!--            <v-col cols="12">-->
+          <!--              <div class="title">产品展示图组</div>-->
+          <!--              <FileMultiImageInput></FileMultiImageInput>-->
+          <!--            </v-col>-->
+          <!--          </v-row>-->
           <v-switch
             v-model="model"
             :true-value="1"
@@ -111,7 +115,7 @@
             color="info"
             hide-details
             inset
-          ></v-switch>
+          />
           <v-btn variant="flat" color="primary" class="me-4" type="submit">submit</v-btn>
           <v-btn variant="flat" color="info" @click="handleReset">clear</v-btn>
         </v-form>
@@ -124,23 +128,9 @@ import DatePicker from '@/components/shared/DatePicker'
 import MyEditor from '@/components/myEditor'
 import { getCurrentInstance, onMounted, ref, watch } from 'vue'
 import { useField, useForm } from 'vee-validate'
-import { boolean, object, string } from 'yup'
+import yup from '@/utils/validation'
 import FileSingleImageInput from '@/components/shared/FileSingleImageInput'
-import FileMultiImageInput from '@/components/shared/FileMultiImageInput'
 import Dropzone from '@/components/shared/Dropzone'
-
-let userSchema = object({
-  name: string().required('姓名 必填'),
-  phone: string().required('phone 必填'),
-  email: string().required('email 必填'),
-  select: string().required('select 必填'),
-  checkbox: boolean().required('checkbox 必填').oneOf([true, false], 'Message'),
-})
-
-const { handleSubmit, handleReset } = useForm({
-  validationSchema: userSchema,
-})
-
 const newDate = ref(new Date())
 const dialog = ref(false)
 const images = ref([])
@@ -157,11 +147,32 @@ onMounted(() => {
 
 const model = ref(true)
 
+let userSchema = yup.object({
+  name: yup.string().required().label('姓名'),
+  phone: yup.string().required(),
+  email: yup.string().required(),
+  select: yup.string().required(),
+  checkbox: yup.boolean().required().oneOf([true, false]),
+  image: yup.mixed().required().fileSize(2).imageType(),
+})
+
+const { handleSubmit, handleReset } = useForm({
+  validationSchema: userSchema,
+  initialValues: {
+    name: 'hello',
+    phone: '16620702222',
+    email: 'ailuo@126.com ',
+    select: 'Item 2',
+    checkbox: false,
+  },
+})
+
 const name = useField('name')
 const phone = useField('phone')
 const email = useField('email')
 const select = useField('select')
 const checkbox = useField('checkbox')
+const image = useField('image')
 // name.setValue('1')
 
 const items = ref(['Item 1', 'Item 2', 'Item 3', 'Item 4'])

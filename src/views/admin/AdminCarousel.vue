@@ -11,7 +11,7 @@
       <v-col cols="12">
         <v-card>
           <v-toolbar flat>
-            <v-btn variant="flat" color="primary" dark class="mb-2">{{ $t('form.add') }}</v-btn>
+            <v-btn variant="flat" color="primary" dark>{{ $t('form.title.add') }}</v-btn>
             <v-spacer />
           </v-toolbar>
         </v-card>
@@ -21,12 +21,12 @@
       <v-col cols="12">
         <v-card :loading="loading" :disabled="loading">
           <EasyDataTable
+            v-model:server-options="requestParams"
             buttons-pagination
             alternating
             header-text-direction="center"
             body-text-direction="center"
             table-class-name="customize-table"
-            v-model:server-options="requestParams"
             :server-items-length="serverItemsLength"
             :loading="loading"
             :headers="headers"
@@ -38,7 +38,7 @@
             </template>
 
             <template #item-image_url="{ image_url }">
-              <table-image :image="image_url" :max-height="40" max-height="40"></table-image>
+              <table-image :image="image_url" :max-height="40" />
             </template>
 
             <template #item-operation="item">
@@ -49,8 +49,8 @@
         </v-card>
       </v-col>
     </v-row>
-    <v-dialog v-model="dialogDelete" max-width="500px"></v-dialog>
-    <v-dialog v-model="dialogEntity" max-width="500px"></v-dialog>
+    <v-dialog v-model="dialogDelete" max-width="500px" />
+    <v-dialog v-model="dialogEntity" max-width="500px" />
   </v-container>
 </template>
 
@@ -81,13 +81,13 @@ const requestParams = ref({
 })
 
 onMounted(() => {
-  carouselStore.loadAllCarousels(requestParams._rawValue)
+  carouselStore.loadAllCarousels(requestParams.value._rawValue)
 })
 
 watch(
   requestParams,
   (value) => {
-    carouselStore.loadAllCarousels(requestParams._rawValue)
+    carouselStore.loadAllCarousels(requestParams.value._rawValue)
   },
   { deep: true }
 )
@@ -113,7 +113,7 @@ function deleteItem(item) {
 }
 
 function deleteItemConfirm(item) {
-  carouselStore.deleteCarousel(editedItem.id)
+  carouselStore.deleteCarousel(editedItem.value.id)
   dialogDelete.value = false
   nextTick(() => {
     carouselStore.resetEdited()
@@ -128,7 +128,7 @@ function close() {
 }
 
 function closeDelete() {
-  if (editedIndex > -1) {
+  if (editedIndex.value > -1) {
     carouselStore.updateCarousel(editedItem)
   } else {
     carouselStore.createCarousel(editedItem)

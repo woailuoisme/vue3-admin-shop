@@ -1,7 +1,7 @@
 <template>
   <v-card>
     <v-card-title class="text-center headline grey lighten-2" primary-title>反馈详情</v-card-title>
-    <v-divider></v-divider>
+    <v-divider />
     <v-card-text>
       <v-table>
         <thead>
@@ -35,7 +35,7 @@
                   <v-carousel height="400" cycle hide-delimiter-background show-arrows="hover">
                     <v-carousel-item v-for="(item, key) in value.value" :key="key">
                       <v-img :src="item.image_url" :aspect-ratio="6 / 5" @error="item.image_url = img">
-                        <template v-slot:placeholder>
+                        <template #placeholder>
                           <v-row class="fill-height ma-0" align="center" justify="center">
                             <v-progress-circular indeterminate color="grey lighten-5" />
                           </v-row>

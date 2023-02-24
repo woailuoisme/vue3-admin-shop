@@ -1,5 +1,5 @@
 <template>
-  <VueDatePicker :format="dateFormat" v-model="date" locale="zh-CN" @update:model-value="handleDate">
+  <VueDatePicker v-model="date" :format="dateFormat" locale="zh-CN" @update:model-value="handleDate">
     <template #action-row="{ internalModelValue, selectDate }">
       <div class="action-row">
         <p class="current-selection">{{ formatDate(internalModelValue) }}</p>

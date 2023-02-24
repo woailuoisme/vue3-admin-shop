@@ -92,14 +92,14 @@ export default defineStore('about', {
     async updateAbout(payload) {
       const res = await AboutUsService.update(payload)
       const about = res.data.data
-      const index = state.abouts.findIndex((p) => p.id === about.id)
-      Object.assign(state.abouts[index], about)
+      const index = this.abouts.findIndex((p) => p.id === about.id)
+      Object.assign(this.abouts[index], about)
     },
 
     async deleteAbout(aboutId) {
       const res = await AboutUsService.delete(aboutId)
       if (res.data.success) {
-        const index = state.abouts.findIndex((p) => p.id === aboutId)
+        const index = this.abouts.findIndex((p) => p.id === aboutId)
         this.abouts.splice(index, 1)
       } else {
         Toast.error(res.data.message)

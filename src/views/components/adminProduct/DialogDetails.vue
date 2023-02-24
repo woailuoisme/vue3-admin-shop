@@ -2,7 +2,7 @@
   <!--  <v-dialog v-model="dialog" max-width="1300px">-->
   <v-card>
     <v-card-title class="headline grey lighten-2 text-center" primary-title>产品详情</v-card-title>
-    <v-divider></v-divider>
+    <v-divider />
     <v-card-text>
       <v-table>
         <thead>
@@ -38,7 +38,7 @@
               <v-row align="center" justify="center" class="my-4">
                 <v-col cols="3">
                   <v-row align="center" justify="center">
-                    <table-image :src="value.value" :max-width="60" :max-height="60"></table-image>
+                    <table-image :src="value.value" :max-width="60" :max-height="60" />
                   </v-row>
                 </v-col>
               </v-row>
@@ -46,10 +46,10 @@
             <td v-else-if="value.key === 'images'" class="text-center" style="width: 80%">
               <v-carousel class="my-4">
                 <v-carousel-item
-                  cycle
-                  :interval="1000"
                   v-for="(item, key, index) in value.value"
                   :key="index"
+                  cycle
+                  :interval="1000"
                   :src="item.image"
                   reverse-transition="fade-transition"
                   transition="fade-transition"

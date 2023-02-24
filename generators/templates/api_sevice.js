@@ -1,6 +1,6 @@
 const _ = require('lodash')
 const pluralize = require('pluralize')
-const {trim} = require("lodash/string");
+const { trim } = require('lodash/string')
 exports.apiFileContent = (model, withImage = false) => {
   const newModel = trim(model.toLowerCase())
   const capName = _.capitalize(_.camelCase(newModel))
@@ -104,5 +104,5 @@ class ${capName}Service {
 
 export default new ${capName}Service()
   `
-  return withImage ? withImageFile : crudFile;
+  return withImage ? withImageFile : crudFile
 }

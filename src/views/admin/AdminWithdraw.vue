@@ -22,12 +22,12 @@
       <v-col cols="12">
         <v-card :loading="loading" :disabled="loading">
           <EasyDataTable
+            v-model:server-options="requestParams"
             buttons-pagination
             alternating
             header-text-direction="center"
             body-text-direction="center"
             table-class-name="customize-table"
-            v-model:server-options="requestParams"
             :server-items-length="serverItemsLength"
             :loading="loading"
             :headers="headers"
@@ -44,9 +44,9 @@
             </template>
           </EasyDataTable>
         </v-card>
-        <v-dialog v-model="dialogEntity" persistent max-width="600px"></v-dialog>
+        <v-dialog v-model="dialogEntity" persistent max-width="600px" />
         <v-dialog v-model="dialogDetail" max-width="800">
-          <dialog-details :withdraw="mapCategory"></dialog-details>
+          <dialog-details :withdraw="mapCategory" />
         </v-dialog>
       </v-col>
     </v-row>
@@ -86,13 +86,13 @@ let mapCategory
 
 onMounted(() => {
   console.log('onMounted')
-  withdrawStore.loadAllWithdraws(requestParams._rawValue)
+  withdrawStore.loadAllWithdraws(requestParams.value._rawValue)
 })
 
 watch(
   requestParams,
   (value) => {
-    withdrawStore.loadAllWithdraws(requestParams._rawValue)
+    withdrawStore.loadAllWithdraws(requestParams.value._rawValue)
   },
   { deep: true }
 )

@@ -16,18 +16,18 @@ class TopUpAmountService {
 
   store(data) {
     let body = {
-      integral: data.integral,
-      amount: data.amount,
+      integral: data?.integral,
+      amount: data?.amount,
     }
     return request.instance().post(`/top_up_amount`, body)
   }
 
   update(data) {
     let body = {
-      integral: data.integral,
-      amount: data.amount,
+      integral: data?.integral,
+      amount: data?.amount,
     }
-    return request.instance().put(`/top_up_amount/${data.id}`, body)
+    return request.instance().put(`/top_up_amount/${data?.id}`, body)
   }
 
   delete(id) {

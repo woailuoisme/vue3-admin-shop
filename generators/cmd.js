@@ -1,7 +1,7 @@
 const yargs = require('yargs')
-const {createApiFile} = require('./generate')
-const {hideBin} = require('yargs/helpers')
-const {trim} = require('lodash/string')
+const { createApiFile } = require('./generate')
+const { hideBin } = require('yargs/helpers')
+const { trim } = require('lodash/string')
 const serve = yargs(hideBin(process.argv))
   .command(
     'make [type] [modelName]',

@@ -2,6 +2,8 @@ nav:
   about: About
   home: Home
 form:
+  cancel: cancel
+  save: save
   label:
     amount: amount
     password: password
@@ -11,6 +13,9 @@ form:
   title:
     add: add
     edit: edit
+response:
+  success: data send successfully
+  failed: data send failed
 about:
   donations: 'Donations raised: {donations}'
   header: About us
@@ -18,6 +23,14 @@ cms: cms
 locale:
   ru: Russian
   en: English
+table:
+  search:
+    keyword: keyword
+  operation:
+    add: add
+    view: view
+    update: update
+    delete: delete
 home:
   header: Welcome to the Vue 3 I18n tutorial!
   created_by: This tutorial was brought to you by {company}.

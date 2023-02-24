@@ -29,17 +29,11 @@
       <v-col cols="12">
         <v-card :loading="loading" :disabled="loading">
           <EasyDataTable
-            buttons-pagination
-            alternating
-            header-text-direction="center"
-            body-text-direction="center"
-            table-class-name="customize-table"
             v-model:server-options="requestParams"
             :server-items-length="serverItemsLength"
             :loading="loading"
             :headers="headers"
             :items="refunds"
-            :rows-items="[10, 20, 50]"
           >
             <template #item-order_num="item">
               <v-chip color="primary" small tile @click.stop="detail(item)">{{ item.order_num }}</v-chip>
@@ -68,7 +62,7 @@
           </EasyDataTable>
         </v-card>
 
-        <v-dialog v-model="dialogEntity" persistent max-width="600px"></v-dialog>
+        <v-dialog v-model="dialogEntity" persistent max-width="600px" />
       </v-col>
     </v-row>
   </v-container>
@@ -80,7 +74,6 @@ import TextTooltip from '@/components/table/TextTooltip'
 import DialogDetails from '@/views/components/adminWithDraw/DialogDetails'
 import { computed, nextTick, onMounted, ref, watch } from 'vue'
 import { useBreadcrumb, useGlobal, useRefund, useTableHeader } from '@/stores'
-import { useDisplay } from 'vuetify'
 
 const refundStore = useRefund()
 const globalStore = useGlobal()
@@ -97,8 +90,7 @@ const editedItem = computed(() => refundStore.getEditedItem)
 const editedIndex = computed(() => refundStore.getEditedIndex)
 const dialogEntity = ref(false)
 const dialogDetail = ref(false)
-
-let mapRefund
+let mapRefund = []
 
 const requestParams = ref({
   page: 1,
@@ -108,13 +100,13 @@ const requestParams = ref({
 
 onMounted(() => {
   console.log('onMounted')
-  refundStore.loadAllRefunds(requestParams._rawValue)
+  refundStore.loadAllRefunds(requestParams.value._rawValue)
 })
 
 watch(
   requestParams,
   (value) => {
-    refundStore.loadAllRefunds(requestParams._rawValue)
+    refundStore.loadAllRefunds(requestParams.value._rawValue)
   },
   { deep: true }
 )

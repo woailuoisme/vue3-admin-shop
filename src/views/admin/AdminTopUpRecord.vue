@@ -2,32 +2,37 @@
   <v-container fluid>
     <v-row>
       <v-col cols="12">
-        <v-card class="mb-4">
+        <v-card>
           <Breadcrumb :items="breadcrumbs" />
         </v-card>
       </v-col>
     </v-row>
     <v-row>
       <v-col cols="12">
-        <v-card>
-          <v-toolbar flat>
-            <v-toolbar-title>充值记录</v-toolbar-title>
-            <v-spacer />
-            <v-text-field v-model="requestParams.keyword" append-icon="mdi-magnify" placeholder="ID/名字" single-line hide-details solo />
-          </v-toolbar>
-        </v-card>
+        <v-toolbar :elevation="2" flat>
+          <v-toolbar-title>充值记录</v-toolbar-title>
+          <v-spacer />
+          <v-text-field
+            v-model="requestParams.keyword"
+            variant="outlined"
+            append-inner-icon="mdi-magnify"
+            placeholder="ID/名字"
+            single-line
+            hide-details
+          />
+        </v-toolbar>
       </v-col>
     </v-row>
     <v-row>
       <v-col cols="12">
         <v-card :loading="loading" :disabled="loading">
           <EasyDataTable
+            v-model:server-options="requestParams"
             buttons-pagination
             alternating
             header-text-direction="center"
             body-text-direction="center"
             table-class-name="customize-table"
-            v-model:server-options="requestParams"
             :server-items-length="serverItemsLength"
             :loading="loading"
             :headers="headers"
@@ -41,12 +46,12 @@
             </template>
 
             <template #item-operation="item">
-              <v-btn variant="flat" v-if="isShow(item)" color="info" tile small @click.stop="confirmedItem(item)">处理</v-btn>
+              <v-btn v-if="isShow(item)" variant="flat" color="info" tile small @click.stop="confirmedItem(item)">处理</v-btn>
             </template>
           </EasyDataTable>
         </v-card>
-        <v-dialog v-model="dialogEntity" persistent max-width="600px"></v-dialog>
-        <v-dialog v-model="dialogDetail" max-width="800"></v-dialog>
+        <v-dialog v-model="dialogEntity" persistent max-width="600px" />
+        <v-dialog v-model="dialogDetail" max-width="800" />
       </v-col>
     </v-row>
   </v-container>
@@ -81,13 +86,13 @@ const requestParams = ref({
 let mapProduct
 
 onMounted(() => {
-  recordStore.loadAllRecords(requestParams._rawValue)
+  recordStore.loadAllRecords(requestParams.value._rawValue)
 })
 
 watch(
   requestParams,
   (value) => {
-    recordStore.loadAllRecords(requestParams._rawValue)
+    recordStore.loadAllRecords(requestParams.value._rawValue)
   },
   { deep: true }
 )

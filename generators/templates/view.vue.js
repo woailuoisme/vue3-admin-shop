@@ -1,7 +1,5 @@
 const _ = require('lodash')
 const pluralize = require('pluralize')
-const {trim} = require("lodash/string");
+const { trim } = require('lodash/string')
 
-exports.viewFileContent = (model, withImage = false) => {
-
-}
+exports.viewFileContent = (model, withImage = false) => {}

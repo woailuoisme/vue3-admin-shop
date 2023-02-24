@@ -24,7 +24,7 @@
 import { defineProps, defineEmits, ref } from 'vue'
 
 const props = defineProps({
-  modelValue: [],
+  modelValue: Array,
 })
 
 const emit = defineEmits(['update:modelValue'])

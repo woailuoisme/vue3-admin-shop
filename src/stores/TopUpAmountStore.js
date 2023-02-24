@@ -1,11 +1,12 @@
 import TopUpAmountService from '../api/topup.amount.service'
 import Toast from '@/utils/toast'
 import { defineStore } from 'pinia/dist/pinia'
-
+import i18n from '@/plugins/i18n'
+const { t } = i18n.global
 export default defineStore('top-up-amount', {
-  // Default Config State
   state: () => ({
     amounts: [],
+    meta: {},
     amount: {},
     loading: false,
     editedIndex: -1,
@@ -69,6 +70,7 @@ export default defineStore('top-up-amount', {
       console.log(res)
       if (res.data.success) {
         this.amounts = res.data.data
+        Toast.success(t('response.success'))
       }
     },
 
@@ -83,29 +85,29 @@ export default defineStore('top-up-amount', {
       const res = await TopUpAmountService.store(payload)
       const amount = res.data.data
       this.amounts.unshift(amount)
+      Toast.success(t('response.success'))
     },
 
     async updateAmount(payload) {
       const res = await TopUpAmountService.update(payload)
       const amount = res.data.data
-      debugger
       if (res.data.success) {
         const index = this.amounts.findIndex((p) => p.id === payload.id)
         Object.assign(this.amounts[index], amount)
-        Toast.success(res.data.message)
+        Toast.success(t('response.success'))
       } else {
-        Toast.error(res.data.message)
+        Toast.error(t('response.failed'))
       }
     },
 
     async deleteAmount(topUpId) {
       const res = await TopUpAmountService.delete(topUpId)
       if (res.data.success) {
-        const index = this.amount.findIndex((p) => p.id === topUpId)
+        const index = this.amounts.findIndex((p) => p.id === topUpId)
         this.amounts.splice(index, 1)
-        Toast.success(res.data.message)
+        Toast.success(t('response.success'))
       } else {
-        Toast.error(res.data.message)
+        Toast.error(t('response.failed'))
       }
     },
   },

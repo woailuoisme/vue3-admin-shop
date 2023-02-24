@@ -10,7 +10,7 @@
       <v-btn color="primary" tile large to="/login">登录</v-btn>
     </span>
     <v-menu v-else open-on-hover>
-      <template v-slot:activator="{ props }">
+      <template #activator="{ props }">
         <div class="d-flex align-center" v-bind="props">
           <v-avatar color="primary">
             <span class="white--text text-h9">{{ user.name }}</span>
@@ -26,10 +26,10 @@
   </v-app-bar>
   <v-navigation-drawer v-if="isAuthed" v-model="drawer" permanent temporary app>
     <v-list dense>
-      <template v-for="item in menuItems">
-        <v-list-group color="primary" :prepend-icon="item.prependIcon" v-if="item.children" :value="item.text">
-          <template v-slot:activator="{ props }">
-            <v-list-item v-bind="props" :title="item.text"></v-list-item>
+      <template v-for="(item, index) in menuItems" :key="index">
+        <v-list-group v-if="item.children" color="primary" :prepend-icon="item.prependIcon" :value="item.text">
+          <template #activator="{ props }">
+            <v-list-item v-bind="props" :title="item.text" />
           </template>
           <v-list-item
             v-for="(child, i) in item.children"
@@ -38,11 +38,11 @@
             :title="child.text"
             :prepend-icon="child.prependIcon"
             :append-icon="`mdi-chevron-right`"
-            link
             :to="{ name: child.name }"
-          ></v-list-item>
+            link
+          />
         </v-list-group>
-        <v-list-item v-else :prepend-icon="item.prependIcon" :title="item.text" link :to="{ name: item.name }"></v-list-item>
+        <v-list-item v-else :prepend-icon="item.prependIcon" :title="item.text" link :to="{ name: item.name }" />
       </template>
     </v-list>
   </v-navigation-drawer>

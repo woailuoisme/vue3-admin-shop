@@ -11,8 +11,8 @@ import pinia from '../stores'
 import router from '../router'
 
 import VueApexCharts from 'vue3-apexcharts'
-import NProgress from 'nprogress' // 引入nprogress插件
-import 'nprogress/nprogress.css' // 这个nprogress样式必须引入
+import NProgress from 'nprogress'
+import 'nprogress/nprogress.css'
 import 'vue-toastification/dist/index.css'
 
 NProgress.configure({
@@ -32,6 +32,16 @@ import '@vuepic/vue-datepicker/dist/main.css'
 import vueDropzone from 'vue2-dropzone-vue3'
 
 import i18n from './i18n'
+function setup() {
+  Vue3EasyDataTable.props.rowsPerPageMessage.default = '每一页'
+  Vue3EasyDataTable.props.emptyMessage.default = '无数据'
+  Vue3EasyDataTable.props.headerTextDirection.default = 'center'
+  Vue3EasyDataTable.props.bodyTextDirection.default = 'center'
+  Vue3EasyDataTable.props.alternating.default = false
+  Vue3EasyDataTable.props.buttonsPagination.default = true
+  Vue3EasyDataTable.props.tableClassName.default = 'customize-table'
+  Vue3EasyDataTable.props.rowsItems.default = () => [10, 20, 50, 100]
+}
 
 export function registerPlugins(app) {
   // loadFonts()
@@ -40,6 +50,7 @@ export function registerPlugins(app) {
     maxToasts: 20,
     newestOnTop: true,
   })
+  setup()
   app.component('EasyDataTable', Vue3EasyDataTable)
   app.component('VueDatePicker', VueDatePicker)
   app.component('VueDropzone', vueDropzone)

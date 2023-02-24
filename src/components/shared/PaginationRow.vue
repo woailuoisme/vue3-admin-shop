@@ -13,12 +13,12 @@
                   item-value="value"
                   :loading="loading"
                   :disabled="loading"
-                  @change="$emit('perPageChange', modelPerPage)"
                   label="页量"
                   dense
                   single-line
                   solo
                   hide-details
+                  @change="$emit('perPageChange', modelPerPage)"
                 />
               </v-col>
               <v-col cols="10">
@@ -51,8 +51,8 @@
           </v-col>
           <v-col cols="4">
             <v-pagination
-              :disabled="loading"
               v-model="modelPage"
+              :disabled="loading"
               :length="meta.last_page"
               :total-visible="5"
               :value="meta.current_page"
@@ -94,16 +94,6 @@ export default {
       },
     },
   },
-  methods: {
-    perPageChange(value) {
-      console.log(`per_page ${value}`)
-      this.$emit('update:perPage', this.modelPerPage)
-    },
-    pageChange(value) {
-      console.log(`page ${value}`)
-      this.$emit('update:page', this.modelPage)
-    },
-  },
   data() {
     return {
       modelPage: this.page,
@@ -123,6 +113,16 @@ export default {
         },
       ],
     }
+  },
+  methods: {
+    perPageChange(value) {
+      console.log(`per_page ${value}`)
+      this.$emit('update:perPage', this.modelPerPage)
+    },
+    pageChange(value) {
+      console.log(`page ${value}`)
+      this.$emit('update:page', this.modelPage)
+    },
   },
 }
 </script>

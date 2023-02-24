@@ -22,12 +22,12 @@
       <v-col cols="12">
         <v-card :loading="loading" :disabled="loading">
           <EasyDataTable
+            v-model:server-options="requestParams"
             buttons-pagination
             alternating
             header-text-direction="center"
             body-text-direction="center"
             table-class-name="customize-table"
-            v-model:server-options="requestParams"
             :server-items-length="serverItemsLength"
             :loading="loading"
             :headers="headers"
@@ -35,7 +35,7 @@
             :rows-items="[10, 20, 50]"
           >
             <template #item-content="{ content }">
-              <text-tooltip :text="content"></text-tooltip>
+              <text-tooltip :text="content" />
             </template>
 
             <template #item-operation="item">
@@ -44,7 +44,7 @@
           </EasyDataTable>
         </v-card>
         <v-dialog v-model="dialogDetail" max-width="800">
-          <dialog-details :feedback="mapFeedback" @close="dialogDetail = false"></dialog-details>
+          <dialog-details :feedback="mapFeedback" @close="dialogDetail = false" />
         </v-dialog>
       </v-col>
     </v-row>

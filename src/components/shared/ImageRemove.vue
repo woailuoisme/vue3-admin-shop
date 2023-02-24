@@ -2,7 +2,7 @@
   <v-hover v-slot="{ isHovering, props }">
     <v-card v-bind="props" class="mx-auto" color="grey lighten-4" max-width="600">
       <v-row align="center" justify="center">
-        <v-img :src="url" class="d-flex mt-3" :aspect-ratio="6 / 5" @error="errImg" cover @load="load">
+        <v-img :src="url" class="d-flex mt-3" :aspect-ratio="6 / 5" cover @error="errImg" @load="load">
           <template #placeholder>
             <v-row class="fill-height ma-0" align="center" justify="center">
               <v-progress-circular indeterminate color="primary" />

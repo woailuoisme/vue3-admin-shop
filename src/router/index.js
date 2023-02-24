@@ -1,4 +1,3 @@
-// Composables
 import { createRouter, createWebHistory } from 'vue-router'
 
 const routes = [
@@ -37,18 +36,18 @@ const routes = [
   {
     path: '/403',
     name: 'forbidden',
-    component: () => import('../views/errors/Forbidden.vue'),
+    component: () => import('@/views/errors/Forbidden.vue'),
   },
 
   {
     path: '/500',
     name: 'server_error',
-    component: () => import('../views/errors/ServerError.vue'),
+    component: () => import('@/views/errors/ServerError.vue'),
   },
   {
     path: '/user/frontend',
     name: 'user_frontend',
-    component: () => import('../views/admin/AdminUserFront.vue'),
+    component: () => import('@/views/admin/AdminUserFront.vue'),
   },
 
   {

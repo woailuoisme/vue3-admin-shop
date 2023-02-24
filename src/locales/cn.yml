@@ -2,15 +2,20 @@ nav:
   about: About
   home: Home
 form:
+  cancel: 取消
+  save: 保存
   label:
     amount: 金额
     password: 密码
-    integer: 金额
+    integer: 积分
     username: 用户名
   login: 登录
   title:
     add: 新增
     edit: 编辑
+response:
+  success: 数据响应成功
+  failed: 数据响应失败
 about:
   donations: 'Donations raised: {donations}'
   header: About us
@@ -18,6 +23,14 @@ cms: 内容管理
 locale:
   ru: Russian
   en: English
+table:
+  search:
+    keyword: 关键字
+  operation:
+    add: 新增
+    view: 查看
+    update: 修改
+    delete: 删除
 home:
   header: Welcome to the Vue 3 I18n tutorial!
   created_by: This tutorial was brought to you by {company}.

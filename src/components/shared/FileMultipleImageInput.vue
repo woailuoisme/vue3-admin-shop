@@ -2,22 +2,22 @@
   <v-row>
     <v-col cols="8">
       <v-file-input
-        v-model="images"
         ref="refImage"
+        v-model="images"
         :label="imageLabel"
         show-size
         accept="image/png, image/jpeg, image/bmp"
         variant="outlined"
         prepend-icon="mdi-camera"
-        @update:modelValue="change"
-        @click:clear="clear"
         hide-details
         multiple
-      ></v-file-input>
+        @update:modelValue="change"
+        @click:clear="clear"
+      />
     </v-col>
   </v-row>
   <v-row>
-    <v-col col=""></v-col>
+    <v-col col="" />
   </v-row>
 </template>
 <script setup>

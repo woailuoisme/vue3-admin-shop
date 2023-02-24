@@ -47,7 +47,7 @@
               />
             </v-col>
             <v-col cols="3">
-              <v-switch color="primary" v-model="editedItem.is_sale" inset :label="`是否上线？答：${saleLabel(editedItem.is_sale)}`" />
+              <v-switch v-model="editedItem.is_sale" color="primary" inset :label="`是否上线？答：${saleLabel(editedItem.is_sale)}`" />
             </v-col>
 
             <v-col cols="3">
@@ -67,7 +67,7 @@
           <v-row>
             <v-col cols="12">
               <div class="title">产品内容</div>
-              <my-editor v-model="editedItem.content" :rules="[rule.required('产品内容')]" :imgUploadUrl="`http://localhost/`" />
+              <my-editor v-model="editedItem.content" :rules="[rule.required('产品内容')]" :img-upload-url="`http://localhost/`" />
             </v-col>
           </v-row>
           <v-row>

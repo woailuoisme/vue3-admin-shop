@@ -1,6 +1,6 @@
 <template>
   <v-tooltip :text="text" location="top">
-    <template v-slot:activator="{ props }">
+    <template #activator="{ props }">
       <div class="text-ellipsis text-center" v-bind="props">{{ text }}</div>
     </template>
   </v-tooltip>

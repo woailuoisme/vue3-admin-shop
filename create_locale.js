@@ -1,15 +1,15 @@
-const {translate} = require('@vitalets/google-translate-api');
+const { translate } = require('@vitalets/google-translate-api')
 // import { translate } from '@vitalets/google-translate-api';
-const {writeFile} = require('fs-extra');
-const {join} = require('path');
-const prettier = require('prettier');
+const { writeFile } = require('fs-extra')
+const { join } = require('path')
+const prettier = require('prettier')
 
-const dest = join(__dirname, '../src/locales');
+const dest = join(__dirname, '../src/locales')
 
 const run = async () => {
-  const locale = process.argv[2];
+  const locale = process.argv[2]
 
-  console.log(`Create locale file for \`${locale}\`...`);
+  console.log(`Create locale file for \`${locale}\`...`)
 
   await writeFile(
     join(dest, `${locale}.ts`),
@@ -20,32 +20,34 @@ const run = async () => {
       trailingComma: 'es5',
       parser: 'typescript',
     })
-  );
-};
+  )
+}
 
-const translateLocale = async to => {
-  const t = async value => {
-    const values = [];
+const translateLocale = async (to) => {
+  const t = async (value) => {
+    const values = []
 
     value = value.replace(/\${([^}]+)}/g, (_, value) => {
-      const index = values.push(value);
-      return '[__' + index + '__]';
-    });
+      const index = values.push(value)
+      return '[__' + index + '__]'
+    })
 
-    value = await (await translate(value, {
-      to,
-      from: 'en',
-    })).text;
+    value = await (
+      await translate(value, {
+        to,
+        from: 'en',
+      })
+    ).text
 
     value = value.replace(/\[__([^__\]]+)__]/g, (_, index) => {
-      const value = values[index - 1];
-      return '${' + value + '}';
-    });
-    value = value.replace(/'/g, "\\'");
-    value = value.replace(/`/g, '\\`');
+      const value = values[index - 1]
+      return '${' + value + '}'
+    })
+    value = value.replace(/'/g, "\\'")
+    value = value.replace(/`/g, '\\`')
 
-    return value;
-  };
+    return value
+  }
 
   return `
 /*eslint-disable no-template-curly-in-string*/
@@ -58,24 +60,18 @@ export const mixed: LocaleObject['mixed'] = {
   default: '${await t('${path} is invalid.')}',
   required: '${await t('${path} is a required field')}',
   oneOf: '${await t('${path} must be one of the following values: ${values}')}',
-  notOneOf: '${await t(
-    '${path} must not be one of the following values: ${values}'
-  )}',
+  notOneOf: '${await t('${path} must not be one of the following values: ${values}')}',
   notType: ({ path, type, value, originalValue }: FormatErrorParams) => {
     const isCast = originalValue != null && originalValue !== value;
     let msg =
       \`${await t('${path} must be a `${type}` type')}, \` +
       \`${await t('but the final value was: `${printValue(value, true)}`')}\` +
       (isCast
-        ? \` (${await t(
-    'cast from the value `${printValue(originalValue, true)}`'
-  )}).\`
+        ? \` (${await t('cast from the value `${printValue(originalValue, true)}`')}).\`
         : '.');
 
     if (value === null) {
-      msg += \`\\n ${await t(
-    'If "null" is intended as an empty value be sure to mark the schema as'
-  )}\` + ' \`.nullable()\`';
+      msg += \`\\n ${await t('If "null" is intended as an empty value be sure to mark the schema as')}\` + ' \`.nullable()\`';
     }
 
     return msg;
@@ -112,18 +108,14 @@ export const date: LocaleObject["date"] = {
 export const boolean: LocaleObject["boolean"] = {};
 
 export const object: LocaleObject["object"] = {
-  noUnknown: '${await t(
-    '${path} field cannot have keys not specified in the object shape'
-  )}',
+  noUnknown: '${await t('${path} field cannot have keys not specified in the object shape')}',
 };
 
 export const array: LocaleObject["array"] = {
   min: '${await t('${path} field must have at least ${min} items')}',
-  max: '${await t(
-    '${path} field must have less than or equal to ${max} items'
-  )}',
+  max: '${await t('${path} field must have less than or equal to ${max} items')}',
 };
-`;
-};
+`
+}
 
-run();
+run()

@@ -1,7 +1,7 @@
 <template>
   <div class="d-flex justify-center">
-    <v-img :src="modelImage" :aspect-ratio="6 / 5" @error="modelImage = errorImg" :max-width="maxWidth" :max-height="maxHeight">
-      <template v-slot:placeholder>
+    <v-img :src="modelImage" :aspect-ratio="6 / 5" :max-width="maxWidth" :max-height="maxHeight" @error="modelImage = errorImg">
+      <template #placeholder>
         <v-row class="fill-height ma-0" align="center" justify="center">
           <v-progress-circular indeterminate color="grey lighten-5" />
         </v-row>

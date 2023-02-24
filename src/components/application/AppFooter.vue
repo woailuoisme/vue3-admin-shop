@@ -1,6 +1,6 @@
 <template>
   <v-footer class="d-flex flex-row" app border height="20">
-    <v-spacer></v-spacer>
+    <v-spacer />
     <div class="px-4 py-2 bg-gray text-center w-100">{{ timestamp }} — Vuetify</div>
   </v-footer>
 </template>

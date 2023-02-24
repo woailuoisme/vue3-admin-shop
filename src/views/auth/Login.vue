@@ -42,14 +42,14 @@
   </v-container>
 </template>
 <script setup>
-import { useI18n } from 'vue-i18n'
+import i18n from '@/plugins/i18n'
 import { computed, ref } from 'vue'
 import { useField, useForm } from 'vee-validate'
-import { useAuth, useGlobal, useConfig } from '@/stores'
+import { useAuth, useConfig, useGlobal } from '@/stores'
 import yup from '@/utils/validation'
 import router from '@/router'
+const { t } = i18n.global
 
-const { t } = useI18n()
 const globalStore = useGlobal()
 const authStore = useAuth()
 const configStore = useConfig()

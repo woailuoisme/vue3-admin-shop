@@ -1,20 +1,23 @@
 // Plugins
 import vue from '@vitejs/plugin-vue'
-import vuetify, {transformAssetUrls} from 'vite-plugin-vuetify'
-import {dirname, resolve} from 'node:path'
+import vuetify, { transformAssetUrls } from 'vite-plugin-vuetify'
+import { dirname, resolve } from 'node:path'
 
 // Utilities
-import {defineConfig} from 'vite'
-import {fileURLToPath, URL} from 'node:url'
+import { defineConfig } from 'vite'
+import { fileURLToPath, URL } from 'node:url'
 import VueI18nPlugin from '@intlify/unplugin-vue-i18n/vite'
-import {loadEnv} from 'vite'
+import { loadEnv } from 'vite'
 
 // https://vitejs.dev/config/
 export default defineConfig((command, mode) => {
   return {
+    esbuild: {
+      drop: mode !== 'dev' ? ['console', 'debugger'] : [],
+    },
     plugins: [
       vue({
-        template: {transformAssetUrls},
+        template: { transformAssetUrls },
       }),
       VueI18nPlugin({
         runtimeOnly: false,
@@ -32,7 +35,7 @@ export default defineConfig((command, mode) => {
     build: {
       outDir: './dist',
     },
-    define: {'process.env': {}},
+    define: { 'process.env': {} },
     resolve: {
       alias: {
         '@': fileURLToPath(new URL('./src', import.meta.url)),
