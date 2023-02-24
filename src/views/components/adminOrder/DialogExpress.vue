@@ -8,23 +8,18 @@
         <v-container>
           <v-row>
             <v-col cols="12">
-              <v-text-field
-                v-model="editedItem.company"
-                label="物流公司"
-                :rules="[rule.required('物流公司')]"
-                solo
-              />
+              <v-text-field v-model="editedItem.company" label="物流公司" :rules="[rule.required('物流公司')]" solo />
             </v-col>
           </v-row>
           <v-row>
             <v-col cols="12">
-              <v-text-field v-model="editedItem.no" label="物流编号" :rules="[rule.required('物流编号')]" solo/>
+              <v-text-field v-model="editedItem.no" label="物流编号" :rules="[rule.required('物流编号')]" solo />
             </v-col>
           </v-row>
         </v-container>
       </v-card-text>
       <v-card-actions>
-        <v-spacer/>
+        <v-spacer />
         <v-btn color="blue darken-1" text @click="close">关闭</v-btn>
         <v-btn :disabled="!valid" color="primary" @click="save">保存</v-btn>
       </v-card-actions>
@@ -32,8 +27,8 @@
   </v-card>
 </template>
 <script setup>
-import {defineProps, defineEmits, ref, reactive} from 'vue'
-import validators from "@/utils/validators";
+import { defineProps, defineEmits, ref, reactive } from 'vue'
+import validators from '@/utils/validators'
 
 const props = defineProps({
   editedItem: {
@@ -42,12 +37,8 @@ const props = defineProps({
   },
 })
 
-const rule = reactive([
-  ...validators
-])
+const rule = reactive([...validators])
 
 const emit = defineEmits(['update'])
-
 </script>
-<style scoped>
-</style>
+<style scoped></style>

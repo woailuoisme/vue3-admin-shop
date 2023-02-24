@@ -1,5 +1,5 @@
 import IntegralRecordService from '../api/integral.record.service'
-import {defineStore} from "pinia/dist/pinia";
+import { defineStore } from 'pinia/dist/pinia'
 
 export default defineStore('integral-record', {
   // Default Config State
@@ -16,7 +16,7 @@ export default defineStore('integral-record', {
       return state.integralRecords
     },
     getMeta(state) {
-      return {...state.meta}
+      return { ...state.meta }
     },
     isDisplayPagination(state) {
       return !!(state.meta && state.meta.last_page && state.meta.last_page > 1)
@@ -36,6 +36,3 @@ export default defineStore('integral-record', {
     },
   },
 })
-
-
-

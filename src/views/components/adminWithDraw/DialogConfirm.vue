@@ -12,26 +12,26 @@
               inset
               open-name="通过"
               close-name="拒绝"
-              :label="`${ editedItem.confirmed ? '通过':'拒绝'}`"
+              :label="`${editedItem.confirmed ? '通过' : '拒绝'}`"
             />
           </v-col>
         </v-row>
         <v-row>
           <v-col cols="12">
-            <v-textarea v-model="editedItem.remark" label="备注" solo/>
+            <v-textarea v-model="editedItem.remark" label="备注" solo />
           </v-col>
         </v-row>
       </v-container>
     </v-card-text>
     <v-card-actions>
-      <v-spacer/>
+      <v-spacer />
       <v-btn color="blue darken-1" text @click="close">关闭</v-btn>
       <v-btn color="primary" @click="save">保存</v-btn>
     </v-card-actions>
   </v-card>
 </template>
 <script setup>
-import {defineEmits, defineProps, onMounted, reactive, ref, watch} from 'vue'
+import { defineEmits, defineProps, onMounted, reactive, ref, watch } from 'vue'
 
 const valid = ref(false)
 let entity = reactive({
@@ -42,7 +42,7 @@ let entity = reactive({
 const props = defineProps({
   isNew: {
     type: Boolean,
-    required: true
+    required: true,
   },
   item: {
     type: Object,
@@ -50,8 +50,8 @@ const props = defineProps({
     default: {
       confirmed: false,
       remark: '',
-    }
-  }
+    },
+  },
 })
 const editedItem = reactive(props.item)
 
@@ -64,7 +64,5 @@ function save(value) {
 function close() {
   emit('close')
 }
-
 </script>
-<style scoped>
-</style>
+<style scoped></style>

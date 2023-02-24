@@ -1,6 +1,6 @@
 import TopUpAmountService from '../api/topup.amount.service'
 import Toast from '@/utils/toast'
-import {defineStore} from "pinia/dist/pinia";
+import { defineStore } from 'pinia/dist/pinia'
 
 export default defineStore('top-up-amount', {
   // Default Config State
@@ -52,7 +52,6 @@ export default defineStore('top-up-amount', {
   },
   // Actions
   actions: {
-
     setEditedIndex(id) {
       this.editedIndex = this.amounts.findIndex((user) => user.id === id)
     },
@@ -110,7 +109,4 @@ export default defineStore('top-up-amount', {
       }
     },
   },
-
 })
-
-

@@ -12,7 +12,7 @@
 </template>
 
 <script setup>
-import {computed} from "vue";
+import { computed } from 'vue'
 
 // import { mapGetters } from 'vuex'
 //

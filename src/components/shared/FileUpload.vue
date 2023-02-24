@@ -1,7 +1,7 @@
 <template>
   <v-row>
     <v-col cols="7">
-      <v-file-input ref="file" v-model="file" label="分类封面"/>
+      <v-file-input ref="file" v-model="file" label="分类封面" />
     </v-col>
     <v-col cols="2">
       <v-btn :disabled="!existsFile" @click="submitFile">上传文件</v-btn>
@@ -9,7 +9,7 @@
     <v-col v-if="data.uploadedSuccess" cols="3" class="pl-3">
       <v-fab-transition>
         <v-row align="center">
-          <v-img :src="data.image" max-width="50" aspect-ratio="1"/>
+          <v-img :src="data.image" max-width="50" aspect-ratio="1" />
           <v-btn icon x-small tile>
             <v-icon color="error" @click="deleteFile()">mdi-delete-circle-outline</v-icon>
           </v-btn>
@@ -30,7 +30,7 @@
 import axios from 'axios'
 import Toast from '../../utils/toast'
 
-import {computed, defineProps, reactive} from 'vue'
+import { computed, defineProps, reactive } from 'vue'
 
 const props = defineProps({})
 const emit = defineEmits([])
@@ -54,7 +54,7 @@ function reset() {
 
 const instance = axios.create({
   baseURL: 'http://localhost:8000/api/v1/admin',
-  headers: {'Content-Type': 'multipart/form-data'},
+  headers: { 'Content-Type': 'multipart/form-data' },
 })
 
 async function deleteFile() {
@@ -62,7 +62,7 @@ async function deleteFile() {
     data.uploadPercentage = Math.round((progressEvent.loaded / progressEvent.total) * 100)
   }
   try {
-    const res = await axios.delete('/upload/category', {onUploadProgress})
+    const res = await axios.delete('/upload/category', { onUploadProgress })
     if (res.data.success === 'success') {
       Toast.success('图片删除成功')
     }
@@ -80,7 +80,7 @@ async function submitFile() {
   }
   try {
     data.uploading = true
-    const res = await instance.post('/upload/category', formData, {onUploadProgress})
+    const res = await instance.post('/upload/category', formData, { onUploadProgress })
     data.image = res.data.data
     data.uploadedSuccess = true
     data.uploading = false

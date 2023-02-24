@@ -6,7 +6,7 @@ class TopUpAmountService {
       page: data?.page,
       per_page: data?.rowsPerPage,
     }
-    if (data?.keyword) (params.keyword = data.keyword)
+    if (data?.keyword) params.keyword = data.keyword
     return request.instance().get('/top_up_amount', { params })
   }
 

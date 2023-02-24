@@ -8,7 +8,7 @@
         <v-form v-model="valid">
           <v-row>
             <v-col cols="12">
-              <v-text-field v-model="editedItem.order" label="排序"/>
+              <v-text-field v-model="editedItem.order" label="排序" />
             </v-col>
             <v-row>
               <v-col cols="7">
@@ -25,7 +25,7 @@
               <v-col cols="3" class="pl-3">
                 <v-fab-transition>
                   <v-row align="center">
-                    <v-img :src="editedItem.image_url" max-width="100" aspect-ratio="1"/>
+                    <v-img :src="editedItem.image_url" max-width="100" aspect-ratio="1" />
                   </v-row>
                 </v-fab-transition>
               </v-col>
@@ -35,22 +35,21 @@
       </v-container>
     </v-card-text>
     <v-card-actions>
-      <v-spacer/>
+      <v-spacer />
       <v-btn color="blue darken-1" text @click="close">取消</v-btn>
       <v-btn color="blue darken-1" text @click="save">保存</v-btn>
     </v-card-actions>
   </v-card>
 </template>
 <script setup>
-import {defineEmits, defineProps, onMounted, reactive, ref, watch} from 'vue'
+import { defineEmits, defineProps, onMounted, reactive, ref, watch } from 'vue'
 
 const valid = ref(false)
-
 
 const props = defineProps({
   isNew: {
     type: Boolean,
-    required: true
+    required: true,
   },
   item: {
     type: Object,
@@ -58,8 +57,8 @@ const props = defineProps({
     default: {
       order: '',
       image: null,
-    }
-  }
+    },
+  },
 })
 const editedItem = reactive(props.item)
 
@@ -72,7 +71,5 @@ function save(value) {
 function close() {
   emit('close')
 }
-
 </script>
-<style scoped>
-</style>
+<style scoped></style>

@@ -1,9 +1,9 @@
 <template>
   <v-app class="exception">
     <v-container class="fill-height" fluid>
-      <v-layout class=" align-center justify-center ">
+      <v-layout class="align-center justify-center">
         <div class="mr-3 hidden-sm-and-down">
-          <img :src="img"/>
+          <img :src="img" />
         </div>
         <div class="text-md-center">
           <h1>404</h1>
@@ -22,7 +22,7 @@ import router from '@/router'
 import img from '@/assets/image/error/404.svg'
 
 function goHome() {
-  router.push({path: '/'})
+  router.push({ path: '/' })
 }
 </script>
 <style lang="sass" scoped>

@@ -8,22 +8,22 @@
         <v-row>
           <v-col cols="12">
             <div class="title">内容</div>
-            <myEditor v-model="editedItem.content" :imgUploadUrl="TME_IMAGE_UPLOAD"/>
+            <myEditor v-model="editedItem.content" :imgUploadUrl="TME_IMAGE_UPLOAD" />
           </v-col>
         </v-row>
       </v-container>
     </v-card-text>
     <v-card-actions>
-      <v-spacer/>
+      <v-spacer />
       <v-btn color="blue darken-1" text @click="close">关闭</v-btn>
       <v-btn color="primary" @click="save">保存</v-btn>
     </v-card-actions>
   </v-card>
 </template>
 <script setup>
-import myEditor from "@/components/myEditor";
-import {defineEmits, defineProps, onMounted, reactive, ref, watch} from 'vue'
-import {TME_IMAGE_UPLOAD} from '@/utils/urls'
+import myEditor from '@/components/myEditor'
+import { defineEmits, defineProps, onMounted, reactive, ref, watch } from 'vue'
+import { TME_IMAGE_UPLOAD } from '@/utils/urls'
 
 const valid = ref(false)
 
@@ -38,8 +38,8 @@ const props = defineProps({
     default: {
       order: '',
       image: null,
-    }
-  }
+    },
+  },
 })
 const editedItem = reactive(props.item)
 
@@ -53,5 +53,4 @@ function close() {
   emit('close')
 }
 </script>
-<style scoped>
-</style>
+<style scoped></style>

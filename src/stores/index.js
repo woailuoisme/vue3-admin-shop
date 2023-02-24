@@ -1,5 +1,5 @@
 import piniaPluginPersistedstate from 'pinia-plugin-persistedstate'
-import {createPinia} from 'pinia'
+import { createPinia } from 'pinia'
 import useGlobal from './GlobalStore'
 import useConfig from './ConfigStore'
 import useMenu from './MenuStore'
@@ -47,5 +47,5 @@ export {
   useWithdraw,
   useTopUpAmount,
   useTopUpRecord,
-  useIntegralRecord
+  useIntegralRecord,
 }

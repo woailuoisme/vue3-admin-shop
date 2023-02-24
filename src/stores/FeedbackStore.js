@@ -1,5 +1,5 @@
 import FeedbackService from '@/api/feedback.service'
-import {defineStore} from 'pinia'
+import { defineStore } from 'pinia'
 /** Config Store */
 export default defineStore('feedback', {
   // Default Config State
@@ -36,7 +36,7 @@ export default defineStore('feedback', {
       return state.feedback
     },
     getMeta(state) {
-      return {...state.meta}
+      return { ...state.meta }
     },
     isDisplayPagination(state) {
       return !!(state.meta && state.meta.last_page && state.meta.last_page > 1)
@@ -91,7 +91,4 @@ export default defineStore('feedback', {
       }
     },
   },
-
 })
-
-

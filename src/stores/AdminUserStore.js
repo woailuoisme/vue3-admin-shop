@@ -1,6 +1,6 @@
 import UserBackendService from '../api/user.backend.service'
 import Toast from '../utils/toast'
-import {defineStore} from 'pinia'
+import { defineStore } from 'pinia'
 
 /** Config Store */
 export default defineStore('admin-user', {
@@ -58,10 +58,10 @@ export default defineStore('admin-user', {
       return [...state.managers]
     },
     getUser(state) {
-      return {...state.managerInfo}
+      return { ...state.managerInfo }
     },
     getMeta(state) {
-      return {...state.meta}
+      return { ...state.meta }
     },
     isDisplayPagination(state) {
       return !!(state.meta && state.meta.last_page && state.meta.last_page > 1)

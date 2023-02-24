@@ -29,7 +29,6 @@
     "pinia": "^2.0.32",
     "pinia-plugin-persistedstate": "^3.0.2",
     "roboto-fontface": "*",
-    "webfontloader": "^1.0.0",
     "tinymce": "^5.10.7",
     "vee-validate": "^4.7.4",
     "vue": "^3.2.13",
@@ -41,6 +40,7 @@
     "vue3-easy-data-table": "^1.5.31",
     "vuedraggable": "^4.1.0",
     "vuetify": "^3.1.6",
+    "webfontloader": "^1.0.0",
     "yup": "^1.0.0"
   },
   "devDependencies": {
@@ -51,7 +51,8 @@
     "eslint": "^8.22.0",
     "eslint-plugin-vue": "^9.3.0",
     "fs-extra": "^11.1.0",
-    "husky": "^8.0.3",
+    "husky": "^8.0.0",
+    "lint-staged": "^13.1.2",
     "mkdirp": "^0.5.5",
     "pluralize": "^8.0.0",
     "prettier": "^2.8.4",
@@ -71,6 +72,4 @@
       "pre-commit": "lint-staged"
     }
   }
-
-
 }

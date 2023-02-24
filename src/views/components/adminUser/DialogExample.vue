@@ -1,13 +1,9 @@
 <template>
   <div class="text-center">
-    <v-dialog
-      v-model="dialog"
-      width="auto"
-    >
+    <v-dialog v-model="dialog" width="auto">
       <v-card>
         <v-card-text>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
-          magna aliqua.
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
         </v-card-text>
         <v-card-actions>
           <v-btn color="primary" block @click="dialog = false">Close Dialog</v-btn>
@@ -17,13 +13,13 @@
   </div>
 </template>
 <script setup>
-import {defineEmits, defineProps, ref, watch} from 'vue'
+import { defineEmits, defineProps, ref, watch } from 'vue'
 
 const props = defineProps({
   modelValue: {
     type: Boolean,
-    default: false
-  }
+    default: false,
+  },
 })
 
 const emit = defineEmits(['update:modelValue'])
@@ -33,8 +29,8 @@ const dialog = computed({
     return props.modelValue
   },
   set(val) {
-    emit('update:modelValue', val);
-  }
+    emit('update:modelValue', val)
+  },
 })
 
 // watch(dialog, (value, oldValue) => {
@@ -42,5 +38,4 @@ const dialog = computed({
 //   emit('update:modelValue', value)
 // })
 </script>
-<style scoped>
-</style>
+<style scoped></style>

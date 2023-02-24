@@ -1,5 +1,5 @@
 import RefundService from '../api/refund.service'
-import {defineStore} from "pinia/dist/pinia";
+import { defineStore } from 'pinia/dist/pinia'
 
 export default defineStore('refund', {
   // Default Config State
@@ -14,7 +14,6 @@ export default defineStore('refund', {
   }),
   // Getters
   getters: {
-
     total(state) {
       return state.meta.total ?? 0
     },
@@ -40,7 +39,7 @@ export default defineStore('refund', {
       return !!state.refunds.length
     },
     getMeta(state) {
-      return {...state.meta}
+      return { ...state.meta }
     },
     isDisplayPagination(state) {
       return !!(state.meta && state.meta.last_page && state.meta.last_page > 1)
@@ -76,7 +75,4 @@ export default defineStore('refund', {
       }
     },
   },
-
 })
-
-

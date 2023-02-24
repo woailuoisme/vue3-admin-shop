@@ -3,7 +3,7 @@
     <v-row>
       <v-col cols="12">
         <v-card class="mb-4">
-          <Breadcrumb :items="breadcrumbs"/>
+          <Breadcrumb :items="breadcrumbs" />
         </v-card>
       </v-col>
     </v-row>
@@ -12,14 +12,8 @@
         <v-card>
           <v-toolbar flat>
             <v-toolbar-title>订单管理</v-toolbar-title>
-            <v-spacer/>
-            <v-text-field
-              v-model="requestParams.keyword"
-              append-icon="mdi-magnify"
-              placeholder="订单编号/姓名"
-              single-line
-              hide-details
-            />
+            <v-spacer />
+            <v-text-field v-model="requestParams.keyword" append-icon="mdi-magnify" placeholder="订单编号/姓名" single-line hide-details />
           </v-toolbar>
         </v-card>
       </v-col>
@@ -50,23 +44,13 @@
               </v-chip>
             </template>
             <template #item-operation="item">
-              <v-btn
-                v-if="showExpress(item.order_status)"
-                color="info"
-                tile
-                small
-                @click.stop="confirmedItem(item)"
-              >
-                更新物流
-              </v-btn>
+              <v-btn v-if="showExpress(item.order_status)" color="info" tile small @click.stop="confirmedItem(item)">更新物流</v-btn>
             </template>
-
           </EasyDataTable>
         </v-card>
-        <v-dialog v-model="dialogExpress" persistent max-width="600px">
-        </v-dialog>
+        <v-dialog v-model="dialogExpress" persistent max-width="600px"></v-dialog>
         <v-dialog v-model="dialogDetail" max-width="800">
-          <dialog-details :category="mapCategory" @close=" dialogDetail = false"></dialog-details>
+          <dialog-details :category="mapCategory" @close="dialogDetail = false"></dialog-details>
         </v-dialog>
       </v-col>
     </v-row>
@@ -78,9 +62,9 @@ import TableImage from '@/components/table/TableImage'
 import Breadcrumb from '@/components/shared/Breadcrumb'
 import DialogConfirm from '@/views/components/adminProduct/DialogConfirm'
 import DialogDetails from '@/views/components/adminOrder/DialogDetails'
-import {computed, nextTick, onMounted, ref, watch, onBeforeMount} from 'vue'
-import {useBreadcrumb, useGlobal, useOrder, useTableHeader} from '@/stores'
-import {orderStatusLabel} from "@/utils/table"
+import { computed, nextTick, onMounted, ref, watch, onBeforeMount } from 'vue'
+import { useBreadcrumb, useGlobal, useOrder, useTableHeader } from '@/stores'
+import { orderStatusLabel } from '@/utils/table'
 
 const globalStore = useGlobal()
 const breadcrumbStore = useBreadcrumb()
@@ -103,9 +87,9 @@ const dialogDetail = ref(false)
 const requestParams = ref({
   page: 1,
   rowsPerPage: 10,
-  keyword: ''
+  keyword: '',
 })
-let mapCategory;
+let mapCategory
 
 onMounted(() => {
   console.log('onMounted')
@@ -117,7 +101,7 @@ watch(
   (value) => {
     orderStore.loadAllOrders(requestParams._rawValue)
   },
-  {deep: true}
+  { deep: true }
 )
 
 watch(dialogEntity, (val) => {
@@ -127,7 +111,7 @@ watch(dialogEntity, (val) => {
 
 async function copy(mytext) {
   try {
-    await navigator.clipboard.writeText(mytext);
+    await navigator.clipboard.writeText(mytext)
     // alert('Copied');
   } catch ($e) {
     // alert('Cannot copy');
@@ -160,7 +144,6 @@ function showExpress(value) {
   }
 }
 
-
 function close() {
   dialogExpress.value = false
   nextTick(() => {
@@ -179,9 +162,6 @@ function save() {
   // orderStore.updateOrderExpress(this.editedItem)
   this.close()
 }
-
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

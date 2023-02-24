@@ -8,8 +8,12 @@
             <v-card-text>
               <v-row>
                 <v-col cols="12">
-                  <v-text-field v-model="name.value.value" :error-messages="name.errorMessage.value"
-                                :label="$t('form.label.username')" prepend-icon="mdi-account"/>
+                  <v-text-field
+                    v-model="name.value.value"
+                    :error-messages="name.errorMessage.value"
+                    :label="$t('form.label.username')"
+                    prepend-icon="mdi-account"
+                  />
                 </v-col>
               </v-row>
               <v-row>
@@ -27,10 +31,7 @@
               </v-row>
               <v-row>
                 <v-col cols="12">
-                  <v-btn :disabled="!meta.valid" variant="flat" block color="primary" type="submit">{{
-                      $t('form.login')
-                    }}
-                  </v-btn>
+                  <v-btn :disabled="!meta.valid" variant="flat" block color="primary" type="submit">{{ $t('form.login') }}</v-btn>
                 </v-col>
               </v-row>
             </v-card-text>
@@ -41,14 +42,14 @@
   </v-container>
 </template>
 <script setup>
-import {useI18n} from 'vue-i18n'
-import {computed, ref} from 'vue'
-import {useField, useForm} from 'vee-validate'
-import {useAuth, useGlobal, useConfig} from '@/stores'
+import { useI18n } from 'vue-i18n'
+import { computed, ref } from 'vue'
+import { useField, useForm } from 'vee-validate'
+import { useAuth, useGlobal, useConfig } from '@/stores'
 import yup from '@/utils/validation'
 import router from '@/router'
 
-const {t} = useI18n()
+const { t } = useI18n()
 const globalStore = useGlobal()
 const authStore = useAuth()
 const configStore = useConfig()
@@ -57,10 +58,10 @@ const loading = computed(() => globalStore.loading)
 
 let validationSchema = yup.object({
   name: yup.string().required().label(t('form.label.username')),
-  password: yup.string().required().min(6).label(t('form.label.password'))
+  password: yup.string().required().min(6).label(t('form.label.password')),
 })
 
-const {handleSubmit, meta} = useForm({validationSchema, validateOnMount: true})
+const { handleSubmit, meta } = useForm({ validationSchema, validateOnMount: true })
 
 const name = useField('name')
 const password = useField('password')
@@ -69,7 +70,7 @@ const showPassword = ref(false)
 const submit = handleSubmit(async (values) => {
   // alert(JSON.stringify(values, null, 2))
   if (await authStore.login(values)) {
-    await router.push({name: 'dashboard'})
+    await router.push({ name: 'dashboard' })
   }
 })
 </script>

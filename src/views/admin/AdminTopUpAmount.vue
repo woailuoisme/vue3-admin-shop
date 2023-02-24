@@ -3,16 +3,15 @@
     <v-row>
       <v-col cols="12">
         <v-card class="mb-4">
-          <Breadcrumb :items="breadcrumbs"/>
+          <Breadcrumb :items="breadcrumbs" />
         </v-card>
       </v-col>
     </v-row>
     <v-row>
       <v-col cols="12">
         <v-card>
-          <v-btn @click.stop="addItem" prepend-icon="mdi-plus" variant="flat" color="primary" dark class="mb-2">新 增
-          </v-btn>
-          <v-spacer/>
+          <v-btn @click.stop="addItem" prepend-icon="mdi-plus" variant="flat" color="primary" dark class="mb-2">新 增</v-btn>
+          <v-spacer />
         </v-card>
       </v-col>
     </v-row>
@@ -54,8 +53,8 @@
 import Breadcrumb from '@/components/shared/Breadcrumb'
 import DialogConfirm from '@/views/components/common/DialogConfirm'
 import DialogEntityForm from '@/views/components/adminTopUpAmount/DialogEntityForm'
-import {computed, nextTick, onMounted, ref, toRaw, watch} from 'vue'
-import {useBreadcrumb, useGlobal, useTopUpAmount, useTableHeader} from '@/stores'
+import { computed, nextTick, onMounted, ref, toRaw, watch } from 'vue'
+import { useBreadcrumb, useGlobal, useTopUpAmount, useTableHeader } from '@/stores'
 
 const amountStore = useTopUpAmount()
 const globalStore = useGlobal()
@@ -86,7 +85,7 @@ watch(
   (value) => {
     amountStore.loadAllAmount(toRaw(requestParams))
   },
-  {deep: true}
+  { deep: true }
 )
 
 watch(dialogEntity, (val) => {

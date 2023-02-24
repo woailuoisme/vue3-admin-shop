@@ -29,25 +29,24 @@
               />
             </v-col>
           </v-row>
-
         </v-container>
       </v-card-text>
       <v-divider :thickness="2"></v-divider>
       <v-card-actions class="py-4">
-        <v-spacer/>
+        <v-spacer />
         <v-btn variant="flat" color="secondary" size="large" @click="close">取消</v-btn>
-        <v-spacer/>
+        <v-spacer />
         <v-btn variant="flat" :disabled="!meta.valid" color="success" size="large" type="submit">保存</v-btn>
-        <v-spacer/>
+        <v-spacer />
       </v-card-actions>
     </v-card>
   </v-form>
 </template>
 <script setup>
-import {defineEmits, defineProps, reactive} from 'vue'
-import {useField, useForm} from 'vee-validate'
+import { defineEmits, defineProps, reactive } from 'vue'
+import { useField, useForm } from 'vee-validate'
 import * as yup from 'yup'
-import {cnLocale} from '@/utils/yup'
+import { cnLocale } from '@/utils/yup'
 
 yup.setLocale(cnLocale)
 
@@ -74,12 +73,13 @@ const validationSchema = yup.object({
   amount: yup.number().integer().required().min(1).label('金额'),
 })
 
-const {handleSubmit, meta, submitCount} = useForm({
-  validationSchema, initialValues: {
+const { handleSubmit, meta, submitCount } = useForm({
+  validationSchema,
+  initialValues: {
     integral: editedItem?.integral,
     amount: editedItem?.amount,
   },
-  validateOnMount: true
+  validateOnMount: true,
 })
 
 const amount = useField('amount')

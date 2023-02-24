@@ -3,7 +3,7 @@
     <v-row>
       <v-col cols="12">
         <v-card class="mb-4">
-          <Breadcrumb :items="breadcrumbs"/>
+          <Breadcrumb :items="breadcrumbs" />
         </v-card>
       </v-col>
     </v-row>
@@ -12,7 +12,7 @@
         <v-card>
           <v-toolbar flat>
             <v-btn variant="flat" color="primary" dark class="mb-2">{{ $t('form.add') }}</v-btn>
-            <v-spacer/>
+            <v-spacer />
           </v-toolbar>
         </v-card>
       </v-col>
@@ -57,8 +57,8 @@
 <script setup>
 import Breadcrumb from '@/components/shared/Breadcrumb'
 import TableImage from '@/components/table/TableImage'
-import {computed, nextTick, onMounted, ref, watch} from 'vue'
-import {useBreadcrumb, useCarousel, useGlobal, useTableHeader} from '@/stores'
+import { computed, nextTick, onMounted, ref, watch } from 'vue'
+import { useBreadcrumb, useCarousel, useGlobal, useTableHeader } from '@/stores'
 
 const carouselStore = useCarousel()
 const globalStore = useGlobal()
@@ -89,7 +89,7 @@ watch(
   (value) => {
     carouselStore.loadAllCarousels(requestParams._rawValue)
   },
-  {deep: true}
+  { deep: true }
 )
 
 watch(dialogEntity, (val) => {
@@ -146,6 +146,4 @@ function save() {
 }
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

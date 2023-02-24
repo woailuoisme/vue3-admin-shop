@@ -1,7 +1,7 @@
 import axios from 'axios'
 import Toast from '@/utils/toast'
 import router from '@/router'
-import {useGlobal, useAuth} from '@/stores'
+import { useGlobal, useAuth } from '@/stores'
 import NProgress from 'nprogress'
 
 class HttpClient {
@@ -65,7 +65,7 @@ class HttpClient {
               case 401: // authentication error, logout the user
                 Toast.error('认证无效或已过期,请重新登录！')
                 authStore.resetUser()
-                router.replace({name: 'login'})
+                router.replace({ name: 'login' })
                 // router.push({ name: 'dashboard' }
                 console.log('📡 API | Please login again', 'Session Expired')
                 localStorage.removeItem('user')
@@ -74,7 +74,7 @@ class HttpClient {
               case 403:
                 Toast.error('权限拒绝！')
                 // router.replace('/403')
-                router.replace({name: 'forbidden'})
+                router.replace({ name: 'forbidden' })
                 console.error(error.response.status, error.message)
                 console.log('📡 API | Access denied', 'Data Not Found')
                 break
@@ -91,7 +91,7 @@ class HttpClient {
                 break
               case 500:
                 Toast.error('服务端异常')
-                router.replace({name: 'server_error'})
+                router.replace({ name: 'server_error' })
                 break
               default:
                 console.error(error.response.status, error.message)

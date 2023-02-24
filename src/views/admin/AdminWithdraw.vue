@@ -3,7 +3,7 @@
     <v-row>
       <v-col cols="12">
         <v-card class="mb-4">
-          <Breadcrumb :items="breadcrumbs"/>
+          <Breadcrumb :items="breadcrumbs" />
         </v-card>
       </v-col>
     </v-row>
@@ -12,15 +12,8 @@
         <v-card>
           <v-toolbar flat>
             <v-toolbar-title>提现管理</v-toolbar-title>
-            <v-spacer/>
-            <v-text-field
-              v-model="requestParams.keyword"
-              append-icon="mdi-magnify"
-              placeholder="姓名"
-              single-line
-              hide-details
-              solo
-            />
+            <v-spacer />
+            <v-text-field v-model="requestParams.keyword" append-icon="mdi-magnify" placeholder="姓名" single-line hide-details solo />
           </v-toolbar>
         </v-card>
       </v-col>
@@ -42,34 +35,29 @@
             :rows-items="[10, 20, 50]"
           >
             <template #item-operation="item">
-              <v-btn v-if="isShow(item)" color="info" tile small @click.stop="confirmedItem(item)">
-                处理
-              </v-btn>
+              <v-btn v-if="isShow(item)" color="info" tile small @click.stop="confirmedItem(item)">处理</v-btn>
             </template>
-            <template #item-status="{status}">
+            <template #item-status="{ status }">
               <v-chip :color="statusClass(status)" small>
                 {{ statusLabel(status) }}
               </v-chip>
             </template>
           </EasyDataTable>
         </v-card>
-        <v-dialog v-model="dialogEntity" persistent max-width="600px">
-
-        </v-dialog>
+        <v-dialog v-model="dialogEntity" persistent max-width="600px"></v-dialog>
         <v-dialog v-model="dialogDetail" max-width="800">
           <dialog-details :withdraw="mapCategory"></dialog-details>
         </v-dialog>
       </v-col>
     </v-row>
-
   </v-container>
 </template>
 
 <script setup>
 import Breadcrumb from '@/components/shared/Breadcrumb'
 import DialogDetails from '@/views/components/adminWithDraw/DialogDetails'
-import {computed, nextTick, onMounted, ref, watch} from 'vue'
-import {useBreadcrumb, useGlobal, useWithdraw, useTableHeader} from '@/stores'
+import { computed, nextTick, onMounted, ref, watch } from 'vue'
+import { useBreadcrumb, useGlobal, useWithdraw, useTableHeader } from '@/stores'
 
 const withdrawStore = useWithdraw()
 const globalStore = useGlobal()
@@ -89,13 +77,12 @@ const dialogDetail = ref(false)
 
 let mapWithdraw
 
-
 const requestParams = ref({
   page: 1,
   rowsPerPage: 10,
-  keyword: ''
+  keyword: '',
 })
-let mapCategory;
+let mapCategory
 
 onMounted(() => {
   console.log('onMounted')
@@ -107,7 +94,7 @@ watch(
   (value) => {
     withdrawStore.loadAllWithdraws(requestParams._rawValue)
   },
-  {deep: true}
+  { deep: true }
 )
 
 watch(dialogEntity, (val) => {
@@ -167,11 +154,6 @@ function statusClass(value) {
     return 'error'
   }
 }
-
-
-
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

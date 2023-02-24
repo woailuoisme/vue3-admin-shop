@@ -7,8 +7,7 @@
 </template>
 
 <script setup>
-
-import {defineProps} from 'vue'
+import { defineProps } from 'vue'
 
 const props = defineProps({
   items: {
@@ -17,7 +16,6 @@ const props = defineProps({
     default: [],
   },
 })
-
 </script>
 
 <style scoped></style>

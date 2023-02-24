@@ -1,6 +1,6 @@
 // import { format } from 'date-fns'
-import {humanReadableFileSize} from 'vuetify/lib/util/helpers'
-import {isPast, parseISO} from "date-fns";
+import { humanReadableFileSize } from 'vuetify/lib/util/helpers'
+import { isPast, parseISO } from 'date-fns'
 
 export const canUsed = function (data) {
   return typeof data !== 'undefined' && data !== null && !!data
@@ -15,7 +15,9 @@ const formatDate = (dt) => {
     return false
   }
   const padL = (nr, len = 2, chr = `0`) => `${nr}`.padStart(2, chr)
-  return `${dt.getFullYear()}-${padL(dt.getMonth() + 1)}-${padL(dt.getDate())} ${padL(dt.getHours())}:${padL(dt.getMinutes())}:${padL(dt.getSeconds())}`
+  return `${dt.getFullYear()}-${padL(dt.getMonth() + 1)}-${padL(dt.getDate())} ${padL(dt.getHours())}:${padL(dt.getMinutes())}:${padL(
+    dt.getSeconds()
+  )}`
 }
 
 const randomElement = (arr = []) => {
@@ -37,44 +39,44 @@ const bytes = (byte) => {
 export const uuid = () => {
   if (typeof crypto === 'object') {
     if (typeof crypto.randomUUID === 'function') {
-      return crypto.randomUUID();
+      return crypto.randomUUID()
     }
     if (typeof crypto.getRandomValues === 'function' && typeof Uint8Array === 'function') {
       const callback = (c) => {
-        const num = Number(c);
-        return (num ^ (crypto.getRandomValues(new Uint8Array(1))[0] & (15 >> (num / 4)))).toString(16);
-      };
-      return ([1e7] + -1e3 + -4e3 + -8e3 + -1e11).replace(/[018]/g, callback);
+        const num = Number(c)
+        return (num ^ (crypto.getRandomValues(new Uint8Array(1))[0] & (15 >> (num / 4)))).toString(16)
+      }
+      return ([1e7] + -1e3 + -4e3 + -8e3 + -1e11).replace(/[018]/g, callback)
     }
   }
-  let timestamp = new Date().getTime();
-  let perforNow = (typeof performance !== 'undefined' && performance.now && performance.now() * 1000) || 0;
+  let timestamp = new Date().getTime()
+  let perforNow = (typeof performance !== 'undefined' && performance.now && performance.now() * 1000) || 0
   return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, (c) => {
-    let random = Math.random() * 16;
+    let random = Math.random() * 16
     if (timestamp > 0) {
-      random = (timestamp + random) % 16 | 0;
-      timestamp = Math.floor(timestamp / 16);
+      random = (timestamp + random) % 16 | 0
+      timestamp = Math.floor(timestamp / 16)
     } else {
-      random = (perforNow + random) % 16 | 0;
-      perforNow = Math.floor(perforNow / 16);
+      random = (perforNow + random) % 16 | 0
+      perforNow = Math.floor(perforNow / 16)
     }
-    return (c === 'x' ? random : (random & 0x3) | 0x8).toString(16);
-  });
-};
+    return (c === 'x' ? random : (random & 0x3) | 0x8).toString(16)
+  })
+}
 
 /**
  * convert file to a base64 url
  * @param file
  * @returns {Promise<unknown>}
  */
-export const readURL = file => {
+export const readURL = (file) => {
   return new Promise((res, rej) => {
-    const reader = new FileReader();
-    reader.onload = e => res(e.target.result);
-    reader.onerror = e => rej(e);
-    reader.readAsDataURL(file);
-  });
-};
+    const reader = new FileReader()
+    reader.onload = (e) => res(e.target.result)
+    reader.onerror = (e) => rej(e)
+    reader.readAsDataURL(file)
+  })
+}
 
 // Checks if tokenExpiration in localstorage date is past, if so then trigger an update
 export const checkIfTokenNeedsRefresh = () => {
@@ -87,8 +89,8 @@ export const checkIfTokenNeedsRefresh = () => {
 }
 
 export const buildPayloadPagination = (pagination, search) => {
-  const {page, itemsPerPage} = pagination
-  let {sortDesc, sortBy} = pagination
+  const { page, itemsPerPage } = pagination
+  let { sortDesc, sortBy } = pagination
 
   // When sorting you always get both values
   if (sortBy.length === 1 && sortDesc.length === 1) {
@@ -122,5 +124,4 @@ export const buildPayloadPagination = (pagination, search) => {
   return query
 }
 
-
-export default {canUsed, formatDate, randomElement, kebab, bytes, uuid, readURL}
+export default { canUsed, formatDate, randomElement, kebab, bytes, uuid, readURL }

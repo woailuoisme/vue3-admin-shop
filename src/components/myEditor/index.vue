@@ -1,49 +1,49 @@
 <template>
   <div class="my-tinymce">
-    <Editor v-model="contentValue" :init="myInit"/>
+    <Editor v-model="contentValue" :init="myInit" />
   </div>
 </template>
 
 <script>
-import {onMounted, reactive, toRefs, watch} from 'vue'
+import { onMounted, reactive, toRefs, watch } from 'vue'
 import axios from 'axios'
 // 引入tinymce编辑器
 import Editor from '@tinymce/tinymce-vue'
 import tinymce from 'tinymce/tinymce' // tinymce默认hidden，不引入则不显示编辑器
 // 导入配置文件
 import './js/importTinymce'
-import {init} from './js/config'
+import { init } from './js/config'
 
 export default {
   name: 'myEditor',
   components: {
-    Editor
+    Editor,
   },
   props: {
     // 绑定文本值
     modelValue: {
       type: String,
-      default: ''
+      default: '',
     },
     // placeholder
     placeholder: {
       type: String,
-      default: '请输入内容'
+      default: '请输入内容',
     },
     // 默认样式
     style: {
       type: Object,
       default: () => {
-        return {width: '100%', heigth: '400'}
-      }
+        return { width: '100%', heigth: '400' }
+      },
     },
     // 图片上传服务器地址
     imgUploadUrl: {
       type: String,
-      default: ''
-    }
+      default: '',
+    },
   },
-  setup(props, {emit}) {
+  setup(props, { emit }) {
     const state = reactive({
       myInit: customer(init), // 初始化
       contentValue: props.modelValue, // 绑定文本
@@ -55,17 +55,23 @@ export default {
     })
 
     // 侦听文本变化并传给外界
-    watch(() => state.contentValue, (n) => {
-      debounce(() => {
-        emit('update:modelValue', state.contentValue)
-      })
-    })
-    // 侦听默认值 外界第一次传进来一个 v-model 就赋值给 contentValue
-    watch(() => props.modelValue, (n) => {
-      if (n && n !== state.contentValue) {
-        state.contentValue = n
+    watch(
+      () => state.contentValue,
+      (n) => {
+        debounce(() => {
+          emit('update:modelValue', state.contentValue)
+        })
       }
-    })
+    )
+    // 侦听默认值 外界第一次传进来一个 v-model 就赋值给 contentValue
+    watch(
+      () => props.modelValue,
+      (n) => {
+        if (n && n !== state.contentValue) {
+          state.contentValue = n
+        }
+      }
+    )
 
     function debounce(fn, wait = 400) {
       // console.log('进到了防抖', wait)
@@ -104,33 +110,35 @@ export default {
       params.append('file', blobInfo.blob())
       const config = {
         headers: {
-          'Content-Type': 'multipart/form-data'
-        }
+          'Content-Type': 'multipart/form-data',
+        },
       }
       // 图片上传
-      axios.post(props.imgUploadUrl, params, config).then(res => {
-        if (res.data.code == 0) {
-          success(res.data.data.url) // 上传成功，在成功函数里填入图片路径
-          // console.log('[文件上传]', res.data)
-        } else {
-          failure('上传失败')
-        }
-      }).catch(() => {
-        failure('上传出错，服务器开小差了呢')
-      })
+      axios
+        .post(props.imgUploadUrl, params, config)
+        .then((res) => {
+          if (res.data.code == 0) {
+            success(res.data.data.url) // 上传成功，在成功函数里填入图片路径
+            // console.log('[文件上传]', res.data)
+          } else {
+            failure('上传失败')
+          }
+        })
+        .catch(() => {
+          failure('上传出错，服务器开小差了呢')
+        })
     }
 
-    return ({
+    return {
       ...toRefs(state),
       customer,
-      debounce
-    })
-  }
+      debounce,
+    }
+  },
 }
 </script>
 
 <style scoped>
-
 .tox-tinymce-aux {
   z-index: 5000 !important;
 }

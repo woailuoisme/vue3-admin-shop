@@ -107,7 +107,7 @@
       <v-col cols="12" sm="12" md="6" xl="4">
         <v-card>
           <v-card-text>
-            <apexchart type="line" :options="data.options" :series="data.series"/>
+            <apexchart type="line" :options="data.options" :series="data.series" />
           </v-card-text>
         </v-card>
       </v-col>
@@ -115,7 +115,7 @@
       <v-col cols="12" sm="12" md="6" xl="4">
         <v-card>
           <v-card-text>
-            <apexchart type="bar" :options="data.options" :series="data.series"/>
+            <apexchart type="bar" :options="data.options" :series="data.series" />
           </v-card-text>
         </v-card>
       </v-col>
@@ -123,14 +123,14 @@
       <v-col cols="12" sm="12" md="6" xl="4">
         <v-card>
           <v-card-text>
-            <apexchart type="pie" :options="data.donut.options" :series="data.donut.series"/>
+            <apexchart type="pie" :options="data.donut.options" :series="data.donut.series" />
           </v-card-text>
         </v-card>
       </v-col>
       <v-col cols="12" sm="12" md="6" xl="4">
         <v-card>
           <v-card-text>
-            <apexchart type="donut" :options="data.donutOptions" :series="data.donutOptions.series"/>
+            <apexchart type="donut" :options="data.donutOptions" :series="data.donutOptions.series" />
           </v-card-text>
         </v-card>
       </v-col>
@@ -140,7 +140,7 @@
 
 <script setup>
 import Breadcrumb from '@/Components/shared/breadcrumb.vue'
-import {computed, onMounted, reactive} from 'vue'
+import { computed, onMounted, reactive } from 'vue'
 
 import { useBreadcrumb } from '@/stores'
 

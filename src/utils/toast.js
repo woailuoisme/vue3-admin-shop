@@ -1,4 +1,4 @@
-import {useToast} from 'vue-toastification'
+import { useToast } from 'vue-toastification'
 
 const options = {
   position: 'top-right',

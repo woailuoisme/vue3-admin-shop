@@ -3,7 +3,7 @@
     <v-row>
       <v-col cols="12">
         <v-card>
-          <Breadcrumb :items="breadcrumbs"/>
+          <Breadcrumb :items="breadcrumbs" />
         </v-card>
       </v-col>
     </v-row>
@@ -13,7 +13,7 @@
         <v-card>
           <v-card-title flat>
             <v-btn variant="flat" color="primary" @click.stop="addItem">新增</v-btn>
-            <v-spacer/>
+            <v-spacer />
           </v-card-title>
           <EasyDataTable
             buttons-pagination
@@ -43,18 +43,22 @@
             </template>
             <template #item-is_sale="item">
               <div class="d-flex justify-center">
-                <v-switch color="primary" :true-value="1" :false-value="0" v-model="item.is_sale"
-                          :label="`${item.is_sale ? '是' : '否'}`" @change="toggleSale(item)" inset/>
+                <v-switch
+                  color="primary"
+                  :true-value="1"
+                  :false-value="0"
+                  v-model="item.is_sale"
+                  :label="`${item.is_sale ? '是' : '否'}`"
+                  @change="toggleSale(item)"
+                  inset
+                />
               </div>
             </template>
 
             <template #item-operation="item">
-              <v-btn class="ml-1" icon="mdi-eye" color="primary" size="small" tile
-                     @click.stop="viewItem(item)"></v-btn>
-              <v-btn class="ml-1" icon="mdi-pencil" color="warning" size="small" tile
-                     @click.stop="editItem(item)"></v-btn>
-              <v-btn class="ml-1" icon="mdi-delete" color="error" size="small" tile
-                     @click.stop="deleteItem(item)"></v-btn>
+              <v-btn class="ml-1" icon="mdi-eye" color="primary" size="small" tile @click.stop="viewItem(item)"></v-btn>
+              <v-btn class="ml-1" icon="mdi-pencil" color="warning" size="small" tile @click.stop="editItem(item)"></v-btn>
+              <v-btn class="ml-1" icon="mdi-delete" color="error" size="small" tile @click.stop="deleteItem(item)"></v-btn>
             </template>
           </EasyDataTable>
         </v-card>
@@ -64,12 +68,10 @@
       <dialog-confirm @close="closeDelete" @confirm="deleteItemConfirm"></dialog-confirm>
     </v-dialog>
     <v-dialog v-model="dialogEntity" max-width="1300px">
-      <dialog-entity-form @close="dialogEntity = false" @save="save" :item="editedItem"
-
-                          :is-new="isNew"></dialog-entity-form>
+      <dialog-entity-form @close="dialogEntity = false" @save="save" :item="editedItem" :is-new="isNew"></dialog-entity-form>
     </v-dialog>
     <v-dialog v-model="dialogDetail" max-width="1300px">
-      <dialog-details :product="mapProduct" @close=" dialogDetail = false"></dialog-details>
+      <dialog-details :product="mapProduct" @close="dialogDetail = false"></dialog-details>
     </v-dialog>
   </v-container>
 </template>
@@ -80,8 +82,8 @@ import Breadcrumb from '@/components/shared/Breadcrumb'
 import DialogConfirm from '@/views/components/adminProduct/DialogConfirm'
 import DialogEntityForm from '@/views/components/adminProduct/DialogEntityForm'
 import DialogDetails from '@/views/components/adminProduct/DialogDetails'
-import {computed, nextTick, onMounted, ref, watch} from 'vue'
-import {useBreadcrumb, useGlobal, useProduct, useProductCategory, useTableHeader} from '@/stores'
+import { computed, nextTick, onMounted, ref, watch } from 'vue'
+import { useBreadcrumb, useGlobal, useProduct, useProductCategory, useTableHeader } from '@/stores'
 
 const productStore = useProduct()
 const globalStore = useGlobal()
@@ -108,9 +110,9 @@ const requestParams = ref({
   page: 1,
   rowsPerPage: 10,
 })
-let mapProduct;
+let mapProduct
 const itemsSelected = ref([])
-const idsSelected = computed(() => itemsSelected.value.map(item => item.id))
+const idsSelected = computed(() => itemsSelected.value.map((item) => item.id))
 const isNotEmpty = computed(() => idsSelected.value.length > 0)
 
 onMounted(() => {
@@ -123,7 +125,7 @@ watch(
   (value) => {
     productStore.loadAllProducts(requestParams._rawValue)
   },
-  {deep: true}
+  { deep: true }
 )
 
 watch(dialogEntity, (val) => {
@@ -203,6 +205,4 @@ function save() {
 }
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

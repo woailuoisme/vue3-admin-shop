@@ -17,7 +17,7 @@
           <v-icon x-large>mdi-image-plus-outline</v-icon>
           添加文件
         </label>
-        <input ref="inputFile" multiple type="file" id="dropzoneFile" class="dropzoneFile"/>
+        <input ref="inputFile" multiple type="file" id="dropzoneFile" class="dropzoneFile" />
       </div>
     </v-col>
     <v-divider></v-divider>
@@ -37,30 +37,30 @@
 </template>
 
 <script setup>
-import {computed, defineEmits, defineProps, ref, watch} from 'vue'
+import { computed, defineEmits, defineProps, ref, watch } from 'vue'
 import ImageRemove from '@/components/shared/ImageRemove'
-import {uuid} from '@/utils/util'
+import { uuid } from '@/utils/util'
 
 const props = defineProps({
   modelValue: {
     type: Array,
     default: () => [],
   },
-  label: String
+  label: String,
 })
 
 const emit = defineEmits(['update:modelValue'])
 const active = ref(false)
 const files = ref([])
 
-const readURL = file => {
+const readURL = (file) => {
   return new Promise((res, rej) => {
-    const reader = new FileReader();
-    reader.onload = e => res(e.target.result);
-    reader.onerror = e => rej(e);
-    reader.readAsDataURL(file);
-  });
-};
+    const reader = new FileReader()
+    reader.onload = (e) => res(e.target.result)
+    reader.onerror = (e) => rej(e)
+    reader.readAsDataURL(file)
+  })
+}
 // const urls = ref([])
 
 // const urls = computed(()=>files.value.map((f)=>{
@@ -75,7 +75,6 @@ const readURL = file => {
 //   })
 // )
 
-
 // const mapFlies = computed(() => files.value.map((f) => {
 
 const inputFile = ref(null)
@@ -83,18 +82,24 @@ const inputFile = ref(null)
 const drop = (e) => {
   active.value = !active.value
   files.value = Object.values(e.dataTransfer.files)
-    .map((f) => ({id: uuid(), file: f, url: URL.createObjectURL(f)}))
+    .map((f) => ({ id: uuid(), file: f, url: URL.createObjectURL(f) }))
     .concat(files.value)
-  emit('update:modelValue', files.value.map((f) => f?.file))
+  emit(
+    'update:modelValue',
+    files.value.map((f) => f?.file)
+  )
   console.log(files.value.length)
 }
 
 const selectedFile = () => {
   active.value = !active.value
   files.value = Object.values(inputFile.value.files)
-    .map((f) => ({id: uuid(), file: f, url: URL.createObjectURL(f)}))
+    .map((f) => ({ id: uuid(), file: f, url: URL.createObjectURL(f) }))
     .concat(files.value)
-  emit('update:modelValue', files.value.map((f) => f?.file))
+  emit(
+    'update:modelValue',
+    files.value.map((f) => f?.file)
+  )
   console.log(files.value.length)
 }
 
@@ -104,7 +109,10 @@ const removeImage = (index) => {
   const fIndex = files.value.findIndex((f) => f['id'] === index)
   // files.value.splice(index, 1)
   files.value.splice(fIndex, 1)
-  emit('update:modelValue', files.value.map((f) => f?.file))
+  emit(
+    'update:modelValue',
+    files.value.map((f) => f?.file)
+  )
   console.log('after remove files', files.value)
 }
 

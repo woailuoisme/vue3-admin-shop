@@ -1,5 +1,5 @@
 import WithdrawService from '../api/withdraw.service'
-import {defineStore} from 'pinia'
+import { defineStore } from 'pinia'
 
 /** Config Store */
 export default defineStore('withdraw', {
@@ -47,7 +47,7 @@ export default defineStore('withdraw', {
       return !!state.withdraw.length
     },
     getMeta(state) {
-      return {...state.meta}
+      return { ...state.meta }
     },
     isDisplayPagination(state) {
       return !!(state.meta && state.meta.last_page && state.meta.last_page > 1)
@@ -58,7 +58,6 @@ export default defineStore('withdraw', {
   },
   // Actions
   actions: {
-
     setEditedIndex(id) {
       this.editedIndex = this.managers.findIndex((user) => user.id === id)
     },
@@ -87,5 +86,3 @@ export default defineStore('withdraw', {
     },
   },
 })
-
-

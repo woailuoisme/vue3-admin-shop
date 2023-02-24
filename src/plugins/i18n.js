@@ -1,4 +1,4 @@
-import {createI18n} from 'vue-i18n'
+import { createI18n } from 'vue-i18n'
 import en from '../locales/en.yml'
 import cn from '../locales/cn.yml'
 
@@ -7,6 +7,6 @@ export default createI18n({
   fallbackLocale: import.meta.env.VITE_FALLBACK_LOCALE, // <--- 2
   legacy: false, // <--- 3
   globalInjection: true,
-  messages: {cn, en},
+  messages: { cn, en },
   runtimeOnly: false,
 })

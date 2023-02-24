@@ -5,7 +5,7 @@
  */
 
 // Plugins
-import {loadFonts} from './webfontloader'
+import { loadFonts } from './webfontloader'
 import vuetify from './vuetify'
 import pinia from '../stores'
 import router from '../router'
@@ -20,36 +20,27 @@ NProgress.configure({
   // ease:'ease',speed:500,minimum:0.3
 })
 
-import Toast from "vue-toastification";
+import Toast from 'vue-toastification'
 // Import the CSS or use your own!
-import "vue-toastification/dist/index.css";
+import 'vue-toastification/dist/index.css'
 
+import Vue3EasyDataTable from 'vue3-easy-data-table'
+import 'vue3-easy-data-table/dist/style.css'
 
-import Vue3EasyDataTable from 'vue3-easy-data-table';
-import 'vue3-easy-data-table/dist/style.css';
-
-import VueDatePicker from '@vuepic/vue-datepicker';
+import VueDatePicker from '@vuepic/vue-datepicker'
 import '@vuepic/vue-datepicker/dist/main.css'
 import vueDropzone from 'vue2-dropzone-vue3'
-
 
 import i18n from './i18n'
 
 export function registerPlugins(app) {
   // loadFonts()
-  app
-    .use(vuetify)
-    .use(router)
-    .use(pinia)
-    .use(i18n)
-    .use(NProgress)
-    .use(VueApexCharts)
-    .use(Toast, {
-      transition: "Vue-Toastification__fade",
-      maxToasts: 20,
-      newestOnTop: true
-    })
-  app.component('EasyDataTable', Vue3EasyDataTable);
-  app.component('VueDatePicker', VueDatePicker);
-  app.component('VueDropzone', vueDropzone);
+  app.use(vuetify).use(router).use(pinia).use(i18n).use(NProgress).use(VueApexCharts).use(Toast, {
+    transition: 'Vue-Toastification__fade',
+    maxToasts: 20,
+    newestOnTop: true,
+  })
+  app.component('EasyDataTable', Vue3EasyDataTable)
+  app.component('VueDatePicker', VueDatePicker)
+  app.component('VueDropzone', vueDropzone)
 }

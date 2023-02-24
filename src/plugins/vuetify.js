@@ -10,7 +10,7 @@ import 'vuetify/styles'
 import { aliases, mdi } from 'vuetify/iconsets/mdi'
 
 // Composables
-import { createVuetify} from 'vuetify'
+import { createVuetify } from 'vuetify'
 
 const myCustomLightTheme = {
   dark: false,
@@ -25,7 +25,7 @@ const myCustomLightTheme = {
     info: '#2196F3',
     success: '#4CAF50',
     warning: '#FB8C00',
-  }
+  },
 }
 
 // https://vuetifyjs.com/en/introduction/why-vuetify/#feature-guides
@@ -35,7 +35,7 @@ export default createVuetify({
     aliases,
     sets: {
       mdi,
-    }
+    },
   },
   theme: {
     defaultTheme: 'light',

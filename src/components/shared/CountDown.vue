@@ -9,7 +9,7 @@
 </template>
 
 <script setup>
-import {defineProps, onMounted, onUnmounted, reactive} from 'vue'
+import { defineProps, onMounted, onUnmounted, reactive } from 'vue'
 
 const props = defineProps({
   endDate: {
@@ -50,5 +50,4 @@ onMounted(() => {
 onUnmounted(() => {
   clearInterval(timer)
 })
-
 </script>

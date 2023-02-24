@@ -1,7 +1,7 @@
 import CarouselService from '../api/carousel.service'
 import Toast from '../utils/toast'
 
-import {defineStore} from 'pinia'
+import { defineStore } from 'pinia'
 
 export default defineStore('carousel', {
   state: () => ({
@@ -48,13 +48,13 @@ export default defineStore('carousel', {
       return [...state.carousels]
     },
     getCarousel(state) {
-      return {...state.carouselInfo}
+      return { ...state.carouselInfo }
     },
     findByOrderId: (state) => (id) => {
       return state.carousels.find((carousel) => carousel.id === id)
     },
     getMeta(state) {
-      return {...state.meta}
+      return { ...state.meta }
     },
     isDisplayPagination(state) {
       return !!(state.meta && state.meta.last_page && state.meta.last_page > 1)
@@ -116,6 +116,3 @@ export default defineStore('carousel', {
     },
   },
 })
-
-
-

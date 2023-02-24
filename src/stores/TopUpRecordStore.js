@@ -1,5 +1,5 @@
 import TopUpRecordService from '../api/topup.record'
-import {defineStore} from "pinia/dist/pinia";
+import { defineStore } from 'pinia/dist/pinia'
 
 export default defineStore('top-up-record', {
   // Default Config State
@@ -36,7 +36,7 @@ export default defineStore('top-up-record', {
       return state.records
     },
     getMeta(state) {
-      return {...state.meta}
+      return { ...state.meta }
     },
     isDisplayPagination(state) {
       return !!(state.meta && state.meta.last_page && state.meta.last_page > 1)
@@ -58,9 +58,8 @@ export default defineStore('top-up-record', {
         }
       })
       return mapProductList
-    }
-  }
-  ,
+    },
+  },
   // Actions
   actions: {
     async loadAllRecords(payload) {

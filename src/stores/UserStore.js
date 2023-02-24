@@ -1,8 +1,8 @@
 import UserService from '../api/user.service'
 import Toast from '../utils/toast'
 
-import {defineStore} from 'pinia'
-import dayjs from "dayjs";
+import { defineStore } from 'pinia'
+import dayjs from 'dayjs'
 
 /** Config Store */
 export default defineStore('user', {
@@ -42,7 +42,6 @@ export default defineStore('user', {
   }),
   // Getters
   getters: {
-
     total(state) {
       return state.meta.total ?? 0
     },
@@ -69,13 +68,13 @@ export default defineStore('user', {
       return [...state.users]
     },
     getUser(state) {
-      return {...state.userInfo}
+      return { ...state.userInfo }
     },
     findByOrderId: (state) => (id) => {
       return state.users.find((user) => user.id === id)
     },
     getMeta(state) {
-      return {...state.meta}
+      return { ...state.meta }
     },
     isDisplayPagination(state) {
       return !!(state.meta && state.meta.last_page && state.meta.last_page > 1)
@@ -123,7 +122,7 @@ export default defineStore('user', {
     async downloadExcel() {
       try {
         const res = await UserService.downloadExcel()
-        let blob = new Blob([res.data], {type: 'application/xlsx'})
+        let blob = new Blob([res.data], { type: 'application/xlsx' })
         let link = document.createElement('a')
         link.href = window.URL.createObjectURL(blob)
         let now = dayjs().format('YYYY_MM_DD_HH_mm_ss')
@@ -145,7 +144,4 @@ export default defineStore('user', {
     //   }
     // },
   },
-
 })
-
-

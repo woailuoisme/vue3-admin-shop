@@ -1,5 +1,5 @@
 // Composables
-import {createRouter, createWebHistory} from 'vue-router'
+import { createRouter, createWebHistory } from 'vue-router'
 
 const routes = [
   {
@@ -8,7 +8,7 @@ const routes = [
     component: () => import('@/views/admin/AdminDashboard.vue'),
   },
   {
-    path: "/:catchAll(.*)",
+    path: '/:catchAll(.*)',
     redirect: '/404',
   },
   {
@@ -174,6 +174,5 @@ const router = createRouter({
 //     next()
 //   }
 // })
-
 
 export default router

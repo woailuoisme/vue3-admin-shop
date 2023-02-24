@@ -1,33 +1,26 @@
 <template>
-  <div
-    @click="scrollToTop()"
-    :class="['back-to-top-btn', {'go-top': isTop}]"
-  >
+  <div @click="scrollToTop()" :class="['back-to-top-btn', { 'go-top': isTop }]">
     <!--    <i class='ri-arrow-up-s-line'></i>-->
-    <v-icon
-      end
-      icon="mdi-arrow-up"
-    ></v-icon>
+    <v-icon end icon="mdi-arrow-up"></v-icon>
   </div>
 </template>
 
 <script setup>
-import {onMounted, ref} from 'vue'
+import { onMounted, ref } from 'vue'
 
 const isTop = ref(false)
 
 function scrollToTop() {
   window.scrollTo({
     top: 0,
-    behavior: "smooth"
-  });
-
+    behavior: 'smooth',
+  })
 }
 
 onMounted(() => {
   window.addEventListener('scroll', () => {
     let scrollPos = window.scrollY
-    isTop.value = scrollPos >= 50;
+    isTop.value = scrollPos >= 50
   })
 })
 </script>
@@ -39,7 +32,7 @@ onMounted(() => {
   bottom: -100px;
   right: 20px;
   color: #ffffff;
-  background-color: #1867C0;
+  background-color: #1867c0;
   z-index: 4;
   width: 45px;
   text-align: center;
@@ -48,7 +41,7 @@ onMounted(() => {
   visibility: hidden;
   border-radius: 50%;
   font-size: 22px;
-  transition: .6s;
+  transition: 0.6s;
   overflow: hidden;
   box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.1);
 
@@ -71,10 +64,10 @@ onMounted(() => {
   }
 
   &:hover {
-    background-color: #1867C0;
+    background-color: #1867c0;
     color: #ffffff;
-    transition: .6s;
-    box-shadow: 0 4px 6px rgba(50, 50, 93, .11), 0 1px 3px rgba(0, 0, 0, .08);
+    transition: 0.6s;
+    box-shadow: 0 4px 6px rgba(50, 50, 93, 0.11), 0 1px 3px rgba(0, 0, 0, 0.08);
     transform: translateY(-5px);
   }
 }

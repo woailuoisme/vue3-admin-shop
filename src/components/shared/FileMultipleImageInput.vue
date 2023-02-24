@@ -17,13 +17,11 @@
     </v-col>
   </v-row>
   <v-row>
-    <v-col col="">
-
-    </v-col>
+    <v-col col=""></v-col>
   </v-row>
 </template>
 <script setup>
-import {defineEmits, defineProps, getCurrentInstance, onMounted, ref} from 'vue'
+import { defineEmits, defineProps, getCurrentInstance, onMounted, ref } from 'vue'
 
 const instance = getCurrentInstance()
 const emit = defineEmits(['update:modelValue'])
@@ -37,7 +35,7 @@ const props = defineProps({
   isNew: {
     type: Boolean,
     required: false,
-    default: false
+    default: false,
   },
   label: {
     type: String,
@@ -54,24 +52,23 @@ const props = defineProps({
     required: false,
     default: () => {
       return [
-        value => {
+        (value) => {
           return !value || !value.length || value[0].size < 2000000 || ` 文件大小应小与 2 MB!`
         },
-        value => {
-          return !value || !value.length || value[0].type.indexOf(['image/jpeg', 'image/jpg', 'image/png']) !== -1 || '文件类型需是jpeg,jpg,png'
+        (value) => {
+          return (
+            !value || !value.length || value[0].type.indexOf(['image/jpeg', 'image/jpg', 'image/png']) !== -1 || '文件类型需是jpeg,jpg,png'
+          )
         },
       ]
-    }
-  }
-
+    },
+  },
 })
 const images = ref(props.modelValue)
 const imageUrls = ref(props.urls)
 const imageLabel = ref(props.label)
 
-onMounted(() => {
-
-})
+onMounted(() => {})
 const change = (value) => {
   if (typeof value[0] !== 'undefined') {
     imageUrl.value = URL.createObjectURL(value[0])

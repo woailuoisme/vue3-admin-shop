@@ -1,14 +1,12 @@
 <template>
-  <v-footer class="d-flex flex-row " app border height="20">
+  <v-footer class="d-flex flex-row" app border height="20">
     <v-spacer></v-spacer>
-    <div class="px-4 py-2 bg-gray text-center w-100">
-      {{ timestamp }} — Vuetify
-    </div>
+    <div class="px-4 py-2 bg-gray text-center w-100">{{ timestamp }} — Vuetify</div>
   </v-footer>
 </template>
 
 <script setup>
-import {onMounted, ref} from 'vue'
+import { onMounted, ref } from 'vue'
 
 const dateFormat = (dt) => {
   const padL = (nr, len = 2, chr = `0`) => `${nr}`.padStart(2, chr)

@@ -1,7 +1,7 @@
-import {defineStore} from 'pinia'
-import router from "@/router";
+import { defineStore } from 'pinia'
+import router from '@/router'
 
-let path = router.currentRoute.value.path;
+let path = router.currentRoute.value.path
 
 export default defineStore('config', {
   // Default Config State
@@ -10,7 +10,7 @@ export default defineStore('config', {
     locale: (window.navigator.languages && window.navigator.languages[0]) || window.navigator.language,
     appName: import.meta.env.VITE_APP_NAME,
     // isShowHeader: path !== '/login' || path !== '/' || path !== '/404' || path !== '/403' || path !== '/500'
-    isShowHeader: path !== '/login' || path !== '/'
+    isShowHeader: path !== '/login' || path !== '/',
   }),
   // Getters
   getters: {

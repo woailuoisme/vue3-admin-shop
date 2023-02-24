@@ -4,16 +4,16 @@
     <v-card-text class="text-h5 text-center pt-6"><span>是否确认删除?</span></v-card-text>
     <v-divider :thickness="2"></v-divider>
     <v-card-actions>
-      <v-spacer/>
+      <v-spacer />
       <v-btn variant="flat" color="blue lighten-2 " @click="close">取消</v-btn>
-      <v-spacer/>
+      <v-spacer />
       <v-btn variant="flat" color="error darken-1" @click="confirm">确认</v-btn>
-      <v-spacer/>
+      <v-spacer />
     </v-card-actions>
   </v-card>
 </template>
 <script setup>
-import {defineEmits, defineProps, ref} from 'vue'
+import { defineEmits, defineProps, ref } from 'vue'
 
 const props = defineProps({
   // isShow: {
@@ -26,7 +26,6 @@ const emit = defineEmits(['close', 'confirm'])
 
 // const dialog = ref(props?.isShow)
 
-
 function close() {
   emit('close')
 }
@@ -34,8 +33,5 @@ function close() {
 function confirm() {
   emit('confirm')
 }
-
-
 </script>
-<style scoped>
-</style>
+<style scoped></style>

@@ -1,7 +1,7 @@
 import AboutUsService from '../api/about.service'
 import Toast from '../utils/toast'
 
-import {defineStore} from 'pinia'
+import { defineStore } from 'pinia'
 
 /** Config Store */
 export default defineStore('about', {
@@ -49,15 +49,14 @@ export default defineStore('about', {
       return state.abouts
     },
     getAbout(state) {
-      return {...state.aboutInfo}
+      return { ...state.aboutInfo }
     },
     getMeta(state) {
-      return {...state.meta}
+      return { ...state.meta }
     },
   },
   // Actions
   actions: {
-
     setEditedIndex(id) {
       this.editedIndex = this.managers.findIndex((user) => user.id === id)
     },
@@ -107,8 +106,4 @@ export default defineStore('about', {
       }
     },
   },
-
 })
-
-
-

@@ -3,7 +3,7 @@
     <v-row>
       <v-col cols="12">
         <v-card class="mb-4">
-          <Breadcrumb :items="breadcrumbs"/>
+          <Breadcrumb :items="breadcrumbs" />
         </v-card>
       </v-col>
     </v-row>
@@ -12,7 +12,7 @@
         <v-card>
           <v-toolbar flat>
             <v-toolbar-title>前台用户管理</v-toolbar-title>
-            <v-spacer/>
+            <v-spacer />
             <v-btn :loading="loading" :disabled="loading" color="info" @click="downloadFile">
               Download Excel
               <template #loader>
@@ -52,18 +52,17 @@
                 <v-switch
                   v-model="item.is_active_lottery"
                   inset
-                  color="primary" :true-value="1" :false-value="0"
-                  :label="`${item.is_active_lottery?'是':'否'}`"
+                  color="primary"
+                  :true-value="1"
+                  :false-value="0"
+                  :label="`${item.is_active_lottery ? '是' : '否'}`"
                   @change="toggleActiveLottery(item)"
                 />
               </div>
             </template>
           </EasyDataTable>
-
         </v-card>
-        <v-dialog v-model="dialogDetail" max-width="800">
-
-        </v-dialog>
+        <v-dialog v-model="dialogDetail" max-width="800"></v-dialog>
       </v-col>
     </v-row>
   </v-container>
@@ -72,8 +71,8 @@
 <script setup>
 import TableImage from '@/components/table/TableImage'
 import Breadcrumb from '@/components/shared/Breadcrumb'
-import {computed, nextTick, onMounted, ref, watch} from 'vue'
-import {useBreadcrumb, useGlobal, useUser, useProductCategory, useTableHeader} from '@/stores'
+import { computed, nextTick, onMounted, ref, watch } from 'vue'
+import { useBreadcrumb, useGlobal, useUser, useProductCategory, useTableHeader } from '@/stores'
 
 const userStore = useUser()
 const globalStore = useGlobal()
@@ -95,14 +94,14 @@ const requestParams = ref({
   page: 1,
   rowsPerPage: 20,
 })
-let mapProduct;
+let mapProduct
 
 watch(
   requestParams,
   (value) => {
     userStore.loadAllUsers(requestParams._rawValue)
   },
-  {deep: true}
+  { deep: true }
 )
 
 onMounted(() => {
@@ -120,10 +119,6 @@ function detail(item) {
 function toggleActiveLottery(item) {
   userStore.toggleLottery(item)
 }
-
-
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

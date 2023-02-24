@@ -3,7 +3,7 @@
     <v-row>
       <v-col cols="12">
         <v-card class="mb-4">
-          <Breadcrumb :items="breadcrumbs"/>
+          <Breadcrumb :items="breadcrumbs" />
         </v-card>
       </v-col>
     </v-row>
@@ -12,7 +12,7 @@
         <v-card>
           <v-toolbar flat>
             <v-toolbar-title>退款管理</v-toolbar-title>
-            <v-spacer/>
+            <v-spacer />
             <v-text-field
               v-model="requestParams.keyword"
               append-icon="mdi-magnify"
@@ -45,40 +45,32 @@
               <v-chip color="primary" small tile @click.stop="detail(item)">{{ item.order_num }}</v-chip>
             </template>
 
-            <template #item-status="{status}">
+            <template #item-status="{ status }">
               <v-chip :color="statusClass(status)" small>
                 {{ statusLabel(status) }}
               </v-chip>
             </template>
 
-            <template #item-remark="{remark}">
-              <text-tooltip :text="remark"/>
+            <template #item-remark="{ remark }">
+              <text-tooltip :text="remark" />
             </template>
 
             <template #item-amount="item">
               <span v-if="item?.product">
-                {{ item.product.sale_price }}*{{ item.product.quantity }}={{
-                  item.product.sale_price * item.product.quantity
-                }}
+                {{ item.product.sale_price }}*{{ item.product.quantity }}={{ item.product.sale_price * item.product.quantity }}
               </span>
               <span v-else>0</span>
             </template>
 
             <template #item-operation="item">
-              <v-btn v-if="isShow(item)" color="info" tile small @click.stop="confirmedItem(item)">
-                处理
-              </v-btn>
+              <v-btn v-if="isShow(item)" color="info" tile small @click.stop="confirmedItem(item)">处理</v-btn>
             </template>
-
           </EasyDataTable>
         </v-card>
 
-        <v-dialog v-model="dialogEntity" persistent max-width="600px">
-
-        </v-dialog>
+        <v-dialog v-model="dialogEntity" persistent max-width="600px"></v-dialog>
       </v-col>
     </v-row>
-
   </v-container>
 </template>
 
@@ -86,9 +78,9 @@
 import Breadcrumb from '@/components/shared/Breadcrumb'
 import TextTooltip from '@/components/table/TextTooltip'
 import DialogDetails from '@/views/components/adminWithDraw/DialogDetails'
-import {computed, nextTick, onMounted, ref, watch} from 'vue'
-import {useBreadcrumb, useGlobal, useRefund, useTableHeader} from '@/stores'
-import {useDisplay} from 'vuetify'
+import { computed, nextTick, onMounted, ref, watch } from 'vue'
+import { useBreadcrumb, useGlobal, useRefund, useTableHeader } from '@/stores'
+import { useDisplay } from 'vuetify'
 
 const refundStore = useRefund()
 const globalStore = useGlobal()
@@ -111,7 +103,7 @@ let mapRefund
 const requestParams = ref({
   page: 1,
   rowsPerPage: 10,
-  keyword: ''
+  keyword: '',
 })
 
 onMounted(() => {
@@ -124,14 +116,13 @@ watch(
   (value) => {
     refundStore.loadAllRefunds(requestParams._rawValue)
   },
-  {deep: true}
+  { deep: true }
 )
 
 watch(dialogEntity, (val) => {
   console.log(val)
   val || close()
 })
-
 
 function isShow(item) {
   if (item.status === 'pending') {
@@ -191,6 +182,4 @@ function statusClass(value) {
 }
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

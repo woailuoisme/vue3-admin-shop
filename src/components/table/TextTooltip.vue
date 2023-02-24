@@ -1,13 +1,13 @@
 <template>
   <v-tooltip :text="text" location="top">
     <template v-slot:activator="{ props }">
-      <div class=" text-ellipsis text-center" v-bind="props">{{ text }}</div>
+      <div class="text-ellipsis text-center" v-bind="props">{{ text }}</div>
     </template>
   </v-tooltip>
 </template>
 
 <script setup>
-import {defineProps, ref} from 'vue'
+import { defineProps, ref } from 'vue'
 
 const props = defineProps({
   text: {

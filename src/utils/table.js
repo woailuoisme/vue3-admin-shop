@@ -1,5 +1,5 @@
-import {trim} from "lodash/string";
-import dayjs from "dayjs";
+import { trim } from 'lodash/string'
+import dayjs from 'dayjs'
 
 export const roleLabel = (value) => {
   if (trim(value) === 'admin') {
@@ -72,4 +72,4 @@ export const orderStatusLabel = (value) => {
   }
 }
 
-export default {roleLabel}
+export default { roleLabel }

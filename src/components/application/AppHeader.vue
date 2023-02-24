@@ -1,11 +1,11 @@
 <template>
   <v-app-bar v-if="isAuthed && isShowHeader" app class="primary lighten-3" clipped-left>
-    <v-app-bar-nav-icon v-if="isAuthed" @click.stop="drawer = !drawer"/>
+    <v-app-bar-nav-icon v-if="isAuthed" @click.stop="drawer = !drawer" />
     <v-toolbar-title class="headline">
       <span>{{ appName }}</span>
     </v-toolbar-title>
-    <v-spacer/>
-    <v-divider class="mx-2" inset vertical/>
+    <v-spacer />
+    <v-divider class="mx-2" inset vertical />
     <span v-if="!isAuthed && isShowHeader">
       <v-btn color="primary" tile large to="/login">登录</v-btn>
     </span>
@@ -42,16 +42,15 @@
             :to="{ name: child.name }"
           ></v-list-item>
         </v-list-group>
-        <v-list-item v-else :prepend-icon="item.prependIcon" :title="item.text" link
-                     :to="{ name: item.name }"></v-list-item>
+        <v-list-item v-else :prepend-icon="item.prependIcon" :title="item.text" link :to="{ name: item.name }"></v-list-item>
       </template>
     </v-list>
   </v-navigation-drawer>
 </template>
 
 <script setup>
-import {computed, ref} from 'vue'
-import {useAuth, useMenu, useConfig} from '@/stores'
+import { computed, ref } from 'vue'
+import { useAuth, useMenu, useConfig } from '@/stores'
 import router from '@/router'
 
 const authStore = useAuth()
@@ -66,7 +65,7 @@ const appName = computed(() => configStore.appName)
 const isShowHeader = computed(() => configStore.isShowHeader)
 const userLogout = async () => {
   if (await authStore.logout()) {
-    await router.push({name: 'login'})
+    await router.push({ name: 'login' })
   }
 }
 </script>

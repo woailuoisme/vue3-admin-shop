@@ -3,7 +3,7 @@
     <v-row>
       <v-col cols="12">
         <v-card class="mb-4">
-          <Breadcrumb :items="breadcrumbs"/>
+          <Breadcrumb :items="breadcrumbs" />
         </v-card>
       </v-col>
     </v-row>
@@ -40,10 +40,8 @@
               <table-image :image="avatar"></table-image>
             </template>
             <template #item-operation="item">
-              <v-btn class="ml-1" icon="mdi-pencil" color="warning" size="small" tile
-                     @click.stop="editItem(item)"></v-btn>
-              <v-btn class="ml-1" icon="mdi-delete" color="error" size="small" tile
-                     @click.stop="deleteItem(item)"></v-btn>
+              <v-btn class="ml-1" icon="mdi-pencil" color="warning" size="small" tile @click.stop="editItem(item)"></v-btn>
+              <v-btn class="ml-1" icon="mdi-delete" color="error" size="small" tile @click.stop="deleteItem(item)"></v-btn>
             </template>
           </EasyDataTable>
         </v-card>
@@ -53,10 +51,8 @@
       <dialog-confirm @close="closeDelete" @confirm="deleteItemConfirm"></dialog-confirm>
     </v-dialog>
     <v-dialog v-model="dialogEntity" max-width="1300px">
-      <dialog-entity @close="dialogEntity = false" @save="save" :item="editedItem"
-                     :is-new="isNew"></dialog-entity>
+      <dialog-entity @close="dialogEntity = false" @save="save" :item="editedItem" :is-new="isNew"></dialog-entity>
     </v-dialog>
-
   </v-container>
 </template>
 
@@ -65,14 +61,13 @@ import TableImage from '@/components/table/TableImage'
 import Breadcrumb from '@/components/shared/Breadcrumb'
 import DialogConfirm from '@/views/components/adminProduct/DialogConfirm'
 import DialogEntity from '@/views/components/adminProductCategory/DialogEntity'
-import {computed, nextTick, onMounted, ref, watch} from 'vue'
-import {useBreadcrumb, useGlobal, useProductCategory, useTableHeader} from '@/stores'
+import { computed, nextTick, onMounted, ref, watch } from 'vue'
+import { useBreadcrumb, useGlobal, useProductCategory, useTableHeader } from '@/stores'
 
 const globalStore = useGlobal()
 const breadcrumbStore = useBreadcrumb()
 const tableHeaderStore = useTableHeader()
 const categoryStore = useProductCategory()
-
 
 const headers = computed(() => tableHeaderStore.productCategories)
 const breadcrumbs = computed(() => breadcrumbStore.productCategory)
@@ -90,7 +85,7 @@ const requestParams = ref({
   page: 1,
   rowsPerPage: 10,
 })
-let mapProduct;
+let mapProduct
 
 onMounted(() => {
   categoryStore.loadCategories()
@@ -101,7 +96,7 @@ watch(
   (value) => {
     categoryStore.loadCategories(requestParams._rawValue)
   },
-  {deep: true}
+  { deep: true }
 )
 
 watch(dialogEntity, (val) => {
@@ -113,7 +108,6 @@ watch(dialogDelete, (val) => {
   console.log(val)
   val || closeDelete()
 })
-
 
 function addItem() {
   dialogEntity.value = true
@@ -145,7 +139,6 @@ function close() {
   })
 }
 
-
 function closeDelete() {
   dialogDelete.value = false
   nextTick(() => {
@@ -163,6 +156,4 @@ function save() {
 }
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

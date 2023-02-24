@@ -7,9 +7,8 @@ yup.setLocale({
     required: '${path} 必填',
     oneOf: '${path} 必须是 ${values} 其中之一',
     notOneOf: '${path} 非 ${values} 其中之一',
-    notType: ({path, type, value, originalValue}) => {
-      const castMsg =
-        originalValue != null && originalValue !== value ? ` (从 \`${printValue(originalValue, true)}\` 转换).` : '.'
+    notType: ({ path, type, value, originalValue }) => {
+      const castMsg = originalValue != null && originalValue !== value ? ` (从 \`${printValue(originalValue, true)}\` 转换).` : '.'
       return type !== 'mixed'
         ? `${path} 必须是 \`${type}\` 类型，` + ` 但最终值为： \`${printValue(value, true)}\`` + castMsg
         : `${path} 必须匹配配置的类型。 ` + `验证值是： \`${printValue(value, true)}\`` + castMsg
@@ -24,7 +23,7 @@ yup.setLocale({
     url: '${path} 必须是一个有效的url',
     trim: '${path} 必须是一个去除空格的字符',
     lowercase: '${path} 必须是小写字符串',
-    uppercase: '${path} 必须是大写字符串'
+    uppercase: '${path} 必须是大写字符串',
   },
   number: {
     min: '${path} 必须大于等于 ${min}',
@@ -48,11 +47,11 @@ yup.setLocale({
   },
 })
 yup.addMethod(yup.string, 'name', function nameMethod(message) {
-  const nameRegex = /^[a-zA-Z]+( [a-zA-Z]+)*$/;
+  const nameRegex = /^[a-zA-Z]+( [a-zA-Z]+)*$/
   // eslint-disable-next-line no-template-curly-in-string
   return this.test('name', locale.string.name, function nameTest() {
-    return nameRegex.test(this.options.originalValue) || this.createError({message});
-  });
-});
+    return nameRegex.test(this.options.originalValue) || this.createError({ message })
+  })
+})
 
 export default yup

@@ -3,7 +3,7 @@
     <v-row>
       <v-col cols="12">
         <v-card class="mb-4">
-          <Breadcrumb :items="breadcrumbs"/>
+          <Breadcrumb :items="breadcrumbs" />
         </v-card>
       </v-col>
     </v-row>
@@ -12,7 +12,7 @@
         <v-card>
           <v-toolbar flat>
             <v-toolbar-title>协议管理</v-toolbar-title>
-            <v-spacer/>
+            <v-spacer />
           </v-toolbar>
         </v-card>
       </v-col>
@@ -36,7 +36,6 @@
             <template #item-operation="item">
               <v-btn color="info" tile small @click.stop="editItem(item)">修改</v-btn>
             </template>
-
           </EasyDataTable>
         </v-card>
         <v-dialog v-model="dialogEntity" max-width="1300px">
@@ -54,9 +53,9 @@
 import Breadcrumb from '@/components/shared/Breadcrumb'
 import DialogDetail from '@/views/components/adminAbout/DialogDetails'
 import DialogEntity from '@/views/components/adminAbout/DialogEntity'
-import {computed, nextTick, onMounted, ref, watch} from 'vue'
-import {useBreadcrumb, useAbout, useGlobal, useTableHeader} from '@/stores'
-import {trim} from "lodash/string";
+import { computed, nextTick, onMounted, ref, watch } from 'vue'
+import { useBreadcrumb, useAbout, useGlobal, useTableHeader } from '@/stores'
+import { trim } from 'lodash/string'
 
 const aboutStore = useAbout()
 const globalStore = useGlobal()
@@ -90,7 +89,7 @@ watch(
   (value) => {
     aboutStore.loadAllAbouts(requestParams._rawValue)
   },
-  {deep: true}
+  { deep: true }
 )
 
 watch(dialogEntity, (val) => {
@@ -129,7 +128,6 @@ function save() {
   aboutStore.updateAbout(data)
   this.close()
 }
-
 </script>
 
 <style scoped></style>

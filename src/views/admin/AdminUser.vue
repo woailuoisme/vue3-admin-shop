@@ -3,7 +3,7 @@
     <v-row>
       <v-col cols="12">
         <v-card>
-          <Breadcrumb :items="breadcrumbs"/>
+          <Breadcrumb :items="breadcrumbs" />
         </v-card>
       </v-col>
     </v-row>
@@ -12,7 +12,7 @@
         <v-card>
           <v-card-title flat>
             <v-btn variant="flat" color="primary" @click.stop="addItem">新增</v-btn>
-            <v-spacer/>
+            <v-spacer />
           </v-card-title>
           <EasyDataTable
             buttons-pagination
@@ -39,22 +39,8 @@
             </template>
 
             <template #item-operation="item">
-              <v-btn
-                class="ml-1"
-                icon="mdi-pencil"
-                color="warning"
-                size="small"
-                tile
-                @click.stop="editItem(item)"
-              ></v-btn>
-              <v-btn
-                class="ml-1"
-                icon="mdi-delete"
-                color="error"
-                size="small"
-                tile
-                @click.stop="deleteItem(item)"
-              ></v-btn>
+              <v-btn class="ml-1" icon="mdi-pencil" color="warning" size="small" tile @click.stop="editItem(item)"></v-btn>
+              <v-btn class="ml-1" icon="mdi-delete" color="error" size="small" tile @click.stop="deleteItem(item)"></v-btn>
             </template>
           </EasyDataTable>
         </v-card>
@@ -64,12 +50,7 @@
       <dialog-confirm @close="closeDelete" @confirm="deleteItemConfirm"></dialog-confirm>
     </v-dialog>
     <v-dialog v-model="dialogEntity" max-width="500px">
-      <dialog-entity-form
-        @close="dialogEntity = false"
-        @save="save"
-        :item="editedItem"
-        :is-new="isNew"
-      ></dialog-entity-form>
+      <dialog-entity-form @close="dialogEntity = false" @save="save" :item="editedItem" :is-new="isNew"></dialog-entity-form>
     </v-dialog>
   </v-container>
 </template>
@@ -78,9 +59,9 @@ import TableImage from '@/components/table/TableImage'
 import Breadcrumb from '@/components/shared/Breadcrumb'
 import DialogConfirm from '@/views/components/adminUser/DialogConfirm'
 import DialogEntityForm from '@/views/components/adminUser/DialogEntityForm'
-import {roleLabel} from '@/utils/table'
-import {computed, nextTick, onMounted, ref, watch} from 'vue'
-import {useAdminUser, useBreadcrumb, useGlobal, useTableHeader} from '@/stores'
+import { roleLabel } from '@/utils/table'
+import { computed, nextTick, onMounted, ref, watch } from 'vue'
+import { useAdminUser, useBreadcrumb, useGlobal, useTableHeader } from '@/stores'
 
 const adminUserStore = useAdminUser()
 const globalStore = useGlobal()
@@ -113,7 +94,7 @@ watch(
   (value) => {
     adminUserStore.loadAllUsers(requestParams)
   },
-  {deep: true}
+  { deep: true }
 )
 watch(dialogEntity, (val) => {
   console.log(val)
@@ -171,6 +152,4 @@ function save() {
 }
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

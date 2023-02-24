@@ -7,8 +7,8 @@
     @vdropzone-complete="afterUploadComplete"
     @vdropzone-file-added="fileAdd()"
     @vdropzone-files-added="filesAdd()"
-    @vdropzone-file-added-manually='fileAddManually()'
-    @vdropzone-removed-file='fileRemove()'
+    @vdropzone-file-added-manually="fileAddManually()"
+    @vdropzone-removed-file="fileRemove()"
   >
     <div class="dropzone-custom-content">
       <div>
@@ -21,10 +21,10 @@
   </vue-dropzone>
 </template>
 <script setup>
-import {defineProps, defineEmits, ref} from 'vue'
+import { defineProps, defineEmits, ref } from 'vue'
 
 const props = defineProps({
-  modelValue: []
+  modelValue: [],
 })
 
 const emit = defineEmits(['update:modelValue'])
@@ -35,7 +35,7 @@ const options = {
   url: 'https://httpbin.org/post',
   thumbnailWidth: 150,
   maxFilesize: 2,
-  acceptedFiles: ".png,.jpg,.gif,.bmp,.jpeg",
+  acceptedFiles: '.png,.jpg,.gif,.bmp,.jpeg',
   parallelUploads: 3,
   maxFiles: 3,
   uploadMultiple: true,
@@ -76,8 +76,5 @@ function fileRemove() {
   console.log('getQueuedFiles', images.value.getQueuedFiles())
   emit('update:modelValue', images.value.getAcceptedFiles())
 }
-
-
 </script>
-<style scoped>
-</style>
+<style scoped></style>

@@ -1,5 +1,5 @@
 import client from './http.client'
-import {canUsed} from '@/utils/util'
+import { canUsed } from '@/utils/util'
 
 class ProductService {
   list(data) {
@@ -7,12 +7,12 @@ class ProductService {
       page: data.page,
       per_page: data.rowsPerPage,
     }
-    if (data?.keyword) (params.keyword = data.keyword)
-    if (data?.category_id) (params.category_id = data.category_id)
-    if (data?.is_sale) (params.is_sale = data.is_sale ? 1 : 0)
-    if (data?.created_at) (params.created_at = data.created_at)
+    if (data?.keyword) params.keyword = data.keyword
+    if (data?.category_id) params.category_id = data.category_id
+    if (data?.is_sale) params.is_sale = data.is_sale ? 1 : 0
+    if (data?.created_at) params.created_at = data.created_at
 
-    return client.instance().get('/products', {params})
+    return client.instance().get('/products', { params })
   }
 
   show(id) {
