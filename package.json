@@ -26,9 +26,10 @@
     "dayjs": "^1.11.7",
     "lodash": "^4.17.21",
     "nprogress": "^0.2.0",
-    "pinia": "^2.0.23",
+    "pinia": "^2.0.32",
     "pinia-plugin-persistedstate": "^3.0.2",
     "roboto-fontface": "*",
+    "webfontloader": "^1.0.0",
     "tinymce": "^5.10.7",
     "vee-validate": "^4.7.4",
     "vue": "^3.2.13",
@@ -39,10 +40,8 @@
     "vue3-apexcharts": "^1.4.1",
     "vue3-easy-data-table": "^1.5.31",
     "vuedraggable": "^4.1.0",
-    "vuetify": "^3.0.0",
-    "webfontloader": "^1.0.0",
-    "yup": "^1.0.0",
-    "yup-locales": "^1.2.11"
+    "vuetify": "^3.1.6",
+    "yup": "^1.0.0"
   },
   "devDependencies": {
     "@intlify/unplugin-vue-i18n": "^0.8.2",
@@ -57,15 +56,12 @@
     "pluralize": "^8.0.0",
     "prettier": "^2.8.4",
     "sass": "^1.55.0",
-    "vite": "^3.1.9",
+    "vite": "^3.0.0",
     "vite-plugin-vuetify": "^1.0.0-alpha.12",
     "yargs": "^17.7.0"
   },
   "lint-staged": {
-    "*.js": [
-      "git add"
-    ],
-    "*.json": [
+    "*.{vue,js,scss,json}": [
       "prettier --write",
       "git add"
     ]
@@ -75,4 +71,6 @@
       "pre-commit": "lint-staged"
     }
   }
+
+
 }
