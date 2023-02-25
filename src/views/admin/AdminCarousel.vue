@@ -59,6 +59,7 @@ import Breadcrumb from '@/components/shared/Breadcrumb'
 import TableImage from '@/components/table/TableImage'
 import { computed, nextTick, onMounted, ref, watch } from 'vue'
 import { useBreadcrumb, useCarousel, useGlobal, useTableHeader } from '@/stores'
+import { storeToRefs } from 'pinia/dist/pinia'
 
 const carouselStore = useCarousel()
 const globalStore = useGlobal()
@@ -66,12 +67,9 @@ const breadcrumbStore = useBreadcrumb()
 const tableHeaderStore = useTableHeader()
 const headers = computed(() => tableHeaderStore.carousel)
 const breadcrumbs = computed(() => breadcrumbStore.carousel)
-const carousels = computed(() => carouselStore.getCarousels)
-const serverItemsLength = computed(() => carouselStore.total)
-const loading = computed(() => globalStore.isLoading)
-const isNew = computed(() => carouselStore.isNew)
-const editedItem = computed(() => carouselStore.getEditedItem)
-const editedIndex = computed(() => carouselStore.getEditedIndex)
+
+const { carousels, total, isNew, editedItem, editedIndex } = storeToRefs(carouselStore)
+const { isLoading } = storeToRefs(globalStore)
 
 const dialogEntity = ref(false)
 const dialogDelete = ref(false)

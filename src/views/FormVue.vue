@@ -13,6 +13,7 @@
             </v-card-actions>
           </v-card>
         </v-dialog>
+        <delay-button></delay-button>
       </v-card-title>
       <v-card-text>
         <v-form fast-fail @submit.prevent="submit">
@@ -131,6 +132,7 @@ import { useField, useForm } from 'vee-validate'
 import yup from '@/utils/validation'
 import FileSingleImageInput from '@/components/shared/FileSingleImageInput'
 import Dropzone from '@/components/shared/Dropzone'
+import DelayButton from '@/components/shared/DelayButton'
 const newDate = ref(new Date())
 const dialog = ref(false)
 const images = ref([])

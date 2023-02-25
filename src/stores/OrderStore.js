@@ -45,26 +45,14 @@ export default defineStore('order', {
     isNew(state) {
       return state.editedIndex === -1
     },
-    getEditedItem(state) {
-      return state.editedItem
-    },
-    getEditedIndex(state) {
-      return state.editedIndex
-    },
     findById: (state) => (id) => {
       return state.orders.find((p) => p.id === id)
     },
     findIndexById: (state) => (id) => {
       return state.orders.findIndex((p) => p.id === id)
     },
-    getOrders(state) {
-      return state.orders
-    },
     hasData(state) {
       return !!state.orders.length
-    },
-    getMeta(state) {
-      return { ...state.meta }
     },
     isDisplayPagination(state) {
       return !!(state.meta && state.meta.last_page && state.meta.last_page > 1)
@@ -95,7 +83,6 @@ export default defineStore('order', {
           fb.value = order['order_status']
           mapOrderList.push(fb)
         }
-
         if (key === 'amount') {
           fb.key = key
           fb.label = '金额'
@@ -153,17 +140,21 @@ export default defineStore('order', {
   actions: {
     async loadAllOrders(payload) {
       const res = await OrderService.list(payload)
-      if (res.data.data) {
+      if (res.data.success) {
         this.orders = res.data.data.items
         this.meta = res.data.data.meta
       }
     },
+
     async updateOrderExpress(payload) {
       const res = await OrderService.updateExpress(payload)
-      const order = res.data.data
-      const index = state.orders.findIndex((p) => p.id === payload.id)
-      Object.assign(state.orders[index], payload)
-      Toast.success(res.data.message)
+      if (res.data.success) {
+        const index = state.orders.findIndex((p) => p.id === payload.id)
+        Object.assign(state.orders[index], payload)
+        Toast.success(res.data.message)
+      } else {
+        Toast.error(res.data.message)
+      }
     },
   },
 })

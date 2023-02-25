@@ -15,6 +15,7 @@
     "prepare": "husky install"
   },
   "dependencies": {
+    "@chenfengyuan/vue-countdown": "^2.1.0",
     "@mdi/font": "^7.1.96",
     "@tinymce/tinymce-vue": "^4.0.7",
     "@vuepic/vue-datepicker": "^4.0.1",
@@ -59,12 +60,14 @@
     "prettier": "^2.8.4",
     "sass": "^1.55.0",
     "vite": "^3.0.0",
+    "vite-plugin-html": "^3.2.0",
     "vite-plugin-vuetify": "^1.0.0-alpha.12",
     "yargs": "^17.7.0"
   },
   "lint-staged": {
     "*.{vue,js,scss,json}": [
-      "prettier --write",
+      "prettier --write --ignore-unknown",
+      "eslint -quiet --fix",
       "git add"
     ]
   },

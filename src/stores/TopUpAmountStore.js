@@ -21,19 +21,12 @@ export default defineStore('top-up-amount', {
       amount: 0,
     },
   }),
-  // Getters
   getters: {
     total(state) {
       return state?.amounts.length ?? 0
     },
     isNew(state) {
       return state.editedIndex === -1
-    },
-    getEditedItem(state) {
-      return state.editedItem
-    },
-    getEditedIndex(state) {
-      return state.editedIndex
     },
     findById: (state) => (id) => {
       return state.amounts.find((p) => p.id === id)
@@ -44,53 +37,47 @@ export default defineStore('top-up-amount', {
     hasData(state) {
       return !!state.amounts.length
     },
-    getAmount(state) {
-      return state.amounts
-    },
-    findByAmountId: (state) => (id) => {
-      return state.amounts.find((amount) => amount.id === id)
-    },
   },
-  // Actions
   actions: {
     setEditedIndex(id) {
-      this.editedIndex = this.amounts.findIndex((user) => user.id === id)
+      this.editedIndex = this.amounts.findIndex((m) => m.id === id)
     },
     resetEdited() {
       this.editedIndex = -1
       this.editedItem = Object.assign({}, this.defaultItem)
     },
     findAndSetItem(item) {
-      this.editedIndex = this.amounts.findIndex((user) => user.id === item.id)
+      this.editedIndex = this.amounts.findIndex((m) => m.id === item.id)
       this.editedItem = Object.assign({}, item)
     },
 
     async loadAllAmount(payload) {
       const res = await TopUpAmountService.list(payload)
-      console.log(res)
       if (res.data.success) {
         this.amounts = res.data.data
+        this.meta = res.data?.meta
         Toast.success(t('response.success'))
       }
     },
 
-    async loadSingleAmount(payload) {
+    async loadAmount(payload) {
       const res = await TopUpAmountService.show(payload)
       if (res.data.success) {
-        this.amount = res.data.data
+        this.amount = res.data?.data
+        Toast.success(t('response.success'))
       }
     },
 
     async createAmount(payload) {
       const res = await TopUpAmountService.store(payload)
-      const amount = res.data.data
+      const amount = res.data?.data
       this.amounts.unshift(amount)
       Toast.success(t('response.success'))
     },
 
     async updateAmount(payload) {
       const res = await TopUpAmountService.update(payload)
-      const amount = res.data.data
+      const amount = res.data?.data
       if (res.data.success) {
         const index = this.amounts.findIndex((p) => p.id === payload.id)
         Object.assign(this.amounts[index], amount)

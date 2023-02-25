@@ -1,28 +1,33 @@
 <template>
-  <v-footer class="d-flex flex-row" app border height="20">
-    <v-spacer />
-    <div class="px-4 py-2 bg-gray text-center w-100">{{ timestamp }} — Vuetify</div>
+  <v-footer class="d-flex justify-space-between" app border height="20">
+    <span class="px-4 py-2 bg-gray text-center">Now: {{ timestamp }}</span>
+    <vue-countdown :time="diffYear" v-slot="{ days, hours, minutes, seconds }">
+      距离 {{ year }}年 结束：{{ days }} days, {{ hours }} hours, {{ minutes }} minutes, {{ seconds }} seconds.
+    </vue-countdown>
   </v-footer>
 </template>
 
 <script setup>
-import { onMounted, ref } from 'vue'
+import { onMounted, ref, onUnmounted } from 'vue'
+import { getYear, endOfYear, differenceInMilliseconds, format } from 'date-fns'
 
-const dateFormat = (dt) => {
-  const padL = (nr, len = 2, chr = `0`) => `${nr}`.padStart(2, chr)
-  return `${dt.getFullYear()}-${padL(dt.getMonth() + 1)}-${padL(dt.getDate())} ${padL(dt.getHours())}:${padL(dt.getMinutes())}:${padL(
-    dt.getSeconds()
-  )}`
-}
+const now = new Date()
+const year = getYear(now)
+// debugger
+const diffYear = differenceInMilliseconds(endOfYear(now), now)
 
 function getNow() {
   const today = new Date()
-  timestamp.value = dateFormat(today)
+  timestamp.value = format(today, 'yyyy-MM-dd HH:mm')
 }
 
 onMounted(() => {
-  // setInterval(getNow, 1000)
+  // setInterval(getNow, 60000)
 })
 
-const timestamp = ref(dateFormat(new Date()))
+onUnmounted(() => {
+  clearInterval(getNow)
+})
+
+const timestamp = ref(format(new Date(), 'yyyy-MM-dd HH:mm'))
 </script>

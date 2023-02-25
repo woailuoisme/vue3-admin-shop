@@ -27,11 +27,11 @@
     </v-row>
     <v-row>
       <v-col cols="12">
-        <v-card :loading="loading" :disabled="loading">
+        <v-card :loading="isLoading" :disabled="isLoading">
           <EasyDataTable
             v-model:server-options="requestParams"
-            :server-items-length="serverItemsLength"
-            :loading="loading"
+            :server-items-length="total"
+            :loading="isLoading"
             :headers="headers"
             :items="amounts"
           >
@@ -56,22 +56,18 @@
 import Breadcrumb from '@/components/shared/Breadcrumb'
 import DialogConfirm from '@/views/components/common/DialogConfirm'
 import DialogEntityForm from '@/views/components/adminTopUpAmount/DialogEntityForm'
-import { computed, nextTick, onMounted, ref, toRaw, watch } from 'vue'
+import { computed, nextTick, onMounted, ref, unref, toRaw, watch } from 'vue'
+import { storeToRefs } from 'pinia'
 import { useBreadcrumb, useGlobal, useTopUpAmount, useTableHeader } from '@/stores'
 
 const amountStore = useTopUpAmount()
 const globalStore = useGlobal()
 const breadcrumbStore = useBreadcrumb()
 const tableHeaderStore = useTableHeader()
-
 const headers = computed(() => tableHeaderStore.topUpAmount)
 const breadcrumbs = computed(() => breadcrumbStore.topUpAmount)
-const loading = computed(() => globalStore.isLoading)
-const amounts = computed(() => amountStore.getAmount)
-const serverItemsLength = computed(() => amountStore.total)
-const isNew = computed(() => amountStore.isNew)
-const editedItem = computed(() => amountStore.getEditedItem)
-const editedIndex = computed(() => amountStore.getEditedIndex)
+const { amounts, total, isNew, editedItem, editedIndex } = storeToRefs(amountStore)
+const { isLoading } = storeToRefs(globalStore)
 const dialogEntity = ref(false)
 const dialogDelete = ref(false)
 const requestParams = ref({
@@ -81,7 +77,7 @@ const requestParams = ref({
 })
 
 onMounted(() => {
-  amountStore.loadAllAmount(toRaw(requestParams.value))
+  amountStore.loadAllAmount(unref(requestParams))
 })
 
 watch(

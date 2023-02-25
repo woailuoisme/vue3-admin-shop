@@ -29,12 +29,6 @@ export default defineStore('carousel', {
     isNew(state) {
       return state.editedIndex === -1
     },
-    getEditedItem(state) {
-      return state.editedItem
-    },
-    getEditedIndex(state) {
-      return state.editedIndex
-    },
     findById: (state) => (id) => {
       return state.products.find((p) => p.id === id)
     },
@@ -43,15 +37,6 @@ export default defineStore('carousel', {
     },
     hasData(state) {
       return !!state.carousels.length
-    },
-    getCarousels(state) {
-      return [...state.carousels]
-    },
-    getCarousel(state) {
-      return { ...state.carouselInfo }
-    },
-    findByOrderId: (state) => (id) => {
-      return state.carousels.find((carousel) => carousel.id === id)
     },
     getMeta(state) {
       return { ...state.meta }
@@ -90,7 +75,6 @@ export default defineStore('carousel', {
 
     async createCarousel(payload) {
       const res = await CarouselService.store(payload)
-      const carousel = res.data.data
       this.carousels.unshift(payload)
       Toast.success(res.data.message)
       return true
@@ -99,15 +83,15 @@ export default defineStore('carousel', {
     async updateCarousel(payload) {
       const res = await CarouselService.update(payload)
       const carousel = res.data.data
-      const index = state.carousels.findIndex((p) => p.id === carousel.id)
-      Object.assign(state.carousels[index], carousel)
+      const index = this.carousels.findIndex((p) => p.id === carousel.id)
+      Object.assign(this.carousels[index], carousel)
       Toast.success(res.data.message)
     },
 
     async deleteCarousel(carouselId) {
       const res = await CarouselService.delete(carouselId)
       if (res.data.success) {
-        const index = state.carousels.findIndex((p) => p.id === carouselId)
+        const index = this.carousels.findIndex((p) => p.id === carouselId)
         this.carousels.splice(index, 1)
         Toast.success(res.data.message)
       } else {

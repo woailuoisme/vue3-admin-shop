@@ -25,13 +25,18 @@
     </v-menu>
   </v-app-bar>
   <v-navigation-drawer v-if="isAuthed" v-model="drawer" permanent temporary app>
-    <v-list dense>
+    <template v-slot:prepend>
+      <v-list-item border lines="two" prepend-avatar="https://randomuser.me/api/portraits/women/81.jpg" :title="user.name"></v-list-item>
+    </template>
+
+    <v-list bg-color="gray" dense>
       <template v-for="(item, index) in menuItems" :key="index">
-        <v-list-group v-if="item.children" color="primary" :prepend-icon="item.prependIcon" :value="item.text">
+        <v-list-group active-color="primary" v-if="item.children" color="primary" :prepend-icon="item.prependIcon" :value="item.text">
           <template #activator="{ props }">
             <v-list-item v-bind="props" :title="item.text" />
           </template>
           <v-list-item
+            active-color="secondary"
             v-for="(child, i) in item.children"
             :key="i"
             :value="child.text"
@@ -42,7 +47,7 @@
             link
           />
         </v-list-group>
-        <v-list-item v-else :prepend-icon="item.prependIcon" :title="item.text" link :to="{ name: item.name }" />
+        <v-list-item active-color="secondary" v-else :prepend-icon="item.prependIcon" :title="item.text" link :to="{ name: item.name }" />
       </template>
     </v-list>
   </v-navigation-drawer>

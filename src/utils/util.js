@@ -146,4 +146,71 @@ export const buildPayloadPagination = (pagination, search) => {
   return query
 }
 
-export default { canUsed, formatDate, randomElement, kebab, bytes, uuid, readURL, imageWidthAndHeight }
+// function camelize(str) {
+//   return str.replace(/(?:^\w|[A-Z]|\b\w)/g, function(word, index) {
+//     return index === 0 ? word.toLowerCase() : word.toUpperCase();
+//   }).replace(/\s+/g, '');
+// }
+
+/**
+ *
+ * hyphen -     kebab-case
+ * underscore _  snake_case
+ * period .
+ * space
+ * no space      amelCase
+ * @returns {string}
+ * @param str
+ */
+export const camelize = (str) => {
+  return str
+    .replace(/(?:^\w|[A-Z]|\b\w)/g, function (word, index) {
+      return index === 0 ? word.toLowerCase() : word.toUpperCase()
+    })
+    .replace(/\s+/g, '')
+}
+
+// camelize("EquipmentClass name");
+// camelize("Equipment className");
+// camelize("equipment class name");
+// camelize("Equipment Class Name");
+// all output "equipmentClassName"
+export const pascale = (text) => {
+  // _.upperFirst(_.camelCase('double-barrel'))
+  return text
+    .replace(/(?:^\w|[A-Z]|\b\w)/g, function (word, index) {
+      return word.toUpperCase()
+    })
+    .replace(/\s+/g, '')
+}
+/**
+ *
+ * @param str
+ * @param symbol
+ * @returns {*}
+ */
+export const nameConvert = (str, symbol = '_') => {
+  return (
+    str &&
+    str
+      .match(/[A-Z]{2,}(?=[A-Z][a-z]+[0-9]*|\b)|[A-Z]?[a-z]+[0-9]*|[A-Z]|[0-9]+/g)
+      .map((s) => s.toLowerCase())
+      .join(symbol)
+  )
+}
+// console.log(nameConvert('GeeksForGeeks'));
+// console.log(nameConvert('Welcome to GeeksForGeeks'));
+// console.log(nameConvert('Welcome-to-GeeksForGeeks'));
+// console.log(nameConvert('Welcome_to_GeeksForGeeks'));
+// console.log(nameConvert('geeks-Fo--Geeks'));
+
+async function copy(text) {
+  try {
+    await navigator.clipboard.writeText(text)
+    // alert('Copied');
+  } catch ($e) {
+    // alert('Cannot copy');
+  }
+}
+
+export default { canUsed, formatDate, randomElement, kebab, bytes, uuid, readURL, imageWidthAndHeight, camelize, pascale, nameConvert }

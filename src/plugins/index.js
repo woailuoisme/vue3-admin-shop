@@ -30,6 +30,7 @@ import 'vue3-easy-data-table/dist/style.css'
 import VueDatePicker from '@vuepic/vue-datepicker'
 import '@vuepic/vue-datepicker/dist/main.css'
 import vueDropzone from 'vue2-dropzone-vue3'
+import VueCountdown from '@chenfengyuan/vue-countdown'
 
 import i18n from './i18n'
 function setup() {
@@ -54,4 +55,5 @@ export function registerPlugins(app) {
   app.component('EasyDataTable', Vue3EasyDataTable)
   app.component('VueDatePicker', VueDatePicker)
   app.component('VueDropzone', vueDropzone)
+  app.component(VueCountdown.name, VueCountdown)
 }

@@ -4,15 +4,18 @@
       <v-col cols="12" lg="4" md="6" sm="8" xm="12">
         <v-form @submit.prevent="submit">
           <v-card class="elevation-12 blue-grey lighten-4" :loading="loading" :disabled="loading">
-            <v-card-title class="text-center primary--text h1">{{ title }}</v-card-title>
+            <v-card-title class="text-center text-h6 text-md-h5 text-lg-h4 text-blue-accent-3 py-4">{{ title }}</v-card-title>
+            <v-divider :thickness="2"></v-divider>
             <v-card-text>
               <v-row>
                 <v-col cols="12">
                   <v-text-field
                     v-model="name.value.value"
                     :error-messages="name.errorMessage.value"
+                    variant="outlined"
+                    clearable
                     :label="$t('form.label.username')"
-                    prepend-icon="mdi-account"
+                    prepend-inner-icon="mdi-account"
                   />
                 </v-col>
               </v-row>
@@ -21,11 +24,12 @@
                   <v-text-field
                     v-model="password.value.value"
                     :error-messages="password.errorMessage.value"
-                    :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
+                    :append-inner-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
                     :type="showPassword ? 'text' : 'password'"
                     :label="$t('form.label.password')"
-                    prepend-icon="mdi-lock"
-                    @click:append="showPassword = !showPassword"
+                    prepend-inner-icon="mdi-lock"
+                    variant="outlined"
+                    @click:appendInner="showPassword = !showPassword"
                   />
                 </v-col>
               </v-row>

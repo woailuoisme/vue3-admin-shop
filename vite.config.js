@@ -2,6 +2,7 @@
 import vue from '@vitejs/plugin-vue'
 import vuetify, { transformAssetUrls } from 'vite-plugin-vuetify'
 import { dirname, resolve } from 'node:path'
+import { createHtmlPlugin } from 'vite-plugin-html'
 
 // Utilities
 import { defineConfig } from 'vite'
@@ -30,6 +31,14 @@ export default defineConfig((command, mode) => {
         styles: {
           configFile: 'src/styles/settings.scss',
         },
+      }),
+      createHtmlPlugin({
+        minify: true,
+        inject: {
+          data: {
+            title: loadEnv(mode, process.cwd()).VITE_APP_NAME,
+          }
+        }
       }),
     ],
     build: {
