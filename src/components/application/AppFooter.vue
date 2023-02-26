@@ -1,7 +1,7 @@
 <template>
   <v-footer class="d-flex justify-space-between" app border height="20">
     <span class="px-4 py-2 bg-gray text-center">Now: {{ timestamp }}</span>
-    <vue-countdown :time="diffYear" v-slot="{ days, hours, minutes, seconds }">
+    <vue-countdown v-slot="{ days, hours, minutes, seconds }" :time="diffYear">
       距离 {{ year }}年 结束：{{ days }} days, {{ hours }} hours, {{ minutes }} minutes, {{ seconds }} seconds.
     </vue-countdown>
   </v-footer>

@@ -1,6 +1,6 @@
-import TopUpAmountService from '../api/topup.amount.service'
+import TopUpAmountService from '@/api/topup.amount.service'
 import Toast from '@/utils/toast'
-import { defineStore } from 'pinia/dist/pinia'
+import { defineStore } from 'pinia'
 import i18n from '@/plugins/i18n'
 const { t } = i18n.global
 export default defineStore('top-up-amount', {
@@ -11,9 +11,6 @@ export default defineStore('top-up-amount', {
     loading: false,
     editedIndex: -1,
     editedItem: {
-      id: -1,
-      integral: 0,
-      amount: 0,
     },
     defaultItem: {
       id: -1,

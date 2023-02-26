@@ -1,41 +1,35 @@
 <template>
-  <v-row>
+  <v-row class="align-center mb-1">
     <v-col cols="7">
-      <v-file-input ref="file" v-model="file" label="分类封面" />
+      <v-file-input hide-details ref="file" v-model="file" variant="outlined" prepend-inner-icon="mdi-camera" prepend-icon="" label="分类封面" >
+        </v-file-input>
     </v-col>
-    <v-col cols="2">
-      <v-btn :disabled="!existsFile" @click="submitFile">上传文件</v-btn>
-    </v-col>
-    <v-col v-if="data.uploadedSuccess" cols="3" class="pl-3">
-      <v-fab-transition>
-        <v-row align="center">
-          <v-img :src="data.image" max-width="50" aspect-ratio="1" />
-          <v-btn icon x-small tile>
-            <v-icon color="error" @click="deleteFile()">mdi-delete-circle-outline</v-icon>
-          </v-btn>
-        </v-row>
-      </v-fab-transition>
+    <v-col cols="5">
+      <v-btn  variant="flat" :disabled="!existsFile"  size="large"  @click="submitFile" color="success">上传</v-btn>
     </v-col>
   </v-row>
-  <v-row>
-    <v-fade-transition>
-      <v-progress-linear v-if="data.uploading" v-model="data.uploadPercentage" height="20">
-        <strong>{{ Math.ceil(data.uploadPercentage) }}%</strong>
-      </v-progress-linear>
-    </v-fade-transition>
+  <v-row  class="ma-0 pa-0">
+    <v-col cols="12" class="mb-2 pa-0">
+      <v-fade-transition>
+<!--        <v-progress-linear v-if="data.uploading" v-model="data.uploadPercentage" height="20">-->
+        <v-progress-linear  v-model="data.uploadPercentage" height="10">
+          <strong>{{ Math.ceil(data.uploadPercentage) }}%</strong>
+        </v-progress-linear>
+      </v-fade-transition>
+    </v-col>
   </v-row>
 </template>
 
 <script setup>
 import axios from 'axios'
-import Toast from '../../utils/toast'
+import Toast from '@/utils/toast'
 
-import { computed, defineProps, reactive } from 'vue'
+import { ref, computed, defineProps, reactive } from 'vue'
 
 const props = defineProps({})
 const emit = defineEmits([])
 
-const file = ref(null)
+const file = ref([])
 const data = reactive({
   uploadPercentage: 0,
   uploadMsg: '',
@@ -44,7 +38,7 @@ const data = reactive({
   uploadedSuccess: false,
 })
 
-const existsFile = computed(() => !!data.file)
+const existsFile = computed(() => !!file.value)
 
 function reset() {
   file.value = null
@@ -58,11 +52,8 @@ const instance = axios.create({
 })
 
 async function deleteFile() {
-  const onUploadProgress = (progressEvent) => {
-    data.uploadPercentage = Math.round((progressEvent.loaded / progressEvent.total) * 100)
-  }
   try {
-    const res = await axios.delete('/upload/category', { onUploadProgress })
+    const res = await axios.delete('/upload/category')
     if (res.data.success === 'success') {
       Toast.success('图片删除成功')
     }
@@ -85,11 +76,12 @@ async function submitFile() {
     data.uploadedSuccess = true
     data.uploading = false
     Toast.success('图片上传成功')
-    setTimeout(() => data.reset(), 200)
+    reset()
   } catch (e) {
+    data.uploadedSuccess = false
     data.uploading = false
     Toast.error('图片上传失败')
-    setTimeout(() => this.reset(), 200)
+    reset()
   }
 }
 </script>

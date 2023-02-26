@@ -1,7 +1,7 @@
 <template>
   <v-row>
     <v-col cols="12">
-      <div class="title primary">{{ label }}</div>
+      <div class="text-body-1 mt-2">{{ label }}</div>
       <div
         :class="{ 'active-dropzone': active }"
         class="dropzone"
@@ -17,103 +17,89 @@
           <v-icon x-large>mdi-image-plus-outline</v-icon>
           添加文件
         </label>
-        <input id="dropzoneFile" ref="inputFile" multiple type="file" class="dropzoneFile" />
+        <input id="dropzoneFile" ref="inputFile" multiple type="file" class="dropzoneFile"/>
       </div>
     </v-col>
-    <v-divider />
+    <v-divider/>
     <v-col cols="12">
-      <div v-if="files.length > 0">
-        <v-chip>{{ files.length }}</v-chip>
-      </div>
       <v-row v-if="files.length > 0">
         <v-col v-for="(file, index) in files" :key="index" cols="4">
-          <div>{{ index }}--{{ file?.name }}--{{ file?.url }}</div>
-          <image-remove :url="file['url']" @delete="removeImage(file?.id)" />
+<!--          <div>{{ index }}&#45;&#45;{{ file?.name }}&#45;&#45;{{ file?.url }}</div>-->
+          <image-remove :url="file['url']" @delete="removeImage(file?.id)"/>
         </v-col>
       </v-row>
     </v-col>
-    <v-divider />
+    <v-divider/>
   </v-row>
 </template>
 
 <script setup>
-import { computed, defineEmits, defineProps, ref, watch } from 'vue'
+import {defineEmits, defineProps, ref} from 'vue'
 import ImageRemove from '@/components/shared/ImageRemove'
-import { uuid } from '@/utils/util'
+import Toast from '@/utils/toast'
+import {uuid} from '@/utils/util'
 
 const props = defineProps({
   modelValue: {
     type: Array,
     default: () => [],
   },
-  label: String,
+  label: {
+    type:String,
+    default: '产品图片'
+  },
+  maxFiles: {
+    type: Number,
+    default: 6
+  }
 })
 
 const emit = defineEmits(['update:modelValue'])
 const active = ref(false)
 const files = ref([])
-
-const readURL = (file) => {
-  return new Promise((res, rej) => {
-    const reader = new FileReader()
-    reader.onload = (e) => res(e.target.result)
-    reader.onerror = (e) => rej(e)
-    reader.readAsDataURL(file)
-  })
-}
-// const urls = ref([])
-
-// const urls = computed(()=>files.value.map((f)=>{
-//   let reader = new FileReader();
-//   return reader.readAsDataURL(f)
-// }))
-// const urls = computed(()=>files.value.map((f)=>URL.createObjectURL (f)))
-// const mapFlies = computed(() =>
-//   files.value.map((f) => {
-//     // debugger
-//     return { id: f?.id, url: f?.url ? f?.url : URL.createObjectURL(f), name: f?.file?.name }
-//   })
-// )
-
-// const mapFlies = computed(() => files.value.map((f) => {
-
 const inputFile = ref(null)
 
 const drop = (e) => {
   active.value = !active.value
+  if ((files.value.length + e.dataTransfer.files.length) > props.maxFiles) {
+    Toast.error(`超出可上传的最大数量 ${props.maxFiles} 个！`)
+    return
+  }
   files.value = Object.values(e.dataTransfer.files)
-    .map((f) => ({ id: uuid(), file: f, url: URL.createObjectURL(f) }))
+    .map((f) => ({id: uuid(), file: f, url: URL.createObjectURL(f)}))
     .concat(files.value)
   emit(
     'update:modelValue',
     files.value.map((f) => f?.file)
   )
-  console.log(files.value.length)
+  active.value = !active.value
 }
 
 const selectedFile = () => {
   active.value = !active.value
+  if ((files.value.length + inputFile.value.files.length) > props.maxFiles) {
+    Toast.error(`超出可上传的最大数量 ${props.maxFiles} 个！`)
+    return
+  }
   files.value = Object.values(inputFile.value.files)
-    .map((f) => ({ id: uuid(), file: f, url: URL.createObjectURL(f) }))
+    .map((f) => ({id: uuid(), file: f, url: URL.createObjectURL(f)}))
     .concat(files.value)
   emit(
     'update:modelValue',
     files.value.map((f) => f?.file)
   )
-  console.log(files.value.length)
+  active.value = !active.value
 }
 
 const removeImage = (index) => {
-  debugger
   console.log(index)
   const fIndex = files.value.findIndex((f) => f['id'] === index)
-  // files.value.splice(index, 1)
+  URL.revokeObjectURL(files.value[fIndex]?.url)
   files.value.splice(fIndex, 1)
   emit(
     'update:modelValue',
     files.value.map((f) => f?.file)
   )
-  console.log('after remove files', files.value)
 }
 
 const toggleActive = () => {
@@ -122,6 +108,10 @@ const toggleActive = () => {
 </script>
 
 <style scoped lang="scss">
+.error {
+  border: 2px solid #e03e2d !important;
+}
+
 .dropzone {
   max-width: 100%;
   height: 200px;

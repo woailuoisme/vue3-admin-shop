@@ -32,6 +32,7 @@
     "tinymce": "^5.10.7",
     "vee-validate": "^4.7.4",
     "vue": "^3.2.13",
+    "vue-clipboard3": "^2.0.0",
     "vue-i18n": "^9.2.2",
     "vue-router": "^4.0.0",
     "vue-toastification": "^2.0.0-rc.5",
@@ -64,16 +65,17 @@
     "vite-plugin-vuetify": "^1.0.0-alpha.12",
     "yargs": "^17.7.0"
   },
-  "lint-staged": {
-    "*.{vue,js,scss,json}": [
-      "prettier --write --ignore-unknown",
-      "eslint -quiet --fix",
-      "git add"
-    ]
-  },
   "husky": {
     "hooks": {
       "pre-commit": "lint-staged"
     }
+  },
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx}": [
+      "eslint --quiet --fix"
+    ],
+    "*.{json,js,ts,jsx,tsx,html}": [
+      "prettier --write --ignore-unknown"
+    ]
   }
 }

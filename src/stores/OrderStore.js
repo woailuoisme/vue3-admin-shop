@@ -1,6 +1,6 @@
 import OrderService from '../api/order.service'
 import Toast from '@/utils/toast'
-import { defineStore } from 'pinia'
+import {defineStore} from 'pinia'
 
 /** Global Store */
 export default defineStore('order', {
@@ -18,16 +18,9 @@ export default defineStore('order', {
     },
     loading: false,
     editedIndex: -1,
-    editedItem: {
-      category_id: 0,
-      description: '',
-      content: '',
-      thumbnail: null,
-      sale_price: 1,
-      stock: 1,
-      is_sale: true,
-    },
+    editedItem: {},
     defaultItem: {
+      id: 0,
       category_id: 0,
       description: '',
       content: '',
@@ -138,6 +131,17 @@ export default defineStore('order', {
   },
   // Actions
   actions: {
+    setEditedIndex(id) {
+      this.editedIndex = this.orders.findIndex((m) => m.id === id)
+    },
+    resetEdited() {
+      this.editedIndex = -1
+      this.editedItem = Object.assign({}, this.defaultItem)
+    },
+    findAndSetItem(item) {
+      this.editedIndex = this.orders.findIndex((m) => m.id === item.id)
+      this.editedItem = Object.assign({}, item)
+    },
     async loadAllOrders(payload) {
       const res = await OrderService.list(payload)
       if (res.data.success) {
@@ -145,12 +149,11 @@ export default defineStore('order', {
         this.meta = res.data.data.meta
       }
     },
-
     async updateOrderExpress(payload) {
       const res = await OrderService.updateExpress(payload)
       if (res.data.success) {
-        const index = state.orders.findIndex((p) => p.id === payload.id)
-        Object.assign(state.orders[index], payload)
+        const index = this.orders.findIndex((p) => p.id === payload.id)
+        Object.assign(this.orders[index], payload)
         Toast.success(res.data.message)
       } else {
         Toast.error(res.data.message)

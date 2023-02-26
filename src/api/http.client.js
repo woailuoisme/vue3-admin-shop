@@ -53,7 +53,6 @@ class HttpClient {
           Toast.error('网络异常')
         }
         if (error.response) {
-          console.log(error.response)
           if (error.response.status) {
             switch (error.response.status) {
               case 400:

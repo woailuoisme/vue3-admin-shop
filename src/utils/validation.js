@@ -87,6 +87,17 @@ yup.addMethod(yup.mixed, 'imageDimensionCheck', function (message, requiredWidth
   })
 })
 
+yup.addMethod(yup.mixed, 'fileRequired', function () {
+  return this.test('file-required', function (value) {
+    const { path, createError } = this
+    if (!value) return
+    if (value instanceof File || value[0] instanceof File){
+      return true
+    }
+    return createError({ path, message: `文件 必填!` })
+  })
+})
+
 yup.addMethod(yup.mixed, 'fileSize', function (fileSize) {
   return this.test('file-size', fileSize, function (value) {
     const { path, createError } = this
@@ -94,12 +105,12 @@ yup.addMethod(yup.mixed, 'fileSize', function (fileSize) {
     if (value instanceof File) {
       const size = value.size / 1024 / 1024
       if (size > fileSize) {
-        return createError({ path, message: `文件大小需要小于${fileSize}M!` })
+        return createError({ path, message: `文件大小需要小于${fileSize}M !` })
       }
     } else if (value[0] instanceof File) {
       const size = value[0].size / 1024 / 1024
       if (size > fileSize) {
-        return createError({ path, message: `文件大小需要小于${fileSize}M!` })
+        return createError({ path, message: `文件大小需要小于${fileSize}M !` })
       }
     }
     return true

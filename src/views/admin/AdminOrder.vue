@@ -13,14 +13,7 @@
           <v-toolbar flat>
             <v-toolbar-title>订单管理</v-toolbar-title>
             <v-spacer />
-            <v-text-field
-              v-model="requestParams.keyword"
-              clearable
-              append-inner-icon="mdi-magnify"
-              placeholder="订单编号/姓名"
-              single-line
-              hide-details
-            />
+            <v-text-field v-model="filter.keyword" clearable prepend-inner-icon="mdi-magnify" placeholder="订单编号/姓名" single-line hide-details />
           </v-toolbar>
         </v-card>
       </v-col>
@@ -36,7 +29,7 @@
             :items="orders"
           >
             <template #item-order_num="item">
-              <v-chip color="primary" small tile @click.stop="detail(item)">{{ item.order_num }}</v-chip>
+              <v-chip color="primary" variant="elevated" tile @click.stop="copy(item.order_num)">{{ item.order_num }}</v-chip>
             </template>
             <template #item-order_status="item">
               <v-chip color="success" small>
@@ -44,7 +37,8 @@
               </v-chip>
             </template>
             <template #item-operation="item">
-              <v-btn v-if="showExpress(item.order_status)" color="info" tile small @click.stop="confirmedItem(item)">更新物流</v-btn>
+              <v-btn v-if="orderShowExpress(item.order_status)" color="success" tile small @click.stop="confirmedItem(item)">更新物流</v-btn>
+              <v-btn color="info" variant="flat" @click.stop="view(item)">查看</v-btn>
             </template>
           </EasyDataTable>
         </v-card>
@@ -60,10 +54,14 @@
 <script setup>
 import Breadcrumb from '@/components/shared/Breadcrumb'
 import DialogDetails from '@/views/components/adminOrder/DialogDetails'
-import { computed, nextTick, onMounted, ref, unref, watch, onBeforeMount } from 'vue'
+import { computed, nextTick, onMounted, ref, unref, watch } from 'vue'
 import { useBreadcrumb, useGlobal, useOrder, useTableHeader } from '@/stores'
-import { orderStatusLabel } from '@/utils/table'
+import { orderStatusLabel,orderShowExpress } from '@/utils/table'
 import { storeToRefs } from 'pinia/dist/pinia'
+import useClipboard from 'vue-clipboard3'
+import Toast from '@/utils/toast'
+import _ from 'lodash'
+const { toClipboard } = useClipboard()
 
 const globalStore = useGlobal()
 const breadcrumbStore = useBreadcrumb()
@@ -74,6 +72,7 @@ const headers = computed(() => tableHeaderStore.orders)
 const breadcrumbs = computed(() => breadcrumbStore.order)
 const { orders, total, isNew, editedItem, editedIndex } = storeToRefs(orderStore)
 const { isLoading } = storeToRefs(globalStore)
+const show = ref(false)
 
 // const findProduct = computed(() => productStore.findById)
 
@@ -83,18 +82,22 @@ const dialogDetail = ref(false)
 const requestParams = ref({
   page: 1,
   rowsPerPage: 10,
+})
+
+const filter = ref({
   keyword: '',
 })
-const mapCategory = ref({})
 
+const mapCategory = ref({})
+const search =  _.debounce((value) => orderStore.loadAllOrders(value), 1000)
 onMounted(() => {
-  orderStore.loadAllOrders(unref(requestParams))
+  orderStore.loadAllOrders({ ...unref(requestParams), ...unref(filter) })
 })
 
 watch(
-  requestParams,
-  (value) => {
-    orderStore.loadAllOrders(unref(requestParams))
+  [requestParams, filter],
+  ([value, val]) => {
+    search({ ...unref(value), ...unref(val)})
   },
   { deep: true }
 )
@@ -103,43 +106,45 @@ watch(dialogEntity, (val) => {
   val || close()
 })
 
+async function copy(value) {
+  try {
+    await toClipboard(value)
+    show.value = true
+    Toast.info("'Copied to clipboard'")
+  } catch (e) {
+    console.error(e)
+  }
+}
+
 function view(item) {
   mapCategory.value = orderStore.getMapOrder(item.id)
   dialogDetail.value = true
 }
 
-function showExpress(value) {
-  if (value === 'pending') {
-    return false
-  } else if (value === 'paid') {
-    return true
-  } else if (value === 'pending_finished') {
-    return false
-  } else if (value === 'pending_review') {
-    return true
-  } else if (value === 'express') {
-    return true
-  } else if (value === 'finished') {
-    return false
-  } else if (value === 'canceled') {
-    return false
-  } else {
-    return false
-  }
-}
-
 function close() {
   dialogEntity.value = false
-  nextTick(() => {})
+  nextTick(() => {
+    orderStore.resetEdited()
+  })
 }
 function closeDetails() {
   dialogDetail.value = false
-  nextTick(() => {})
+  nextTick(() => {
+    orderStore.resetEdited()
+  })
 }
 
-function confirmedItem(item) {
-  dialogEntity.value = false
+function editItem(item) {
+  orderStore.findAndSetItem(item)
+  dialogEntity.value = true
 }
+
+function save(values) {
+  const entity = { id: editedItem.value?.id, ...values }
+  orderStore.updateOrderExpress(entity)
+
+    close()
+  }
 </script>
 
 <style scoped></style>

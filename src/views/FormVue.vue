@@ -13,10 +13,10 @@
             </v-card-actions>
           </v-card>
         </v-dialog>
-        <delay-button></delay-button>
+        <delay-button />
       </v-card-title>
       <v-card-text>
-        <v-form fast-fail @submit.prevent="submit">
+        <v-form fast-fail @submit="submit">
           <v-text-field
             v-model="name.value.value"
             class="mb-3"
@@ -84,6 +84,7 @@
 
           <Dropzone v-model="images" />
           <v-textarea variant="underlined" clearable clear-icon="mdi-close-circle" label="Text" />
+          <file-upload></file-upload>
           <v-file-input
             v-model="image.value.value"
             label="文件"
@@ -91,9 +92,10 @@
             show-size
             variant="outlined"
             validate-on="blur"
-            prepend-icon="mdi-camera"
+            prepend-inner-icon="mdi-camera"
+            prepend-icon=""
           />
-          <file-single-image-input />
+          <file-single-image-input v-model="singleImage"/>
           <v-row>
             <v-col col="12">
               <div>{{ newDate }}</div>
@@ -102,12 +104,6 @@
           </v-row>
 
           <my-editor />
-          <!--          <v-row>-->
-          <!--            <v-col cols="12">-->
-          <!--              <div class="title">产品展示图组</div>-->
-          <!--              <FileMultiImageInput></FileMultiImageInput>-->
-          <!--            </v-col>-->
-          <!--          </v-row>-->
           <v-switch
             v-model="model"
             :true-value="1"
@@ -117,7 +113,7 @@
             hide-details
             inset
           />
-          <v-btn variant="flat" color="primary" class="me-4" type="submit">submit</v-btn>
+          <v-btn :disabled="!meta.valid" block variant="flat" color="primary" class="me-4" type="submit">submit</v-btn>
           <v-btn variant="flat" color="info" @click="handleReset">clear</v-btn>
         </v-form>
       </v-card-text>
@@ -133,6 +129,7 @@ import yup from '@/utils/validation'
 import FileSingleImageInput from '@/components/shared/FileSingleImageInput'
 import Dropzone from '@/components/shared/Dropzone'
 import DelayButton from '@/components/shared/DelayButton'
+import FileUpload from "@/components/shared/FileUpload";
 const newDate = ref(new Date())
 const dialog = ref(false)
 const images = ref([])
@@ -155,10 +152,10 @@ let userSchema = yup.object({
   email: yup.string().required(),
   select: yup.string().required(),
   checkbox: yup.boolean().required().oneOf([true, false]),
-  image: yup.mixed().required().fileSize(2).imageType(),
+  image: yup.mixed().fileRequired().fileSize(2).imageType(),
 })
 
-const { handleSubmit, handleReset } = useForm({
+const { handleSubmit, handleReset,meta } = useForm({
   validationSchema: userSchema,
   initialValues: {
     name: 'hello',
@@ -175,6 +172,8 @@ const email = useField('email')
 const select = useField('select')
 const checkbox = useField('checkbox')
 const image = useField('image')
+const singleImage = ref(null)
+
 // name.setValue('1')
 
 const items = ref(['Item 1', 'Item 2', 'Item 3', 'Item 4'])
@@ -199,6 +198,7 @@ async function afterUploadComplete(response) {
 }
 
 const submit = handleSubmit((values) => {
+  // alert(JSON.stringify(values, null, 2))
   console.log(values)
   alert(JSON.stringify(values, null, 2))
 })

@@ -17,7 +17,7 @@
           <v-text-field
             v-model="requestParams.keyword"
             variant="outlined"
-            append-inner-icon="mdi-magnify"
+            prepend-inner-icon="mdi-magnify"
             :placeholder="$t('table.search.keyword')"
             single-line
             hide-details
@@ -56,7 +56,7 @@
 import Breadcrumb from '@/components/shared/Breadcrumb'
 import DialogConfirm from '@/views/components/common/DialogConfirm'
 import DialogEntityForm from '@/views/components/adminTopUpAmount/DialogEntityForm'
-import { computed, nextTick, onMounted, ref, unref, toRaw, watch } from 'vue'
+import { computed, nextTick, onMounted, ref, unref, watch } from 'vue'
 import { storeToRefs } from 'pinia'
 import { useBreadcrumb, useGlobal, useTopUpAmount, useTableHeader } from '@/stores'
 
@@ -83,7 +83,7 @@ onMounted(() => {
 watch(
   requestParams,
   (value) => {
-    amountStore.loadAllAmount(toRaw(requestParams.value))
+    amountStore.loadAllAmount(unref(requestParams))
   },
   { deep: true }
 )
@@ -113,7 +113,6 @@ function deleteItem(item) {
 }
 
 function close() {
-  debugger
   dialogEntity.value = false
   nextTick(() => {
     amountStore.resetEdited()
@@ -137,7 +136,7 @@ function closeDelete() {
 
 function save(values) {
   if (editedIndex.value > -1) {
-    const entity = { id: editedItem.value.id, ...values }
+    const entity = { id: editedItem.value.?id, ...values }
     amountStore.updateAmount(entity)
   } else {
     amountStore.createAmount(values)

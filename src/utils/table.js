@@ -72,4 +72,24 @@ export const orderStatusLabel = (value) => {
   }
 }
 
+export function orderShowExpress(value) {
+  if (value === 'pending') {
+    return false
+  } else if (value === 'paid') {
+    return true
+  } else if (value === 'pending_finished') {
+    return false
+  } else if (value === 'pending_review') {
+    return true
+  } else if (value === 'express') {
+    return true
+  } else if (value === 'finished') {
+    return false
+  } else if (value === 'canceled') {
+    return false
+  } else {
+    return false
+  }
+}
+
 export default { roleLabel }
