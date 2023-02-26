@@ -5,7 +5,7 @@
       <router-view />
       <BackToTop />
     </v-main>
-<!--    <app-footer />-->
+    <!--    <app-footer />-->
   </v-app>
 </template>
 

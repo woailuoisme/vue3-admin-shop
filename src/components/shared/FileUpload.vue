@@ -1,18 +1,25 @@
 <template>
   <v-row class="align-center mb-1">
     <v-col cols="7">
-      <v-file-input hide-details ref="file" v-model="file" variant="outlined" prepend-inner-icon="mdi-camera" prepend-icon="" label="分类封面" >
-        </v-file-input>
+      <v-file-input
+        hide-details
+        ref="file"
+        v-model="file"
+        variant="outlined"
+        prepend-inner-icon="mdi-camera"
+        prepend-icon=""
+        label="分类封面"
+      ></v-file-input>
     </v-col>
     <v-col cols="5">
-      <v-btn  variant="flat" :disabled="!existsFile"  size="large"  @click="submitFile" color="success">上传</v-btn>
+      <v-btn variant="flat" :disabled="!existsFile" size="large" @click="submitFile" color="success">上传</v-btn>
     </v-col>
   </v-row>
-  <v-row  class="ma-0 pa-0">
+  <v-row class="ma-0 pa-0">
     <v-col cols="12" class="mb-2 pa-0">
       <v-fade-transition>
-<!--        <v-progress-linear v-if="data.uploading" v-model="data.uploadPercentage" height="20">-->
-        <v-progress-linear  v-model="data.uploadPercentage" height="10">
+        <!--        <v-progress-linear v-if="data.uploading" v-model="data.uploadPercentage" height="20">-->
+        <v-progress-linear v-model="data.uploadPercentage" height="10">
           <strong>{{ Math.ceil(data.uploadPercentage) }}%</strong>
         </v-progress-linear>
       </v-fade-transition>

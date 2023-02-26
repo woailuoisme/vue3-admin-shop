@@ -10,8 +10,7 @@ export default defineStore('top-up-amount', {
     amount: {},
     loading: false,
     editedIndex: -1,
-    editedItem: {
-    },
+    editedItem: {},
     defaultItem: {
       id: -1,
       integral: 0,

@@ -13,7 +13,14 @@
           <v-toolbar flat>
             <v-toolbar-title>订单管理</v-toolbar-title>
             <v-spacer />
-            <v-text-field v-model="filter.keyword" clearable prepend-inner-icon="mdi-magnify" placeholder="订单编号/姓名" single-line hide-details />
+            <v-text-field
+              v-model="filter.keyword"
+              clearable
+              prepend-inner-icon="mdi-magnify"
+              placeholder="订单编号/姓名"
+              single-line
+              hide-details
+            />
           </v-toolbar>
         </v-card>
       </v-col>
@@ -37,7 +44,9 @@
               </v-chip>
             </template>
             <template #item-operation="item">
-              <v-btn v-if="orderShowExpress(item.order_status)" color="success" tile small @click.stop="confirmedItem(item)">更新物流</v-btn>
+              <v-btn v-if="orderShowExpress(item.order_status)" color="success" tile small @click.stop="confirmedItem(item)">
+                更新物流
+              </v-btn>
               <v-btn color="info" variant="flat" @click.stop="view(item)">查看</v-btn>
             </template>
           </EasyDataTable>
@@ -56,7 +65,7 @@ import Breadcrumb from '@/components/shared/Breadcrumb'
 import DialogDetails from '@/views/components/adminOrder/DialogDetails'
 import { computed, nextTick, onMounted, ref, unref, watch } from 'vue'
 import { useBreadcrumb, useGlobal, useOrder, useTableHeader } from '@/stores'
-import { orderStatusLabel,orderShowExpress } from '@/utils/table'
+import { orderStatusLabel, orderShowExpress } from '@/utils/table'
 import { storeToRefs } from 'pinia/dist/pinia'
 import useClipboard from 'vue-clipboard3'
 import Toast from '@/utils/toast'
@@ -89,7 +98,7 @@ const filter = ref({
 })
 
 const mapCategory = ref({})
-const search =  _.debounce((value) => orderStore.loadAllOrders(value), 1000)
+const search = _.debounce((value) => orderStore.loadAllOrders(value), 1000)
 onMounted(() => {
   orderStore.loadAllOrders({ ...unref(requestParams), ...unref(filter) })
 })
@@ -97,7 +106,7 @@ onMounted(() => {
 watch(
   [requestParams, filter],
   ([value, val]) => {
-    search({ ...unref(value), ...unref(val)})
+    search({ ...unref(value), ...unref(val) })
   },
   { deep: true }
 )
@@ -143,8 +152,8 @@ function save(values) {
   const entity = { id: editedItem.value?.id, ...values }
   orderStore.updateOrderExpress(entity)
 
-    close()
-  }
+  close()
+}
 </script>
 
 <style scoped></style>

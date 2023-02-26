@@ -35,7 +35,7 @@
     <v-divider />
     <v-card-actions>
       <v-spacer />
-      <v-btn variant="flat" color="primary" class="px-10"  @click="close">确定</v-btn>
+      <v-btn variant="flat" color="primary" class="px-10" @click="close">确定</v-btn>
       <v-spacer />
     </v-card-actions>
   </v-card>

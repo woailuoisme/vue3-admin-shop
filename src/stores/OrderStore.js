@@ -1,6 +1,6 @@
 import OrderService from '../api/order.service'
 import Toast from '@/utils/toast'
-import {defineStore} from 'pinia'
+import { defineStore } from 'pinia'
 
 /** Global Store */
 export default defineStore('order', {

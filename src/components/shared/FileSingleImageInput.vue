@@ -1,5 +1,5 @@
 <template>
-  <v-row class=" align-center">
+  <v-row class="align-center">
     <v-col cols="9">
       <v-file-input
         ref="refImage"
@@ -19,23 +19,23 @@
     <v-col v-if="imageUrl" cols="3">
       <v-fab-transition>
         <v-row align="center">
-          <v-img  :src="imageUrl" max-width="100" aspect-ratio="1" cover/>
+          <v-img :src="imageUrl" max-width="100" aspect-ratio="1" cover />
         </v-row>
       </v-fab-transition>
     </v-col>
   </v-row>
-  <v-row/>
+  <v-row />
 </template>
 <script setup>
-import {defineEmits, defineProps, getCurrentInstance, onMounted, ref} from 'vue'
+import { defineEmits, defineProps, getCurrentInstance, onMounted, ref } from 'vue'
 
 const instance = getCurrentInstance()
-const emit = defineEmits(['update:modelValue',])
+const emit = defineEmits(['update:modelValue'])
 const props = defineProps({
   modelValue: File,
   label: {
-    type:String,
-    default:"图片"
+    type: String,
+    default: '图片',
   },
   url: String,
 })
@@ -48,9 +48,9 @@ const exes = types.map((type) => type.split('/')[1].trim()).join(' ')
 const label = props?.label ? props?.label : '图片'
 const size = 2
 const rules = [
-  value => !!value || `${label} 必填`,
-  value => !value || !value.length || types.includes(value?.type) || `仅接收: ${exes} 文件!`,
-  value => !value || !value.length || value[0].size/(1024*1024) < size || `${label} 的大小需要小于 ${size}M`
+  (value) => !!value || `${label} 必填`,
+  (value) => !value || !value.length || types.includes(value?.type) || `仅接收: ${exes} 文件!`,
+  (value) => !value || !value.length || value[0].size / (1024 * 1024) < size || `${label} 的大小需要小于 ${size}M`,
 ]
 
 const change = (value) => {

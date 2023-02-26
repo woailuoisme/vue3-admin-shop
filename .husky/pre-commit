@@ -3,7 +3,7 @@
 
 yarn format
 #yarn lint-fix
-#git add .
+git add .
 #prettier --write --ignore-unknown "src/**/*.js" "src/**/*.vue"
 #eslint "src/**/*.{js,vue}" --fix  --color --cache --max-warnings=-1
 #git add .

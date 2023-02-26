@@ -95,7 +95,7 @@
             prepend-inner-icon="mdi-camera"
             prepend-icon=""
           />
-          <file-single-image-input v-model="singleImage"/>
+          <file-single-image-input v-model="singleImage" />
           <v-row>
             <v-col col="12">
               <div>{{ newDate }}</div>
@@ -129,7 +129,7 @@ import yup from '@/utils/validation'
 import FileSingleImageInput from '@/components/shared/FileSingleImageInput'
 import Dropzone from '@/components/shared/Dropzone'
 import DelayButton from '@/components/shared/DelayButton'
-import FileUpload from "@/components/shared/FileUpload";
+import FileUpload from '@/components/shared/FileUpload'
 const newDate = ref(new Date())
 const dialog = ref(false)
 const images = ref([])
@@ -155,7 +155,7 @@ let userSchema = yup.object({
   image: yup.mixed().fileRequired().fileSize(2).imageType(),
 })
 
-const { handleSubmit, handleReset,meta } = useForm({
+const { handleSubmit, handleReset, meta } = useForm({
   validationSchema: userSchema,
   initialValues: {
     name: 'hello',

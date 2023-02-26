@@ -91,7 +91,7 @@ yup.addMethod(yup.mixed, 'fileRequired', function () {
   return this.test('file-required', function (value) {
     const { path, createError } = this
     if (!value) return
-    if (value instanceof File || value[0] instanceof File){
+    if (value instanceof File || value[0] instanceof File) {
       return true
     }
     return createError({ path, message: `文件 必填!` })
