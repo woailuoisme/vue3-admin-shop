@@ -3,7 +3,7 @@
     <v-row>
       <v-col cols="12">
         <v-card>
-          <Breadcrumb :items="breadcrumbs" />
+          <breadcrumb :items="breadcrumbs" />
         </v-card>
       </v-col>
     </v-row>

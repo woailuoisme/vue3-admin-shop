@@ -17,7 +17,7 @@ export const sendRequest = ({ url, method, useCredentials = false, body, headers
     } else {
       return res.json().then(function (json) {
         // to be able to access error status when you catch the error
-        return Promise.reject({
+        throw Promise.reject({
           status: res.status,
           ok: false,
           message: json.message,

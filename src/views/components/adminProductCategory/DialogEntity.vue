@@ -13,15 +13,15 @@
           </v-row>
           <v-row>
             <v-col cols="12">
-              <!--              <v-autocomplete-->
-              <!--                v-model="editedItem.parent_id"-->
-              <!--                item-text="name"-->
-              <!--                item-value="id"-->
-              <!--                :items="selectedCategories"-->
-              <!--                chips-->
-              <!--                solo-->
-              <!--                label="产品分类"-->
-              <!--              />-->
+              <!--              <v-autocomplete -->
+              <!--                v-model="editedItem.parent_id" -->
+              <!--                item-text="name" -->
+              <!--                item-value="id" -->
+              <!--                :items="selectedCategories" -->
+              <!--                chips -->
+              <!--                solo -->
+              <!--                label="产品分类" -->
+              <!--              /> -->
             </v-col>
           </v-row>
           <v-row>
@@ -59,9 +59,31 @@
     </v-card-actions>
   </v-card>
 </template>
+
 <script setup>
 import { defineEmits, defineProps, onMounted, reactive, ref, watch } from 'vue'
 
+const props = defineProps({
+  isNew: {
+    type: Boolean,
+    required: true,
+  },
+  item: {
+    type: Object,
+    required: true,
+    default: () => {
+      return {
+        image: '',
+        imageFile: [],
+        image_url: '',
+        name: '',
+        order: 0,
+        parent_id: null,
+      }
+    },
+  },
+})
+const emit = defineEmits(['save', 'close'])
 const valid = ref(false)
 let entity = reactive({
   name: '',
@@ -72,27 +94,7 @@ let entity = reactive({
   role: '',
 })
 
-const props = defineProps({
-  isNew: {
-    type: Boolean,
-    required: true,
-  },
-  item: {
-    type: Object,
-    required: true,
-    default: {
-      image: '',
-      imageFile: [],
-      image_url: '',
-      name: '',
-      order: 0,
-      parent_id: null,
-    },
-  },
-})
 const editedItem = reactive(props.item)
-
-const emit = defineEmits(['save', 'close'])
 
 function save(value) {
   emit('save', value)
@@ -102,4 +104,5 @@ function close() {
   emit('close')
 }
 </script>
+
 <style scoped></style>

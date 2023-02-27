@@ -12,6 +12,7 @@
     </v-card-actions>
   </v-card>
 </template>
+
 <script setup>
 import { defineEmits, defineProps, ref } from 'vue'
 
@@ -34,4 +35,5 @@ function confirm() {
   emit('confirm')
 }
 </script>
+
 <style scoped></style>

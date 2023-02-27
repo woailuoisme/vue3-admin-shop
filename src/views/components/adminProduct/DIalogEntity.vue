@@ -24,7 +24,7 @@
                 label="产品缩略图"
               />
             </v-col>
-            <!--            <v-col cols="3" class="pl-3" v-if="editedIndex > 0">-->
+            <!--            <v-col cols="3" class="pl-3" v-if="editedIndex > 0"> -->
             <v-col cols="3" class="pl-3">
               <v-fab-transition>
                 <v-row align="center">
@@ -67,7 +67,7 @@
           <v-row>
             <v-col cols="12">
               <div class="title">产品内容</div>
-              <my-editor v-model="editedItem.content" :rules="[rule.required('产品内容')]" :img-upload-url="`http://localhost/`" />
+              <my-editor v-model="editedItem.content" :rules="[rule.required('产品内容')]" img-upload-url="http://localhost/" />
             </v-col>
           </v-row>
           <v-row>
@@ -76,7 +76,7 @@
               <vue-dropzone
                 id="dropzone-1"
                 ref="productImages"
-                :use-custom-slot="true"
+                use-custom-slot
                 :options="imagesDropzoneOptions"
                 @vdropzone-complete="afterUploadComplete"
               >
@@ -110,7 +110,7 @@
                         >
                           <v-row class="fill-height flex-column" align="center" justify="center">
                             <div class="align-self-center">
-                              <!--                              <v-btn color="error" @click.stop="deleteProductImage(item)">删除</v-btn>-->
+                              <!--                              <v-btn color="error" @click.stop="deleteProductImage(item)">删除</v-btn> -->
                             </div>
                           </v-row>
                         </div>
@@ -131,6 +131,7 @@
     </v-card-actions>
   </v-card>
 </template>
+
 <script setup>
 import defaultImage from '@/assets/image/default_image_1.png'
 import { defineEmits, defineProps, reactive, ref } from 'vue'
@@ -143,21 +144,17 @@ const props = defineProps({
     type: Boolean,
     default: true,
   },
-  categories: [],
+  categories: {
+    type: Array,
+    default: () => [],
+  },
+
   item: {
     type: Object,
     required: true,
-    default: {
-      category_id: 0,
-      description: '',
-      content: '',
-      thumbnail: null,
-      sale_price: 1,
-      stock: 1,
-      is_sale: true,
-    },
   },
 })
+const emit = defineEmits(['save', 'close'])
 const valid = ref(false)
 const editedItem = reactive(props.item)
 const rule = reactive({ ...validators })
@@ -192,8 +189,6 @@ async function mediaUpload(blobInfo, success, failure) {
   }
 }
 
-const emit = defineEmits(['save', 'close'])
-
 function save(value) {
   emit('save', value)
 }
@@ -202,4 +197,5 @@ function close() {
   emit('close')
 }
 </script>
+
 <style scoped></style>

@@ -9,6 +9,7 @@
     </draggable>
   </v-container>
 </template>
+
 <script setup>
 import draggable from 'vuedraggable'
 import ImageRemove from '@/components/shared/ImageRemove'
@@ -46,4 +47,5 @@ function onChange(e) {
   // console.log(toRaw(toRaw(list).value))
 }
 </script>
+
 <style scoped></style>

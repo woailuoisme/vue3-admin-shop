@@ -1,12 +1,12 @@
 <template>
-  <VueDatePicker class="my-2" v-model="date" :format="dateFormat" locale="zh-CN" @update:model-value="handleDate">
+  <vue-date-picker v-model="date" class="my-2" :format="dateFormat" locale="zh-CN" @update:model-value="handleDate">
     <template #action-row="{ internalModelValue, selectDate }">
       <div class="action-row">
         <p class="current-selection">{{ formatDate(internalModelValue) }}</p>
         <v-btn class="my-4" variant="outlined" color="primary" @click="selectDate">选择日期</v-btn>
       </div>
     </template>
-  </VueDatePicker>
+  </vue-date-picker>
 </template>
 
 <script setup>

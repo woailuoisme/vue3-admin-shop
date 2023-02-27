@@ -42,6 +42,7 @@
     </v-card>
   </v-form>
 </template>
+
 <script setup>
 import { defineEmits, defineProps, reactive } from 'vue'
 import { useField, useForm } from 'vee-validate'
@@ -55,15 +56,17 @@ const props = defineProps({
   item: {
     type: Object,
     required: true,
-    default: {
-      integral: 0,
-      amount: 0,
+    default: () => {
+      return {
+        integral: 0,
+        amount: 0,
+      }
     },
   },
 })
-const editedItem = reactive(props.item)
-
 const emit = defineEmits(['save', 'close'])
+
+const editedItem = reactive(props.item)
 
 const validationSchema = yup.object({
   amount: yup.number().integer().required().min(1).label('金额'),
@@ -90,4 +93,5 @@ function close() {
   emit('close')
 }
 </script>
+
 <style scoped></style>

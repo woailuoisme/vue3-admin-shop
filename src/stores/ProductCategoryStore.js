@@ -105,7 +105,7 @@ export default defineStore('product-category', {
     async deleteCategory(categoryId) {
       const res = await ProductCategoryService.delete(categoryId)
       if (res.data.success) {
-        const index = this.categories.findIndex((c) => c.id === payload)
+        const index = this.categories.findIndex((c) => c.id === categoryId)
         this.categories.splice(index, 1)
         Toast.success(res.data.message)
       } else {

@@ -1,6 +1,6 @@
 <template>
   <div class="my-tinymce">
-    <Editor v-model="state.contentValue" :init="state.myInit" />
+    <editor v-model="state.contentValue" :init="state.myInit" />
   </div>
 </template>
 
@@ -13,7 +13,6 @@ import tinymce from 'tinymce/tinymce' // tinymce默认hidden，不引入则不�
 // 导入配置文件
 import './js/importTinymce'
 import { init } from './js/config'
-const emit = defineEmits(['update:modelValue'])
 const props = defineProps({
   // 绑定文本值
   modelValue: {
@@ -38,7 +37,7 @@ const props = defineProps({
     default: '',
   },
 })
-
+const emit = defineEmits(['update:modelValue'])
 const state = reactive({
   myInit: customer(init), // 初始化
   contentValue: props.modelValue, // 绑定文本

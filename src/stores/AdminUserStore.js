@@ -107,7 +107,6 @@ export default defineStore('admin-user', {
       this.editedItem = Object.assign({}, this.managers[this.editedIndex])
       const res = await UserBackendService.update(payload)
       const user = res.data.data
-      Object.assign(this.managers[index], user)
     },
 
     async deleteUser(userId) {
@@ -115,7 +114,7 @@ export default defineStore('admin-user', {
       const res = await UserBackendService.delete(userId)
       if (res.data.success) {
         this.editedItem = Object.assign({}, this.managers[this.editedIndex])
-        this.managers.splice(index, 1)
+        this.managers.splice(this.editedIndex, 1)
       } else {
         this.editedIndex = -1
         Toast.error(res.data.message)

@@ -22,9 +22,6 @@
 
 <script setup>
 import { computed, defineEmits, defineProps, ref, watch, onMounted } from 'vue'
-const isNaN = Number.isNaN || window.isNaN
-const REGEXP_DECIMALS = /\.\d*(?:0|9){10}\d*$/
-const REGEXP_NUMBER = /^-?(?:\d+|\d+\.\d+|\.\d+)(?:[eE][-+]?\d+)?$/
 const props = defineProps({
   modelValue: {
     type: Number,
@@ -53,7 +50,10 @@ const props = defineProps({
     default: true,
   },
 })
-const emit = defineEmits(['input', 'increment', 'decrement', 'change-value', 'change-quantity', 'update:modelValue'])
+const emit = defineEmits(['input', 'increment', 'decrement', 'changeValue', 'changeQuantity', 'update:modelValue'])
+const isNaN = Number.isNaN || window.isNaN
+const REGEXP_DECIMALS = /\.\d*(?:0|9){10}\d*$/
+const REGEXP_NUMBER = /^-?(?:\d+|\d+\.\d+|\.\d+)(?:[eE][-+]?\d+)?$/
 const quantity = ref(1)
 const isDecrement = computed(() => quantity.value > props.min)
 const isIncrement = computed(() => quantity.value < props.max)
@@ -64,7 +64,7 @@ function setValue(newValue) {
     newValue = Math.min(props.max, Math.max(props.min, newValue))
   }
   quantity.value = newValue
-  emit('change-value', newValue, oldValue)
+  emit('changeValue', newValue, oldValue)
 }
 
 onMounted(() => {
@@ -88,7 +88,7 @@ function decrement() {
 
 function change(event) {
   setValue(Math.min(props.max, Math.max(props.min, event.target.value)))
-  emit('change-quantity', quantity.value)
+  emit('changeQuantity', quantity.value)
   emit('update:modelValue', quantity.value)
 }
 

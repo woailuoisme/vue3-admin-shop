@@ -1,6 +1,6 @@
 <template>
   <div class="my-tinymce">
-    <Editor v-model="contentValue" :init="myInit" />
+    <editor v-model="contentValue" :init="myInit" />
   </div>
 </template>
 
@@ -59,7 +59,8 @@ export default {
       () => state.contentValue,
       (n) => {
         debounce(() => {
-          emit('update:modelValue', state.contentValue)
+          // eslint-disable-line
+          emit('update:modelValue', state.contentValue) // eslint-disable-line vue/require-explicit-emits
         })
       }
     )

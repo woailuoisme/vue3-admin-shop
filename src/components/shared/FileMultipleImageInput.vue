@@ -11,7 +11,7 @@
         prepend-icon="mdi-camera"
         hide-details
         multiple
-        @update:modelValue="change"
+        @update:model-value="change"
         @click:clear="clear"
       />
     </v-col>
@@ -20,11 +20,9 @@
     <v-col col="" />
   </v-row>
 </template>
+
 <script setup>
 import { defineEmits, defineProps, getCurrentInstance, onMounted, ref } from 'vue'
-
-const instance = getCurrentInstance()
-const emit = defineEmits(['update:modelValue'])
 
 const props = defineProps({
   modelValue: {
@@ -64,6 +62,8 @@ const props = defineProps({
     },
   },
 })
+const emit = defineEmits(['update:modelValue'])
+const instance = getCurrentInstance()
 const images = ref(props.modelValue)
 const imageUrls = ref(props.urls)
 const imageLabel = ref(props.label)
@@ -71,7 +71,7 @@ const imageLabel = ref(props.label)
 onMounted(() => {})
 const change = (value) => {
   if (typeof value[0] !== 'undefined') {
-    imageUrl.value = URL.createObjectURL(value[0])
+    // imageUrl.value = URL.createObjectURL(value[0])
     // console.log(imageUrl.value)
   }
   // console.log(value)
@@ -79,7 +79,8 @@ const change = (value) => {
 }
 
 const clear = () => {
-  imageUrl.value = ''
+  // imageUrl.value = ''
 }
 </script>
+
 <style scoped></style>

@@ -3,7 +3,7 @@
     <v-row>
       <v-col cols="12">
         <v-card class="mb-4">
-          <Breadcrumb :items="breadcrumbs" />
+          <breadcrumb :items="breadcrumbs" />
         </v-card>
       </v-col>
     </v-row>
@@ -21,7 +21,7 @@
     <v-row>
       <v-col cols="12">
         <v-card :loading="loading" :disabled="loading">
-          <EasyDataTable
+          <easy-data-table
             v-model:server-options="requestParams"
             buttons-pagination
             alternating
@@ -42,7 +42,7 @@
                 {{ statusLabel(status) }}
               </v-chip>
             </template>
-          </EasyDataTable>
+          </easy-data-table>
         </v-card>
         <v-dialog v-model="dialogEntity" persistent max-width="600px" />
         <v-dialog v-model="dialogDetail" max-width="800">

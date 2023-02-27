@@ -30,25 +30,22 @@
     </v-card-actions>
   </v-card>
 </template>
+
 <script setup>
 import { defineEmits, defineProps, reactive, ref } from 'vue'
-
-const valid = ref(false)
 
 const props = defineProps({
   refund: {
     type: Object,
     required: true,
-    default: {
-      confirmed: false,
-      remark: '',
-    },
   },
 })
 
-let editedItem = reactive(props.refund)
-
 const emit = defineEmits(['save', 'close'])
+
+const valid = ref(false)
+
+let editedItem = reactive(props.refund)
 
 function save(value) {
   emit('save', value)
@@ -58,4 +55,5 @@ function close() {
   emit('close')
 }
 </script>
+
 <style scoped></style>

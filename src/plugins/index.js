@@ -33,15 +33,21 @@ import vueDropzone from 'vue2-dropzone-vue3'
 import VueCountdown from '@chenfengyuan/vue-countdown'
 
 import i18n from './i18n'
+
 function setup() {
-  Vue3EasyDataTable.props.rowsPerPageMessage.default = '每一页'
-  Vue3EasyDataTable.props.emptyMessage.default = '无数据'
-  Vue3EasyDataTable.props.headerTextDirection.default = 'center'
-  Vue3EasyDataTable.props.bodyTextDirection.default = 'center'
-  Vue3EasyDataTable.props.alternating.default = false
-  Vue3EasyDataTable.props.buttonsPagination.default = true
-  Vue3EasyDataTable.props.tableClassName.default = 'customize-table'
-  Vue3EasyDataTable.props.rowsItems.default = () => [10, 20, 50, 100]
+  const defaults = {
+    rowsPerPageMessage: '每一页',
+    emptyMessage: '暂无数据',
+    headerTextDirection: 'center',
+    bodyTextDirection: 'center',
+    alternating: false,
+    buttonsPagination: true,
+    tableClassName: 'customize-table',
+    rowsItems: () => [10, 20, 50, 100],
+  }
+  for (const [key, value] of Object.entries(defaults)) {
+    Vue3EasyDataTable.props[key].default = value
+  }
 }
 
 export function registerPlugins(app) {

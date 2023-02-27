@@ -26,6 +26,7 @@
     </v-card>
   </v-hover>
 </template>
+
 <script setup>
 import errImg from '@/assets/image/default_image_1.png'
 import { defineProps, defineEmits, ref } from 'vue'
@@ -46,4 +47,5 @@ function load() {
   // if (imageUrl.value.startsWith('blob:')) URL.revokeObjectURL(url)
 }
 </script>
+
 <style scoped></style>

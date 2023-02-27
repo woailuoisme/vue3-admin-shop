@@ -70,10 +70,10 @@ export const uuid = () => {
  * @returns {Promise<unknown>}
  */
 export const readURL = (file) => {
-  return new Promise((res, rej) => {
+  return new Promise((resolve, reject) => {
     const reader = new FileReader()
-    reader.onload = (e) => res(e.target.result)
-    reader.onerror = (e) => rej(e)
+    reader.onload = (e) => resolve(e.target.result)
+    reader.onerror = (e) => reject(e)
     reader.readAsDataURL(file)
   })
 }
@@ -213,4 +213,44 @@ async function copy(text) {
   }
 }
 
-export default { canUsed, formatDate, randomElement, kebab, bytes, uuid, readURL, imageWidthAndHeight, camelize, pascale, nameConvert }
+export function debounce(fn, wait) {
+  let timer
+  return function (...args) {
+    if (timer) {
+      clearTimeout(timer) // clear any pre-existing timer
+    }
+    const context = this // get the current context
+    timer = setTimeout(() => {
+      fn.apply(context, args) // call the function if time expires
+    }, wait)
+  }
+}
+
+export function throttle(fn, wait) {
+  let throttled = false
+  return function (...args) {
+    if (!throttled) {
+      fn.apply(this, args)
+      throttled = true
+      setTimeout(() => {
+        throttled = false
+      }, wait)
+    }
+  }
+}
+
+export default {
+  canUsed,
+  formatDate,
+  randomElement,
+  kebab,
+  bytes,
+  uuid,
+  readURL,
+  imageWidthAndHeight,
+  camelize,
+  pascale,
+  nameConvert,
+  debounce,
+  throttle,
+}

@@ -1,5 +1,5 @@
 <template>
-  <!--  <v-dialog v-model="dialog" max-width="1300px">-->
+  <!--  <v-dialog v-model="dialog" max-width="1300px"> -->
   <v-card>
     <v-card-title class="headline grey lighten-2 text-center" primary-title>产品详情</v-card-title>
     <v-divider />
@@ -68,8 +68,9 @@
       <v-spacer />
     </v-card-actions>
   </v-card>
-  <!--  </v-dialog>-->
+  <!--  </v-dialog> -->
 </template>
+
 <script setup>
 import tableImage from '@/components/table/tableImage'
 import { defineProps, defineEmits, ref, watch } from 'vue'
@@ -80,7 +81,6 @@ const props = defineProps({
   product: {
     type: Object,
     required: true,
-    default: {},
   },
 })
 
@@ -90,4 +90,5 @@ function close() {
   emit('close')
 }
 </script>
+
 <style scoped></style>

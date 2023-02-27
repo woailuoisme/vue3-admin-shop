@@ -39,7 +39,7 @@ export default defineStore('table-header', {
       { text: '订单编号', value: 'order_num' },
       { text: '订单状态', value: 'order_status' },
       { text: '姓名', value: 'user.name' },
-      { text: '订单金额', value: 'amount' },
+      { text: '订单金额', value: 'amount', sortable: true },
       { text: '创建时间', value: 'created_at' },
       { text: '操作', value: 'operation' },
     ],
@@ -60,8 +60,8 @@ export default defineStore('table-header', {
     ],
     topUpAmount: [
       { text: 'ID', value: 'id' },
-      { text: '金额', value: 'amount' },
-      { text: '积分', value: 'integral' },
+      { text: '金额', value: 'amount', sortable: true },
+      { text: '积分', value: 'integral', sortable: true },
       { text: '操作', value: 'operation' },
     ],
     withdraw: [

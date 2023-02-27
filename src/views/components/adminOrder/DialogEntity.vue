@@ -26,19 +26,28 @@
     </v-form>
   </v-card>
 </template>
+
 <script setup>
 import { defineProps, defineEmits, ref, reactive } from 'vue'
 import validators from '@/utils/validators'
 
 const props = defineProps({
-  editedItem: {
-    no: '',
-    company: '',
+  item: {
+    type: Object,
+    default: () => {
+      return {
+        no: '',
+        company: '',
+      }
+    },
   },
 })
 
-const rule = reactive([...validators])
-
 const emit = defineEmits(['update'])
+
+const editedItem = ref(props.item)
+
+const rule = reactive([...validators])
 </script>
+
 <style scoped></style>

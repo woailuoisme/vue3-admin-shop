@@ -15,6 +15,33 @@
     --easy-table-rows-per-page-selector-z-index: 1;
 }
 
+.customize-table-dark {
+    --easy-table-header-font-size: 14px;
+    --easy-table-header-height: 50px;
+    --easy-table-header-background-color:#15202b;
+    --easy-table-header-font-color:#3f51b5;
+
+    --easy-table-body-row-height: 50px;
+    --easy-table-body-row-font-size: 14px;
+    --easy-table-body-row-background-color:#15202b;
+    --easy-table-body-row-hover-font-color:#3f51b5;
+    --easy-table-body-row-hover-background-color:#3f51b5;
+
+    --easy-table-footer-font-size: 16px;
+    --easy-table-footer-padding: 0px 10px;
+    --easy-table-footer-height: 70px;
+    --easy-table-footer-background-color:#15202b;
+    --easy-table-footer-font-color:#3f51b5;
+
+    --easy-table-rows-per-page-selector-width: 70px;
+    --easy-table-rows-per-page-selector-option-padding: 10px;
+    --easy-table-rows-per-page-selector-z-index: 1;
+
+}
+
+
+
+
 /* for vuedraggable*/
 .ghost {
     opacity: 0.5;

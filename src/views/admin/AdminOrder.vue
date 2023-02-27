@@ -3,7 +3,7 @@
     <v-row>
       <v-col cols="12">
         <v-card class="mb-4">
-          <Breadcrumb :items="breadcrumbs" />
+          <breadcrumb :items="breadcrumbs" />
         </v-card>
       </v-col>
     </v-row>
@@ -28,13 +28,34 @@
     <v-row>
       <v-col cols="12">
         <v-card :loading="isLoading" :disabled="isLoading">
-          <EasyDataTable
+          <easy-data-table
             v-model:server-options="requestParams"
             :server-items-length="total"
             :loading="isLoading"
             :headers="headers"
             :items="orders"
           >
+            <template #header-order_status="header">
+              <div class="filter-column" @click="showStatus = !showStatus">
+                <v-icon
+                  class="filter-icon"
+                  color="primary"
+                  :icon="showStatus ? 'mdi-filter' : 'mdi-filter-outline'"
+                  @click="showStatus = !showStatus"
+                />
+                <span>{{ header.text }}</span>
+                <div v-if="showStatus" class="filter-menu filter-status-menu">
+                  <v-select
+                    v-model="orderNoStatus"
+                    :items="orderStatus"
+                    item-title="label"
+                    item-value="value"
+                    variant="outlined"
+                    density="compact"
+                  />
+                </div>
+              </div>
+            </template>
             <template #item-order_num="item">
               <v-chip color="primary" variant="elevated" tile @click.stop="copy(item.order_num)">{{ item.order_num }}</v-chip>
             </template>
@@ -49,7 +70,7 @@
               </v-btn>
               <v-btn color="info" variant="flat" @click.stop="view(item)">查看</v-btn>
             </template>
-          </EasyDataTable>
+          </easy-data-table>
         </v-card>
         <v-dialog v-model="dialogEntity" persistent max-width="600px" />
         <v-dialog v-model="dialogDetail" max-width="800">
@@ -65,7 +86,7 @@ import Breadcrumb from '@/components/shared/Breadcrumb'
 import DialogDetails from '@/views/components/adminOrder/DialogDetails'
 import { computed, nextTick, onMounted, ref, unref, watch } from 'vue'
 import { useBreadcrumb, useGlobal, useOrder, useTableHeader } from '@/stores'
-import { orderStatusLabel, orderShowExpress } from '@/utils/table'
+import { orderStatusLabel, orderShowExpress, orderStatus } from '@/utils/table'
 import { storeToRefs } from 'pinia/dist/pinia'
 import useClipboard from 'vue-clipboard3'
 import Toast from '@/utils/toast'
@@ -97,8 +118,11 @@ const filter = ref({
   keyword: '',
 })
 
+const showStatus = ref(false)
+const orderNoStatus = ref('')
+
 const mapCategory = ref({})
-const search = _.debounce((value) => orderStore.loadAllOrders(value), 1000)
+const search = _.debounce((value) => orderStore.loadAllOrders(value), 600)
 onMounted(() => {
   orderStore.loadAllOrders({ ...unref(requestParams), ...unref(filter) })
 })
@@ -156,4 +180,41 @@ function save(values) {
 }
 </script>
 
-<style scoped></style>
+<style scoped>
+.filter-column {
+  display: flex;
+  align-items: center;
+  justify-items: center;
+  position: relative;
+  cursor: pointer;
+}
+
+.filter-icon {
+  cursor: pointer;
+  width: 15px !important;
+  height: 15px !important;
+  margin-right: 4px;
+}
+
+.filter-menu {
+  padding: 4px 4px;
+  z-index: 1;
+  position: absolute;
+  top: 35px;
+  width: 130px;
+  height: 50px;
+  background-color: #eee;
+  border: 1px solid #eee;
+}
+
+.filter-status-menu {
+  height: 40px !important;
+}
+
+.filter-age-menu {
+  height: 40px;
+}
+.slider {
+  margin-top: 36px;
+}
+</style>

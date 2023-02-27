@@ -24,7 +24,7 @@
     <v-col cols="12">
       <v-row v-if="files.length > 0">
         <v-col v-for="(file, index) in files" :key="index" cols="4">
-          <!--          <div>{{ index }}&#45;&#45;{{ file?.name }}&#45;&#45;{{ file?.url }}</div>-->
+          <!--          <div>{{ index }}&#45;&#45;{{ file?.name }}&#45;&#45;{{ file?.url }}</div> -->
           <image-remove :url="file['url']" @delete="removeImage(file?.id)" />
         </v-col>
       </v-row>

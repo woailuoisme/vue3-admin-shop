@@ -18,7 +18,7 @@
                   single-line
                   solo
                   hide-details
-                  @change="$emit('perPageChange', modelPerPage)"
+                  @change="emit('perPageChange', modelPerPage)"
                 />
               </v-col>
               <v-col cols="10">
@@ -56,7 +56,7 @@
               :length="meta.last_page"
               :total-visible="5"
               :value="meta.current_page"
-              @input="$emit('pageChange', modelPage)"
+              @input="emit('pageChange', modelPage)"
             />
           </v-col>
         </v-row>
@@ -65,65 +65,63 @@
   </v-row>
 </template>
 
-<script>
-export default {
-  props: {
-    loading: {
-      type: Boolean,
-      default: false,
-    },
-    page: {
-      type: Number,
-      default: 1,
-    },
-    perPage: {
-      type: Number,
-      default: 10,
-    },
-    meta: {
-      type: Object,
-      default: () => {
-        return {
-          per_page: 10,
-          last_page: 5,
-          current_page: 1,
-          total: 100,
-          from: 1,
-          to: 7,
-        }
-      },
+<script setup>
+import { defineEmits, defineProps, ref } from 'vue'
+
+const props = defineProps({
+  loading: {
+    type: Boolean,
+    default: false,
+  },
+  page: {
+    type: Number,
+    default: 1,
+  },
+  perPage: {
+    type: Number,
+    default: 10,
+  },
+  meta: {
+    type: Object,
+    default: () => {
+      return {
+        per_page: 10,
+        last_page: 5,
+        current_page: 1,
+        total: 100,
+        from: 1,
+        to: 7,
+      }
     },
   },
-  data() {
-    return {
-      modelPage: this.page,
-      modelPerPage: this.perPage,
-      selectPerPageList: [
-        {
-          name: '10',
-          value: 10,
-        },
-        {
-          name: '15',
-          value: 15,
-        },
-        {
-          name: '20',
-          value: 20,
-        },
-      ],
-    }
+})
+const emit = defineEmits(['update:perPage', 'update:page'])
+
+const modelPage = ref(props.page)
+const modelPerPage = ref(props.perPage)
+const selectPerPageList = [
+  {
+    name: '10',
+    value: 10,
   },
-  methods: {
-    perPageChange(value) {
-      console.log(`per_page ${value}`)
-      this.$emit('update:perPage', this.modelPerPage)
-    },
-    pageChange(value) {
-      console.log(`page ${value}`)
-      this.$emit('update:page', this.modelPage)
-    },
+  {
+    name: '15',
+    value: 15,
   },
+  {
+    name: '20',
+    value: 20,
+  },
+]
+
+function perPageChange(value) {
+  console.log(`per_page ${value}`)
+  emit('update:perPage', modelPerPage.value)
+}
+
+function pageChange(value) {
+  console.log(`page ${value}`)
+  emit('update:page', modelPage.value)
 }
 </script>
 

@@ -24,6 +24,7 @@
     </v-card-actions>
   </v-card>
 </template>
+
 <script setup>
 import { defineProps, defineEmits, ref, watch } from 'vue'
 
@@ -31,7 +32,7 @@ const props = defineProps({
   record: {
     type: Object,
     required: true,
-    default: {},
+    default: () => {},
   },
 })
 
@@ -41,4 +42,5 @@ function close() {
   emit('close')
 }
 </script>
+
 <style scoped></style>

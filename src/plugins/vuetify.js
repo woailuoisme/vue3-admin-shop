@@ -8,11 +8,14 @@
 import '@mdi/font/css/materialdesignicons.css'
 import 'vuetify/styles'
 import { aliases, mdi } from 'vuetify/iconsets/mdi'
+import defaults from './vuetify/defaults'
+import { icons } from './vuetify/icons'
+import theme from './vuetify/theme'
 
 // Composables
 import { createVuetify } from 'vuetify'
 
-const myCustomLightTheme = {
+const customLightTheme = {
   dark: false,
   colors: {
     background: '#FFFFFF',
@@ -27,26 +30,44 @@ const myCustomLightTheme = {
     warning: '#FB8C00',
   },
 }
+//https://vuetifyjs.com/en/styles/colors/
+const customDarkTheme = {
+  dark: true,
+  colors: {
+    background: '#15202b',
+    surface: '#15202b',
+    primary: '#3f51b5',
+    secondary: '#03dac6',
+    error: '#f44336',
+    info: '#2196F3',
+    success: '#4caf50',
+    warning: '#fb8c00',
+  },
+}
 
 // https://vuetifyjs.com/en/introduction/why-vuetify/#feature-guides
 export default createVuetify({
-  icons: {
-    defaultSet: 'mdi',
-    aliases,
-    sets: {
-      mdi,
-    },
-  },
-  theme: {
-    defaultTheme: 'light',
-    themes: {
-      myCustomLightTheme,
-      light: {
-        colors: {
-          primary: '#1867C0',
-          secondary: '#2196F3',
-        },
-      },
-    },
-  },
+  defaults,
+  // icons: {
+  //   defaultSet: 'mdi',
+  //   aliases,
+  //   sets: {
+  //     mdi,
+  //   },
+  // },
+  icons,
+  theme,
+  // theme: {
+  //   defaultTheme: 'light',
+  //   themes: {
+  //     customLightTheme,
+  //     customDarkTheme,
+  //     light: {
+  //       colors: {
+  //         primary: '#1867C0',
+  //         secondary: '#42A5F5',
+  //       },
+  //     },
+  //   },
+  // },
 })

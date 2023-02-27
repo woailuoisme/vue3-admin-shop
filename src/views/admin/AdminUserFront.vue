@@ -3,7 +3,7 @@
     <v-row>
       <v-col cols="12">
         <v-card class="mb-4">
-          <Breadcrumb :items="breadcrumbs" />
+          <breadcrumb :items="breadcrumbs" />
         </v-card>
       </v-col>
     </v-row>
@@ -26,7 +26,7 @@
     <v-row>
       <v-col cols="12">
         <v-card :loading="loading" :disabled="loading">
-          <EasyDataTable
+          <easy-data-table
             v-model:server-options="requestParams"
             buttons-pagination
             alternating
@@ -60,7 +60,7 @@
                 />
               </div>
             </template>
-          </EasyDataTable>
+          </easy-data-table>
         </v-card>
         <v-dialog v-model="dialogDetail" max-width="800" />
       </v-col>

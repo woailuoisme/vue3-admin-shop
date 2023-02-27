@@ -59,6 +59,7 @@
     </v-card-actions>
   </v-card>
 </template>
+
 <script setup>
 import img from '@/assets/image/default_image_1.png'
 import { defineEmits, defineProps } from 'vue'
@@ -67,7 +68,6 @@ const props = defineProps({
   feedback: {
     type: Object,
     required: true,
-    default: {},
   },
 })
 
@@ -77,4 +77,5 @@ function close() {
   emit('close')
 }
 </script>
+
 <style scoped></style>

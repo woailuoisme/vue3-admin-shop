@@ -11,11 +11,20 @@ const routes = [
     redirect: '/404',
   },
   {
+    path: '/404',
+    name: 'not_found',
+    component: () => import('@/views/errors/NotFound.vue'),
+  },
+  {
+    path: '/profile',
+    name: 'profile',
+    component: () => import('@/views/admin/UserProfile.vue'),
+  },
+  {
     path: '/dashboard',
     name: 'dashboard',
     component: () => import('@/views/admin/AdminDashboard.vue'),
   },
-
   {
     path: '/login',
     name: 'login',
@@ -26,11 +35,6 @@ const routes = [
     path: '/drag',
     name: '/drag',
     component: () => import('@/components/shared/DragSorted.vue'),
-  },
-  {
-    path: '/404',
-    name: 'not_found',
-    component: () => import('@/views/errors/NotFound.vue'),
   },
 
   {

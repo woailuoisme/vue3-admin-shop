@@ -3,7 +3,7 @@
     <v-row>
       <v-col cols="12">
         <v-card class="mb-4">
-          <Breadcrumb :items="breadcrumbs" />
+          <breadcrumb :items="breadcrumbs" />
         </v-card>
       </v-col>
     </v-row>
@@ -28,7 +28,7 @@
     <v-row>
       <v-col cols="12">
         <v-card :loading="loading" :disabled="loading">
-          <EasyDataTable
+          <easy-data-table
             v-model:server-options="requestParams"
             :server-items-length="serverItemsLength"
             :loading="loading"
@@ -59,7 +59,7 @@
             <template #item-operation="item">
               <v-btn v-if="isShow(item)" color="info" tile small @click.stop="confirmedItem(item)">处理</v-btn>
             </template>
-          </EasyDataTable>
+          </easy-data-table>
         </v-card>
 
         <v-dialog v-model="dialogEntity" persistent max-width="600px" />

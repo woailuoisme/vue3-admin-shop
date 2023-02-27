@@ -92,5 +92,4 @@ export default {
   imageType,
   isInteger,
   isNumber,
-  email,
 }

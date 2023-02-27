@@ -2,13 +2,13 @@
   <vue-dropzone
     id="dropzone-1"
     ref="images"
-    :use-custom-slot="true"
+    use-custom-slot
     :options="options"
     @vdropzone-complete="afterUploadComplete"
-    @vdropzone-file-added="fileAdd()"
-    @vdropzone-files-added="filesAdd()"
-    @vdropzone-file-added-manually="fileAddManually()"
-    @vdropzone-removed-file="fileRemove()"
+    @vdropzone-file-added="fileAdd"
+    @vdropzone-files-added="filesAdd"
+    @vdropzone-file-added-manually="fileAddManually"
+    @vdropzone-removed-file="fileRemove"
   >
     <div class="dropzone-custom-content">
       <div>
@@ -20,6 +20,7 @@
     </div>
   </vue-dropzone>
 </template>
+
 <script setup>
 import { defineProps, defineEmits, ref } from 'vue'
 
@@ -77,4 +78,5 @@ function fileRemove() {
   emit('update:modelValue', images.value.getAcceptedFiles())
 }
 </script>
+
 <style scoped></style>

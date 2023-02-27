@@ -5,6 +5,7 @@
       <span>{{ appName }}</span>
     </v-toolbar-title>
     <v-spacer />
+
     <v-divider class="mx-2" inset vertical />
     <span v-if="!isAuthed && isShowHeader">
       <v-btn color="primary" tile large to="/login">登录</v-btn>
@@ -24,6 +25,7 @@
       </v-list>
     </v-menu>
   </v-app-bar>
+
   <v-navigation-drawer v-if="isAuthed" v-model="drawer" permanent temporary app>
     <template #prepend>
       <v-list-item border lines="two" prepend-avatar="https://randomuser.me/api/portraits/women/81.jpg" :title="user.name" />
@@ -42,7 +44,7 @@
             :value="child.text"
             :title="child.text"
             :prepend-icon="child.prependIcon"
-            :append-icon="`mdi-chevron-right`"
+            append-icon="mdi-chevron-right"
             :to="{ name: child.name }"
             link
           />
@@ -55,7 +57,7 @@
 
 <script setup>
 import { computed, ref } from 'vue'
-import { useAuth, useMenu, useConfig } from '@/stores'
+import { useAuth, useConfig, useMenu } from '@/stores'
 import router from '@/router'
 
 const authStore = useAuth()
@@ -68,6 +70,7 @@ const isAuthed = computed(() => authStore.isAuthed)
 const user = computed(() => authStore.getUser)
 const appName = computed(() => configStore.appName)
 const isShowHeader = computed(() => configStore.isShowHeader)
+
 const userLogout = async () => {
   if (await authStore.logout()) {
     await router.push({ name: 'login' })

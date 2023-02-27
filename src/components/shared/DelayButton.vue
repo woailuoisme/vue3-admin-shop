@@ -6,17 +6,19 @@
     <span v-else>获取验证码</span>
   </v-btn>
 </template>
+
 <script setup>
 import { defineProps, defineEmits, ref } from 'vue'
 
 const props = defineProps({
   book: Object,
 })
-const counting = ref(false)
 const emit = defineEmits(['click'])
+const counting = ref(false)
 function click() {
   counting.value = true
   emit('click')
 }
 </script>
+
 <style scoped></style>

@@ -3,7 +3,7 @@
     <v-row>
       <v-col cols="12">
         <v-card>
-          <Breadcrumb :items="breadcrumbs" />
+          <breadcrumb :items="breadcrumbs" />
         </v-card>
       </v-col>
     </v-row>
@@ -14,7 +14,7 @@
             <v-btn variant="flat" color="primary" @click.stop="addItem">新增</v-btn>
             <v-spacer />
           </v-card-title>
-          <EasyDataTable
+          <easy-data-table
             v-model:server-options="requestParams"
             buttons-pagination
             alternating
@@ -42,7 +42,7 @@
               <v-btn class="ml-1" icon="mdi-pencil" color="warning" size="small" tile @click.stop="editItem(item)" />
               <v-btn class="ml-1" icon="mdi-delete" color="error" size="small" tile @click.stop="deleteItem(item)" />
             </template>
-          </EasyDataTable>
+          </easy-data-table>
         </v-card>
       </v-col>
     </v-row>
@@ -54,6 +54,7 @@
     </v-dialog>
   </v-container>
 </template>
+
 <script setup>
 import TableImage from '@/components/table/TableImage'
 import Breadcrumb from '@/components/shared/Breadcrumb'

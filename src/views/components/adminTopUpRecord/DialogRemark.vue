@@ -30,6 +30,7 @@
     </v-card-actions>
   </v-card>
 </template>
+
 <script setup>
 import { defineEmits, defineProps, ref } from 'vue'
 
@@ -37,13 +38,12 @@ const props = defineProps({
   record: {
     type: Object,
     required: true,
-    default: {},
   },
 })
 
-const editedItem = ref(props.record)
-
 const emit = defineEmits(['update:modelValue', 'close', 'save'])
+
+const editedItem = ref(props.record)
 
 function confirmLabel($value) {
   if ($value) {
@@ -61,4 +61,5 @@ function save() {
   emit('save')
 }
 </script>
+
 <style scoped></style>

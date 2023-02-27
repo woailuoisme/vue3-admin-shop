@@ -40,23 +40,23 @@ export const checkIfUpdateIsNeeded = (latestVersion, localVersion) => {
 }
 
 // Gets file from axios at url SERVER/version.json
-export const checkForUpdates = () => {
-  setLocalStorageDateForUpdates()
-  // Checks if checkForAppUpdatesAt set in localstorage is past to check for updates
-  if (isPast(new Date(fromUnixTime(JSON.parse(window.localStorage.getItem('checkForAppUpdatesAt')))))) {
-    update
-      .checkIfUpdatedSiteVersion()
-      .then((response) => {
-        if (response.status === 200) {
-          // Get latestVersion from response
-          const latestVersion = response.data.version.trim()
-          // Get localVersion from localstorage
-          const localVersion = store.getters.appVersion
-          // Checks if an update is needed
-          checkIfUpdateIsNeeded(latestVersion, localVersion)
-        }
-      })
-      // eslint-disable-next-line no-unused-vars
-      .catch((error) => {})
-  }
-}
+// export const checkForUpdates = () => {
+//   setLocalStorageDateForUpdates()
+//   // Checks if checkForAppUpdatesAt set in localstorage is past to check for updates
+//   if (isPast(new Date(fromUnixTime(JSON.parse(window.localStorage.getItem('checkForAppUpdatesAt')))))) {
+//     update
+//       .checkIfUpdatedSiteVersion()
+//       .then((response) => {
+//         if (response.status === 200) {
+//           // Get latestVersion from response
+//           const latestVersion = response.data.version.trim()
+//           // Get localVersion from localstorage
+//           const localVersion = store.getters.appVersion
+//           // Checks if an update is needed
+//           checkIfUpdateIsNeeded(latestVersion, localVersion)
+//         }
+//       })
+//       // eslint-disable-next-line no-unused-vars
+//       .catch((error) => {})
+//   }
+// }

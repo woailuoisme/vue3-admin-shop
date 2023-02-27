@@ -1,11 +1,11 @@
 <template>
   <v-app>
-    <AppHeader />
+    <app-header />
     <v-main id="main-content" class="light-blue lighten-5">
       <router-view />
-      <BackToTop />
+      <back-to-top />
     </v-main>
-    <!--    <app-footer />-->
+    <!--    <app-footer /> -->
   </v-app>
 </template>
 
@@ -14,4 +14,5 @@ import AppHeader from '@/components/application/AppHeader.vue'
 import BackToTop from '@/components/shared/BackToTop.vue'
 import AppFooter from '@/components/application/AppFooter'
 </script>
+
 <style></style>

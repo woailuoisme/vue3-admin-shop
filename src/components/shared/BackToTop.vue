@@ -1,7 +1,7 @@
 <template>
-  <div :class="['back-to-top-btn', { 'go-top': isTop }]" @click="scrollToTop()">
-    <!--    <i class='ri-arrow-up-s-line'></i>-->
-    <v-icon end icon="mdi-arrow-up" />
+  <div class="back-to-top-btn" :class="[{ 'go-top': isTop }]" @click="scrollToTop">
+    <!--    <i class='ri-arrow-up-s-line'></i> -->
+    <v-icon size="x-large" icon="mdi-arrow-up" />
   </div>
 </template>
 

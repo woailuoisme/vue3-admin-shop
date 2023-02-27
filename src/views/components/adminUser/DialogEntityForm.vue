@@ -21,7 +21,7 @@
               <v-text-field
                 v-model="entity.password"
                 :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
-                :counter="true"
+                counter
                 :type="showPassword ? 'text' : 'password'"
                 label="密码:"
                 prepend-icon="mdi-lock"
@@ -64,19 +64,9 @@
     </v-card-actions>
   </v-card>
 </template>
+
 <script setup>
 import { defineEmits, defineProps, onMounted, reactive, ref, watch } from 'vue'
-
-const showPassword = ref(false)
-const valid = ref(false)
-let entity = reactive({
-  name: '',
-  email: '',
-  password: null,
-  avatar: null,
-  avatarFile: [],
-  role: '',
-})
 
 const props = defineProps({
   isNew: {
@@ -86,15 +76,18 @@ const props = defineProps({
   item: {
     type: Object,
     required: true,
-    default: {
-      name: '',
-      email: '',
-      password: null,
-      avatar: null,
-      avatarFile: [],
-      role: '',
-    },
   },
+})
+const emit = defineEmits(['save', 'close'])
+const showPassword = ref(false)
+const valid = ref(false)
+let entity = reactive({
+  name: '',
+  email: '',
+  password: null,
+  avatar: null,
+  avatarFile: [],
+  role: '',
 })
 
 onMounted(() => {
@@ -112,8 +105,6 @@ const roleList = [
   },
 ]
 
-const emit = defineEmits(['save', 'close'])
-
 function save(value) {
   emit('save', value)
 }
@@ -122,4 +113,5 @@ function close() {
   emit('close')
 }
 </script>
+
 <style scoped></style>

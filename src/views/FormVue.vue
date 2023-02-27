@@ -82,9 +82,9 @@
             <v-radio label="Radio 3" color="warning" value="3" />
           </v-radio-group>
 
-          <Dropzone v-model="images" />
+          <dropzone v-model="images" />
           <v-textarea variant="underlined" clearable clear-icon="mdi-close-circle" label="Text" />
-          <file-upload></file-upload>
+          <file-upload />
           <v-file-input
             v-model="image.value.value"
             label="文件"
@@ -120,6 +120,7 @@
     </v-card>
   </v-container>
 </template>
+
 <script setup>
 import DatePicker from '@/components/shared/DatePicker'
 import MyEditor from '@/components/myEditor'
@@ -203,6 +204,7 @@ const submit = handleSubmit((values) => {
   alert(JSON.stringify(values, null, 2))
 })
 </script>
+
 <style lang="scss" scoped>
 .action-row {
   display: flex;

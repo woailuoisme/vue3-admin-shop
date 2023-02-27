@@ -3,7 +3,7 @@
     <v-row>
       <v-col cols="12">
         <v-card>
-          <Breadcrumb :items="breadcrumbs" />
+          <breadcrumb :items="breadcrumbs" />
         </v-card>
       </v-col>
     </v-row>
@@ -28,7 +28,7 @@
     <v-row>
       <v-col cols="12">
         <v-card :loading="isLoading" :disabled="isLoading">
-          <EasyDataTable
+          <easy-data-table
             v-model:server-options="requestParams"
             :server-items-length="total"
             :loading="isLoading"
@@ -39,7 +39,7 @@
               <v-btn color="info" @click.stop="editItem(item)">{{ $t('table.operation.update') }}</v-btn>
               <v-btn class="mx-3" color="error" @click.stop="deleteItem(item)">{{ $t('table.operation.delete') }}</v-btn>
             </template>
-          </EasyDataTable>
+          </easy-data-table>
         </v-card>
       </v-col>
     </v-row>
@@ -59,6 +59,7 @@ import DialogEntityForm from '@/views/components/adminTopUpAmount/DialogEntityFo
 import { computed, nextTick, onMounted, ref, unref, watch } from 'vue'
 import { storeToRefs } from 'pinia'
 import { useBreadcrumb, useGlobal, useTopUpAmount, useTableHeader } from '@/stores'
+import _ from 'lodash'
 
 const amountStore = useTopUpAmount()
 const globalStore = useGlobal()
@@ -73,17 +74,18 @@ const dialogDelete = ref(false)
 const requestParams = ref({
   page: 1,
   rowsPerPage: 10,
-  keyword: '',
+  sortBy: '',
+  sortType: '',
 })
+const search = _.debounce((value) => amountStore.loadAllAmount(value), 800)
 
 onMounted(() => {
   amountStore.loadAllAmount(unref(requestParams))
 })
-
 watch(
   requestParams,
   (value) => {
-    amountStore.loadAllAmount(unref(requestParams))
+    search(unref(requestParams))
   },
   { deep: true }
 )
@@ -136,7 +138,7 @@ function closeDelete() {
 
 function save(values) {
   if (editedIndex.value > -1) {
-    const entity = { id: editedItem.value.?id, ...values }
+    const entity = { id: editedItem.value?.id, ...values }
     amountStore.updateAmount(entity)
   } else {
     amountStore.createAmount(values)
@@ -144,4 +146,5 @@ function save(values) {
   close()
 }
 </script>
+
 <style scoped></style>

@@ -1,7 +1,7 @@
 <template>
   <v-card>
     <v-card-title class="headline grey lighten-2 text-center" primary-title>订单详情</v-card-title>
-    <v-divider thickness="2"></v-divider>
+    <v-divider thickness="2" />
     <v-card-text>
       <v-table>
         <thead>
@@ -40,6 +40,7 @@
     </v-card-actions>
   </v-card>
 </template>
+
 <script setup>
 import { defineProps, defineEmits, ref, watch } from 'vue'
 import { orderStatusLabel } from '@/utils/table'
@@ -48,7 +49,6 @@ const props = defineProps({
   category: {
     type: Object,
     required: true,
-    default: {},
   },
 })
 
@@ -58,4 +58,5 @@ function close() {
   emit('close')
 }
 </script>
+
 <style scoped></style>

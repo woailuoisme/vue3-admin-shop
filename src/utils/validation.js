@@ -62,7 +62,7 @@ yup.setLocale({
 yup.addMethod(yup.string, 'name', function nameMethod(message) {
   const nameRegex = /^[a-zA-Z]+( [a-zA-Z]+)*$/
   // eslint-disable-next-line no-template-curly-in-string
-  return this.test('name', locale.string.name, function nameTest() {
+  return this.test('name', '名字', function nameTest() {
     return nameRegex.test(this.options.originalValue) || this.createError({ message })
   })
 })

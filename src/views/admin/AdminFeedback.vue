@@ -3,7 +3,7 @@
     <v-row>
       <v-col cols="12">
         <v-card class="mb-4">
-          <Breadcrumb :items="breadcrumbs" />
+          <breadcrumb :items="breadcrumbs" />
         </v-card>
       </v-col>
     </v-row>
@@ -21,7 +21,7 @@
     <v-row>
       <v-col cols="12">
         <v-card :loading="loading" :disabled="loading">
-          <EasyDataTable
+          <easy-data-table
             v-model:server-options="requestParams"
             buttons-pagination
             alternating
@@ -41,7 +41,7 @@
             <template #item-operation="item">
               <v-btn color="info" tile small @click.stop="detail(item)">查看</v-btn>
             </template>
-          </EasyDataTable>
+          </easy-data-table>
         </v-card>
         <v-dialog v-model="dialogDetail" max-width="800">
           <dialog-details :feedback="mapFeedback" @close="dialogDetail = false" />

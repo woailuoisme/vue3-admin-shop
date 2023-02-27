@@ -3,7 +3,7 @@
     <v-row>
       <v-col cols="12">
         <v-card class="mb-4">
-          <Breadcrumb :items="breadcrumbs" />
+          <breadcrumb :items="breadcrumbs" />
         </v-card>
       </v-col>
     </v-row>
@@ -20,7 +20,7 @@
     <v-row>
       <v-col cols="12">
         <v-card :loading="loading" :disabled="loading">
-          <EasyDataTable
+          <easy-data-table
             v-model:server-options="requestParams"
             buttons-pagination
             alternating
@@ -45,7 +45,7 @@
               <v-btn color="info" tile small @click.stop="editItem(item)">修改</v-btn>
               <v-btn class="ml-3" color="error" tile small @click.stop="deleteItem(item)">删除</v-btn>
             </template>
-          </EasyDataTable>
+          </easy-data-table>
         </v-card>
       </v-col>
     </v-row>
@@ -134,11 +134,11 @@ function closeDelete() {
   this.close()
 }
 
-function save() {
+function save(value) {
   if (this.editedIndex > -1) {
-    carouselStore.updateCarousel(data)
+    carouselStore.updateCarousel(value)
   } else {
-    carouselStore.createCarousel(data)
+    carouselStore.createCarousel(value)
   }
   this.close()
 }

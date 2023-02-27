@@ -25,6 +25,7 @@ function goHome() {
   router.push({ path: '/' })
 }
 </script>
+
 <style lang="sass" scoped>
 h1
   font-size: 150px

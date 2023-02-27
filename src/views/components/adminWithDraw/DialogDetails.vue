@@ -24,6 +24,7 @@
     </v-card-actions>
   </v-card>
 </template>
+
 <script setup>
 import { defineProps, defineEmits } from 'vue'
 
@@ -41,4 +42,5 @@ function close() {
   emit('close')
 }
 </script>
+
 <style scoped></style>

@@ -11,6 +11,7 @@
     </v-carousel-item>
   </v-carousel>
 </template>
+
 <script setup>
 import errorImg from '@/assets/image/default_image_1.png'
 import { defineEmits, defineProps } from 'vue'
@@ -29,4 +30,5 @@ const props = defineProps({
 
 const emit = defineEmits(['update'])
 </script>
+
 <style scoped></style>

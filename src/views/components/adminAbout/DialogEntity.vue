@@ -8,7 +8,7 @@
         <v-row>
           <v-col cols="12">
             <div class="title">内容</div>
-            <myEditor v-model="editedItem.content" :img-upload-url="TME_IMAGE_UPLOAD" />
+            <my-editor v-model="editedItem.content" :img-upload-url="TME_IMAGE_UPLOAD" />
           </v-col>
         </v-row>
       </v-container>
@@ -20,12 +20,11 @@
     </v-card-actions>
   </v-card>
 </template>
+
 <script setup>
 import myEditor from '@/components/myEditor'
 import { defineEmits, defineProps, onMounted, reactive, ref, watch } from 'vue'
 import { TME_IMAGE_UPLOAD } from '@/utils/urls'
-
-const valid = ref(false)
 
 const props = defineProps({
   // isNew: {
@@ -35,15 +34,14 @@ const props = defineProps({
   item: {
     type: Object,
     required: true,
-    default: {
-      order: '',
-      image: null,
-    },
   },
 })
-const editedItem = reactive(props.item)
 
 const emit = defineEmits(['save', 'close'])
+
+const valid = ref(false)
+
+const editedItem = reactive(props.item)
 
 function save(value) {
   emit('save', value)
@@ -53,4 +51,5 @@ function close() {
   emit('close')
 }
 </script>
+
 <style scoped></style>

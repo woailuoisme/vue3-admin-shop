@@ -3,6 +3,11 @@ import vue from '@vitejs/plugin-vue'
 import vuetify, { transformAssetUrls } from 'vite-plugin-vuetify'
 import { dirname, resolve } from 'node:path'
 import { createHtmlPlugin } from 'vite-plugin-html'
+import AutoImport from 'unplugin-auto-import/vite'
+import { VuetifyResolver } from 'unplugin-vue-components/resolvers'
+import ViteComponents from 'unplugin-vue-components/vite'
+import Pages from 'vite-plugin-pages'
+import Layouts from 'vite-plugin-vue-layouts'
 
 // Utilities
 import { defineConfig } from 'vite'
@@ -20,6 +25,20 @@ export default defineConfig((command, mode) => {
       vue({
         template: { transformAssetUrls },
       }),
+      AutoImport({
+        include: [
+          /\.[tj]sx?$/, // .ts, .tsx, .js, .jsx
+          /\.vue$/,
+          /\.vue\?vue/, // .vue
+          /\.md$/, // .md
+        ],
+        imports: ['vue', 'vue-router', '@vueuse/core', 'vue-i18n', 'pinia','vee-validate'],
+        vueTemplate: true,
+      }),
+      ViteComponents({
+        dts: true,
+        resolvers: [VuetifyResolver()],
+      }),
       VueI18nPlugin({
         runtimeOnly: false,
         // provide a path to the folder where you'll store translation data (see below)
@@ -32,6 +51,8 @@ export default defineConfig((command, mode) => {
           configFile: 'src/styles/settings.scss',
         },
       }),
+      Pages({}),
+      Layouts(),
       createHtmlPlugin({
         minify: true,
         inject: {
@@ -50,6 +71,12 @@ export default defineConfig((command, mode) => {
         '@': fileURLToPath(new URL('./src', import.meta.url)),
       },
       extensions: ['.js', '.json', '.jsx', '.mjs', '.ts', '.tsx', '.vue'],
+    },
+    optimizeDeps: {
+      exclude: ['vuetify'],
+      entries: [
+        './src/**/*.vue',
+      ],
     },
     server: {
       host: '0.0.0.0',

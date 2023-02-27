@@ -6,14 +6,14 @@
         v-model="image"
         :label="imageLabel"
         :rules="rules"
-        @click:clear="clear"
         variant="outlined"
         prepend-inner-icon="mdi-camera"
         prepend-icon=""
-        @update:modelValue="change"
         show-size
         single-line
         class="my-4"
+        @click:clear="clear"
+        @update:model-value="change"
       />
     </v-col>
     <v-col v-if="imageUrl" cols="3">
@@ -26,11 +26,10 @@
   </v-row>
   <v-row />
 </template>
+
 <script setup>
 import { defineEmits, defineProps, getCurrentInstance, onMounted, ref } from 'vue'
 
-const instance = getCurrentInstance()
-const emit = defineEmits(['update:modelValue'])
 const props = defineProps({
   modelValue: File,
   label: {
@@ -39,7 +38,8 @@ const props = defineProps({
   },
   url: String,
 })
-
+const emit = defineEmits(['update:modelValue'])
+const instance = getCurrentInstance()
 const image = ref([])
 const imageUrl = ref(props.url)
 const imageLabel = ref(props.label)
@@ -49,7 +49,11 @@ const label = props?.label ? props?.label : '图片'
 const size = 2
 const rules = [
   (value) => !!value || `${label} 必填`,
-  (value) => !value || !value.length || types.includes(value?.type) || `仅接收: ${exes} 文件!`,
+  (value) => {
+    debugger
+    !value || !value.length || types.includes(value[0]?.type) || `仅接收: ${exes} 文件!`
+  },
+
   (value) => !value || !value.length || value[0].size / (1024 * 1024) < size || `${label} 的大小需要小于 ${size}M`,
 ]
 
@@ -64,4 +68,5 @@ const clear = () => {
   imageUrl.value = ''
 }
 </script>
+
 <style scoped></style>
