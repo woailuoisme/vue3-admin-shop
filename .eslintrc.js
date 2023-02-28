@@ -80,7 +80,7 @@ module.exports = {
         allowTernary: true,
       },
     ],
-
+    "no-multiple-empty-lines": ["error", { "max": 2, "maxEOF": 1 }],
     'arrow-body-style': [0, 'never'],
     'func-names': 0,
     'prefer-const': 0,

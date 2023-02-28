@@ -11,16 +11,9 @@
       <v-col cols="12">
         <v-card>
           <v-toolbar flat>
-            <v-toolbar-title>退款管理</v-toolbar-title>
+            <v-toolbar-title>提现管理</v-toolbar-title>
             <v-spacer />
-            <v-text-field
-              v-model="requestParams.keyword"
-              append-icon="mdi-magnify"
-              placeholder="订单编号/姓名"
-              single-line
-              hide-details
-              solo
-            />
+            <v-text-field v-model="requestParams.keyword" append-icon="mdi-magnify" placeholder="姓名" single-line hide-details solo />
           </v-toolbar>
         </v-card>
       </v-col>
@@ -33,36 +26,22 @@
             :server-items-length="serverItemsLength"
             :loading="loading"
             :headers="headers"
-            :items="refunds"
+            :items="withdraws"
           >
-            <template #item-order_num="item">
-              <v-chip color="primary" small tile @click.stop="detail(item)">{{ item.order_num }}</v-chip>
+            <template #item-operation="item">
+              <v-btn v-if="isShow(item)" color="info" tile small @click.stop="confirmedItem(item)">处理</v-btn>
             </template>
-
             <template #item-status="{ status }">
               <v-chip :color="statusClass(status)" small>
                 {{ statusLabel(status) }}
               </v-chip>
             </template>
-
-            <template #item-remark="{ remark }">
-              <text-tooltip :text="remark" />
-            </template>
-
-            <template #item-amount="item">
-              <span v-if="item?.product">
-                {{ item.product.sale_price }}*{{ item.product.quantity }}={{ item.product.sale_price * item.product.quantity }}
-              </span>
-              <span v-else>0</span>
-            </template>
-
-            <template #item-operation="item">
-              <v-btn v-if="isShow(item)" color="info" tile small @click.stop="confirmedItem(item)">处理</v-btn>
-            </template>
           </easy-data-table>
         </v-card>
-
         <v-dialog v-model="dialogEntity" persistent max-width="600px" />
+        <v-dialog v-model="dialogDetail" max-width="800">
+          <details :withdraw="mapCategory" />
+        </v-dialog>
       </v-col>
     </v-row>
   </v-container>
@@ -70,43 +49,44 @@
 
 <script setup>
 import Breadcrumb from '@/components/shared/Breadcrumb'
-import TextTooltip from '@/components/table/TextTooltip'
-import DialogDetails from '@/views/components/adminWithDraw/DialogDetails'
+import Details from './components/withdraw/Details'
 import { computed, nextTick, onMounted, ref, watch } from 'vue'
-import { useBreadcrumb, useGlobal, useRefund, useTableHeader } from '@/stores'
+import { useBreadcrumb, useGlobal, useWithdraw, useTableHeader } from '@/stores'
 
-const refundStore = useRefund()
+const withdrawStore = useWithdraw()
 const globalStore = useGlobal()
 const breadcrumbStore = useBreadcrumb()
 const tableHeaderStore = useTableHeader()
 
-const headers = computed(() => tableHeaderStore.refund)
-const breadcrumbs = computed(() => breadcrumbStore.refund)
-const refunds = computed(() => refundStore.getRefunds)
-const serverItemsLength = computed(() => refundStore.total)
+const headers = computed(() => tableHeaderStore.withdraw)
+const breadcrumbs = computed(() => breadcrumbStore.withdraw)
+const withdraws = computed(() => withdrawStore.getWithdraws)
+const serverItemsLength = computed(() => withdrawStore.total)
 const loading = computed(() => globalStore.isLoading)
-const isNew = computed(() => refundStore.isNew)
-const editedItem = computed(() => refundStore.getEditedItem)
-const editedIndex = computed(() => refundStore.getEditedIndex)
+const isNew = computed(() => withdrawStore.isNew)
+const editedItem = computed(() => withdrawStore.getEditedItem)
+const editedIndex = computed(() => withdrawStore.getEditedIndex)
 const dialogEntity = ref(false)
 const dialogDetail = ref(false)
-let mapRefund = []
+
+let mapWithdraw
 
 const requestParams = ref({
   page: 1,
   rowsPerPage: 10,
   keyword: '',
 })
+let mapCategory
 
 onMounted(() => {
   console.log('onMounted')
-  refundStore.loadAllRefunds(requestParams.value._rawValue)
+  withdrawStore.loadAllWithdraws(requestParams.value._rawValue)
 })
 
 watch(
   requestParams,
   (value) => {
-    refundStore.loadAllRefunds(requestParams.value._rawValue)
+    withdrawStore.loadAllWithdraws(requestParams.value._rawValue)
   },
   { deep: true }
 )
@@ -128,19 +108,19 @@ function isShow(item) {
 }
 
 function detail(item) {
-  mapRefund = refundStore.findByRefundNum(item.id)
+  mapWithdraw = withdrawStore.findByWithdrawId(item.id)
   dialogDetail.value = true
 }
 
 function close() {
   dialogEntity.value = false
   nextTick(() => {
-    refundStore.resetEdited()
+    withdrawStore.resetEdited()
   })
 }
 
 function confirmedItem(item) {
-  refundStore.findAndSetItem(item)
+  withdrawStore.findAndSetItem(item)
   dialogEntity.value = true
 }
 
@@ -154,8 +134,6 @@ function statusLabel(value) {
     return '已申请'
   } else if (value === 'passed') {
     return '已通过'
-  } else if (value === 'reject') {
-    return '已拒绝'
   } else if (value === 'rejected') {
     return '已拒绝'
   }
@@ -166,8 +144,6 @@ function statusClass(value) {
     return 'primary'
   } else if (value === 'passed') {
     return 'success'
-  } else if (value === 'reject') {
-    return 'error'
   } else if (value === 'rejected') {
     return 'error'
   }

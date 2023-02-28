@@ -74,7 +74,7 @@
         </v-card>
         <v-dialog v-model="dialogEntity" persistent max-width="600px" />
         <v-dialog v-model="dialogDetail" max-width="800">
-          <dialog-details :category="mapCategory" @close="dialogDetail = false" />
+          <details :category="mapCategory" @close="dialogDetail = false" />
         </v-dialog>
       </v-col>
     </v-row>
@@ -83,7 +83,7 @@
 
 <script setup>
 import Breadcrumb from '@/components/shared/Breadcrumb'
-import DialogDetails from '@/views/components/adminOrder/DialogDetails'
+import Details from './components/order/Details'
 import { computed, nextTick, onMounted, ref, unref, watch } from 'vue'
 import { useBreadcrumb, useGlobal, useOrder, useTableHeader } from '@/stores'
 import { orderStatusLabel, orderShowExpress, orderStatus } from '@/utils/table'

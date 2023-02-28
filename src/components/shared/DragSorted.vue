@@ -1,6 +1,6 @@
 <template>
   <v-container fluid>
-    <draggable :list="list" item-key="id" class="v-row" drag-class="drag" ghost-class="ghost" group="images" @change="onChange">
+    <draggable :list="list" item-key="id" class="v-row" drag-class="drag" ghost-class="ghost" @change="onChange">
       <template #item="{ element }">
         <v-col cols="3">
           <image-remove :url="element.url" />

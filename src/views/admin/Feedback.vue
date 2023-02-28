@@ -23,16 +23,10 @@
         <v-card :loading="loading" :disabled="loading">
           <easy-data-table
             v-model:server-options="requestParams"
-            buttons-pagination
-            alternating
-            header-text-direction="center"
-            body-text-direction="center"
-            table-class-name="customize-table"
             :server-items-length="serverItemsLength"
             :loading="loading"
             :headers="headers"
             :items="feedback"
-            :rows-items="[10, 20, 50]"
           >
             <template #item-content="{ content }">
               <text-tooltip :text="content" />
@@ -44,7 +38,7 @@
           </easy-data-table>
         </v-card>
         <v-dialog v-model="dialogDetail" max-width="800">
-          <dialog-details :feedback="mapFeedback" @close="dialogDetail = false" />
+          <details :feedback="mapFeedback" @close="dialogDetail = false" />
         </v-dialog>
       </v-col>
     </v-row>
@@ -54,7 +48,7 @@
 <script setup>
 import Breadcrumb from '@/components/shared/Breadcrumb'
 import TextTooltip from '@/components/table/TextTooltip'
-import DialogDetails from '@/views/components/adminFeedback/DialogDetails'
+import Details from './components/feedback/Details'
 import { computed, onMounted, ref, toRaw } from 'vue'
 import { useBreadcrumb, useFeedback, useGlobal, useTableHeader } from '@/stores'
 

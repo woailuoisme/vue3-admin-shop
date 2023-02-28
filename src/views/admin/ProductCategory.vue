@@ -21,16 +21,10 @@
         <v-card :loading="loading" :disabled="loading">
           <easy-data-table
             v-model:server-options="requestParams"
-            buttons-pagination
-            alternating
-            header-text-direction="center"
-            body-text-direction="center"
-            table-class-name="customize-table"
             :server-items-length="serverItemsLength"
             :loading="loading"
             :headers="headers"
             :items="categories"
-            :rows-items="[10, 20, 50]"
           >
             <template #item-image_url="{ image_url }">
               <table-image :image="image_url" />
@@ -51,7 +45,7 @@
       <dialog-confirm @close="closeDelete" @confirm="deleteItemConfirm" />
     </v-dialog>
     <v-dialog v-model="dialogEntity" max-width="1300px">
-      <dialog-entity :item="editedItem" :is-new="isNew" @close="dialogEntity = false" @save="save" />
+      <entity :item="editedItem" :is-new="isNew" @close="dialogEntity = false" @save="save" />
     </v-dialog>
   </v-container>
 </template>
@@ -59,8 +53,8 @@
 <script setup>
 import TableImage from '@/components/table/TableImage'
 import Breadcrumb from '@/components/shared/Breadcrumb'
-import DialogConfirm from '@/views/components/adminProduct/DialogConfirm'
-import DialogEntity from '@/views/components/adminProductCategory/DialogEntity'
+import DialogConfirm from './components/common/DialogConfirm'
+import Entity from './components/productCategory/Entity'
 import { computed, nextTick, onMounted, ref, watch } from 'vue'
 import { useBreadcrumb, useGlobal, useProductCategory, useTableHeader } from '@/stores'
 

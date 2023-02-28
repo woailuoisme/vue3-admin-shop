@@ -19,19 +19,13 @@
     </v-row>
     <v-row>
       <v-col cols="12">
-        <v-card :loading="loading" :disabled="loading">
+        <v-card :loading="isLoading" :disabled="isLoading">
           <easy-data-table
             v-model:server-options="requestParams"
-            buttons-pagination
-            alternating
-            header-text-direction="center"
-            body-text-direction="center"
-            table-class-name="customize-table"
-            :server-items-length="serverItemsLength"
-            :loading="loading"
+            :server-items-length="total"
+            :loading="isLoading"
             :headers="headers"
             :items="carousels"
-            :rows-items="[10, 20, 50]"
           >
             <template #item-id="{ id }">
               <v-chip color="primary" small tile>{{ id }}</v-chip>

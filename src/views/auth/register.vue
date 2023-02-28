@@ -2,7 +2,6 @@
 import { computed, ref } from 'vue'
 import { useTheme } from 'vuetify'
 import logo from '@/assets/logo.svg?raw'
-import AuthProvider from '@/views/pages/authentication/AuthProvider.vue'
 import authV1MaskDark from '@/assets/images/pages/auth-v1-mask-dark.png'
 import authV1MaskLight from '@/assets/images/pages/auth-v1-mask-light.png'
 import authV1Tree2 from '@/assets/images/pages/auth-v1-tree-2.png'
@@ -102,7 +101,7 @@ const isPasswordVisible = ref(false)
 </template>
 
 <style lang="scss">
-@use '@core/scss/pages/page-auth.scss';
+//@use '@core/scss/pages/page-auth.scss';
 </style>
 
 <route lang="yaml">

@@ -29,61 +29,13 @@
         <v-card>
           <v-window v-model="tab">
             <v-window-item value="one">
-              <v-card flat>
-                <v-card-title>Account Details</v-card-title>
-                <v-card-text class="d-flex">
-                  <v-avatar rounded="lg" size="100" class="me-6" />
-                  <form ref="refForm" class="d-flex flex-column justify-center gap-5">
-                    <div class="d-flex flex-wrap gap-2">
-                      <v-btn prepend-icon="mdi-cloud-upload-outline" color="primary">Upload new photo</v-btn>
-                      <input ref="refInputEl" type="file" name="file" accept=".jpeg,.png,.jpg,GIF" hidden />
-                      <v-btn prepend-icon="mdi-refresh" type="reset" color="error" variant="tonal">Reset</v-btn>
-                    </div>
-                    <p class="text-body-1 mb-0">Allowed JPG, GIF or PNG. Max size of 800K</p>
-                  </form>
-                </v-card-text>
-                <v-divider class="my-4" thickness="2" />
-                <v-card-text>
-                  <v-form>
-                    <v-row>
-                      <v-col col="6">
-                        <v-text-field label="firstName" />
-                      </v-col>
-                      <v-col col="6">
-                        <v-text-field label="firstName" />
-                      </v-col>
-                    </v-row>
-                    <v-row>
-                      <v-col col="6">
-                        <v-text-field label="firstName" />
-                      </v-col>
-                      <v-col col="6">
-                        <v-text-field label="firstName" />
-                      </v-col>
-                    </v-row>
-                    <v-row>
-                      <v-col col="6">
-                        <v-select label="Language" :items="['English', 'Spanish', 'Arabic', 'Hindi', 'Urdu']" />
-                      </v-col>
-                      <v-col col="6">
-                        <v-select label="Language" :items="['English', 'Spanish', 'Arabic', 'Hindi', 'Urdu']" />
-                      </v-col>
-                    </v-row>
-                    <v-row>
-                      <v-col cols="12">
-                        <v-btn>save changes</v-btn>
-                        <v-btn class="ml-4" color="secondary">reset</v-btn>
-                      </v-col>
-                    </v-row>
-                  </v-form>
-                </v-card-text>
-              </v-card>
+              <account></account>
             </v-window-item>
             <v-window-item value="two">
-              <account-settings-security />
+              <security />
             </v-window-item>
             <v-window-item value="three">
-              <account-settings-notification />
+              <notification />
             </v-window-item>
           </v-window>
         </v-card>
@@ -94,10 +46,10 @@
 
 <script setup>
 import { computed, nextTick, onMounted, ref, watch } from 'vue'
-const tab = ref('Account')
-import AccountSettingsAccount from '@/views/components/adminUserProfile/AccountSettingsAccount'
-import AccountSettingsNotification from '@/views/components/adminUserProfile/AccountSettingsNotification'
-import AccountSettingsSecurity from '@/views/components/adminUserProfile/AccountSettingsSecurity'
+const tab = ref('two')
+import Account from './components/userProfile/Account'
+import Notification from './components/userProfile/Notification'
+import Security from './components/userProfile/Security'
 </script>
 
 <style scoped></style>

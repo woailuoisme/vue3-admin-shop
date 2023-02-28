@@ -28,16 +28,10 @@
         <v-card :loading="loading" :disabled="loading">
           <easy-data-table
             v-model:server-options="requestParams"
-            buttons-pagination
-            alternating
-            header-text-direction="center"
-            body-text-direction="center"
-            table-class-name="customize-table"
             :server-items-length="serverItemsLength"
             :loading="loading"
             :headers="headers"
             :items="users"
-            :rows-items="[10, 20, 50]"
           >
             <template #item-name="{ name }">
               <v-chip color="primary" small tile>{{ name }}</v-chip>

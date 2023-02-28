@@ -35,5 +35,6 @@ declare module '@vue/runtime-core' {
     TextTooltip: typeof import('./src/components/table/TextTooltip.vue')['default']
     ThemeSwitcher: typeof import('./src/components/ThemeSwitcher.vue')['default']
     ThirdDropzone: typeof import('./src/components/shared/ThirdDropzone.vue')['default']
+    UserProfile: typeof import('./src/components/application/UserProfile.vue')['default']
   }
 }

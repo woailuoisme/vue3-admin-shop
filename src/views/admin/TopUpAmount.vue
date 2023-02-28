@@ -44,7 +44,7 @@
       </v-col>
     </v-row>
     <v-dialog v-model="dialogEntity" max-width="500px" persistent>
-      <dialog-entity-form :item="editedItem" :is-new="isNew" @close="close" @save="save" />
+      <entity :item="editedItem" :is-new="isNew" @close="close" @save="save" />
     </v-dialog>
     <v-dialog v-model="dialogDelete" max-width="500px">
       <dialog-confirm @close="closeDelete" @confirm="deleteItemConfirm" />
@@ -54,8 +54,8 @@
 
 <script setup>
 import Breadcrumb from '@/components/shared/Breadcrumb'
-import DialogConfirm from '@/views/components/common/DialogConfirm'
-import DialogEntityForm from '@/views/components/adminTopUpAmount/DialogEntityForm'
+import DialogConfirm from './components/common/DialogConfirm'
+import Entity from './components/topUpAmount/Entity'
 import { computed, nextTick, onMounted, ref, unref, watch } from 'vue'
 import { storeToRefs } from 'pinia'
 import { useBreadcrumb, useGlobal, useTopUpAmount, useTableHeader } from '@/stores'

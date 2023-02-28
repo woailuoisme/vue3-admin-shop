@@ -62,10 +62,10 @@
       <dialog-confirm @close="closeDelete" @confirm="deleteItemConfirm" />
     </v-dialog>
     <v-dialog v-model="dialogEntity" max-width="1300px">
-      <dialog-entity-form :item="editedItem" :is-new="isNew" @close="dialogEntity = false" @save="save" />
+      <entity :item="editedItem" :is-new="isNew" @close="dialogEntity = false" @save="save" />
     </v-dialog>
     <v-dialog v-model="dialogDetail" max-width="1300px">
-      <dialog-details :product="mapProduct" @close="dialogDetail = false" />
+      <details :product="mapProduct" @close="dialogDetail = false" />
     </v-dialog>
   </v-container>
 </template>
@@ -74,9 +74,9 @@
 import TableImage from '@/components/table/TableImage'
 import TextTooltip from '@/components/table/TextTooltip'
 import Breadcrumb from '@/components/shared/Breadcrumb'
-import DialogConfirm from '@/views/components/adminProduct/DialogConfirm'
-import DialogEntityForm from '@/views/components/adminProduct/DialogEntityForm'
-import DialogDetails from '@/views/components/adminProduct/DialogDetails'
+import DialogConfirm from './components/common/DialogConfirm'
+import Entity from './components/product/Entity'
+import Details from './components/product/Details'
 import { computed, nextTick, onMounted, ref, watch } from 'vue'
 import { useBreadcrumb, useGlobal, useProduct, useProductCategory, useTableHeader } from '@/stores'
 

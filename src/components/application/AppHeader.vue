@@ -5,25 +5,14 @@
       <span>{{ appName }}</span>
     </v-toolbar-title>
     <v-spacer />
-
-    <v-divider class="mx-2" inset vertical />
+    <span>
+      <theme-switcher></theme-switcher>
+    </span>
+    <v-divider class="mx-2" inset vertical thickness="3" />
     <span v-if="!isAuthed && isShowHeader">
       <v-btn color="primary" tile large to="/login">登录</v-btn>
     </span>
-    <v-menu v-else open-on-hover>
-      <template #activator="{ props }">
-        <div class="d-flex align-center" v-bind="props">
-          <v-avatar color="primary">
-            <span class="white--text text-h9">{{ user.name }}</span>
-          </v-avatar>
-        </div>
-      </template>
-      <v-list>
-        <v-list-item>
-          <v-btn text class="red--text darken-3" @click="userLogout">退出登录</v-btn>
-        </v-list-item>
-      </v-list>
-    </v-menu>
+    <user-profile v-else></user-profile>
   </v-app-bar>
 
   <v-navigation-drawer v-if="isAuthed" v-model="drawer" permanent temporary app>
@@ -40,7 +29,7 @@
           <v-list-item
             v-for="(child, i) in item.children"
             :key="i"
-            active-color="secondary"
+            active-color="primary"
             :value="child.text"
             :title="child.text"
             :prepend-icon="child.prependIcon"
@@ -49,7 +38,7 @@
             link
           />
         </v-list-group>
-        <v-list-item v-else active-color="secondary" :prepend-icon="item.prependIcon" :title="item.text" link :to="{ name: item.name }" />
+        <v-list-item v-else active-color="primary" :prepend-icon="item.prependIcon" :title="item.text" link :to="{ name: item.name }" />
       </template>
     </v-list>
   </v-navigation-drawer>
@@ -59,6 +48,8 @@
 import { computed, ref } from 'vue'
 import { useAuth, useConfig, useMenu } from '@/stores'
 import router from '@/router'
+import ThemeSwitcher from '@/components/ThemeSwitcher'
+import UserProfile from './UserProfile'
 
 const authStore = useAuth()
 const menuStore = useMenu()

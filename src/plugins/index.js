@@ -31,6 +31,7 @@ import VueDatePicker from '@vuepic/vue-datepicker'
 import '@vuepic/vue-datepicker/dist/main.css'
 import vueDropzone from 'vue2-dropzone-vue3'
 import VueCountdown from '@chenfengyuan/vue-countdown'
+import Draggable from 'vuedraggable'
 
 import i18n from './i18n'
 
@@ -51,14 +52,15 @@ function setup() {
 }
 
 export function registerPlugins(app) {
-  // loadFonts()
+  loadFonts()
   app.use(vuetify).use(router).use(pinia).use(i18n).use(NProgress).use(VueApexCharts).use(Toast, {
     transition: 'Vue-Toastification__fade',
-    maxToasts: 20,
+    maxToasts: 10,
     newestOnTop: true,
   })
   setup()
   app.component('EasyDataTable', Vue3EasyDataTable)
+  app.component('Draggable', Draggable)
   app.component('VueDatePicker', VueDatePicker)
   app.component('VueDropzone', vueDropzone)
   app.component(VueCountdown.name, VueCountdown)

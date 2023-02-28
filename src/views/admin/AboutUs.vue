@@ -22,16 +22,10 @@
         <v-card :loading="loading" :disabled="loading">
           <easy-data-table
             v-model:server-options="requestParams"
-            buttons-pagination
-            alternating
-            header-text-direction="center"
-            body-text-direction="center"
-            table-class-name="customize-table"
             :server-items-length="serverItemsLength"
             :loading="loading"
             :headers="headers"
             :items="abouts"
-            :rows-items="[10, 20, 50]"
           >
             <template #item-operation="item">
               <v-btn color="info" tile small @click.stop="editItem(item)">修改</v-btn>
@@ -39,10 +33,10 @@
           </easy-data-table>
         </v-card>
         <v-dialog v-model="dialogEntity" max-width="1300px">
-          <dialog-entity :item="editedItem" />
+          <entity :item="editedItem" />
         </v-dialog>
         <v-dialog v-model="dialogDetail" max-width="800">
-          <dialog-detail :item="mapAbout" />
+          <details :item="mapAbout" />
         </v-dialog>
       </v-col>
     </v-row>
@@ -51,8 +45,8 @@
 
 <script setup>
 import Breadcrumb from '@/components/shared/Breadcrumb'
-import DialogDetail from '@/views/components/adminAbout/DialogDetails'
-import DialogEntity from '@/views/components/adminAbout/DialogEntity'
+import Details from './components/about/Details'
+import Entity from './components/about/Entity'
 import { computed, nextTick, onMounted, ref, watch } from 'vue'
 import { useBreadcrumb, useAbout, useGlobal, useTableHeader } from '@/stores'
 import { trim } from 'lodash/string'
