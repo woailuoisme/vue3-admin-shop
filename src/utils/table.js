@@ -1,5 +1,5 @@
 import { trim } from 'lodash/string'
-import dayjs from 'dayjs'
+import { format } from 'date-fns'
 
 export const roleLabel = (value) => {
   if (trim(value) === 'admin') {
@@ -21,7 +21,7 @@ export const sale = (isSale) => {
   }
 }
 export const datetime = (value) => {
-  return dayjs(value).format('YYYY-MM-DD HH:mm:ss')
+  return format(value, 'yyyy-MM-DD HH:mm:ss')
 }
 
 export const saleLabel = (value) => {

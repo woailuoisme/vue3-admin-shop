@@ -50,7 +50,7 @@
       <dialog-confirm @close="closeDelete" @confirm="deleteItemConfirm" />
     </v-dialog>
     <v-dialog v-model="dialogEntity" max-width="500px">
-      <dialog-entity-form :item="editedItem" :is-new="isNew" @close="dialogEntity = false" @save="save" />
+      <entity-form :item="editedItem" :is-new="isNew" @close="dialogEntity = false" @save="save" />
     </v-dialog>
   </v-container>
 </template>
@@ -58,8 +58,8 @@
 <script setup>
 import TableImage from '@/components/table/TableImage'
 import Breadcrumb from '@/components/shared/Breadcrumb'
-import DialogConfirm from '@/views/components/adminUser/DialogConfirm'
-import DialogEntityForm from '@/views/components/adminUser/DialogEntityForm'
+import DialogConfirm from './components/common/DialogConfirm'
+import EntityForm from './components/user/EntityForm'
 import { roleLabel } from '@/utils/table'
 import { computed, nextTick, onMounted, ref, watch } from 'vue'
 import { useAdminUser, useBreadcrumb, useGlobal, useTableHeader } from '@/stores'

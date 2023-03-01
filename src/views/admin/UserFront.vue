@@ -13,7 +13,7 @@
           <v-toolbar flat>
             <v-toolbar-title>前台用户管理</v-toolbar-title>
             <v-spacer />
-            <v-btn :loading="loading" :disabled="loading" color="info" @click="downloadFile">
+            <v-btn variant="flat" :loading="loading" :disabled="loading" color="info" @click="downloadFile">
               Download Excel
               <template #loader>
                 <span>Loading...</span>

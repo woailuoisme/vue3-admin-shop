@@ -2,7 +2,7 @@ import UserService from '../api/user.service'
 import Toast from '../utils/toast'
 
 import { defineStore } from 'pinia'
-import dayjs from 'dayjs'
+import { format } from 'date-fns'
 
 /** Config Store */
 export default defineStore('user', {
@@ -125,7 +125,7 @@ export default defineStore('user', {
         let blob = new Blob([res.data], { type: 'application/xlsx' })
         let link = document.createElement('a')
         link.href = window.URL.createObjectURL(blob)
-        let now = dayjs().format('YYYY_MM_DD_HH_mm_ss')
+        let now = format(new Date(), 'yyyy-MM-dd_HH_mm_ss')
         link.download = `user_excel_${now}.xlsx`
         link.click()
       } catch (e) {

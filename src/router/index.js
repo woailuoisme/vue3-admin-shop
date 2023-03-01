@@ -2,13 +2,13 @@ import { createRouter, createWebHistory } from 'vue-router'
 
 const routes = [
   {
-    path: '/',
-    name: 'home',
-    component: () => import('@/views/admin/Dashboard.vue'),
-  },
-  {
     path: '/:catchAll(.*)',
     redirect: '/404',
+  },
+  {
+    path: '/',
+    name: 'home',
+    component: () => import('@/views/auth/login.vue'),
   },
   {
     path: '/404',
@@ -152,9 +152,10 @@ const routes = [
   },
   //###//
 ]
-
+//fix dev prod server nginx uri /admin rewrite
+const base = import.meta.env.MODE === 'dev' || import.meta.env.MODE === 'prod' ? '/admin' : import.meta.env.BASE_URL
 const router = createRouter({
-  history: createWebHistory(process.env.BASE_URL),
+  history: createWebHistory(base),
   routes,
 })
 
@@ -174,13 +175,13 @@ const router = createRouter({
 //   }
 // });
 
-// router.beforeEach((to, from, next) => {
-//   let user = window.localStorage.getItem('user')
-//   // console.log(user)
-//   if (to.name !== 'login' && !user) next({name: 'login'})
-//   else {
-//     next()
-//   }
-// })
+router.beforeEach((to, from, next) => {
+  let user = window.localStorage.getItem('user')
+  // console.log(user)
+  if (to.name !== 'login' && !user) next({ name: 'login' })
+  else {
+    next()
+  }
+})
 
 export default router

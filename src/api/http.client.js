@@ -67,7 +67,6 @@ class HttpClient {
                 router.replace({ name: 'login' })
                 // router.push({ name: 'dashboard' }
                 console.log('📡 API | Please login again', 'Session Expired')
-                localStorage.removeItem('user')
                 break
 
               case 403:
