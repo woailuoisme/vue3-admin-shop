@@ -1,4 +1,20 @@
 import { createRouter, createWebHistory } from 'vue-router'
+// router.beforeEach(async (to) => {
+//   // clear alert on route change
+//   const alertStore = useAlertStore();
+//   alertStore.clear();
+//
+//   // redirect to login page if not logged in and trying to access a restricted page
+//   const publicPages = ['/account/login', '/account/register'];
+//   const authRequired = !publicPages.includes(to.path);
+//   const authStore = useAuthStore();
+//
+//   if (authRequired && !authStore.user) {
+//     authStore.returnUrl = to.fullPath;
+//     return '/account/login';
+//   }
+// });
+import { useAuth } from '@/stores'
 
 const routes = [
   {
@@ -150,7 +166,6 @@ const routes = [
     name: 'form',
     component: () => import('@/views/FormVue.vue'),
   },
-  //###//
 ]
 //fix dev prod server nginx uri /admin rewrite
 const base = import.meta.env.MODE === 'dev' || import.meta.env.MODE === 'prod' ? '/admin' : import.meta.env.BASE_URL
@@ -159,26 +174,11 @@ const router = createRouter({
   routes,
 })
 
-// router.beforeEach(async (to) => {
-//   // clear alert on route change
-//   const alertStore = useAlertStore();
-//   alertStore.clear();
-//
-//   // redirect to login page if not logged in and trying to access a restricted page
-//   const publicPages = ['/account/login', '/account/register'];
-//   const authRequired = !publicPages.includes(to.path);
-//   const authStore = useAuthStore();
-//
-//   if (authRequired && !authStore.user) {
-//     authStore.returnUrl = to.fullPath;
-//     return '/account/login';
-//   }
-// });
-
 router.beforeEach((to, from, next) => {
-  let user = window.localStorage.getItem('user')
-  // console.log(user)
-  if (to.name !== 'login' && !user) next({ name: 'login' })
+  const publicPages = ['/login', '/register']
+  const authRequired = !publicPages.includes(to.path)
+  const authStore = useAuth()
+  if (authRequired && !authStore.isAuthed) next({ name: 'login' })
   else {
     next()
   }

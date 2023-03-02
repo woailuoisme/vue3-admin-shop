@@ -19,7 +19,6 @@ const app = createApp(App)
 registerPlugins(app)
 
 app.mount('#app')
-debugger
 if (import.meta.env.MODE === 'dev') {
   console.log(' import.meta.env.MODE: ', import.meta.env.MODE)
   console.log(' import.meta.env.BASE_URL: ', import.meta.env.BASE_URL)

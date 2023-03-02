@@ -118,7 +118,6 @@ function deleteItem(item) {
 }
 
 function deleteItemConfirm() {
-  debugger
   categoryStore.deleteCategory(editedItem.value.id)
   dialogDelete.value = false
   nextTick(() => {

@@ -1,6 +1,6 @@
 <template>
-  <v-app-bar v-if="isAuthed && isShowHeader" app class="primary lighten-3" clipped-left>
-    <v-app-bar-nav-icon v-if="isAuthed" @click.stop="drawer = !drawer" />
+  <v-app-bar v-if="isAuthed" app class="primary lighten-3" clipped-left>
+    <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
     <v-toolbar-title class="headline">
       <span>{{ appName }}</span>
     </v-toolbar-title>
@@ -9,15 +9,18 @@
       <theme-switcher></theme-switcher>
     </span>
     <v-divider class="mx-2" inset vertical thickness="3" />
-    <span v-if="!isAuthed && isShowHeader">
-      <v-btn color="primary" tile large to="/login">登录</v-btn>
-    </span>
-    <user-profile v-else></user-profile>
+    <user-profile></user-profile>
   </v-app-bar>
 
-  <v-navigation-drawer v-if="isAuthed" v-model="drawer" permanent temporary app>
+  <v-navigation-drawer v-model="drawer" permanent temporary app>
     <template #prepend>
-      <v-list-item border lines="two" prepend-avatar="https://randomuser.me/api/portraits/women/81.jpg" :title="user.name" />
+      <v-list-item
+        border
+        lines="two"
+        prepend-avatar="https://randomuser.me/api/portraits/women/81.jpg"
+        :title="user?.name"
+        :subtitle="user?.role"
+      />
     </template>
 
     <v-list bg-color="gray" dense>
@@ -47,7 +50,6 @@
 <script setup>
 import { computed, ref } from 'vue'
 import { useAuth, useConfig, useMenu } from '@/stores'
-import router from '@/router'
 import ThemeSwitcher from '@/components/ThemeSwitcher'
 import UserProfile from './UserProfile'
 
@@ -55,18 +57,11 @@ const authStore = useAuth()
 const menuStore = useMenu()
 const configStore = useConfig()
 
-const drawer = ref(true)
+const drawer = ref(false)
 const menuItems = computed(() => menuStore.getMenuItems)
-const isAuthed = computed(() => authStore.isAuthed)
 const user = computed(() => authStore.getUser)
 const appName = computed(() => configStore.appName)
-const isShowHeader = computed(() => configStore.isShowHeader)
-
-const userLogout = async () => {
-  if (await authStore.logout()) {
-    await router.push({ name: 'login' })
-  }
-}
+const isAuthed = computed(() => authStore.isAuthed)
 </script>
 
 <style scoped></style>

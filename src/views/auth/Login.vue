@@ -4,7 +4,7 @@
       <v-col cols="12" lg="4" md="6" sm="8" xm="12">
         <v-form @submit.prevent="submit">
           <v-card class="elevation-12 blue-grey lighten-4" :loading="loading" :disabled="loading">
-            <v-card-title class="text-center text-h6 text-md-h5 text-lg-h4 text-blue-accent-3 py-4">{{ title }}</v-card-title>
+            <v-card-title class="text-center text-h6 text-md-h5 text-lg-h4 text-blue-darken-1 bg-primary py-4">{{ title }}</v-card-title>
             <v-divider :thickness="2" />
             <v-card-text>
               <v-row>
