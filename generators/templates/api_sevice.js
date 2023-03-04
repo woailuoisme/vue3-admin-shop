@@ -1,32 +1,43 @@
 const _ = require('lodash')
 const pluralize = require('pluralize')
 const { trim } = require('lodash/string')
-exports.apiFileContent = (model, withImage = false) => {
-  const newModel = trim(model.toLowerCase())
-  const capName = _.capitalize(_.camelCase(newModel))
-  const pluralizeName = pluralize(_.camelCase(newModel))
-  const withImageFile = `
-  import client from './http.client'
+const {plural, camelToKebab, camelToDot, camelToSnake,pascale} = require("../util");
+exports.apiContent = (model, withImage = false) => {
+  const newModel = trim(model)
+  const camelModel =_.camelCase(newModel)
+  const pascalName = pascale(camelModel)
+  const pluralName = plural(camelModel)
+  const pluralPascalName = plural(pascalName)
+  const kebabName = camelToKebab(camelModel)
+  const dotName = camelToDot(camelModel)
+  const snakeName = camelToSnake(camelModel)
+  console.log(newModel,camelModel,pascalName,pluralName,pluralPascalName,kebabName,dotName,snakeName)
 
-class ${capName}lService {
+
+  const withImageFile = `
+import client from './http.client'
+
+class ${pascalName}lService {
   list(data) {
     const params = {
       page: data?.page,
       per_page: data?.rowsPerPage,
-      keyword: data?.keyword,
     }
+    if (data?.sortBy) params.sortBy = data.sortBy
+    if (data?.sortType) params.sortType = data.sortType
+    if (data?.keyword) params.keyword = data.keyword
     return client.instance().get('/carousels', { params })
   }
 
   show(id) {
-    return client.instance().get(\`/${pluralizeName}/\${id}\`)
+    return client.instance().get(\`/${snakeName}/\${id}\`)
   }
 
   store(data) {
     let formData = new FormData()
     formData.append('order', data.order)
     formData.append('image', data.image)
-    return client.instance().post(\`/${pluralizeName}\`, formData, {
+    return client.instance().post(\`/${snakeName}\`, formData, {
       headers: {
         'Content-Type': 'multipart/form-data',
       },
@@ -50,30 +61,32 @@ class ${capName}lService {
     const body = {
       ids: [id],
     }
-    return client.instance().delete(\`/${pluralizeName}\`, {
+    return client.instance().delete(\`/${snakeName}\`, {
       data: body,
     })
   }
 }
 
-export default new ${capName}Service()
+export default new ${pascalName}Service()
   `
 
   const crudFile = `
 import request from './http.client'
 
-class ${capName}Service {
+class ${pascalName}Service {
   list(data) {
     const params = {
       page: data.page,
       per_page: data.rowsPerPage,
-      keyword: data?.keyword,
     }
-    return request.instance().get('/${pluralizeName}', { params })
+    if (data?.sortBy) params.sortBy = data.sortBy
+    if (data?.sortType) params.sortType = data.sortType
+    if (data?.keyword) params.keyword = data.keyword
+    return request.instance().get('/${snakeName}', { params })
   }
 
   show(id) {
-    return request.instance().get(\`/${pluralizeName}/\${id}\`)
+    return request.instance().get(\`/${snakeName}/\${id}\`)
   }
 
   store(data) {
@@ -81,7 +94,7 @@ class ${capName}Service {
       integral: data.integral,
       amount: data.amount,
     }
-    return request.instance().post(\`/${pluralizeName}\`, body)
+    return request.instance().post(\`/${snakeName}\`, body)
   }
 
   update(data) {
@@ -89,20 +102,20 @@ class ${capName}Service {
       integral: data.integral,
       amount: data.amount,
     }
-    return request.instance().put(\`/${pluralizeName}/\${data.id}\`, body)
+    return request.instance().put(\`/${snakeName}/\${data.id}\`, body)
   }
 
   delete(id) {
     const body = {
       ids: [id],
     }
-    return request.instance().delete(\`/${pluralizeName}\`, {
+    return request.instance().delete(\`/${snakeName}\`, {
       data: body,
     })
   }
 }
 
-export default new ${capName}Service()
+export default new ${pascalName}Service()
   `
   return withImage ? withImageFile : crudFile
 }

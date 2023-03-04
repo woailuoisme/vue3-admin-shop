@@ -110,101 +110,7 @@ export const checkIfTokenNeedsRefresh = () => {
   }
 }
 
-export const buildPayloadPagination = (pagination, search) => {
-  const { page, itemsPerPage } = pagination
-  let { sortDesc, sortBy } = pagination
-
-  // When sorting you always get both values
-  if (sortBy.length === 1 && sortDesc.length === 1) {
-    // Gets order
-    sortDesc = sortDesc[0] === true ? -1 : 1
-    // Gets column to sort on
-    sortBy = sortBy ? sortBy[0] : ''
-  }
-
-  let query = {}
-
-  // If search and fields are defined
-  if (search) {
-    query = {
-      sort: sortBy,
-      order: sortDesc,
-      page,
-      limit: itemsPerPage,
-      filter: search.query,
-      fields: search.fields,
-    }
-  } else {
-    // Pagination with no filters
-    query = {
-      sort: sortBy,
-      order: sortDesc,
-      page,
-      limit: itemsPerPage,
-    }
-  }
-  return query
-}
-
-// function camelize(str) {
-//   return str.replace(/(?:^\w|[A-Z]|\b\w)/g, function(word, index) {
-//     return index === 0 ? word.toLowerCase() : word.toUpperCase();
-//   }).replace(/\s+/g, '');
-// }
-
-/**
- *
- * hyphen -     kebab-case
- * underscore _  snake_case
- * period .
- * space
- * no space      amelCase
- * @returns {string}
- * @param str
- */
-export const camelize = (str) => {
-  return str
-    .replace(/(?:^\w|[A-Z]|\b\w)/g, function (word, index) {
-      return index === 0 ? word.toLowerCase() : word.toUpperCase()
-    })
-    .replace(/\s+/g, '')
-}
-
-// camelize("EquipmentClass name");
-// camelize("Equipment className");
-// camelize("equipment class name");
-// camelize("Equipment Class Name");
-// all output "equipmentClassName"
-export const pascale = (text) => {
-  // _.upperFirst(_.camelCase('double-barrel'))
-  return text
-    .replace(/(?:^\w|[A-Z]|\b\w)/g, function (word, index) {
-      return word.toUpperCase()
-    })
-    .replace(/\s+/g, '')
-}
-/**
- *
- * @param str
- * @param symbol
- * @returns {*}
- */
-export const nameConvert = (str, symbol = '_') => {
-  return (
-    str &&
-    str
-      .match(/[A-Z]{2,}(?=[A-Z][a-z]+[0-9]*|\b)|[A-Z]?[a-z]+[0-9]*|[A-Z]|[0-9]+/g)
-      .map((s) => s.toLowerCase())
-      .join(symbol)
-  )
-}
-// console.log(nameConvert('GeeksForGeeks'));
-// console.log(nameConvert('Welcome to GeeksForGeeks'));
-// console.log(nameConvert('Welcome-to-GeeksForGeeks'));
-// console.log(nameConvert('Welcome_to_GeeksForGeeks'));
-// console.log(nameConvert('geeks-Fo--Geeks'));
-
-async function copy(text) {
+export async function copy(text) {
   try {
     await navigator.clipboard.writeText(text)
     // alert('Copied');
@@ -269,20 +175,4 @@ export const hexToRgb = (hex) => {
   const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex)
 
   return result ? `${parseInt(result[1], 16)},${parseInt(result[2], 16)},${parseInt(result[3], 16)}` : null
-}
-
-export default {
-  canUsed,
-  formatDate,
-  randomElement,
-  kebab,
-  bytes,
-  uuid,
-  readURL,
-  imageWidthAndHeight,
-  camelize,
-  pascale,
-  nameConvert,
-  debounce,
-  throttle,
 }

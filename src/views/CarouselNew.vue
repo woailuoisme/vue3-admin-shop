@@ -10,15 +10,15 @@
     <v-row>
       <v-col cols="12">
         <v-card>
-          <VCardItem>
+          <v-card-item>
             <template #append>
               <v-divider vertical indent thickness="3" class="mx-3"></v-divider>
-              <VIcon size="1.9rem" icon="mdi-refresh" @click.stop="refresh" />
+              <v-icon size="1.9rem" icon="mdi-refresh" @click.stop="refresh" />
             </template>
-            <VCardTitle>
+            <v-card-title>
               <v-btn variant="flat" color="primary" dark>{{ $t('form.title.add') }}</v-btn>
-            </VCardTitle>
-          </VCardItem>
+            </v-card-title>
+          </v-card-item>
         </v-card>
       </v-col>
     </v-row>

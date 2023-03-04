@@ -21,12 +21,6 @@ import useWithdraw from './WithdrawStore'
 import useRefund from './RefundStore'
 import useIntegralRecord from './integralRecordStore'
 
-/** Pinia Store */
-const pinia = createPinia()
-pinia.use(piniaPluginPersistedstate)
-
-export default pinia
-
 export {
   useConfig,
   useGlobal,
@@ -49,3 +43,8 @@ export {
   useTopUpRecord,
   useIntegralRecord,
 }
+// export usePost()
+/** Pinia Store */
+const pinia = createPinia()
+pinia.use(piniaPluginPersistedstate)
+export default pinia

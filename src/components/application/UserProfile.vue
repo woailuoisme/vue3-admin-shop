@@ -31,20 +31,20 @@
           </v-list-item>
 
           <!-- 👉 Settings -->
-          <!--          <v-list-item link>-->
-          <!--            <template #prepend>-->
-          <!--              <v-icon class="me-2" icon="mdi-cog-outline" size="22" />-->
-          <!--            </template>-->
-          <!--            <v-list-item-title>Settings</v-list-item-title>-->
-          <!--          </v-list-item>-->
+          <!--          <v-list-item link> -->
+          <!--            <template #prepend> -->
+          <!--              <v-icon class="me-2" icon="mdi-cog-outline" size="22" /> -->
+          <!--            </template> -->
+          <!--            <v-list-item-title>Settings</v-list-item-title> -->
+          <!--          </v-list-item> -->
 
           <!-- 👉 FAQ -->
-          <!--          <v-list-item link>-->
-          <!--            <template #prepend>-->
-          <!--              <v-icon class="me-2" icon="mdi-help-circle-outline" size="22" />-->
-          <!--            </template>-->
-          <!--            <v-list-item-title>FAQ</v-list-item-title>-->
-          <!--          </v-list-item>-->
+          <!--          <v-list-item link> -->
+          <!--            <template #prepend> -->
+          <!--              <v-icon class="me-2" icon="mdi-help-circle-outline" size="22" /> -->
+          <!--            </template> -->
+          <!--            <v-list-item-title>FAQ</v-list-item-title> -->
+          <!--          </v-list-item> -->
 
           <!-- Divider -->
           <v-divider class="my-2" thickness="3" />

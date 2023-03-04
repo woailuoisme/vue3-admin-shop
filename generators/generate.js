@@ -1,48 +1,110 @@
 const path = require('path')
 const fs = require('fs')
+const chalk =require('chalk')
+
+const { apiContent } = require('./templates/api_sevice')
+const { entityFormContent } = require('./templates/entity_form')
+const { storeContent } = require('./templates/store')
+const { viewContent } = require('./templates/view')
+
+const { plural, camelToSnake, camelToDot, camelToKebab, pascale} = require('./util')
 const _ = require('lodash')
-const pluralize = require('pluralize')
+const {trim} = require("lodash/string");
 
-const { apiFileContent } = require('./templates/api_sevice')
-
-const createSyncFile = (directory, filename, content) => {
+const _createFile = (directory, filename, content) => {
   fs.mkdirSync(directory, { recursive: true })
-  fs.writeFileSync(path.join(directory, filename), content, 'UTF8')
+  const p = path.join(directory, filename)
+  if (fs.existsSync(p)){
+    console.log(chalk.yellow(`${p} file is overwritten!!!`))
+  }else {
+    console.log(chalk.green(`${p} file is created!!!`))
+  }
+  fs.writeFileSync(p, content, 'UTF8')
 }
 
-exports.createApiFile = (model) => {
-  createSyncFile(path.join(__dirname, '../src/api'), `${model.toLowerCase()}.service.js`, apiFileContent(model))
+const _deleteFile = (directory, filename) => {
+  const filePath = path.join(directory, filename)
+  if (fs.existsSync(filePath)) {
+    fs.unlinkSync(filePath)
+    console.log(chalk.green(`${filePath} file is deleted!!!`))
+  } else {
+    console.log(chalk.yellow(`${filePath} file is not exists!!!`))
+  }
 }
 
-// const make = (modelName = '', type = '') => {
-//   if (!modelName && !type) {
-//     console.log(`modelName and type is not empty...`.red.inverse)
-//     return
-//   }
-// switch (type) {
-//   case 'model':
-//     createFile(modelContent, outputModePath)
-//     break
-//   case 'controller':
-//     createFile(controllerContent, outputControllerPath)
-//     break
-//   case 'router':
-//     createFile(routerContent, outputRouterPath)
-//     break
-//   case 'test':
-//     createFile(modelContent, outputModePath)
-//     break
-//   case 'request':
-//     createFile(requestContent, outputRequestPath)
-//     break
-//   case 'all':
-//     createFile(modelContent, outputModePath)
-//     createFile(controllerContent, outputControllerPath)
-//     createFile(routerContent, outputRouterPath)
-//     break
-//   default:
-//     console.log(`please input the type...`)
-// }
-// }
+const _appendStore=()=>{
 
-// module.exports = make
+}
+
+const _appendRouter=()=>{
+
+}
+
+const _resources = (model) => {
+  const newModel = trim(model)
+  const camelName =_.camelCase(newModel)
+  const pascalName = pascale(camelName)
+  const pluralName = plural(camelName)
+  const pluralPascalName = plural(pascalName)
+  const kebabName = camelToKebab(camelName)
+  const dotName = camelToDot(camelName)
+  const snakeName = camelToSnake(camelName)
+  return [
+    {
+      type: 'api',
+      path: path.join(__dirname, '../src/api'),
+      name: `${dotName}.service.js`,
+      content: apiContent(model),
+    },
+    {
+      type: 'store',
+      path: path.join(__dirname, '../src/stores'),
+      name: `${pascalName}Store.js`,
+      content: storeContent(model),
+    },
+    {
+      type: 'view',
+      path: path.join(__dirname, '../src/views/'),
+      name: `${pascalName}.vue`,
+      content: viewContent(model),
+    },
+    {
+      type: 'entityForm',
+      path: path.join(__dirname, `../src/views/components/${camelName}`),
+      name: `Entity.vue`,
+      content: entityFormContent(model),
+    },
+  ]
+}
+
+exports.createFiles = (model, type = 'all') => {
+  const resources = _resources(model)
+  if (type === 'all') {
+    resources.forEach((v) => {
+      _createFile(v.path, v.name, v.content)
+    })
+    return true
+  }
+  if (['api', 'store', 'view', 'entityForm'].includes(type)) {
+    const v = _resources().find((v) => v.type === type)
+    _createFile(v.path, v.name, v.content)
+  } else {
+    console.log(`type must one of ['api', 'store', 'view', 'entityForm']`)
+  }
+}
+
+exports.deleteFiles = (model, type = 'all') => {
+  const resources = _resources(model)
+  if (type === 'all') {
+    resources.forEach((v) => {
+      _deleteFile(v.path, v.name, v.content)
+    })
+    return true
+  }
+  if (['api', 'store', 'view', 'entityForm'].includes(type)) {
+    const v = _resources().find((v) => v.type === type)
+    _deleteFile(v.path, v.name, v.content)
+  } else {
+    console.log(`type must one of ['api', 'store', 'view', 'entityForm']`)
+  }
+}

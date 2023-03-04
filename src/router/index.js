@@ -1,19 +1,4 @@
 import { createRouter, createWebHistory } from 'vue-router'
-// router.beforeEach(async (to) => {
-//   // clear alert on route change
-//   const alertStore = useAlertStore();
-//   alertStore.clear();
-//
-//   // redirect to login page if not logged in and trying to access a restricted page
-//   const publicPages = ['/account/login', '/account/register'];
-//   const authRequired = !publicPages.includes(to.path);
-//   const authStore = useAuthStore();
-//
-//   if (authRequired && !authStore.user) {
-//     authStore.returnUrl = to.fullPath;
-//     return '/account/login';
-//   }
-// });
 import { useAuth } from '@/stores'
 
 const routes = [
@@ -24,6 +9,7 @@ const routes = [
   {
     path: '/',
     name: 'home',
+    meta: { title: 'Home :: ' },
     component: () => import('@/views/auth/login.vue'),
   },
   {
@@ -34,12 +20,12 @@ const routes = [
   {
     path: '/profile',
     name: 'profile',
-    component: () => import('@/views/admin/UserProfile.vue'),
+    component: () => import('@/views/UserProfile.vue'),
   },
   {
     path: '/dashboard',
     name: 'dashboard',
-    component: () => import('@/views/admin/Dashboard.vue'),
+    component: () => import('@/views/Dashboard.vue'),
   },
   {
     path: '/login',
@@ -67,19 +53,19 @@ const routes = [
   {
     path: '/user/frontend',
     name: 'user_frontend',
-    component: () => import('@/views/admin/UserFront.vue'),
+    component: () => import('@/views/UserFront.vue'),
   },
 
   {
     path: '/user/backend',
     name: 'user_backend',
-    component: () => import('@/views/admin/User.vue'),
+    component: () => import('@/views/User.vue'),
   },
 
   {
     path: '/product/list',
     name: 'product_list',
-    component: () => import('@/views/admin/Product.vue'),
+    component: () => import('@/views/Product.vue'),
   },
 
   // {
@@ -91,74 +77,74 @@ const routes = [
   {
     path: '/product/category',
     name: 'product_category',
-    component: () => import('@/views/admin/ProductCategory.vue'),
+    component: () => import('@/views/ProductCategory.vue'),
   },
 
   {
     path: '/order',
     name: 'order',
-    component: () => import('@/views/admin/Order.vue'),
+    component: () => import('@/views/Order.vue'),
   },
   {
     path: '/withdraw',
     name: 'withdraw',
-    component: () => import('@/views/admin/Withdraw.vue'),
+    component: () => import('@/views/Withdraw.vue'),
   },
   {
     path: '/feedback',
     name: 'feedback',
-    component: () => import('@/views/admin/Feedback.vue'),
+    component: () => import('@/views/Feedback.vue'),
   },
 
   {
     path: '/coupon',
     name: 'coupon',
-    component: () => import('@/views/admin/Coupon.vue'),
+    component: () => import('@/views/Coupon.vue'),
   },
   {
     path: '/promotion',
     name: 'promotion',
-    component: () => import('@/views/admin/Promotion.vue'),
+    component: () => import('@/views/Promotion.vue'),
   },
   {
     path: '/promotion_award',
     name: 'promotion_award',
-    component: () => import('@/views/admin/PromotionAward.vue'),
+    component: () => import('@/views/PromotionAward.vue'),
   },
   {
     path: '/refund',
     name: 'refund',
-    component: () => import('@/views/admin/Refund.vue'),
+    component: () => import('@/views/Refund.vue'),
   },
   {
     path: '/top_up_amount',
     name: 'top_up_amount',
-    component: () => import('@/views/admin/TopUpAmount.vue'),
+    component: () => import('@/views/TopUpAmount.vue'),
   },
   {
     path: '/top_up_record',
     name: 'top_up_record',
-    component: () => import('@/views/admin/TopUpRecord.vue'),
+    component: () => import('@/views/TopUpRecord.vue'),
   },
   {
     path: '/carousel',
     name: 'carousel',
-    component: () => import('@/views/admin/Carousel.vue'),
+    component: () => import('@/views/Carousel.vue'),
   },
   {
     path: '/carousel_new',
     name: 'carousel_new',
-    component: () => import('@/views/admin/CarouselNew.vue'),
+    component: () => import('@/views/CarouselNew.vue'),
   },
   {
     path: '/about_us',
     name: 'about_us',
-    component: () => import('@/views/admin/AboutUs.vue'),
+    component: () => import('@/views/AboutUs.vue'),
   },
   {
     path: '/gateway',
     name: 'gateway',
-    component: () => import('@/views/admin/Gateway.vue'),
+    component: () => import('@/views/Gateway.vue'),
   },
 
   {
@@ -178,6 +164,9 @@ router.beforeEach((to, from, next) => {
   const publicPages = ['/login', '/register']
   const authRequired = !publicPages.includes(to.path)
   const authStore = useAuth()
+  const title = to.meta.title
+  // If the route has a title, set it as the page title of the document/page
+  if (title) document.title = title
   if (authRequired && !authStore.isAuthed) next({ name: 'login' })
   else {
     next()

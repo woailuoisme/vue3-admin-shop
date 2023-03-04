@@ -1,36 +1,34 @@
 // Plugins
 import vue from '@vitejs/plugin-vue'
-import vuetify, {transformAssetUrls} from 'vite-plugin-vuetify'
-import {dirname, resolve} from 'node:path'
-import {createHtmlPlugin} from 'vite-plugin-html'
+import vuetify, { transformAssetUrls } from 'vite-plugin-vuetify'
+import { dirname, resolve } from 'node:path'
+import { createHtmlPlugin } from 'vite-plugin-html'
 import AutoImport from 'unplugin-auto-import/vite'
-import {VuetifyResolver} from 'unplugin-vue-components/resolvers'
+import { VuetifyResolver } from 'unplugin-vue-components/resolvers'
 import ViteComponents from 'unplugin-vue-components/vite'
 import Components from 'unplugin-vue-components/vite'
 import Pages from 'vite-plugin-pages'
 import Layouts from 'vite-plugin-vue-layouts'
 import Icons from 'unplugin-icons/vite'
 import IconsResolver from 'unplugin-icons/resolver'
-import {defineConfig, loadEnv} from 'vite'
-import {fileURLToPath, URL} from 'node:url'
+import { defineConfig, loadEnv } from 'vite'
+import { fileURLToPath, URL } from 'node:url'
 import VueI18nPlugin from '@intlify/unplugin-vue-i18n/vite'
 // https://vitejs.dev/config/
 export default defineConfig((command, mode) => {
   return {
-    base: mode === 'dev' || mode === 'prod' ? '/admin' : '/',// fix dev and prod nginx assets resources url 404
+    base: mode === 'dev' || mode === 'prod' ? '/admin' : '/', // fix dev and prod nginx assets resources url 404
     esbuild: {
       drop: mode !== 'dev' ? ['console', 'debugger'] : [],
     },
     plugins: [
       vue({
-        template: {transformAssetUrls},
+        template: { transformAssetUrls },
       }),
       Components({
-        resolvers: [
-          IconsResolver(),
-        ]
+        resolvers: [IconsResolver()],
       }),
-      Icons({autoInstall: true}),
+      Icons({ autoInstall: true }),
       AutoImport({
         include: [
           /\.[tj]sx?$/, // .ts, .tsx, .js, .jsx
@@ -63,11 +61,11 @@ export default defineConfig((command, mode) => {
         inject: {
           data: {
             title: loadEnv(mode, process.cwd()).VITE_APP_NAME,
-          }
-        }
+          },
+        },
       }),
     ],
-    define: {'process.env': {}},
+    define: { 'process.env': {} },
     resolve: {
       alias: {
         '@': fileURLToPath(new URL('./src', import.meta.url)),
@@ -75,10 +73,19 @@ export default defineConfig((command, mode) => {
       extensions: ['.js', '.json', '.jsx', '.mjs', '.ts', '.tsx', '.vue'],
     },
     optimizeDeps: {
-      include: ['axios', 'vue', 'vue-router', 'pinia', '@vueuse/core', 'vee-validate', 'loadash', 'apexcharts', 'tinymce'],
-      entries: [
-        './src/**/*.vue',
+      include: [
+        'axios',
+        'vue',
+        'vue-router',
+        'pinia',
+        '@vueuse/core',
+        'vee-validate',
+        'loadash',
+        'apexcharts',
+        'tinymce',
+        'tinymce',
       ],
+      exclude:['vuetify']
     },
     server: {
       host: '0.0.0.0',
