@@ -23,11 +23,11 @@ export default defineStore('top-up-record', {
       return state.editedIndex
     },
 
-    findById: (state) => (id) => {
-      return state.products.find((p) => p.id === id)
+    findById: state => id => {
+      return state.products.find(p => p.id === id)
     },
-    findIndexById: (state) => (id) => {
-      return state.products.findIndex((p) => p.id === id)
+    findIndexById: state => id => {
+      return state.products.findIndex(p => p.id === id)
     },
     hasData(state) {
       return !!state.records.length
@@ -41,12 +41,12 @@ export default defineStore('top-up-record', {
     isDisplayPagination(state) {
       return !!(state.meta && state.meta.last_page && state.meta.last_page > 1)
     },
-    findByAmountId: (state) => (id) => {
-      return state.records.find((record) => record.id === id)
+    findByAmountId: state => id => {
+      return state.records.find(record => record.id === id)
     },
 
-    getMapReconds: (state) => (id) => {
-      let product = state.products.find((product) => product.id === id)
+    getMapReconds: state => id => {
+      let product = state.products.find(product => product.id === id)
       let mapProductList = []
       Object.keys(product).map((key, index) => {
         let fb = {}
@@ -80,7 +80,7 @@ export default defineStore('top-up-record', {
     async confirmedTopUp(payload) {
       const res = await TopUpRecordService.confirmedTopUp(payload)
       if (res.data.data) {
-        const index = this.records.findIndex((p) => p.id === payload.id)
+        const index = this.records.findIndex(p => p.id === payload.id)
         Object.assign(this.records[index], res.data.data)
       }
     },

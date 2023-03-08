@@ -1,7 +1,7 @@
 import * as yup from 'yup'
 import { imageWidthAndHeight } from '@/utils/util'
 // import printValue from './printValue'
-const typeStr = (val) => {
+const typeStr = val => {
   if (val === 'number') return '数值'
   if (val === 'boolean') return '布尔'
   if (val === 'string') return '字符'
@@ -120,7 +120,7 @@ yup.addMethod(yup.mixed, 'fileSize', function (fileSize) {
 yup.addMethod(yup.mixed, 'imageType', function (types) {
   return this.test('file-type', types, function (value) {
     if (!types) types = ['image/jpg', 'image/jpeg', 'image/png']
-    const exes = types.map((type) => type.split('/')[1]).join(' ')
+    const exes = types.map(type => type.split('/')[1]).join(' ')
     const { path, createError } = this
     if (!value) return
     if (value instanceof File && !types.includes(value?.type)) {
@@ -142,8 +142,8 @@ yup.object().shape({
   image: yup
     .mixed()
     .required('Required')
-    .test('is-valid-type', 'Not a valid image type', (value) => isValidFileType(value && value.name.toLowerCase(), 'image'))
-    .test('is-valid-size', 'Max allowed size is 100KB', (value) => value && value.size <= MAX_FILE_SIZE),
+    .test('is-valid-type', 'Not a valid image type', value => isValidFileType(value && value.name.toLowerCase(), 'image'))
+    .test('is-valid-size', 'Max allowed size is 100KB', value => value && value.size <= MAX_FILE_SIZE),
 })
 
 export default yup

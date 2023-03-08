@@ -107,7 +107,7 @@ const requestParams = ref({
 })
 const mapProduct = ref([])
 const itemsSelected = ref([])
-const idsSelected = computed(() => itemsSelected.value.map((item) => item.id))
+const idsSelected = computed(() => itemsSelected.value.map(item => item.id))
 const isNotEmpty = computed(() => idsSelected.value.length > 0)
 
 onMounted(() => {
@@ -117,23 +117,23 @@ onMounted(() => {
 
 watch(
   requestParams,
-  (value) => {
+  value => {
     productStore.loadAllProducts(requestParams.value._rawValue)
   },
   { deep: true }
 )
 
-watch(dialogEntity, (val) => {
+watch(dialogEntity, val => {
   console.log(val)
   val || close()
 })
 
-watch(dialogDelete, (val) => {
+watch(dialogDelete, val => {
   console.log(val)
   val || closeDelete()
 })
 
-watch(dialogDetail, (val) => {
+watch(dialogDetail, val => {
   console.log(val)
   val || closeDetail()
 })

@@ -36,11 +36,11 @@ export default defineStore('about', {
     getEditedIndex(state) {
       return state.editedIndex
     },
-    findById: (state) => (id) => {
-      return state.abouts.find((p) => p.id === id)
+    findById: state => id => {
+      return state.abouts.find(p => p.id === id)
     },
-    findIndexById: (state) => (id) => {
-      return state.abouts.findIndex((p) => p.id === id)
+    findIndexById: state => id => {
+      return state.abouts.findIndex(p => p.id === id)
     },
     hasData(state) {
       return !!state.abouts.length
@@ -58,14 +58,14 @@ export default defineStore('about', {
   // Actions
   actions: {
     setEditedIndex(id) {
-      this.editedIndex = this.managers.findIndex((user) => user.id === id)
+      this.editedIndex = this.managers.findIndex(user => user.id === id)
     },
     resetEdited() {
       this.editedIndex = -1
       this.editedItem = Object.assign({}, this.defaultItem)
     },
     findAndSetItem(item) {
-      this.editedIndex = this.managers.findIndex((user) => user.id === item.id)
+      this.editedIndex = this.managers.findIndex(user => user.id === item.id)
       this.editedItem = Object.assign({}, item)
     },
 
@@ -92,14 +92,14 @@ export default defineStore('about', {
     async updateAbout(payload) {
       const res = await AboutUsService.update(payload)
       const about = res.data.data
-      const index = this.abouts.findIndex((p) => p.id === about.id)
+      const index = this.abouts.findIndex(p => p.id === about.id)
       Object.assign(this.abouts[index], about)
     },
 
     async deleteAbout(aboutId) {
       const res = await AboutUsService.delete(aboutId)
       if (res.data.success) {
-        const index = this.abouts.findIndex((p) => p.id === aboutId)
+        const index = this.abouts.findIndex(p => p.id === aboutId)
         this.abouts.splice(index, 1)
       } else {
         Toast.error(res.data.message)

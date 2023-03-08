@@ -38,7 +38,7 @@ const props = defineProps({
 const emit = defineEmits(['delete'])
 // const imageUrl = ref(props.url)
 
-const deleteImage = (url) => {
+const deleteImage = url => {
   console.log('delete', url)
   emit('delete')
 }

@@ -12,18 +12,18 @@
     <user-profile></user-profile>
   </v-app-bar>
 
-  <v-navigation-drawer v-model="drawer" permanent temporary app>
-    <template #prepend>
+  <v-navigation-drawer v-if="isAuthed" v-model="drawer" permanent temporary rail expand-on-hover app>
+    <v-list color="transparent">
       <v-list-item
-        border
-        lines="two"
-        prepend-avatar="https://randomuser.me/api/portraits/women/81.jpg"
+        prepend-avatar="https://randomuser.me/api/portraits/women/85.jpg"
         :title="user?.name"
         :subtitle="user?.role"
-      />
-    </template>
+      ></v-list-item>
+    </v-list>
 
-    <v-list bg-color="gray" dense>
+    <v-divider></v-divider>
+
+    <v-list color="transparent" dense>
       <template v-for="(item, index) in menuItems" :key="index">
         <v-list-group v-if="item.children" active-color="primary" color="primary" :prepend-icon="item.prependIcon" :value="item.text">
           <template #activator="{ props }">
@@ -44,6 +44,12 @@
         <v-list-item v-else active-color="primary" :prepend-icon="item.prependIcon" :title="item.text" link :to="{ name: item.name }" />
       </template>
     </v-list>
+
+    <template v-slot:append>
+      <div class="pa-2">
+        <v-btn block @click.stop="authStore.logout">Logout</v-btn>
+      </div>
+    </template>
   </v-navigation-drawer>
 </template>
 
@@ -57,7 +63,7 @@ const authStore = useAuth()
 const menuStore = useMenu()
 const configStore = useConfig()
 
-const drawer = ref(false)
+const drawer = ref(true)
 const menuItems = computed(() => menuStore.getMenuItems)
 const user = computed(() => authStore.getUser)
 const appName = computed(() => configStore.appName)

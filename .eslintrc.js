@@ -23,7 +23,6 @@ module.exports = {
         ignoreRestSiblings: true,
       },
     ],
-
     // ESLint plugin vue
     'vue/block-tag-newline': 'error',
     'vue/component-api-style': 'error',

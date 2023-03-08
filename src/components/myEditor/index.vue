@@ -57,7 +57,7 @@ export default {
     // 侦听文本变化并传给外界
     watch(
       () => state.contentValue,
-      (n) => {
+      n => {
         debounce(() => {
           // eslint-disable-line
           emit('update:modelValue', state.contentValue) // eslint-disable-line vue/require-explicit-emits
@@ -67,7 +67,7 @@ export default {
     // 侦听默认值 外界第一次传进来一个 v-model 就赋值给 contentValue
     watch(
       () => props.modelValue,
-      (n) => {
+      n => {
         if (n && n !== state.contentValue) {
           state.contentValue = n
         }
@@ -117,7 +117,7 @@ export default {
       // 图片上传
       axios
         .post(props.imgUploadUrl, params, config)
-        .then((res) => {
+        .then(res => {
           if (res.data.code == 0) {
             success(res.data.data.url) // 上传成功，在成功函数里填入图片路径
             // console.log('[文件上传]', res.data)

@@ -26,11 +26,11 @@ export default defineStore('refund', {
     getEditedIndex(state) {
       return state.editedIndex
     },
-    findById: (state) => (id) => {
-      return state.products.find((p) => p.id === id)
+    findById: state => id => {
+      return state.products.find(p => p.id === id)
     },
-    findIndexById: (state) => (id) => {
-      return state.products.findIndex((p) => p.id === id)
+    findIndexById: state => id => {
+      return state.products.findIndex(p => p.id === id)
     },
     getRefunds(state) {
       return state.refunds
@@ -44,20 +44,20 @@ export default defineStore('refund', {
     isDisplayPagination(state) {
       return !!(state.meta && state.meta.last_page && state.meta.last_page > 1)
     },
-    findByRefundNum: (state) => (id) => {
-      return state.refunds.find((refund) => refund.id === id)
+    findByRefundNum: state => id => {
+      return state.refunds.find(refund => refund.id === id)
     },
   },
   actions: {
     setEditedIndex(id) {
-      this.editedIndex = this.refunds.findIndex((user) => user.id === id)
+      this.editedIndex = this.refunds.findIndex(user => user.id === id)
     },
     resetEdited() {
       this.editedIndex = -1
       this.editedItem = Object.assign({}, this.defaultItem)
     },
     findAndSetItem(item) {
-      this.editedIndex = this.refunds.findIndex((i) => i.id === item.id)
+      this.editedIndex = this.refunds.findIndex(i => i.id === item.id)
       this.editedItem = Object.assign({}, item)
     },
     async loadAllRefunds(payload) {
@@ -70,7 +70,7 @@ export default defineStore('refund', {
     async confirmedRefund(payload) {
       const res = await RefundService.confirmedRefund(payload)
       if (res.data.data) {
-        const index = this.refunds.findIndex((p) => p.id === payload.id)
+        const index = this.refunds.findIndex(p => p.id === payload.id)
         Object.assign(this.refunds[index], res.data.data)
       }
     },

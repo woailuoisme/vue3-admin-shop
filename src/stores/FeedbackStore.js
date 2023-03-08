@@ -23,11 +23,11 @@ export default defineStore('feedback', {
     getEditedIndex(state) {
       return state.editedIndex
     },
-    findById: (state) => (id) => {
-      return state.feedback.find((p) => p.id === id)
+    findById: state => id => {
+      return state.feedback.find(p => p.id === id)
     },
-    findIndexById: (state) => (id) => {
-      return state.feedback.findIndex((p) => p.id === id)
+    findIndexById: state => id => {
+      return state.feedback.findIndex(p => p.id === id)
     },
     hasData(state) {
       return !!state.feedback.length
@@ -41,8 +41,8 @@ export default defineStore('feedback', {
     isDisplayPagination(state) {
       return !!(state.meta && state.meta.last_page && state.meta.last_page > 1)
     },
-    getMapFeedback: (state) => (id) => {
-      let feedback = state.feedback.find((feedback) => feedback.id === id)
+    getMapFeedback: state => id => {
+      let feedback = state.feedback.find(feedback => feedback.id === id)
       let mapFeedbackList = []
       Object.keys(feedback).map(function (key, index) {
         let fb = {}

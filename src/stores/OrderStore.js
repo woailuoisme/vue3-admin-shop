@@ -38,11 +38,11 @@ export default defineStore('order', {
     isNew(state) {
       return state.editedIndex === -1
     },
-    findById: (state) => (id) => {
-      return state.orders.find((p) => p.id === id)
+    findById: state => id => {
+      return state.orders.find(p => p.id === id)
     },
-    findIndexById: (state) => (id) => {
-      return state.orders.findIndex((p) => p.id === id)
+    findIndexById: state => id => {
+      return state.orders.findIndex(p => p.id === id)
     },
     hasData(state) {
       return !!state.orders.length
@@ -50,11 +50,11 @@ export default defineStore('order', {
     isDisplayPagination(state) {
       return !!(state.meta && state.meta.last_page && state.meta.last_page > 1)
     },
-    findByOrderNum: (state) => (num) => {
-      return state.orders.find((order) => order.order_num === num)
+    findByOrderNum: state => num => {
+      return state.orders.find(order => order.order_num === num)
     },
-    getMapOrder: (state) => (id) => {
-      let order = state.orders.find((order) => order.id === id)
+    getMapOrder: state => id => {
+      let order = state.orders.find(order => order.id === id)
       let mapOrderList = []
       Object.keys(order).map(function (key, index) {
         let fb = {}
@@ -132,14 +132,14 @@ export default defineStore('order', {
   // Actions
   actions: {
     setEditedIndex(id) {
-      this.editedIndex = this.orders.findIndex((m) => m.id === id)
+      this.editedIndex = this.orders.findIndex(m => m.id === id)
     },
     resetEdited() {
       this.editedIndex = -1
       this.editedItem = Object.assign({}, this.defaultItem)
     },
     findAndSetItem(item) {
-      this.editedIndex = this.orders.findIndex((m) => m.id === item.id)
+      this.editedIndex = this.orders.findIndex(m => m.id === item.id)
       this.editedItem = Object.assign({}, item)
     },
     async loadAllOrders(payload) {
@@ -152,7 +152,7 @@ export default defineStore('order', {
     async updateOrderExpress(payload) {
       const res = await OrderService.updateExpress(payload)
       if (res.data.success) {
-        const index = this.orders.findIndex((p) => p.id === payload.id)
+        const index = this.orders.findIndex(p => p.id === payload.id)
         Object.assign(this.orders[index], payload)
         Toast.success(res.data.message)
       } else {

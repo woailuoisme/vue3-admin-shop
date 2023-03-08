@@ -84,7 +84,7 @@ class ProductService {
     canUsed(data.sale_count) && formData.append('sale_count', data.sale_count)
     canUsed(data.stock) && formData.append('stock', data.stock)
     if (data.images) {
-      data.images.forEach((v) => formData.append(`images[]`, v))
+      data.images.forEach(v => formData.append(`images[]`, v))
     }
     return formData
   }

@@ -98,7 +98,7 @@ onMounted(() => {
   carouselStore.loadAllCarousels(unref(requestParams.value))
 })
 
-const search = _.debounce((value) => carouselStore.loadAllCarousels(value), 800)
+const search = _.debounce(value => carouselStore.loadAllCarousels(value), 800)
 function refresh() {
   search(unref(requestParams.value))
 }
@@ -108,7 +108,7 @@ function dragChange(e) {
   if (!item) return
   let index = item.newIndex
   carousels.value.forEach((item, index) => (item.order = index + 1))
-  const mapCarousel = carousels.value.map((c) => {
+  const mapCarousel = carousels.value.map(c => {
     return { id: c?.id, order: c.order }
   })
   console.log(mapCarousel)
@@ -117,18 +117,18 @@ function dragChange(e) {
 
 watch(
   requestParams,
-  (value) => {
+  value => {
     carouselStore.loadAllCarousels(requestParams.value._rawValue)
   },
   { deep: true }
 )
 
-watch(dialogEntity, (val) => {
+watch(dialogEntity, val => {
   console.log(val)
   val || close()
 })
 
-watch(dialogDelete, (val) => {
+watch(dialogDelete, val => {
   console.log(val)
   val || closeDelete()
 })

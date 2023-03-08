@@ -44,20 +44,20 @@ const image = ref([])
 const imageUrl = ref(props.url)
 const imageLabel = ref(props.label)
 const types = ['image/jpg', 'image/jpeg', 'image/png']
-const exes = types.map((type) => type.split('/')[1].trim()).join(' ')
+const exes = types.map(type => type.split('/')[1].trim()).join(' ')
 const label = props?.label ? props?.label : '图片'
 const size = 2
 const rules = [
-  (value) => !!value || `${label} 必填`,
-  (value) => {
+  value => !!value || `${label} 必填`,
+  value => {
     debugger
     !value || !value.length || types.includes(value[0]?.type) || `仅接收: ${exes} 文件!`
   },
 
-  (value) => !value || !value.length || value[0].size / (1024 * 1024) < size || `${label} 的大小需要小于 ${size}M`,
+  value => !value || !value.length || value[0].size / (1024 * 1024) < size || `${label} 的大小需要小于 ${size}M`,
 ]
 
-const change = (value) => {
+const change = value => {
   if (value[0] && value[0] instanceof File) {
     imageUrl.value = URL.createObjectURL(value[0])
   }

@@ -59,18 +59,18 @@ const active = ref(false)
 const files = ref([])
 const inputFile = ref(null)
 
-const drop = (e) => {
+const drop = e => {
   active.value = !active.value
   if (files.value.length + e.dataTransfer.files.length > props.maxFiles) {
     Toast.error(`超出可上传的最大数量 ${props.maxFiles} 个！`)
     return
   }
   files.value = Object.values(e.dataTransfer.files)
-    .map((f) => ({ id: uuid(), file: f, url: URL.createObjectURL(f) }))
+    .map(f => ({ id: uuid(), file: f, url: URL.createObjectURL(f) }))
     .concat(files.value)
   emit(
     'update:modelValue',
-    files.value.map((f) => f?.file)
+    files.value.map(f => f?.file)
   )
   active.value = !active.value
 }
@@ -82,23 +82,23 @@ const selectedFile = () => {
     return
   }
   files.value = Object.values(inputFile.value.files)
-    .map((f) => ({ id: uuid(), file: f, url: URL.createObjectURL(f) }))
+    .map(f => ({ id: uuid(), file: f, url: URL.createObjectURL(f) }))
     .concat(files.value)
   emit(
     'update:modelValue',
-    files.value.map((f) => f?.file)
+    files.value.map(f => f?.file)
   )
   active.value = !active.value
 }
 
-const removeImage = (index) => {
+const removeImage = index => {
   console.log(index)
-  const fIndex = files.value.findIndex((f) => f['id'] === index)
+  const fIndex = files.value.findIndex(f => f['id'] === index)
   URL.revokeObjectURL(files.value[fIndex]?.url)
   files.value.splice(fIndex, 1)
   emit(
     'update:modelValue',
-    files.value.map((f) => f?.file)
+    files.value.map(f => f?.file)
   )
 }
 

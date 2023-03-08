@@ -25,14 +25,14 @@ const emit = defineEmits(['update:modelValue'])
 
 const date = ref(props.modelValue)
 
-const handleDate = (modelData) => {
+const handleDate = modelData => {
   date.value = modelData
   // do something else with the data
   console.log(modelData)
   emit('update:modelValue', modelData)
 }
 
-const dateFormat = (date) => {
+const dateFormat = date => {
   const dt = date
   const padL = (nr, len = 2, chr = `0`) => `${nr}`.padStart(2, chr)
   return `${dt.getFullYear()}-${padL(dt.getMonth() + 1)}-${padL(dt.getDate())} ${padL(dt.getHours())}:${padL(dt.getMinutes())}:${padL(
@@ -40,7 +40,7 @@ const dateFormat = (date) => {
   )}`
 }
 
-const formatDate = (date) => {
+const formatDate = date => {
   return date ? format(date, 'yyyy-MM-dd HH:mm:ss') : ''
 }
 </script>

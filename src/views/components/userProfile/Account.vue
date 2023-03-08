@@ -21,11 +21,11 @@ const accountData = {
 const refInputEl = ref()
 const accountDataLocal = ref(structuredClone(accountData))
 const isAccountDeactivated = ref(false)
-const validateAccountDeactivation = [(v) => !!v || 'Please confirm account deactivation']
+const validateAccountDeactivation = [v => !!v || 'Please confirm account deactivation']
 const resetForm = () => {
   accountDataLocal.value = structuredClone(accountData)
 }
-const changeAvatar = (file) => {
+const changeAvatar = file => {
   const fileReader = new FileReader()
   const { files } = file.target
   if (files && files.length) {

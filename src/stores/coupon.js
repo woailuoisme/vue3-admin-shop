@@ -36,8 +36,8 @@ export default {
     getCoupons(state) {
       return state.coupon
     },
-    findByOrderId: (state) => (id) => {
-      return state.coupon.find((order) => order.id === id)
+    findByOrderId: state => id => {
+      return state.coupon.find(order => order.id === id)
     },
   },
 }

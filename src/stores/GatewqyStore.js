@@ -19,7 +19,7 @@ export default {
     },
 
     UPDATE_GATEWAY(state, payload) {
-      const index = state.gateways.findIndex((p) => p.id === payload.id)
+      const index = state.gateways.findIndex(p => p.id === payload.id)
       Object.assign(state.gateways[index], payload)
     },
   },
@@ -45,8 +45,8 @@ export default {
     getGateways(state) {
       return state.gateways
     },
-    findByOrderId: (state) => (id) => {
-      return state.gateways.find((award) => award.id === id)
+    findByOrderId: state => id => {
+      return state.gateways.find(award => award.id === id)
     },
   },
 }

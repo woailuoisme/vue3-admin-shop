@@ -45,11 +45,11 @@ export default defineStore('product', {
     getEditedIndex(state) {
       return state.editedIndex
     },
-    findById: (state) => (id) => {
-      return state.products.find((p) => p.id === id)
+    findById: state => id => {
+      return state.products.find(p => p.id === id)
     },
-    findIndexById: (state) => (id) => {
-      return state.products.findIndex((p) => p.id === id)
+    findIndexById: state => id => {
+      return state.products.findIndex(p => p.id === id)
     },
     getProducts(state) {
       return [...state.products]
@@ -64,8 +64,8 @@ export default defineStore('product', {
     getProduct(state) {
       return { ...state.productInfo }
     },
-    findByProductId: (state) => (id) => {
-      return state.products.find((product) => product.id === id)
+    findByProductId: state => id => {
+      return state.products.find(product => product.id === id)
     },
     getMeta(state) {
       return { ...state.meta }
@@ -74,8 +74,8 @@ export default defineStore('product', {
       return !!(state.meta && state.meta.last_page && state.meta.last_page > 1)
     },
 
-    getMapProduct: (state) => (id) => {
-      let product = state.products.find((product) => product.id === id)
+    getMapProduct: state => id => {
+      let product = state.products.find(product => product.id === id)
       let mapProductList = []
       Object.keys(product).map(function (key, index) {
         let fb = {}
@@ -151,14 +151,14 @@ export default defineStore('product', {
   // Actions
   actions: {
     setEditedIndex(id) {
-      this.editedIndex = this.products.findIndex((user) => user.id === id)
+      this.editedIndex = this.products.findIndex(user => user.id === id)
     },
     resetEdited() {
       this.editedIndex = -1
       this.editedItem = Object.assign({}, this.defaultItem)
     },
     findAndSetItem(item) {
-      this.editedIndex = this.products.findIndex((user) => user.id === item.id)
+      this.editedIndex = this.products.findIndex(user => user.id === item.id)
       this.editedItem = Object.assign({}, item)
     },
 
@@ -176,7 +176,7 @@ export default defineStore('product', {
       const res = await ProductService.toggleSale(payload)
       if (res.data.data) {
         const product = res.data.data
-        const index = this.products.findIndex((p) => p.id === payload.id)
+        const index = this.products.findIndex(p => p.id === payload.id)
         this.products[index] = Object.assign({}, product)
         Toast.success(res.data.message)
       }
@@ -201,7 +201,7 @@ export default defineStore('product', {
     },
 
     async updateProduct(payload) {
-      const index = this.products.findIndex((p) => p.id === payload.id)
+      const index = this.products.findIndex(p => p.id === payload.id)
       this.editedIndex = index
       this.editedItem = Object.assign({}, this.products[index])
       const res = await ProductService.update(payload)
@@ -214,7 +214,7 @@ export default defineStore('product', {
     },
 
     async deleteProduct(productId) {
-      const index = this.products.findIndex((p) => p.id === productId)
+      const index = this.products.findIndex(p => p.id === productId)
       const res = await ProductService.delete(productId)
       if (res.data.success) {
         this.products.splice(index, 1)

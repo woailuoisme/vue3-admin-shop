@@ -79,7 +79,7 @@ export default defineStore('menu', {
   }),
   // Getters
   getters: {
-    getMenuItems: (state) => state.menuItems,
-    getContentEditorMenu: (state) => state.contentEditorMenu,
+    getMenuItems: state => state.menuItems,
+    getContentEditorMenu: state => state.contentEditorMenu,
   },
 })

@@ -105,13 +105,13 @@ onMounted(() => {
 
 watch(
   requestParams,
-  (value) => {
+  value => {
     refundStore.loadAllRefunds(requestParams.value._rawValue)
   },
   { deep: true }
 )
 
-watch(dialogEntity, (val) => {
+watch(dialogEntity, val => {
   console.log(val)
   val || close()
 })

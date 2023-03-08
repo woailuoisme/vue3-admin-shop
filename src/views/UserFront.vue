@@ -92,7 +92,7 @@ let mapProduct
 
 watch(
   requestParams,
-  (value) => {
+  value => {
     userStore.loadAllUsers(requestParams.value._rawValue)
   },
   { deep: true }

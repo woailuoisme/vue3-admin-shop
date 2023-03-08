@@ -77,14 +77,14 @@ const requestParams = ref({
   sortBy: '',
   sortType: '',
 })
-const search = _.debounce((value) => amountStore.loadAllAmount(value), 800)
+const search = _.debounce(value => amountStore.loadAllAmount(value), 800)
 
 onMounted(() => {
   amountStore.loadAllAmount(unref(requestParams))
 })
 watch(
   requestParams,
-  (value) => {
+  value => {
     search(unref(requestParams))
   },
   { deep: true }

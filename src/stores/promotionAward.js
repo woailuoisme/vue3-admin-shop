@@ -39,8 +39,8 @@ export default {
     getPromotionAwards(state) {
       return state.awards
     },
-    findByOrderId: (state) => (id) => {
-      return state.awards.find((award) => award.id === id)
+    findByOrderId: state => id => {
+      return state.awards.find(award => award.id === id)
     },
   },
 }

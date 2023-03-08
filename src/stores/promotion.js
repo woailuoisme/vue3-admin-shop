@@ -15,14 +15,14 @@ export default {
       state.singlePromotion = payload
     },
     DELETE_CAROUSEL(state, payload) {
-      const index = state.promotions.findIndex((p) => p.id === payload)
+      const index = state.promotions.findIndex(p => p.id === payload)
       state.promotions.splice(index, 1)
     },
     CREATE_CAROUSEL(state, payload) {
       state.promotions.unshift(payload)
     },
     UPDATE_CAROUSEL(state, payload) {
-      const index = state.promotions.findIndex((p) => p.id === payload.id)
+      const index = state.promotions.findIndex(p => p.id === payload.id)
       Object.assign(state.promotions[index], payload)
     },
   },
@@ -73,8 +73,8 @@ export default {
     getPromotions(state) {
       return state.promotions
     },
-    findByOrderId: (state) => (id) => {
-      return state.promotions.find((promotion) => promotion.id === id)
+    findByOrderId: state => id => {
+      return state.promotions.find(promotion => promotion.id === id)
     },
   },
 }

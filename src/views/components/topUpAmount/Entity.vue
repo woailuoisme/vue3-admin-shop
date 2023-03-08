@@ -85,7 +85,7 @@ const { handleSubmit, meta, submitCount } = useForm({
 const amount = useField('amount')
 const integral = useField('integral')
 
-const submit = handleSubmit((values) => {
+const submit = handleSubmit(values => {
   emit('save', values)
 })
 

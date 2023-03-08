@@ -1,6 +1,7 @@
 import { defineStore } from 'pinia'
 import AuthService from '../api/auth.service'
 import toast from '../utils/toast'
+import router from '@/router'
 export default defineStore('auth', {
   state: () => ({
     user: window.localStorage.getItem('user') ? JSON.parse(window.localStorage.getItem('user')) : {},
@@ -27,6 +28,7 @@ export default defineStore('auth', {
         let user = response.data.data
         this.user = user
         window.localStorage.user = JSON.stringify(user)
+        router.replace({ name: 'dashboard' })
         toast.success('用户登录成功')
         return true
       }
@@ -39,6 +41,7 @@ export default defineStore('auth', {
       if (response.data.success) {
         window.localStorage.removeItem('user')
         this.user = {}
+        router.replace({ name: 'login' })
         toast.success('用户登出成功')
         return true
       }

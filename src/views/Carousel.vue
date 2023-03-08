@@ -78,18 +78,18 @@ onMounted(() => {
 
 watch(
   requestParams,
-  (value) => {
+  value => {
     carouselStore.loadAllCarousels(requestParams.value._rawValue)
   },
   { deep: true }
 )
 
-watch(dialogEntity, (val) => {
+watch(dialogEntity, val => {
   console.log(val)
   val || close()
 })
 
-watch(dialogDelete, (val) => {
+watch(dialogDelete, val => {
   console.log(val)
   val || closeDelete()
 })

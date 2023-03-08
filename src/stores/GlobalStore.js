@@ -11,14 +11,14 @@ export default defineStore('global', {
   // Getters
   getters: {
     /** Loading overlay visibility */
-    isLoading: (state) => state.loading,
+    isLoading: state => state.loading,
     /** Loadig progress value */
-    getProgress: (state) => {
+    getProgress: state => {
       state.loading = true
       return state.progress
     },
     /** Snackbar Text */
-    getMessage: (state) => state.message,
+    getMessage: state => state.message,
   },
   // Actions
   actions: {

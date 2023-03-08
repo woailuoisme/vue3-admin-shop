@@ -50,10 +50,10 @@ const props = defineProps({
     required: false,
     default: () => {
       return [
-        (value) => {
+        value => {
           return !value || !value.length || value[0].size < 2000000 || ` 文件大小应小与 2 MB!`
         },
-        (value) => {
+        value => {
           return (
             !value || !value.length || value[0].type.indexOf(['image/jpeg', 'image/jpg', 'image/png']) !== -1 || '文件类型需是jpeg,jpg,png'
           )
@@ -69,7 +69,7 @@ const imageUrls = ref(props.urls)
 const imageLabel = ref(props.label)
 
 onMounted(() => {})
-const change = (value) => {
+const change = value => {
   if (typeof value[0] !== 'undefined') {
     // imageUrl.value = URL.createObjectURL(value[0])
     // console.log(imageUrl.value)

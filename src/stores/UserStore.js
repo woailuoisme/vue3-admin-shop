@@ -55,11 +55,11 @@ export default defineStore('user', {
       return state.editedIndex
     },
 
-    findById: (state) => (id) => {
-      return state.managers.find((user) => user.id === id)
+    findById: state => id => {
+      return state.managers.find(user => user.id === id)
     },
-    findIndexById: (state) => (id) => {
-      return state.managers.findIndex((user) => user.id === id)
+    findIndexById: state => id => {
+      return state.managers.findIndex(user => user.id === id)
     },
     hasData(state) {
       return !!state.users.length
@@ -70,8 +70,8 @@ export default defineStore('user', {
     getUser(state) {
       return { ...state.userInfo }
     },
-    findByOrderId: (state) => (id) => {
-      return state.users.find((user) => user.id === id)
+    findByOrderId: state => id => {
+      return state.users.find(user => user.id === id)
     },
     getMeta(state) {
       return { ...state.meta }
@@ -113,7 +113,7 @@ export default defineStore('user', {
       const res = await UserService.toggleLottery(payload)
       if (res.data.data) {
         const user = res.data.data
-        const index = this.users.findIndex((p) => p.id === payload.id)
+        const index = this.users.findIndex(p => p.id === payload.id)
         this.users[index] = Object.assign({}, user)
         Toast.success(res.data.message)
       }

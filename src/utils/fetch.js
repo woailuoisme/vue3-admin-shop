@@ -11,7 +11,7 @@ export const sendRequest = ({ url, method, useCredentials = false, body, headers
     url = `${url}?${stringify(queryParams)}`
   }
 
-  return fetch(url, options).then((res) => {
+  return fetch(url, options).then(res => {
     if (res.ok) {
       return res.json()
     } else {

@@ -80,7 +80,7 @@ const name = useField('name')
 const password = useField('password')
 
 const showPassword = ref(false)
-const submit = handleSubmit(async (values) => {
+const submit = handleSubmit(async values => {
   // alert(JSON.stringify(values, null, 2))
   if (await authStore.login(values)) {
     await router.push({ name: 'dashboard' })

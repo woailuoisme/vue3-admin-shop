@@ -5,16 +5,17 @@
   "scripts": {
     "serve_dev": "vite --mode dev",
     "serve_prod": "vite --mode prod",
-    "build_dev": "vite build --mode dev",
-    "build_prod": "vite build --mode prod",
+    "build_dev": "yarn gv_dev && vite build --mode dev",
+    "build_prod": "yarn gv_prod && vite build --mode prod",
     "preview": "vite preview",
-    "gv": "node generate-build-version",
-    "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore",
+    "gv_dev": "cross-env NODE_ENV=dev node generate-build-version ",
+    "gv_prod": "cross-env NODE_ENV=prod node generate-build-version ",
+    "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --ignore-path .gitignore",
     "lint-fix": "eslint \"src/**/*.{js,vue}\" --fix --color --cache --max-warnings=-1",
     "format": "prettier --write \"src/**/*.js\" \"src/**/*.vue\"",
     "prepare": "husky install",
     "pre": "yarn format && yarn lint-fix",
-    "g": "node .\\generators\\cmd.js  make"
+    "g": "node .\\generators\\cmd.js make"
   },
   "dependencies": {
     "@chenfengyuan/vue-countdown": "^2.1.0",
@@ -53,6 +54,7 @@
     "@vitejs/plugin-vue": "^3.0.3",
     "axios-mock-adapter": "^1.21.2",
     "chalk": "^2.4.2",
+    "cross-env": "^7.0.3",
     "eslint": "^8.34.0",
     "eslint-config-prettier": "^8.6.0",
     "eslint-plugin-prettier": "^4.2.1",

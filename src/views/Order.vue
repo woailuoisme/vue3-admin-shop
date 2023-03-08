@@ -122,7 +122,7 @@ const showStatus = ref(false)
 const orderNoStatus = ref('')
 
 const mapCategory = ref({})
-const search = _.debounce((value) => orderStore.loadAllOrders(value), 600)
+const search = _.debounce(value => orderStore.loadAllOrders(value), 600)
 onMounted(() => {
   orderStore.loadAllOrders({ ...unref(requestParams), ...unref(filter) })
 })
@@ -135,7 +135,7 @@ watch(
   { deep: true }
 )
 
-watch(dialogEntity, (val) => {
+watch(dialogEntity, val => {
   val || close()
 })
 

@@ -20,12 +20,12 @@ export function pascal(string) {
     .replace(new RegExp(/[-_]+/, 'g'), ' ')
     .replace(new RegExp(/[^\w\s]/, 'g'), '')
     .replace(new RegExp(/\s+(.)(\w*)/, 'g'), ($1, $2, $3) => `${$2.toUpperCase() + $3}`)
-    .replace(new RegExp(/\w/), (s) => s.toUpperCase())
+    .replace(new RegExp(/\w/), s => s.toUpperCase())
 }
 
-export const camelToSnake = (str) => str.replace(/[A-Z]/g, (letter) => `_${letter.toLowerCase()}`)
-export const camelToDot = (str) => str.replace(/[A-Z]/g, (letter) => `.${letter.toLowerCase()}`)
-export const camelToKebab = (str) => str.replace(/[A-Z]/g, (letter) => `-${letter.toLowerCase()}`)
+export const camelToSnake = str => str.replace(/[A-Z]/g, letter => `_${letter.toLowerCase()}`)
+export const camelToDot = str => str.replace(/[A-Z]/g, letter => `.${letter.toLowerCase()}`)
+export const camelToKebab = str => str.replace(/[A-Z]/g, letter => `-${letter.toLowerCase()}`)
 
 export function plural(value) {
   return Pluralize(value)
@@ -39,7 +39,7 @@ export function replaceAll(str, mapObj) {
   })
 }
 
-export const pascale = (text) => {
+export const pascale = text => {
   // _.upperFirst(_.camelCase('double-barrel'))
   return text
     .replace(/(?:^\w|[A-Z]|\b\w)/g, function (word, index) {

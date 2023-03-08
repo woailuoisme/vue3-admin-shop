@@ -20,7 +20,7 @@ export const useDebouncedRef = (initialValue, wait) => {
       track()
       return state.value
     },
-    set: debounce((value) => {
+    set: debounce(value => {
       state.value = value
       trigger()
     }, wait),
@@ -34,7 +34,7 @@ export const useThrottleRef = (initialValue, wait) => {
       track()
       return state.value
     },
-    set: throttle((value) => {
+    set: throttle(value => {
       state.value = value
       trigger()
     }, wait),

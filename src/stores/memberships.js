@@ -24,7 +24,7 @@ export default {
     },
 
     DELETE_MEMBERSHIP(state, payload) {
-      const index = state.memberships.findIndex((p) => p.id === payload)
+      const index = state.memberships.findIndex(p => p.id === payload)
       state.memberships.splice(index, 1)
     },
     RESET_MEMBERSHIP(state) {
@@ -87,8 +87,8 @@ export default {
     getMembership(state) {
       return { ...state.membershipInfo }
     },
-    findByOrderId: (state) => (id) => {
-      return state.memberships.find((membership) => membership.id === id)
+    findByOrderId: state => id => {
+      return state.memberships.find(membership => membership.id === id)
     },
     getMeta(state) {
       return { ...state.meta }

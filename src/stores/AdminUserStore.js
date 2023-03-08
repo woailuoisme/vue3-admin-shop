@@ -48,11 +48,11 @@ export default defineStore('admin-user', {
       return state.editedIndex
     },
 
-    findById: (state) => (id) => {
-      return state.managers.find((user) => user.id === id)
+    findById: state => id => {
+      return state.managers.find(user => user.id === id)
     },
-    findIndexById: (state) => (id) => {
-      return state.managers.findIndex((user) => user.id === id)
+    findIndexById: state => id => {
+      return state.managers.findIndex(user => user.id === id)
     },
     getUsers(state) {
       return [...state.managers]
@@ -70,14 +70,14 @@ export default defineStore('admin-user', {
   // Actions
   actions: {
     setEditedIndex(id) {
-      this.editedIndex = this.managers.findIndex((user) => user.id === id)
+      this.editedIndex = this.managers.findIndex(user => user.id === id)
     },
     resetEdited() {
       this.editedIndex = -1
       this.editedItem = Object.assign({}, this.defaultItem)
     },
     findAndSetItem(item) {
-      this.editedIndex = this.managers.findIndex((user) => user.id === item.id)
+      this.editedIndex = this.managers.findIndex(user => user.id === item.id)
       this.editedItem = Object.assign({}, item)
     },
     async loadAllUsers(payload) {
@@ -103,14 +103,14 @@ export default defineStore('admin-user', {
     },
 
     async updateUser(payload) {
-      this.editedIndex = this.managers.findIndex((p) => p.id === user.id)
+      this.editedIndex = this.managers.findIndex(p => p.id === user.id)
       this.editedItem = Object.assign({}, this.managers[this.editedIndex])
       const res = await UserBackendService.update(payload)
       const user = res.data.data
     },
 
     async deleteUser(userId) {
-      this.editedIndex = this.managers.findIndex((p) => p.id === userId)
+      this.editedIndex = this.managers.findIndex(p => p.id === userId)
       const res = await UserBackendService.delete(userId)
       if (res.data.success) {
         this.editedItem = Object.assign({}, this.managers[this.editedIndex])

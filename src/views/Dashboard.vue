@@ -8,7 +8,7 @@
       </v-col>
     </v-row>
     <v-row wrap>
-      <v-col cols="xs12 sm6 md3" class="pa-2">
+      <v-col xl="12" sm="6" md="3" class="pa-2">
         <v-card class="elevation-2">
           <v-card-title>
             <v-row class="justify-center align-center">

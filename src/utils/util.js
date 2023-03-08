@@ -10,7 +10,7 @@ export const canUsed = function (data) {
 //   return format(d, dateFormat)
 // }
 
-const formatDate = (dt) => {
+const formatDate = dt => {
   if (typeof dt?.getMonth !== 'function') {
     return false
   }
@@ -24,11 +24,11 @@ const randomElement = (arr = []) => {
   return arr[Math.floor(Math.random() * arr.length)]
 }
 
-const kebab = (str) => {
+const kebab = str => {
   return (str || '').replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase()
 }
 
-const bytes = (byte) => {
+const bytes = byte => {
   return humanReadableFileSize(byte)
 }
 
@@ -42,7 +42,7 @@ export const uuid = () => {
       return crypto.randomUUID()
     }
     if (typeof crypto.getRandomValues === 'function' && typeof Uint8Array === 'function') {
-      const callback = (c) => {
+      const callback = c => {
         const num = Number(c)
         return (num ^ (crypto.getRandomValues(new Uint8Array(1))[0] & (15 >> (num / 4)))).toString(16)
       }
@@ -51,7 +51,7 @@ export const uuid = () => {
   }
   let timestamp = new Date().getTime()
   let perforNow = (typeof performance !== 'undefined' && performance.now && performance.now() * 1000) || 0
-  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, (c) => {
+  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, c => {
     let random = Math.random() * 16
     if (timestamp > 0) {
       random = (timestamp + random) % 16 | 0
@@ -69,20 +69,20 @@ export const uuid = () => {
  * @param file
  * @returns {Promise<unknown>}
  */
-export const readURL = (file) => {
+export const readURL = file => {
   return new Promise((resolve, reject) => {
     const reader = new FileReader()
-    reader.onload = (e) => resolve(e.target.result)
-    reader.onerror = (e) => reject(e)
+    reader.onload = e => resolve(e.target.result)
+    reader.onerror = e => reject(e)
     reader.readAsDataURL(file)
   })
 }
 
-export const imageWidthAndHeight = (provideFile) => {
+export const imageWidthAndHeight = provideFile => {
   // take the given file (which should be an image) and return the width and height
   const imgDimensions = { width: null, height: null }
 
-  return new Promise((resolve) => {
+  return new Promise(resolve => {
     const reader = new FileReader()
 
     reader.readAsDataURL(provideFile)
@@ -166,7 +166,7 @@ export function throttle(fn, wait) {
  * Convert Hex color to rgb
  * @param hex
  */
-export const hexToRgb = (hex) => {
+export const hexToRgb = hex => {
   // Expand shorthand form (e.g. "03F") to full form (e.g. "0033FF")
   const shorthandRegex = /^#?([a-f\d])([a-f\d])([a-f\d])$/i
   hex = hex.replace(shorthandRegex, (m, r, g, b) => {

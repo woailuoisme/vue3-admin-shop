@@ -1,5 +1,7 @@
 <template>
   <v-container fluid>
+    <data-filter></data-filter>
+
     <v-card>
       <v-card-title>
         <v-dialog v-model="dialog" width="auto" persistent>
@@ -123,6 +125,7 @@
 
 <script setup>
 import DatePicker from '@/components/shared/DatePicker'
+import DataFilter from '@/components/table/DataFilter'
 import MyEditor from '@/components/myEditor'
 import { getCurrentInstance, onMounted, ref, watch } from 'vue'
 import { useField, useForm } from 'vee-validate'
@@ -135,7 +138,7 @@ const newDate = ref(new Date())
 const dialog = ref(false)
 const images = ref([])
 
-watch(images, (value) => {
+watch(images, value => {
   console.log(value)
 })
 
@@ -198,7 +201,7 @@ async function afterUploadComplete(response) {
   }
 }
 
-const submit = handleSubmit((values) => {
+const submit = handleSubmit(values => {
   // alert(JSON.stringify(values, null, 2))
   console.log(values)
   alert(JSON.stringify(values, null, 2))

@@ -80,13 +80,13 @@ onMounted(() => {
 
 watch(
   requestParams,
-  (value) => {
+  value => {
     aboutStore.loadAllAbouts(requestParams.value._rawValue)
   },
   { deep: true }
 )
 
-watch(dialogEntity, (val) => {
+watch(dialogEntity, val => {
   console.log(val)
   val || close()
 })

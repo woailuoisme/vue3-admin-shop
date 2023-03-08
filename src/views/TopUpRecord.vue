@@ -85,18 +85,18 @@ onMounted(() => {
 
 watch(
   requestParams,
-  (value) => {
+  value => {
     recordStore.loadAllRecords(requestParams.value._rawValue)
   },
   { deep: true }
 )
 
-watch(dialogEntity, (val) => {
+watch(dialogEntity, val => {
   console.log(val)
   val || close()
 })
 
-watch(dialogDetail, (val) => {
+watch(dialogDetail, val => {
   console.log(val)
   val || close()
 })

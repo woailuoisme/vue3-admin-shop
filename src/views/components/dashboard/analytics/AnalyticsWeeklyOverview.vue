@@ -70,7 +70,7 @@ const options = computed(() => {
           colors: disabledColor,
           fontSize: '12px',
         },
-        formatter: (value) => `${value > 999 ? `${(value / 1000).toFixed(0)}` : value}k`,
+        formatter: value => `${value > 999 ? `${(value / 1000).toFixed(0)}` : value}k`,
       },
     },
   }

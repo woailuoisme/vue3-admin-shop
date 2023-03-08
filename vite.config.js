@@ -14,9 +14,11 @@ import IconsResolver from 'unplugin-icons/resolver'
 import { defineConfig, loadEnv } from 'vite'
 import { fileURLToPath, URL } from 'node:url'
 import VueI18nPlugin from '@intlify/unplugin-vue-i18n/vite'
+
 // https://vitejs.dev/config/
-export default defineConfig((command, mode) => {
-  return {
+export default defineConfig(async (command, mode) => {
+
+  const config= {
     base: mode === 'dev' || mode === 'prod' ? '/admin' : '/', // fix dev and prod nginx assets resources url 404
     esbuild: {
       drop: mode !== 'dev' ? ['console', 'debugger'] : [],
@@ -106,4 +108,5 @@ export default defineConfig((command, mode) => {
       },
     },
   }
+  return config
 })

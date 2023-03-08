@@ -1,7 +1,7 @@
 const range = (start, end) => new Array(end - start).fill(start).map((el, i) => start + i)
 
 const shortMonth = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
-const monthVisitData = shortMonth.map((m) => {
+const monthVisitData = shortMonth.map(m => {
   return {
     month: m,
     'Unique Visit': Math.floor(Math.random() * 1000) + 200,
@@ -62,7 +62,7 @@ const StackData = StackMainData.map((item, key) => {
     sales: item,
   }
 })
-const SinData = range(1, 12).map((i) => {
+const SinData = range(1, 12).map(i => {
   return {
     cate: 'Cat' + i,
     value: (Math.sin(i / 5) * (i / 5 - 0.1) + i / 6) * 5,

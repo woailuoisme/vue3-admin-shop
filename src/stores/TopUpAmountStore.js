@@ -24,11 +24,11 @@ export default defineStore('top-up-amount', {
     isNew(state) {
       return state.editedIndex === -1
     },
-    findById: (state) => (id) => {
-      return state.amounts.find((p) => p.id === id)
+    findById: state => id => {
+      return state.amounts.find(p => p.id === id)
     },
-    findIndexById: (state) => (id) => {
-      return state.amounts.findIndex((p) => p.id === id)
+    findIndexById: state => id => {
+      return state.amounts.findIndex(p => p.id === id)
     },
     hasData(state) {
       return !!state.amounts.length
@@ -36,14 +36,14 @@ export default defineStore('top-up-amount', {
   },
   actions: {
     setEditedIndex(id) {
-      this.editedIndex = this.amounts.findIndex((m) => m.id === id)
+      this.editedIndex = this.amounts.findIndex(m => m.id === id)
     },
     resetEdited() {
       this.editedIndex = -1
       this.editedItem = Object.assign({}, this.defaultItem)
     },
     findAndSetItem(item) {
-      this.editedIndex = this.amounts.findIndex((m) => m.id === item.id)
+      this.editedIndex = this.amounts.findIndex(m => m.id === item.id)
       this.editedItem = Object.assign({}, item)
     },
 
@@ -75,7 +75,7 @@ export default defineStore('top-up-amount', {
       const res = await TopUpAmountService.update(payload)
       const amount = res.data?.data
       if (res.data.success) {
-        const index = this.amounts.findIndex((p) => p.id === payload.id)
+        const index = this.amounts.findIndex(p => p.id === payload.id)
         Object.assign(this.amounts[index], amount)
         Toast.success(t('response.success'))
       } else {
@@ -86,7 +86,7 @@ export default defineStore('top-up-amount', {
     async deleteAmount(topUpId) {
       const res = await TopUpAmountService.delete(topUpId)
       if (res.data.success) {
-        const index = this.amounts.findIndex((p) => p.id === topUpId)
+        const index = this.amounts.findIndex(p => p.id === topUpId)
         this.amounts.splice(index, 1)
         Toast.success(t('response.success'))
       } else {

@@ -85,13 +85,13 @@ onMounted(() => {
 
 watch(
   requestParams,
-  (value) => {
+  value => {
     withdrawStore.loadAllWithdraws(requestParams.value._rawValue)
   },
   { deep: true }
 )
 
-watch(dialogEntity, (val) => {
+watch(dialogEntity, val => {
   console.log(val)
   val || close()
 })

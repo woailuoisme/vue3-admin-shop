@@ -92,17 +92,17 @@ onMounted(() => {
 
 watch(
   requestParams,
-  (value) => {
+  value => {
     adminUserStore.loadAllUsers(requestParams)
   },
   { deep: true }
 )
-watch(dialogEntity, (val) => {
+watch(dialogEntity, val => {
   console.log(val)
   val || close()
 })
 
-watch(dialogDelete, (val) => {
+watch(dialogDelete, val => {
   console.log(val)
   val || closeDelete()
 })

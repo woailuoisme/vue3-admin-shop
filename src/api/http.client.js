@@ -26,25 +26,25 @@ class HttpClient {
       timeout: 50000,
     })
     client.interceptors.request.use(
-      (config) => {
+      config => {
         // NProgress.start()
         NProgress.start()
         globalStore.setLoading(true)
         return config
       },
-      (error) => {
+      error => {
         globalStore.setLoading(false)
         Toast.error(error.message)
         return Promise.reject(error)
       }
     )
     client.interceptors.response.use(
-      (response) => {
+      response => {
         NProgress.done()
         globalStore.setLoading(false)
         return Promise.resolve(response)
       },
-      (error) => {
+      error => {
         NProgress.done()
         if (error.code === 'ECONNABORTED') {
           Toast.error('请求超时')

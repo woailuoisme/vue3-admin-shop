@@ -73,7 +73,7 @@ async function submitFile() {
   let formData = new FormData()
   formData.append('category_id', 2)
   formData.append('image', file.value)
-  const onUploadProgress = (progressEvent) => {
+  const onUploadProgress = progressEvent => {
     data.uploadPercentage = Math.round((progressEvent.loaded / progressEvent.total) * 100)
   }
   try {
