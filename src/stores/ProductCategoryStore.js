@@ -35,12 +35,6 @@ export default defineStore('product-category', {
     isNew(state) {
       return state.editedIndex === -1
     },
-    getEditedItem(state) {
-      return state.editedItem
-    },
-    getEditedIndex(state) {
-      return state.editedIndex
-    },
     findById: state => id => {
       return state.categories.find(p => p.id === id)
     },
@@ -49,12 +43,6 @@ export default defineStore('product-category', {
     },
     hasData(state) {
       return !!state.categories.length
-    },
-    getCategories(state) {
-      return state.categories
-    },
-    getMeta(state) {
-      return { ...state.meta }
     },
     isDisplayPagination(state) {
       return !!(state.meta && state.meta.last_page && state.meta.last_page > 1)
@@ -90,7 +78,7 @@ export default defineStore('product-category', {
     async createCategory(payload) {
       const res = await ProductCategoryService.store(payload)
       const category = res.data.data
-      this.categories.unshift(payload)
+      this.categories.unshift(category)
       Toast.success(res.data.message)
     },
 
@@ -98,7 +86,7 @@ export default defineStore('product-category', {
       const res = await ProductCategoryService.update(payload)
       const category = res.data.data
       const index = this.categories.findIndex(p => p.id === payload.id)
-      Object.assign(this.categories[index], payload)
+      Object.assign(this.categories[index], category)
       Toast.success(res.data.message)
     },
 

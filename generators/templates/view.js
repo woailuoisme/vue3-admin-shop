@@ -49,6 +49,7 @@ exports.viewContent = (model) => {
             :loading="isLoading"
             :headers="headers"
             :items="${pluralName}"
+            :table-class-name="tableClass"
           >
             <template #item-operation="item">
               <v-btn color="info" @click.stop="editItem(item)">{{ $t('table.operation.update') }}</v-btn>
@@ -75,15 +76,18 @@ import { computed, nextTick, onMounted, ref, unref, watch } from 'vue'
 import { storeToRefs } from 'pinia'
 import { useBreadcrumb, useGlobal, use${pascalName}, useTableHeader } from '@/stores'
 import _ from 'lodash'
+import { useTheme } from 'vuetify'
 
 const ${camelName}Store = use${pascalName}()
 const globalStore = useGlobal()
 const breadcrumbStore = useBreadcrumb()
 const tableHeaderStore = useTableHeader()
+const vuetifyTheme = useTheme()
 const headers = computed(() => tableHeaderStore.${camelName})
 const breadcrumbs = computed(() => breadcrumbStore.${camelName})
 const { ${pluralName}, total, isNew, editedItem, editedIndex } = storeToRefs(${camelName}Store)
 const { isLoading } = storeToRefs(globalStore)
+const tableClass = computed(()=> vuetifyTheme.global.name.value==='dark'?'customize-table-dark':'customize-table')
 const dialogEntity = ref(false)
 const dialogDelete = ref(false)
 const requestParams = ref({

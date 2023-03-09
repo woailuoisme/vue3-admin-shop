@@ -85,14 +85,6 @@ const props = defineProps({
 })
 const emit = defineEmits(['save', 'close'])
 const valid = ref(false)
-let entity = reactive({
-  name: '',
-  email: '',
-  password: null,
-  avatar: null,
-  avatarFile: [],
-  role: '',
-})
 
 const editedItem = reactive(props.item)
 

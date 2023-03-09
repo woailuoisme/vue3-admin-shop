@@ -18,13 +18,14 @@
     </v-row>
     <v-row>
       <v-col cols="12">
-        <v-card :loading="loading" :disabled="loading">
+        <v-card :loading="isLoading" :disabled="isLoading">
           <easy-data-table
             v-model:server-options="requestParams"
-            :server-items-length="serverItemsLength"
-            :loading="loading"
+            :server-items-length="total"
+            :loading="isLoading"
             :headers="headers"
             :items="categories"
+            :table-class-name="tableClass"
           >
             <template #item-image_url="{ image_url }">
               <table-image :image="image_url" />
@@ -44,7 +45,7 @@
     <v-dialog v-model="dialogDelete" max-width="300px">
       <dialog-confirm @close="closeDelete" @confirm="deleteItemConfirm" />
     </v-dialog>
-    <v-dialog v-model="dialogEntity" max-width="1300px">
+    <v-dialog v-model="dialogEntity" max-width="600px">
       <entity :item="editedItem" :is-new="isNew" @close="dialogEntity = false" @save="save" />
     </v-dialog>
   </v-container>
@@ -55,23 +56,24 @@ import TableImage from '@/components/table/TableImage'
 import Breadcrumb from '@/components/shared/Breadcrumb'
 import DialogConfirm from './components/common/DialogConfirm'
 import Entity from './components/productCategory/Entity'
-import { computed, nextTick, onMounted, ref, watch } from 'vue'
+import { computed, nextTick, onMounted, ref, unref, watch } from 'vue'
 import { useBreadcrumb, useGlobal, useProductCategory, useTableHeader } from '@/stores'
+import { storeToRefs } from 'pinia'
+import { useTheme } from 'vuetify'
 
 const globalStore = useGlobal()
 const breadcrumbStore = useBreadcrumb()
 const tableHeaderStore = useTableHeader()
 const categoryStore = useProductCategory()
+const vuetifyTheme = useTheme()
 
 const headers = computed(() => tableHeaderStore.productCategories)
 const breadcrumbs = computed(() => breadcrumbStore.productCategory)
-const categories = computed(() => categoryStore.getCategories)
-const serverItemsLength = computed(() => categoryStore.total)
-const loading = computed(() => globalStore.isLoading)
-const isNew = computed(() => categoryStore.isNew)
-const editedItem = computed(() => categoryStore.getEditedItem)
-const editedIndex = computed(() => categoryStore.getEditedIndex)
-// const findProduct = computed(() => productStore.findById)
+
+const { categories, total, isNew, editedItem, editedIndex } = storeToRefs(categoryStore)
+const { isLoading } = storeToRefs(globalStore)
+
+const tableClass = computed(() => (vuetifyTheme.global.name.value === 'dark' ? 'customize-table-dark' : 'customize-table'))
 
 const dialogEntity = ref(false)
 const dialogDelete = ref(false)
@@ -82,13 +84,13 @@ const requestParams = ref({
 let mapProduct
 
 onMounted(() => {
-  categoryStore.loadCategories()
+  categoryStore.loadCategories(unref(requestParams))
 })
 
 watch(
   requestParams,
   value => {
-    categoryStore.loadCategories(requestParams.value._rawValue)
+    categoryStore.loadCategories(unref(requestParams))
   },
   { deep: true }
 )

@@ -1,7 +1,7 @@
 <template>
   <v-badge v-bind="avatarBadgeProps">
     <v-avatar style="cursor: pointer" color="primary" variant="tonal">
-      <v-img :src="avatar1" />
+      <v-img :src="user?.avatar ?? avatar1" cover />
       <!-- SECTION Menu -->
       <v-menu activator="parent" open-on-hover width="230" scale-transition location="bottom end" offset="14px">
         <v-list>
@@ -10,8 +10,8 @@
             <template #prepend>
               <v-list-item-action start>
                 <v-badge v-bind="avatarBadgeProps">
-                  <v-avatar color="primary" size="40" variant="tonal">
-                    <v-img :src="avatar1" />
+                  <v-avatar color="primary" size="40" variant="outlined">
+                    <v-img :src="user?.avatar ?? avatar1" cover />
                   </v-avatar>
                 </v-badge>
               </v-list-item-action>
@@ -27,7 +27,7 @@
             <template #prepend>
               <v-icon class="me-2" icon="mdi-account-outline" size="22" />
             </template>
-            <v-list-item-title>個人資料</v-list-item-title>
+            <v-list-item-title>个人资料</v-list-item-title>
           </v-list-item>
 
           <!-- 👉 Settings -->
@@ -54,7 +54,7 @@
             <template #prepend>
               <v-icon class="me-2" icon="mdi-logout-variant" size="22" />
             </template>
-            <v-list-item-title>退出登錄</v-list-item-title>
+            <v-list-item-title>退出登录</v-list-item-title>
           </v-list-item>
         </v-list>
       </v-menu>

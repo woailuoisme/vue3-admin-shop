@@ -43,6 +43,7 @@ function setup() {
     bodyTextDirection: 'center',
     alternating: false,
     buttonsPagination: true,
+    // tableClassName: 'customize-table',
     tableClassName: 'customize-table',
     rowsItems: () => [10, 20, 50, 100],
   }

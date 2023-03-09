@@ -14,11 +14,7 @@
 
   <v-navigation-drawer v-if="isAuthed" v-model="drawer" permanent temporary rail expand-on-hover app>
     <v-list color="transparent">
-      <v-list-item
-        prepend-avatar="https://randomuser.me/api/portraits/women/85.jpg"
-        :title="user?.name"
-        :subtitle="user?.role"
-      ></v-list-item>
+      <v-list-item :prepend-avatar="user?.avatar ?? avatar1" :title="user?.name" :subtitle="user?.role"></v-list-item>
     </v-list>
 
     <v-divider></v-divider>
@@ -35,7 +31,6 @@
             active-color="primary"
             :value="child.text"
             :title="child.text"
-            :prepend-icon="child.prependIcon"
             append-icon="mdi-chevron-right"
             :to="{ name: child.name }"
             link
@@ -47,7 +42,7 @@
 
     <template v-slot:append>
       <div class="pa-2">
-        <v-btn block @click.stop="authStore.logout">Logout</v-btn>
+        <v-btn block @click.stop="authStore.logout">退登</v-btn>
       </div>
     </template>
   </v-navigation-drawer>
@@ -58,6 +53,7 @@ import { computed, ref } from 'vue'
 import { useAuth, useConfig, useMenu } from '@/stores'
 import ThemeSwitcher from '@/components/ThemeSwitcher'
 import UserProfile from './UserProfile'
+import avatar1 from '@/assets/images/avatars/avatar-1.png'
 
 const authStore = useAuth()
 const menuStore = useMenu()

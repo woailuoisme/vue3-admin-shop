@@ -1,7 +1,6 @@
 <template>
   <v-tooltip :text="text" location="top">
     <template #activator="{ props }">
-      <!--      <div class="text-ellipsis text-center" v-bind="props">{{ text }}</div> -->
       <div class="d-inline-block text-truncate" v-bind="props">{{ text }}</div>
     </template>
   </v-tooltip>

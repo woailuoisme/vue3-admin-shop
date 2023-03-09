@@ -27,12 +27,7 @@ const props = defineProps({
 })
 
 const vuetifyTheme = useTheme()
-// const currentTheme = computed(() => {
-//   return vuetifyTheme.current.value.colors
-// })
-// const variableTheme = computed(() => {
-//   return vuetifyTheme.current.value.variables
-// })
+
 const {
   state: currentTheme,
   next: getNextThemeName,

@@ -86,7 +86,7 @@ const breadcrumbStore = useBreadcrumb()
 const tableHeaderStore = useTableHeader()
 const categoryStore = useProductCategory()
 
-const categories = computed(() => categoryStore.getCategories)
+const categories = computed(() => categoryStore.categories)
 
 const headers = computed(() => tableHeaderStore.products)
 const breadcrumbs = computed(() => breadcrumbStore.product)
