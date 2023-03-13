@@ -24,6 +24,7 @@ module.exports = {
       },
     ],
     // ESLint plugin vue
+    'vue/v-on-event-hyphenation':'off',
     'vue/block-tag-newline': 'error',
     'vue/component-api-style': 'error',
     // --fix  component in template name to  kebab-case  PascalCase  camelCase  Snake_case

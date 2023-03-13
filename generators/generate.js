@@ -65,7 +65,7 @@ const _resources = (model) => {
     {
       type: 'view',
       path: path.join(__dirname, '../src/views/'),
-      name: `${pascalName}.vue`,
+      name: `${pascalName}Page.vue`,
       content: viewContent(model),
     },
     {

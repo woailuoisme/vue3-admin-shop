@@ -32,6 +32,12 @@ import '@vuepic/vue-datepicker/dist/main.css'
 import vueDropzone from 'vue2-dropzone-vue3'
 import VueCountdown from '@chenfengyuan/vue-countdown'
 import Draggable from 'vuedraggable'
+import PerfectScrollbar from 'vue3-perfect-scrollbar'
+import 'vue3-perfect-scrollbar/dist/vue3-perfect-scrollbar.css'
+
+import VOtpInput from 'vue3-otp-input'
+
+import FilePond from './filepond'
 
 import i18n from './i18n'
 
@@ -54,12 +60,14 @@ function setup() {
 
 export function registerPlugins(app) {
   loadFonts()
-  app.use(vuetify).use(router).use(pinia).use(i18n).use(NProgress).use(VueApexCharts).use(Toast, {
+  app.use(vuetify).use(router).use(pinia).use(i18n).use(NProgress).use(VueApexCharts).use(PerfectScrollbar).use(Toast, {
     transition: 'Vue-Toastification__fade',
     maxToasts: 10,
     newestOnTop: true,
   })
   setup()
+  app.component('VOtpInput', VOtpInput)
+  app.component('FilePond', FilePond)
   app.component('EasyDataTable', Vue3EasyDataTable)
   app.component('Draggable', Draggable)
   app.component('VueDatePicker', VueDatePicker)

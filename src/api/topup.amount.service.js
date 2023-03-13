@@ -3,10 +3,9 @@ import request from './http.client'
 class TopUpAmountService {
   list(data) {
     console.log(data)
-    const params = {
-      page: data?.page,
-      per_page: data?.rowsPerPage,
-    }
+    let params = {}
+    if (data?.page) params.page = data?.page
+    if (data?.rowsPerPage) params.per_page = data?.rowsPerPage
     if (data?.sortBy) params.sortBy = data.sortBy
     if (data?.sortType) params.sortType = data.sortType
     if (data?.keyword) params.keyword = data.keyword

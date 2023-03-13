@@ -1,22 +1,18 @@
 <template>
-  <div class="quantity-toggle">
-    <v-btn :color="isDecrement ? 'error' : 'gray'" :disabled="!isDecrement" icon @click="decrement">
-      <v-icon>mdi-minus</v-icon>
-    </v-btn>
+  <div class="input-integer">
+    <v-icon size="x-large" :color="isDecrement ? 'success' : 'gray'" :disabled="!isDecrement" @click="decrement">mdi-minus</v-icon>
     <input
       ref="input"
       v-model="quantity"
       :readonly="readonly"
       class="mx-1"
-      style="text-align: center; width: 50px; border: 1px solid #378888"
+      style="text-align: center; width: 50px; height: 40px; border: 1px solid #378888"
       type="text"
       @change="change"
       @keypress="onlyNumber($event)"
       @paste="paste"
     />
-    <v-btn :color="isIncrement ? 'success' : 'gray'" :disabled="!isIncrement" icon @click="increment">
-      <v-icon>mdi-plus</v-icon>
-    </v-btn>
+    <v-icon size="x-large" :color="isIncrement ? 'success' : 'gray'" :disabled="!isIncrement" @click="increment">mdi-plus</v-icon>
   </div>
 </template>
 
@@ -37,7 +33,7 @@ const props = defineProps({
   },
   max: {
     type: Number,
-    default: 100,
+    default: 10,
   },
   step: {
     type: Number,
@@ -60,7 +56,7 @@ const isIncrement = computed(() => quantity.value < props.max)
 
 function setValue(newValue) {
   const oldValue = quantity.value
-  if (this.min <= this.max) {
+  if (props.min <= props.max) {
     newValue = Math.min(props.max, Math.max(props.min, newValue))
   }
   quantity.value = newValue
@@ -112,4 +108,10 @@ function onlyNumber(event) {
 }
 </script>
 
-<style scoped></style>
+<style scoped>
+.input-integer {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+</style>

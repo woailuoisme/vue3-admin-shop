@@ -1,18 +1,24 @@
 <template>
   <v-app>
-    <app-header />
-    <v-main id="main-content" class="light-blue lighten-5">
+    <component :is="layout">
       <router-view />
-      <back-to-top />
-    </v-main>
-    <!--    <app-footer /> -->
+    </component>
   </v-app>
 </template>
 
 <script setup>
-import AppHeader from '@/components/application/AppHeader.vue'
-import BackToTop from '@/components/shared/BackToTop.vue'
-import AppFooter from '@/components/application/AppFooter'
+import { computed } from 'vue'
+import router from '@/router'
+import { pascale } from '@/utils'
+
+const layout = computed(() => {
+  console.log(router.currentRoute.value.meta?.layout)
+  const metaLayout = router.currentRoute.value.meta?.layout
+  if (metaLayout) {
+    return pascale(metaLayout) + 'Layout'
+  }
+  return 'AuthLayout'
+})
 </script>
 
 <style></style>

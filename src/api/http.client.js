@@ -46,7 +46,7 @@ class HttpClient {
       },
       error => {
         NProgress.done()
-        if (error.code === 'ECONNABORTED') {
+        if (error.code === 'ECONNABORTED' || error.code === 'ETIMEDOUT') {
           Toast.error('请求超时')
         }
         if (error.code === 'ERR_NETWORK') {

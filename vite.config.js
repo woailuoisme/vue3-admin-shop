@@ -14,6 +14,7 @@ import IconsResolver from 'unplugin-icons/resolver'
 import { defineConfig, loadEnv } from 'vite'
 import { fileURLToPath, URL } from 'node:url'
 import VueI18nPlugin from '@intlify/unplugin-vue-i18n/vite'
+import VueSetupExtend from 'vite-plugin-vue-setup-extend'
 
 // https://vitejs.dev/config/
 export default defineConfig(async (command, mode) => {
@@ -27,6 +28,7 @@ export default defineConfig(async (command, mode) => {
       vue({
         template: { transformAssetUrls },
       }),
+      VueSetupExtend(),
       Components({
         resolvers: [IconsResolver()],
       }),

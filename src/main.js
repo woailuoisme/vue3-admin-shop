@@ -11,12 +11,16 @@ import { createApp } from 'vue/dist/vue.esm-bundler'
 // data table scss style
 import '@/styles/style.css'
 
+// import mock from '@/data/mock'
+
 // Plugins
 import { registerPlugins } from '@/plugins'
+import { registerLayouts } from '@/layout/register'
 
 const app = createApp(App)
 
 registerPlugins(app)
+registerLayouts(app)
 
 app.mount('#app')
 if (import.meta.env.MODE === 'dev') {

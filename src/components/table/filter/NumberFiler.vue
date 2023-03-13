@@ -27,13 +27,13 @@
               <v-select
                 variant="outlined"
                 :items="rule.operators"
-                @update:modelValue="updateRuleOperator($event, index)"
                 :value="rule.operatorValue"
                 label="操作符"
+                @update:modelValue="updateRuleOperator($event, index)"
               />
             </v-col>
             <v-col cols="3">
-              <v-text-field @update:modelValue="updateRuleValue($event, index)" label="值"></v-text-field>
+              <v-text-field label="值" @update:modelValue="updateRuleValue($event, index)"></v-text-field>
             </v-col>
             <v-col cols="3">
               <v-btn color="error" @click="deleteRule(rule, index)">删除规则</v-btn>
@@ -44,6 +44,7 @@
     </v-expansion-panel>
   </v-expansion-panels>
 </template>
+
 <script setup>
 import { defineEmits, defineProps, ref } from 'vue'
 
@@ -110,4 +111,5 @@ const deleteRule = (value, index) => {
   rules.value.splice(index, 1)
 }
 </script>
+
 <style scoped></style>

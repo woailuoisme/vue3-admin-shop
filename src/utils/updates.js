@@ -1,6 +1,5 @@
-import { addMinutes, isPast, format, fromUnixTime } from 'date-fns'
+import { addMinutes, isPast, format } from 'date-fns'
 // import update from '@/api/updateSite'
-import { store } from '@/store'
 
 const MINUTES_TO_CHECK_FOR_UPDATES = 120
 
