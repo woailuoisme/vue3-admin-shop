@@ -1,5 +1,5 @@
-import client from '@/api/http.client'
-import { canUsed } from '@/utils/util'
+import client from "@/api/http.client"
+import { canUsed } from "@/utils/util"
 
 class UserService {
   list(data) {
@@ -8,7 +8,7 @@ class UserService {
       per_page: data?.rowsPerPage,
     }
     if (data?.keyword) params.keyword = data.keyword
-    return client.instance().get('/users', { params })
+    return client.instance().get("/users", { params })
   }
 
   toggleLottery(data) {
@@ -32,7 +32,7 @@ class UserService {
   }
 
   downloadExcel() {
-    return client.instance().get('user_excel', { responseType: 'arraybuffer' })
+    return client.instance().get("user_excel", { responseType: "arraybuffer" })
   }
 
   // async downloadFile() {

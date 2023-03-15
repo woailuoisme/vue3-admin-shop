@@ -1,14 +1,14 @@
 <script setup>
-import VueApexCharts from 'vue3-apexcharts'
-import { useTheme } from 'vuetify'
-import { computed } from 'vue'
+import VueApexCharts from "vue3-apexcharts"
+import { useTheme } from "vuetify"
+import { computed } from "vue"
 const vuetifyTheme = useTheme()
 const currentTheme = computed(() => {
   return vuetifyTheme.current.value.colors
 })
 const series = [
   {
-    name: '2020',
+    name: "2020",
     data: [45, 85, 65, 50, 70],
   },
 ]
@@ -17,7 +17,7 @@ const chartOptions = computed(() => {
 
   return {
     chart: {
-      type: 'bar',
+      type: "bar",
       stacked: false,
       parentHeightOffset: 0,
       toolbar: { show: false },
@@ -41,10 +41,10 @@ const chartOptions = computed(() => {
     plotOptions: {
       bar: {
         horizontal: false,
-        columnWidth: '20%',
+        columnWidth: "20%",
         borderRadius: 4,
-        startingShape: 'rounded',
-        endingShape: 'rounded',
+        startingShape: "rounded",
+        endingShape: "rounded",
         distributed: true,
         colors: {
           backgroundBarColors: [backgroundColor, backgroundColor, backgroundColor, backgroundColor, backgroundColor],

@@ -9,8 +9,8 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
-import { useLoading } from '@/hooks'
+import { ref, onMounted } from "vue"
+import { useLoading } from "@/hooks"
 
 const TIMEOUT = 10
 
@@ -19,7 +19,7 @@ const disabled = ref(true)
 const times = ref(0)
 const resendInterval = ref()
 const secondsToEnable = ref(TIMEOUT)
-const seconds = ref('')
+const seconds = ref("")
 onMounted(() => {
   setTimer()
 })
@@ -32,7 +32,7 @@ const setTimer = () => {
   resendInterval.value = setInterval(() => {
     if (secondsToEnable.value === 0) {
       clearInterval(resendInterval.value)
-      seconds.value = ''
+      seconds.value = ""
       disabled.value = false
     } else {
       seconds.value = `( ${secondsToEnable.value} )`

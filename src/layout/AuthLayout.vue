@@ -6,9 +6,12 @@
   </v-main>
 </template>
 
-<script setup name="AuthLayout">
-import AppHeader from '@/layout/application/AppHeader.vue'
-import BackToTop from '@/components/shared/BackToTop.vue'
+<script setup>
+defineOptions({
+  name: "AuthLayout",
+})
+import AppHeader from "@/layout/application/AppHeader.vue"
+import BackToTop from "@/components/shared/BackToTop.vue"
 </script>
 
 <style scoped></style>

@@ -5,11 +5,15 @@
       <span>{{ appName }}</span>
     </v-toolbar-title>
     <v-spacer />
-    <span>
-      <theme-switcher></theme-switcher>
-    </span>
+
+    <header-search></header-search>
     <v-divider class="mx-2" inset vertical thickness="3" />
-    <user-profile></user-profile>
+    <language-change></language-change>
+    <theme-switcher></theme-switcher>
+    <menu-notifications></menu-notifications>
+    <v-divider class="mx-2" inset vertical thickness="3" />
+
+    <menu-profile></menu-profile>
   </v-app-bar>
 
   <v-navigation-drawer v-if="isAuthed" v-model="drawer" permanent temporary rail expand-on-hover app>
@@ -42,18 +46,21 @@
 
     <template #append>
       <div class="pa-2">
-        <v-btn block @click.stop="authStore.logout">退登</v-btn>
+        <v-btn block @click.stop="authStore.logout">登出</v-btn>
       </div>
     </template>
   </v-navigation-drawer>
 </template>
 
 <script setup>
-import { computed, ref } from 'vue'
-import { useAuth, useConfig, useMenu } from '@/stores'
-import ThemeSwitcher from '@/components/ThemeSwitcher'
-import UserProfile from './UserProfile'
-import avatar1 from '@/assets/images/avatars/avatar-1.png'
+import { computed, ref } from "vue"
+import { useAuth, useConfig, useMenu } from "@/stores"
+import ThemeSwitcher from "@/layout/application/header/ThemeSwitcher"
+import MenuProfile from "./header/MenuProfile"
+import avatar1 from "@/assets/images/avatars/avatar-1.png"
+import MenuNotifications from "@/layout/application/header/MenuNotifications"
+import LanguageChange from "@/layout/application/header/LanguageChange"
+import HeaderSearch from "@/layout/application/header/HeaderSearch"
 
 const authStore = useAuth()
 const menuStore = useMenu()

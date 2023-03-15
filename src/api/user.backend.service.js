@@ -1,6 +1,6 @@
-import request from './http.client'
-import client from '@/api/http.client'
-import { canUsed } from '@/utils/util'
+import request from "./http.client"
+import client from "@/api/http.client"
+import { canUsed } from "@/utils/util"
 
 class UserBackendService {
   list(data) {
@@ -9,7 +9,7 @@ class UserBackendService {
       per_page: data?.rowsPerPage,
     }
     if (data?.keyword) params.keyword = data.keyword
-    return request.instance().get('/admin_users', { params })
+    return request.instance().get("/admin_users", { params })
   }
 
   show(userId) {
@@ -18,32 +18,32 @@ class UserBackendService {
 
   create(data) {
     let formData = new FormData()
-    formData.append('name', data.name)
-    formData.append('email', data.email)
-    formData.append('role', data.role)
-    formData.append('avatar', data.avatar)
-    formData.append('password', data.password)
+    formData.append("name", data.name)
+    formData.append("email", data.email)
+    formData.append("role", data.role)
+    formData.append("avatar", data.avatar)
+    formData.append("password", data.password)
     return client.instance().post(`/admin_users`, formData, {
       headers: {
-        'Content-Type': 'multipart/form-data',
+        "Content-Type": "multipart/form-data",
       },
     })
   }
 
   update(data) {
     let formData = new FormData()
-    formData.append('name', data.name)
-    formData.append('email', data.email)
-    formData.append('role', data.role)
+    formData.append("name", data.name)
+    formData.append("email", data.email)
+    formData.append("role", data.role)
     if (data.avatar) {
-      formData.append('avatar', data.avatar)
+      formData.append("avatar", data.avatar)
     }
     if (data.password) {
-      formData.append('password', data.password)
+      formData.append("password", data.password)
     }
     return client.instance().post(`/admin_users_update/${data.id}`, formData, {
       headers: {
-        'Content-Type': 'multipart/form-data',
+        "Content-Type": "multipart/form-data",
       },
     })
   }

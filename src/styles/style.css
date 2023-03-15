@@ -1,89 +1,89 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 /* datatable*/
 .customize-table {
-    --easy-table-header-font-size: 14px;
-    --easy-table-header-height: 50px;
+  --easy-table-header-font-size: 14px;
+  --easy-table-header-height: 50px;
 
-    --easy-table-footer-font-size: 16px;
-    --easy-table-footer-padding: 0px 10px;
-    --easy-table-footer-height: 70px;
+  --easy-table-footer-font-size: 16px;
+  --easy-table-footer-padding: 0px 10px;
+  --easy-table-footer-height: 70px;
 
-    --easy-table-body-row-height: 50px;
-    --easy-table-body-row-font-size: 14px;
+  --easy-table-body-row-height: 50px;
+  --easy-table-body-row-font-size: 14px;
 
-    --easy-table-rows-per-page-selector-width: 70px;
-    --easy-table-rows-per-page-selector-option-padding: 10px;
-    --easy-table-rows-per-page-selector-z-index: 1;
+  --easy-table-rows-per-page-selector-width: 70px;
+  --easy-table-rows-per-page-selector-option-padding: 10px;
+  --easy-table-rows-per-page-selector-z-index: 1;
 }
 
 .customize-table-dark {
-    --easy-table-header-font-size: 14px;
-    --easy-table-header-height: 50px;
-    --easy-table-header-background-color:#312D4B;
-    --easy-table-header-font-color:#FFFFFF;
+  --easy-table-header-font-size: 14px;
+  --easy-table-header-height: 50px;
+  --easy-table-header-background-color: #312d4b;
+  --easy-table-header-font-color: #ffffff;
 
-    --easy-table-body-row-height: 50px;
-    --easy-table-body-row-font-size: 14px;
-    --easy-table-body-row-font-color: #FFFFFF;
-    --easy-table-body-row-background-color:#312D4B;
-    --easy-table-body-row-hover-font-color:#FFFFFF;
-    --easy-table-body-row-hover-background-color:#28243D;
+  --easy-table-body-row-height: 50px;
+  --easy-table-body-row-font-size: 14px;
+  --easy-table-body-row-font-color: #ffffff;
+  --easy-table-body-row-background-color: #312d4b;
+  --easy-table-body-row-hover-font-color: #ffffff;
+  --easy-table-body-row-hover-background-color: #28243d;
 
-    --easy-table-footer-font-size: 16px;
-    --easy-table-footer-padding: 0px 10px;
-    --easy-table-footer-height: 70px;
-    --easy-table-footer-background-color:#312D4B;
-    --easy-table-footer-font-color:#FFFFFF;
+  --easy-table-footer-font-size: 16px;
+  --easy-table-footer-padding: 0px 10px;
+  --easy-table-footer-height: 70px;
+  --easy-table-footer-background-color: #312d4b;
+  --easy-table-footer-font-color: #ffffff;
 
-    --easy-table-rows-per-page-selector-width: 70px;
-    --easy-table-rows-per-page-selector-option-padding: 10px;
-    --easy-table-rows-per-page-selector-z-index: 1;
+  --easy-table-rows-per-page-selector-width: 70px;
+  --easy-table-rows-per-page-selector-option-padding: 10px;
+  --easy-table-rows-per-page-selector-z-index: 1;
 }
-
 
 /* for vuedraggable*/
 .ghost {
-    opacity: 0.5;
-    background: lightseagreen;
-    border-radius: 6px;
+  opacity: 0.5;
+  background: lightseagreen;
+  border-radius: 6px;
 }
 .drag {
-    transform: rotate(5deg) !important;
+  transform: rotate(5deg) !important;
 }
 .not-draggable {
-    cursor: no-drop;
+  cursor: no-drop;
 }
-
-
 
 /* fix tinymc dialog*/
 .tox-tinymce-aux {
-    z-index: 9999 !important;
+  z-index: 9999 !important;
 }
-
 
 /* for otp-input */
 .otp-input {
-    width: 40px;
-    height: 40px;
-    padding: 5px;
-    margin: 0 10px;
-    font-size: 20px;
-    border-radius: 4px;
-    border: 1px solid rgba(0, 0, 0, 0.3);
-    text-align: center;
+  width: 40px;
+  height: 40px;
+  padding: 5px;
+  margin: 0 10px;
+  font-size: 20px;
+  border-radius: 4px;
+  border: 1px solid rgba(0, 0, 0, 0.3);
+  text-align: center;
 }
 /* Background colour of an input field with value */
 .otp-input.is-complete {
-    background-color: #e4e4e4;
+  background-color: #e4e4e4;
 }
 .otp-input::-webkit-inner-spin-button,
 .otp-input::-webkit-outer-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
+  -webkit-appearance: none;
+  margin: 0;
 }
 input::placeholder {
-    font-size: 15px;
-    text-align: center;
-    font-weight: 600;
+  font-size: 15px;
+  text-align: center;
+  font-weight: 600;
 }
 /* ----------------- */

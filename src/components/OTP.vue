@@ -17,16 +17,16 @@
 </template>
 
 <script setup>
-import { defineProps, defineEmits, ref } from 'vue'
+import { defineProps, defineEmits, ref } from "vue"
 
 const otpInput = ref(null)
 
 function handleOnChange(value) {
-  console.log('OTP changed: ', value)
+  console.log("OTP changed: ", value)
 }
 
 function handleOnComplete(value) {
-  console.log('OTP completed: ', value)
+  console.log("OTP completed: ", value)
 }
 
 function clearInput() {

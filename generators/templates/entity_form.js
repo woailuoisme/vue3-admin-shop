@@ -1,11 +1,10 @@
-const _ = require('lodash')
-const { trim } = require('lodash/string')
-const { plural,camelToSnake,camelToDot,camelToKebab} = require('../util')
+const { camelCase, capitalize, trim } = require("lodash-es")
+const { plural, camelToSnake, camelToDot, camelToKebab } = require("../util")
 
 exports.entityFormContent = (model) => {
   const newModel = trim(model)
-  const camelModel = _.camelCase(newModel)
-  const pascalName = _.capitalize(camelModel)
+  const camelModel = camelCase(newModel)
+  const pascalName = capitalize(camelModel)
   const pluralName = plural(camelModel)
   const kebabName = camelToKebab(camelModel)
   const dotName = camelToDot(camelModel)
@@ -110,5 +109,5 @@ function close() {
 
 <style scoped></style>
 `
-return content
+  return content
 }

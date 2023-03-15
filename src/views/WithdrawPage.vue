@@ -39,10 +39,10 @@
 </template>
 
 <script setup>
-import Breadcrumb from '@/components/shared/Breadcrumb'
-import Details from './components/withdraw/Details'
-import { computed, nextTick, onMounted, ref, watch } from 'vue'
-import { useBreadcrumb, useGlobal, useWithdraw, useTableHeader } from '@/stores'
+import Breadcrumb from "@/components/shared/Breadcrumb"
+import Details from "./components/withdraw/Details"
+import { computed, nextTick, onMounted, ref, watch } from "vue"
+import { useBreadcrumb, useGlobal, useWithdraw, useTableHeader } from "@/stores"
 
 const withdrawStore = useWithdraw()
 const globalStore = useGlobal()
@@ -65,34 +65,34 @@ let mapWithdraw
 const requestParams = ref({
   page: 1,
   rowsPerPage: 10,
-  keyword: '',
+  keyword: "",
 })
 let mapCategory
 
 onMounted(() => {
-  console.log('onMounted')
+  console.log("onMounted")
   withdrawStore.loadAllWithdraws(requestParams.value._rawValue)
 })
 
 watch(
   requestParams,
-  value => {
+  (value) => {
     withdrawStore.loadAllWithdraws(requestParams.value._rawValue)
   },
-  { deep: true }
+  { deep: true },
 )
 
-watch(dialogEntity, val => {
+watch(dialogEntity, (val) => {
   console.log(val)
   val || close()
 })
 
 function isShow(item) {
-  if (item.status === 'pending') {
+  if (item.status === "pending") {
     return true
-  } else if (item.status === 'finished') {
+  } else if (item.status === "finished") {
     return false
-  } else if (item.status === 'rejected') {
+  } else if (item.status === "rejected") {
     return true
   }
   return false
@@ -121,22 +121,22 @@ function save() {
 }
 
 function statusLabel(value) {
-  if (value === 'pending') {
-    return '已申请'
-  } else if (value === 'passed') {
-    return '已通过'
-  } else if (value === 'rejected') {
-    return '已拒绝'
+  if (value === "pending") {
+    return "已申请"
+  } else if (value === "passed") {
+    return "已通过"
+  } else if (value === "rejected") {
+    return "已拒绝"
   }
 }
 
 function statusClass(value) {
-  if (value === 'pending') {
-    return 'primary'
-  } else if (value === 'passed') {
-    return 'success'
-  } else if (value === 'rejected') {
-    return 'error'
+  if (value === "pending") {
+    return "primary"
+  } else if (value === "passed") {
+    return "success"
+  } else if (value === "rejected") {
+    return "error"
   }
 }
 </script>

@@ -5,7 +5,9 @@
       <v-row>
         <v-col cols="12">
           <v-card>
-            <breadcrumb :items="breadcrumbs" />
+            <v-card-title>
+              <breadcrumb :items="breadcrumbs" active-color="primary" class="pa-0 py-2" />
+            </v-card-title>
           </v-card>
         </v-col>
       </v-row>
@@ -15,11 +17,15 @@
   </v-main>
 </template>
 
-<script setup name="MenuLayout">
-import AppHeader from '@/layout/application/AppHeader.vue'
-import BackToTop from '@/components/shared/BackToTop.vue'
-import globalRouter from '@/router'
-import { computed } from 'vue'
+<script setup>
+import AppHeader from "@/layout/application/AppHeader.vue"
+import BackToTop from "@/components/shared/BackToTop.vue"
+import globalRouter from "@/router"
+import { computed } from "vue"
+
+defineOptions({
+  name: "MenuLayout",
+})
 
 const breadcrumbs = computed(() => globalRouter.currentRoute.value.meta?.breads ?? [])
 </script>

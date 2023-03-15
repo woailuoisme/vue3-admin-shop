@@ -1,4 +1,4 @@
-import { decrypto, encrypto } from './crypto'
+import { decrypto, encrypto } from "./crypto"
 
 class CreateLocalStorage {
   // DEFAULT_CACHE_TIME = 60 * 60 * 24 * 7

@@ -17,7 +17,7 @@
 </template>
 
 <script setup>
-import { computed, defineEmits, defineProps, ref, watch, onMounted } from 'vue'
+import { computed, defineEmits, defineProps, ref, watch, onMounted } from "vue"
 const props = defineProps({
   modelValue: {
     type: Number,
@@ -46,7 +46,7 @@ const props = defineProps({
     default: true,
   },
 })
-const emit = defineEmits(['input', 'increment', 'decrement', 'changeValue', 'changeQuantity', 'update:modelValue'])
+const emit = defineEmits(["input", "increment", "decrement", "changeValue", "changeQuantity", "update:modelValue"])
 const isNaN = Number.isNaN || window.isNaN
 const REGEXP_DECIMALS = /\.\d*(?:0|9){10}\d*$/
 const REGEXP_NUMBER = /^-?(?:\d+|\d+\.\d+|\.\d+)(?:[eE][-+]?\d+)?$/
@@ -60,7 +60,7 @@ function setValue(newValue) {
     newValue = Math.min(props.max, Math.max(props.min, newValue))
   }
   quantity.value = newValue
-  emit('changeValue', newValue, oldValue)
+  emit("changeValue", newValue, oldValue)
 }
 
 onMounted(() => {
@@ -68,24 +68,24 @@ onMounted(() => {
 })
 
 watch(quantity, (value, oldValue) => {
-  emit('update:modelValue', value)
+  emit("update:modelValue", value)
 })
 
 function increment() {
   setValue(Math.min(props.max, Math.max(props.min, quantity.value + props.step)))
-  emit('increment', quantity.value)
-  emit('update:modelValue', quantity.value)
+  emit("increment", quantity.value)
+  emit("update:modelValue", quantity.value)
 }
 function decrement() {
   setValue(Math.min(props.max, Math.max(props.min, quantity.value - props.step)))
-  emit('decrement', quantity.value)
-  emit('update:modelValue', quantity.value)
+  emit("decrement", quantity.value)
+  emit("update:modelValue", quantity.value)
 }
 
 function change(event) {
   setValue(Math.min(props.max, Math.max(props.min, event.target.value)))
-  emit('changeQuantity', quantity.value)
-  emit('update:modelValue', quantity.value)
+  emit("changeQuantity", quantity.value)
+  emit("update:modelValue", quantity.value)
 }
 
 /**
@@ -94,7 +94,7 @@ function change(event) {
  */
 function paste(event) {
   const clipboardData = event.clipboardData || window.clipboardData
-  if (clipboardData && !REGEXP_NUMBER.test(clipboardData.getData('text'))) {
+  if (clipboardData && !REGEXP_NUMBER.test(clipboardData.getData("text"))) {
     event.preventDefault()
   }
 }

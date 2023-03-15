@@ -1,10 +1,9 @@
-const _ = require('lodash')
-const { trim } = require('lodash/string')
-const { plural,camelToSnake,camelToDot,camelToKebab, pascale} = require('../util')
+const { camelCase, capitalize, trim } = require("lodash-es")
+const { plural, camelToSnake, camelToDot, camelToKebab, pascale } = require("../util")
 
 exports.viewContent = (model) => {
   const newModel = trim(model)
-  const camelName =_.camelCase(newModel)
+  const camelName = camelCase(newModel)
   const pascalName = pascale(camelName)
   const pluralName = plural(camelName)
   const pluralPascalName = plural(pascalName)
@@ -12,7 +11,7 @@ exports.viewContent = (model) => {
   const dotName = camelToDot(camelName)
   const snakeName = camelToSnake(camelName)
 
-  const viewContent =`
+  const viewContent = `
   <template>
   <v-container fluid>
     <v-row>
@@ -50,10 +49,12 @@ exports.viewContent = (model) => {
             :headers="headers"
             :items="${pluralName}"
             :table-class-name="tableClass"
+            :hide-footer="isHideFooter"
           >
             <template #item-operation="item">
-              <v-btn color="info" @click.stop="editItem(item)">{{ $t('table.operation.update') }}</v-btn>
-              <v-btn class="mx-3" color="error" @click.stop="deleteItem(item)">{{ $t('table.operation.delete') }}</v-btn>
+              <v-icon icon="mdi-eye-outline" color="info" size="large"  @click.stop="viewItem(item)"></v-icon>
+              <v-icon  class="ml-1" icon="mdi-square-edit-outline" color="primary" size="large"  @click.stop="editItem(item)"></v-icon>
+              <v-icon  class="ml-1" icon="mdi-trash-can-outline" color="error" size="large" @click.stop="deleteItem(item)"></v-icon>
             </template>
           </easy-data-table>
         </v-card>
@@ -75,7 +76,7 @@ import Entity from './components/${camelName}/Entity'
 import { computed, nextTick, onMounted, ref, unref, watch } from 'vue'
 import { storeToRefs } from 'pinia'
 import { useBreadcrumb, useGlobal, use${pascalName}, useTableHeader } from '@/stores'
-import _ from 'lodash'
+const { debounce } = require('lodash-es')
 import { useTheme } from 'vuetify'
 
 const ${camelName}Store = use${pascalName}()
@@ -85,7 +86,7 @@ const tableHeaderStore = useTableHeader()
 const vuetifyTheme = useTheme()
 const headers = computed(() => tableHeaderStore.${camelName})
 const breadcrumbs = computed(() => breadcrumbStore.${camelName})
-const { ${pluralName}, total, isNew, editedItem, editedIndex } = storeToRefs(${camelName}Store)
+const { ${pluralName}, total, isNew, editedItem, editedIndex,isHideFooter } = storeToRefs(${camelName}Store)
 const { isLoading } = storeToRefs(globalStore)
 const tableClass = computed(()=> vuetifyTheme.global.name.value==='dark'?'customize-table-dark':'customize-table')
 const dialogEntity = ref(false)
@@ -96,7 +97,7 @@ const requestParams = ref({
   sortBy: '',
   sortType: '',
 })
-const search = _.debounce((value) =>  ${camelName}Store.loadAll${pluralPascalName}(value), 800)
+const search = debounce((value) =>  ${camelName}Store.loadAll${pluralPascalName}(value), 800)
 
 onMounted(() => {
   ${camelName}Store.loadAll${pluralPascalName}(unref(requestParams))
@@ -169,7 +170,5 @@ function save(values) {
 <style scoped></style>
 
   `
-return viewContent
+  return viewContent
 }
-
-

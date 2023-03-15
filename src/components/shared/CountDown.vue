@@ -9,7 +9,7 @@
 </template>
 
 <script setup>
-import { defineProps, onMounted, onUnmounted, reactive, ref } from 'vue'
+import { defineProps, onMounted, onUnmounted, reactive, ref } from "vue"
 
 const props = defineProps({
   endDate: {

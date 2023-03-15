@@ -1,20 +1,22 @@
-import { defineStore } from 'pinia'
-import AuthService from '../api/auth.service'
-import toast from '../utils/toast'
-import router from '@/router'
-export default defineStore('auth', {
+import { defineStore } from "pinia"
+import AuthService from "../api/auth.service"
+import toast from "../utils/toast"
+import router from "@/router"
+import storage from "@/utils/storage"
+
+export default defineStore("auth", {
   state: () => ({
-    user: window.localStorage.getItem('user') ? JSON.parse(window.localStorage.getItem('user')) : {},
+    user: storage.get("user") ? JSON.parse(storage.get("user")) : {},
   }),
   getters: {
     getUser(state) {
       return state.user
     },
     token(state) {
-      return state.user && state.user.token ? state.user.token : ''
+      return state.user && state.user.token ? state.user.token : ""
     },
     role(state) {
-      return state.user && state.user.role ? state.user.role : ''
+      return state.user && state.user.role ? state.user.role : ""
     },
     isAuthed(state) {
       return Object.keys(state.user).length > 0
@@ -27,29 +29,29 @@ export default defineStore('auth', {
       if (response.data.success) {
         let user = response.data.data
         this.user = user
-        window.localStorage.user = JSON.stringify(user)
-        router.replace({ name: 'dashboard' })
-        toast.success('用户登录成功')
+        storage.set("user", JSON.stringify(user))
+        router.replace({ name: "dashboard" })
+        toast.success("用户登录成功")
         return true
       }
-      toast.success('用户名或密码有误')
+      toast.success("用户名或密码有误")
       return false
     },
 
     async logout() {
       let response = await AuthService.logout()
       if (response.data.success) {
-        window.localStorage.removeItem('user')
+        storage.remove("user")
         this.user = {}
-        router.replace({ name: 'login' })
-        toast.success('用户登出成功')
+        router.replace({ name: "login" })
+        toast.success("用户登出成功")
         return true
       }
       return false
     },
 
     resetUser() {
-      window.localStorage.removeItem('user')
+      storage.remove("user")
     },
   },
 })

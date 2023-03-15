@@ -18,6 +18,7 @@
           :headers="headers"
           :items="categories"
           :table-class-name="tableClass"
+          :hide-footer="isHideFooter"
         >
           <template #item-image_url="{ image_url }">
             <table-image :image="image_url" />
@@ -27,8 +28,8 @@
             <table-image :image="avatar" />
           </template>
           <template #item-operation="item">
-            <v-btn class="ml-1" icon="mdi-pencil" color="warning" size="small" tile @click.stop="editItem(item)" />
-            <v-btn class="ml-1" icon="mdi-delete" color="error" size="small" tile @click.stop="deleteItem(item)" />
+            <v-icon class="ml-1" icon="mdi-square-edit-outline" color="primary" size="large" @click.stop="editItem(item)"></v-icon>
+            <v-icon class="ml-1" icon="mdi-trash-can-outline" color="error" size="large" @click.stop="deleteItem(item)"></v-icon>
           </template>
         </easy-data-table>
       </v-card>
@@ -43,14 +44,13 @@
 </template>
 
 <script setup>
-import TableImage from '@/components/table/TableImage'
-import Breadcrumb from '@/components/shared/Breadcrumb'
-import DialogConfirm from './components/common/DialogConfirm'
-import Entity from './components/productCategory/Entity'
-import { computed, nextTick, onMounted, ref, unref, watch } from 'vue'
-import { useBreadcrumb, useGlobal, useProductCategory, useTableHeader } from '@/stores'
-import { storeToRefs } from 'pinia'
-import { useTheme } from 'vuetify'
+import TableImage from "@/components/table/TableImage"
+import DialogConfirm from "./components/common/DialogConfirm"
+import Entity from "./components/productCategory/Entity"
+import { computed, nextTick, onMounted, ref, unref, watch } from "vue"
+import { useBreadcrumb, useGlobal, useProductCategory, useTableHeader } from "@/stores"
+import { storeToRefs } from "pinia"
+import { useTheme } from "vuetify"
 
 const globalStore = useGlobal()
 const breadcrumbStore = useBreadcrumb()
@@ -61,10 +61,10 @@ const vuetifyTheme = useTheme()
 const headers = computed(() => tableHeaderStore.productCategories)
 const breadcrumbs = computed(() => breadcrumbStore.productCategory)
 
-const { categories, total, isNew, editedItem, editedIndex } = storeToRefs(categoryStore)
+const { categories, total, isNew, editedItem, editedIndex, isHideFooter } = storeToRefs(categoryStore)
 const { isLoading } = storeToRefs(globalStore)
 
-const tableClass = computed(() => (vuetifyTheme.global.name.value === 'dark' ? 'customize-table-dark' : 'customize-table'))
+const tableClass = computed(() => (vuetifyTheme.global.name.value === "dark" ? "customize-table-dark" : "customize-table"))
 
 const dialogEntity = ref(false)
 const dialogDelete = ref(false)
@@ -80,18 +80,18 @@ onMounted(() => {
 
 watch(
   requestParams,
-  value => {
+  (value) => {
     categoryStore.loadCategories(unref(requestParams))
   },
-  { deep: true }
+  { deep: true },
 )
 
-watch(dialogEntity, val => {
+watch(dialogEntity, (val) => {
   console.log(val)
   val || close()
 })
 
-watch(dialogDelete, val => {
+watch(dialogDelete, (val) => {
   console.log(val)
   val || closeDelete()
 })

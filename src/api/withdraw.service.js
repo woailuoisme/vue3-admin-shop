@@ -1,5 +1,5 @@
-import client from './http.client'
-import { canUsed } from '@/utils/util'
+import client from "./http.client"
+import { canUsed } from "@/utils/util"
 
 class WithdrawService {
   list(data) {
@@ -8,7 +8,7 @@ class WithdrawService {
       per_page: data?.rowsPerPage,
     }
     if (data?.keyword) params.keyword = data.keyword
-    return client.instance().get('/withdraw', { params })
+    return client.instance().get("/withdraw", { params })
   }
 
   show(userId) {

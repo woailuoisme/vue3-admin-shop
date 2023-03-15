@@ -13,8 +13,8 @@
 </template>
 
 <script setup>
-import errorImg from '@/assets/image/default_image_1.png'
-import { defineEmits, defineProps } from 'vue'
+import errorImg from "@/assets/image/default_image_1.png"
+import { defineEmits, defineProps } from "vue"
 
 const props = defineProps({
   items: {
@@ -24,11 +24,11 @@ const props = defineProps({
   attr: {
     type: String,
     required: true,
-    default: 'image',
+    default: "image",
   },
 })
 
-const emit = defineEmits(['update'])
+const emit = defineEmits(["update"])
 </script>
 
 <style scoped></style>

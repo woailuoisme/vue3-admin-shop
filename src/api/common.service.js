@@ -1,5 +1,5 @@
-import request from './http.client'
-import client from '@/api/http.client'
+import request from "./http.client"
+import client from "@/api/http.client"
 
 class CommonService {
   productCategories() {
@@ -8,10 +8,10 @@ class CommonService {
 
   mediaUpload(data) {
     let formData = new FormData()
-    formData.append('image', data.image)
+    formData.append("image", data.image)
     return client.instance().post(`/common/media_upload`, formData, {
       headers: {
-        'Content-Type': 'multipart/form-data',
+        "Content-Type": "multipart/form-data",
       },
     })
   }

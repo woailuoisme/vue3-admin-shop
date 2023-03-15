@@ -7,17 +7,17 @@
 </template>
 
 <script setup>
-import { computed } from 'vue'
-import router from '@/router'
-import { pascale } from '@/utils'
+import { computed } from "vue"
+import router from "@/router"
+import { pascale } from "@/utils"
 
 const layout = computed(() => {
-  console.log(router.currentRoute.value.meta?.layout)
+  console.log("Layout=====" + router.currentRoute.value.meta?.layout)
   const metaLayout = router.currentRoute.value.meta?.layout
   if (metaLayout) {
-    return pascale(metaLayout) + 'Layout'
+    return pascale(metaLayout) + "Layout"
   }
-  return 'AuthLayout'
+  return "DefaultLayout"
 })
 </script>
 

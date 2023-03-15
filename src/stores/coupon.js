@@ -1,4 +1,4 @@
-import CouponService from '../api/coupon.service'
+import CouponService from "../api/coupon.service"
 
 export default {
   namespaced: true,
@@ -18,14 +18,14 @@ export default {
     async loadAllCoupon({ commit }, payload) {
       const res = await CouponService.list(payload)
       if (res.data.data) {
-        commit('SET_COUPON', res.data.data)
+        commit("SET_COUPON", res.data.data)
       }
     },
 
     async loadSingleCoupon({ commit }, payload) {
       const res = await CouponService.show(payload)
       if (res.data.data) {
-        commit('SET_SINGLE_COUPON', res.data.data)
+        commit("SET_SINGLE_COUPON", res.data.data)
       }
     },
   },
@@ -36,8 +36,8 @@ export default {
     getCoupons(state) {
       return state.coupon
     },
-    findByOrderId: state => id => {
-      return state.coupon.find(order => order.id === id)
+    findByOrderId: (state) => (id) => {
+      return state.coupon.find((order) => order.id === id)
     },
   },
 }

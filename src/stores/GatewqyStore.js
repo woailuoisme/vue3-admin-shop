@@ -1,5 +1,5 @@
-import GatewayService from '../api/gateway.service'
-import Toast from '@/utils/toast'
+import GatewayService from "../api/gateway.service"
+import Toast from "@/utils/toast"
 
 export default {
   namespaced: true,
@@ -19,7 +19,7 @@ export default {
     },
 
     UPDATE_GATEWAY(state, payload) {
-      const index = state.gateways.findIndex(p => p.id === payload.id)
+      const index = state.gateways.findIndex((p) => p.id === payload.id)
       Object.assign(state.gateways[index], payload)
     },
   },
@@ -27,14 +27,14 @@ export default {
     async loadAllGateway({ commit }, payload) {
       const res = await GatewayService.list(payload)
       if (res.data.data) {
-        commit('SET_GATEWAY', res.data.data)
+        commit("SET_GATEWAY", res.data.data)
       }
     },
 
     async updateGateway({ commit }, payload) {
       const res = await GatewayService.update(payload)
       const gateway = res.data.data
-      commit('UPDATE_GATEWAY', gateway)
+      commit("UPDATE_GATEWAY", gateway)
       Toast.success(res.data.message)
     },
   },
@@ -45,8 +45,8 @@ export default {
     getGateways(state) {
       return state.gateways
     },
-    findByOrderId: state => id => {
-      return state.gateways.find(award => award.id === id)
+    findByOrderId: (state) => (id) => {
+      return state.gateways.find((award) => award.id === id)
     },
   },
 }

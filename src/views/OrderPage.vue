@@ -49,15 +49,18 @@
             </div>
           </template>
           <template #item-order_num="item">
-            <v-chip color="primary" variant="elevated" tile @click.stop="copy(item.order_num)">{{ item.order_num }}</v-chip>
+            <!--            <v-chip color="primary" variant="elevated">{{ item.order_num }}</v-chip> -->
+            <copy-label :text="item.order_num"></copy-label>
           </template>
           <template #item-order_status="item">
             <v-chip color="success" small>
-              {{ orderStatusLabel(item.order_status) }}
+              {{ $filter.orderStatusLabel(item.order_status) }}
             </v-chip>
           </template>
           <template #item-operation="item">
-            <v-btn v-if="orderShowExpress(item.order_status)" color="success" tile small @click.stop="confirmedItem(item)">更新物流</v-btn>
+            <v-btn v-if="$filter.orderShowExpress(item.order_status)" color="success" tile small @click.stop="confirmedItem(item)">
+              更新物流
+            </v-btn>
             <v-btn color="info" variant="flat" @click.stop="view(item)">查看</v-btn>
           </template>
         </easy-data-table>
@@ -71,15 +74,15 @@
 </template>
 
 <script setup>
-import Breadcrumb from '@/components/shared/Breadcrumb'
-import Details from './components/order/Details'
-import { computed, nextTick, onMounted, ref, unref, watch } from 'vue'
-import { useBreadcrumb, useGlobal, useOrder, useTableHeader } from '@/stores'
-import { orderStatusLabel, orderShowExpress, orderStatus } from '@/utils/table'
-import { storeToRefs } from 'pinia/dist/pinia'
-import useClipboard from 'vue-clipboard3'
-import Toast from '@/utils/toast'
-import _ from 'lodash'
+import Details from "./components/order/Details"
+import { computed, nextTick, onMounted, ref, unref, watch } from "vue"
+import { useBreadcrumb, useGlobal, useOrder, useTableHeader } from "@/stores"
+import { orderStatus } from "@/utils/table"
+import { storeToRefs } from "pinia/dist/pinia"
+import Toast from "@/utils/toast"
+import { debounce } from "lodash-es"
+import CopyLabel from "@/components/common/CopyLabel"
+import { useClipboard } from "@vueuse/core"
 const { toClipboard } = useClipboard()
 
 const globalStore = useGlobal()
@@ -104,14 +107,14 @@ const requestParams = ref({
 })
 
 const filter = ref({
-  keyword: '',
+  keyword: "",
 })
 
 const showStatus = ref(false)
-const orderNoStatus = ref('')
+const orderNoStatus = ref("")
 
 const mapCategory = ref({})
-const search = _.debounce(value => orderStore.loadAllOrders(value), 600)
+const search = debounce((value) => orderStore.loadAllOrders(value), 600)
 onMounted(() => {
   orderStore.loadAllOrders({ ...unref(requestParams), ...unref(filter) })
 })
@@ -121,16 +124,16 @@ watch(
   ([value, val]) => {
     search({ ...unref(value), ...unref(val) })
   },
-  { deep: true }
+  { deep: true },
 )
 
-watch(dialogEntity, val => {
+watch(dialogEntity, (val) => {
   val || close()
 })
 
 async function copy(value) {
   try {
-    await toClipboard(value)
+    toClipboard(value)
     show.value = true
     Toast.info("'Copied to clipboard'")
   } catch (e) {

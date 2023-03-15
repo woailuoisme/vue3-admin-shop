@@ -1,37 +1,37 @@
 <script setup>
-import { ref } from 'vue'
-import avatar1 from '@/assets/images/avatars/avatar-1.png'
+import { ref } from "vue"
+import avatar1 from "@/assets/images/avatars/avatar-1.png"
 
 const accountData = {
   avatarImg: avatar1,
-  firstName: 'john',
-  lastName: 'Doe',
-  email: 'johnDoe@example.com',
-  org: 'ThemeSelection',
-  phone: '+1 (917) 543-9876',
-  address: '123 Main St, New York, NY 10001',
-  state: 'New York',
-  zip: '10001',
-  country: 'USA',
-  language: 'English',
-  timezone: '(GMT-11:00) International Date Line West',
-  currency: 'USD',
+  firstName: "john",
+  lastName: "Doe",
+  email: "johnDoe@example.com",
+  org: "ThemeSelection",
+  phone: "+1 (917) 543-9876",
+  address: "123 Main St, New York, NY 10001",
+  state: "New York",
+  zip: "10001",
+  country: "USA",
+  language: "English",
+  timezone: "(GMT-11:00) International Date Line West",
+  currency: "USD",
 }
 
 const refInputEl = ref()
 const accountDataLocal = ref(structuredClone(accountData))
 const isAccountDeactivated = ref(false)
-const validateAccountDeactivation = [v => !!v || 'Please confirm account deactivation']
+const validateAccountDeactivation = [(v) => !!v || "Please confirm account deactivation"]
 const resetForm = () => {
   accountDataLocal.value = structuredClone(accountData)
 }
-const changeAvatar = file => {
+const changeAvatar = (file) => {
   const fileReader = new FileReader()
   const { files } = file.target
   if (files && files.length) {
     fileReader.readAsDataURL(files[0])
     fileReader.onload = () => {
-      if (typeof fileReader.result === 'string') accountDataLocal.value.avatarImg = fileReader.result
+      if (typeof fileReader.result === "string") accountDataLocal.value.avatarImg = fileReader.result
     }
   }
 }
@@ -41,17 +41,17 @@ const resetAvatar = () => {
   accountDataLocal.value.avatarImg = accountData.avatarImg
 }
 const timezones = [
-  '(GMT-11:00) International Date Line West',
-  '(GMT-11:00) Midway Island',
-  '(GMT-10:00) Hawaii',
-  '(GMT-09:00) Alaska',
-  '(GMT-08:00) Pacific Time (US & Canada)',
-  '(GMT-08:00) Tijuana',
-  '(GMT-07:00) Arizona',
-  '(GMT-07:00) Chihuahua',
-  '(GMT+00:00) London',
+  "(GMT-11:00) International Date Line West",
+  "(GMT-11:00) Midway Island",
+  "(GMT-10:00) Hawaii",
+  "(GMT-09:00) Alaska",
+  "(GMT-08:00) Pacific Time (US & Canada)",
+  "(GMT-08:00) Tijuana",
+  "(GMT-07:00) Arizona",
+  "(GMT-07:00) Chihuahua",
+  "(GMT+00:00) London",
 ]
-const currencies = ['USD', 'EUR', 'GBP', 'AUD', 'BRL', 'CAD', 'CNY', 'CZK', 'DKK', 'HKD', 'HUF', 'INR']
+const currencies = ["USD", "EUR", "GBP", "AUD", "BRL", "CAD", "CNY", "CZK", "DKK", "HKD", "HUF", "INR"]
 </script>
 
 <template>

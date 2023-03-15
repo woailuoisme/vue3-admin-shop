@@ -1,17 +1,15 @@
-const _ = require('lodash')
-const { trim } = require('lodash/string')
-const { plural,camelToSnake,camelToDot,camelToKebab, pascale} = require('../util')
+const { camelCase, capitalize, trim } = require("lodash-es")
+const { plural, camelToSnake, camelToDot, camelToKebab, pascale } = require("../util")
 
 exports.storeContent = (model) => {
   const newModel = trim(model)
-  const camelName =_.camelCase(newModel)
+  const camelName = camelCase(newModel)
   const pascalName = pascale(camelName)
   const pluralName = plural(camelName)
   const pluralPascalName = plural(pascalName)
   const kebabName = camelToKebab(camelName)
   const dotName = camelToDot(camelName)
   const snakeName = camelToSnake(camelName)
-
 
   const content = `
 import ${pascalName}Service from '@/api/${dotName}.service'
@@ -37,6 +35,9 @@ export default defineStore('${kebabName}', {
   getters: {
     total(state) {
       return state?.${pluralName}.length ?? 0
+    },
+    isHideFooter(state) {
+      return state.meta=== undefined||Object.keys(state.meta).length === 0
     },
     isNew(state) {
       return state.editedIndex === -1
@@ -115,5 +116,3 @@ export default defineStore('${kebabName}', {
   `
   return content
 }
-
-

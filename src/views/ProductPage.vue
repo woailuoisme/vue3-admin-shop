@@ -1,25 +1,43 @@
 <template>
+  <product-filter @change="filterChange"></product-filter>
+  <v-row>
+    <v-col cols="12">
+      <v-toolbar :elevation="4" density="comfortable" class="align-center">
+        <v-btn variant="flat" color="primary" @click.stop="addItem">
+          {{ $t("table.operation.add") }}
+        </v-btn>
+        <v-spacer />
+        <v-text-field
+          v-model="requestParams.keyword"
+          variant="outlined"
+          prepend-inner-icon="mdi-magnify"
+          :placeholder="$t('table.search.keyword')"
+          single-line
+          hide-details
+        />
+        <v-divider vertical thickness="2" color="primary" class="mx-2"></v-divider>
+        <div class="mx-4">
+          <v-btn variant="flat" :loading="isLoading" icon="mdi-refresh" color="success" size="medium" @click="reload"></v-btn>
+        </div>
+      </v-toolbar>
+    </v-col>
+  </v-row>
   <v-row>
     <v-col cols="12">
       <v-card>
-        <v-card-title flat>
-          <v-btn variant="flat" color="primary" @click.stop="addItem">新增</v-btn>
-          <v-spacer />
-        </v-card-title>
-
         <easy-data-table
           v-model:server-options="requestParams"
           v-model:items-selected="itemsSelected"
-          :server-items-length="serverItemsLength"
-          :loading="loading"
+          :server-items-length="total"
+          :loading="isLoading"
           :headers="headers"
           :items="products"
         >
-          <template #item-catetory="item">
-            <v-chip color="info" small>{{ item.category.second_name }}</v-chip>
+          <template #[`item-category.second_name`]="item">
+            <v-chip variant="outlined" color="primary">{{ item.category.second_name }}</v-chip>
           </template>
           <template #item-thumbnail="item">
-            <table-image :image="item.thumbnail" />
+            <table-image :max-height="50" :max-width="50" :image="item.thumbnail" />
           </template>
           <template #item-description="item">
             <text-tooltip :text="item.description" />
@@ -42,9 +60,9 @@
           </template>
 
           <template #item-operation="item">
-            <v-btn class="ml-1" icon="mdi-eye" color="primary" size="small" tile @click.stop="viewItem(item)" />
-            <v-btn class="ml-1" icon="mdi-pencil" color="warning" size="small" tile @click.stop="editItem(item)" />
-            <v-btn class="ml-1" icon="mdi-delete" color="error" size="small" tile @click.stop="deleteItem(item)" />
+            <v-icon class="ml-1" icon="mdi-eye-outline" color="info" size="large" @click.stop="viewItem(item)"></v-icon>
+            <v-icon class="ml-1" icon="mdi-square-edit-outline" color="primary" size="large" @click.stop="editItem(item)"></v-icon>
+            <v-icon class="ml-1" icon="mdi-trash-can-outline" color="error" size="large" @click.stop="deleteItem(item)"></v-icon>
           </template>
         </easy-data-table>
       </v-card>
@@ -62,15 +80,16 @@
 </template>
 
 <script setup>
-import TableImage from '@/components/table/TableImage'
-import TextTooltip from '@/components/table/TextTooltip'
-import Breadcrumb from '@/components/shared/Breadcrumb'
-import DialogConfirm from './components/common/DialogConfirm'
-import Entity from './components/product/Entity'
-import Details from './components/product/Details'
-import { computed, nextTick, onMounted, ref, unref, watch } from 'vue'
-import { useBreadcrumb, useGlobal, useProduct, useProductCategory, useTableHeader } from '@/stores'
-import { storeToRefs } from 'pinia'
+import TableImage from "@/components/table/TableImage"
+import TextTooltip from "@/components/table/TextTooltip"
+import DialogConfirm from "./components/common/DialogConfirm"
+import Entity from "./components/product/Entity"
+import Details from "./components/product/Details"
+import { computed, nextTick, onMounted, ref, unref, watch } from "vue"
+import { useBreadcrumb, useGlobal, useProduct, useProductCategory, useTableHeader } from "@/stores"
+import { storeToRefs } from "pinia"
+import { debounce } from "lodash-es"
+import ProductFilter from "@/views/components/product/ProductFilter"
 
 const productStore = useProduct()
 const globalStore = useGlobal()
@@ -82,12 +101,8 @@ const categories = computed(() => categoryStore.categories)
 
 const headers = computed(() => tableHeaderStore.products)
 const breadcrumbs = computed(() => breadcrumbStore.product)
-const products = computed(() => productStore.getProducts)
-const serverItemsLength = computed(() => productStore.total)
-const loading = computed(() => globalStore.isLoading)
-const isNew = computed(() => productStore.isNew)
-const editedItem = computed(() => productStore.getEditedItem)
-const editedIndex = computed(() => productStore.getEditedIndex)
+const { isLoading } = storeToRefs(globalStore)
+const { products, total, isNew, editedIndex, editedItem } = storeToRefs(productStore)
 // const findProduct = computed(() => productStore.findById)
 
 const dialogEntity = ref(false)
@@ -96,36 +111,48 @@ const dialogDetail = ref(false)
 const requestParams = ref({
   page: 1,
   rowsPerPage: 10,
+  sortBy: "",
+  sortType: "",
 })
 const mapProduct = ref([])
 const itemsSelected = ref([])
-const idsSelected = computed(() => itemsSelected.value.map(item => item.id))
+const idsSelected = computed(() => itemsSelected.value.map((item) => item.id))
 const isNotEmpty = computed(() => idsSelected.value.length > 0)
+
+const search = debounce((value) => productStore.loadAllProducts(value), 800)
 
 onMounted(() => {
   // categoryStore.loadCategories()
-  productStore.loadAllProducts(unref(requestParams))
+  search(unref(requestParams))
 })
 
 watch(
   requestParams,
-  value => {
-    productStore.loadAllProducts(unref(requestParams))
+  (value) => {
+    search(unref(requestParams))
   },
-  { deep: true }
+  { deep: true },
 )
 
-watch(dialogEntity, val => {
+function reload() {
+  search(unref(requestParams))
+}
+
+function filterChange(value) {
+  console.log(value)
+}
+
+watch(dialogEntity, (val) => {
   console.log(val)
   val || close()
 })
 
-watch(dialogDelete, val => {
+watch(dialogDelete, (val) => {
   console.log(val)
   val || closeDelete()
 })
 
-watch(dialogDetail, val => {
+watch(dialogDetail, (val) => {
   console.log(val)
   val || closeDetail()
 })

@@ -1,7 +1,7 @@
-import UAParser from 'ua-parser-js'
-import { useAuth } from '@/stores'
-import { isArray, isString } from '@/utils'
-import pkg from '~/package.json'
+import UAParser from "ua-parser-js"
+import { useAuth } from "@/stores"
+import { isArray, isString } from "@/utils"
+import pkg from "~/package.json"
 
 const pkgWithType = pkg
 
@@ -29,7 +29,7 @@ export function usePermission() {
   function hasPermission(permission) {
     const { role } = auth.user
 
-    let has = role === 'admin'
+    let has = role === "admin"
     if (!has) {
       if (isArray(permission)) {
         has = permission.includes(role)

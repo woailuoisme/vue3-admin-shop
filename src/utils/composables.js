@@ -1,5 +1,5 @@
-import { customRef, ref } from 'vue'
-import { debounce, throttle } from '@/utils/util'
+import { customRef, ref } from "vue"
+import { debounce, throttle } from "@/utils/util"
 
 // const debounce = (fn, delay = 0, immediate = false) => {
 //   let timeout
@@ -20,7 +20,7 @@ export const useDebouncedRef = (initialValue, wait) => {
       track()
       return state.value
     },
-    set: debounce(value => {
+    set: debounce((value) => {
       state.value = value
       trigger()
     }, wait),
@@ -34,7 +34,7 @@ export const useThrottleRef = (initialValue, wait) => {
       track()
       return state.value
     },
-    set: throttle(value => {
+    set: throttle((value) => {
       state.value = value
       trigger()
     }, wait),

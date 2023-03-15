@@ -26,7 +26,7 @@
 </template>
 
 <script setup>
-import { defineProps, defineEmits, ref, watch } from 'vue'
+import { defineProps, defineEmits, ref, watch } from "vue"
 
 const props = defineProps({
   item: {
@@ -34,10 +34,10 @@ const props = defineProps({
     required: true,
   },
 })
-const emit = defineEmits(['update:modelValue', 'close'])
+const emit = defineEmits(["update:modelValue", "close"])
 
 function close() {
-  emit('close')
+  emit("close")
 }
 </script>
 

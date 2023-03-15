@@ -46,35 +46,35 @@
 </template>
 
 <script setup>
-import { defineEmits, defineProps, ref } from 'vue'
+import { defineEmits, defineProps, ref } from "vue"
 
 const props = defineProps({
   book: Object,
 })
-const emit = defineEmits(['update'])
+const emit = defineEmits(["update"])
 const fields = ref([
   {
-    label: '是否在售',
-    value: 'sale',
-    type: 'choice',
+    label: "是否在售",
+    value: "sale",
+    type: "choice",
     choices: [
-      { title: '是', value: 1 },
-      { title: '否', value: 0 },
+      { title: "是", value: 1 },
+      { title: "否", value: 0 },
     ],
   },
   {
-    label: '价格',
-    value: 'amount',
-    type: 'number',
+    label: "价格",
+    value: "amount",
+    type: "number",
   },
   {
-    label: '状态',
-    value: 'status',
-    type: 'choice',
+    label: "状态",
+    value: "status",
+    type: "choice",
     choices: [
-      { title: '待处理', value: 'pending' },
-      { title: '已完成', value: 'finished' },
-      { title: '已付款', value: 'paid' },
+      { title: "待处理", value: "pending" },
+      { title: "已完成", value: "finished" },
+      { title: "已付款", value: "paid" },
     ],
   },
 ])
@@ -87,12 +87,12 @@ const rules = ref([])
 // })
 
 const addRule = () => {
-  const field = fields.value.find(f => f.value === fieldModel.value)
+  const field = fields.value.find((f) => f.value === fieldModel.value)
   console.log(field)
   const rule = { label: field.label }
   rule.field = field.value
-  rule.operators = ['=', '>=', '>', '!=', '<', '<=']
-  rule.operatorValue = ['=']
+  rule.operators = ["=", ">=", ">", "!=", "<", "<="]
+  rule.operatorValue = ["="]
   rule.choices = field.choices
   rule.choiceValue = field.choices[0]
   rules.value.unshift(rule)

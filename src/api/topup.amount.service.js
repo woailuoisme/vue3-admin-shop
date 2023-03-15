@@ -1,4 +1,4 @@
-import request from './http.client'
+import request from "./http.client"
 
 class TopUpAmountService {
   list(data) {
@@ -9,7 +9,7 @@ class TopUpAmountService {
     if (data?.sortBy) params.sortBy = data.sortBy
     if (data?.sortType) params.sortType = data.sortType
     if (data?.keyword) params.keyword = data.keyword
-    return request.instance().get('/top_up_amount', { params })
+    return request.instance().get("/top_up_amount", { params })
   }
 
   show(id) {

@@ -15,10 +15,10 @@
 
 e
 <script setup>
-const myFiles = ['cat.jpeg']
+const myFiles = ["cat.jpeg"]
 
 function handleFilePondInit() {
-  console.log('FilePond has initialized')
+  console.log("FilePond has initialized")
 }
 </script>
 

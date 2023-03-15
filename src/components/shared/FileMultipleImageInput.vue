@@ -22,7 +22,7 @@
 </template>
 
 <script setup>
-import { defineEmits, defineProps, getCurrentInstance, onMounted, ref } from 'vue'
+import { defineEmits, defineProps, getCurrentInstance, onMounted, ref } from "vue"
 
 const props = defineProps({
   modelValue: {
@@ -38,44 +38,44 @@ const props = defineProps({
   label: {
     type: String,
     required: false,
-    default: 'Image',
+    default: "Image",
   },
   urls: {
     type: String,
     required: false,
-    default: '',
+    default: "",
   },
   rules: {
     type: Array,
     required: false,
     default: () => {
       return [
-        value => {
+        (value) => {
           return !value || !value.length || value[0].size < 2000000 || ` 文件大小应小与 2 MB!`
         },
-        value => {
+        (value) => {
           return (
-            !value || !value.length || value[0].type.indexOf(['image/jpeg', 'image/jpg', 'image/png']) !== -1 || '文件类型需是jpeg,jpg,png'
+            !value || !value.length || value[0].type.indexOf(["image/jpeg", "image/jpg", "image/png"]) !== -1 || "文件类型需是jpeg,jpg,png"
           )
         },
       ]
     },
   },
 })
-const emit = defineEmits(['update:modelValue'])
+const emit = defineEmits(["update:modelValue"])
 const instance = getCurrentInstance()
 const images = ref(props.modelValue)
 const imageUrls = ref(props.urls)
 const imageLabel = ref(props.label)
 
 onMounted(() => {})
-const change = value => {
-  if (typeof value[0] !== 'undefined') {
+const change = (value) => {
+  if (typeof value[0] !== "undefined") {
     // imageUrl.value = URL.createObjectURL(value[0])
     // console.log(imageUrl.value)
   }
   // console.log(value)
-  emit('update:modelValue', value[0])
+  emit("update:modelValue", value[0])
 }
 
 const clear = () => {

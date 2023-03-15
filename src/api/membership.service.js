@@ -1,4 +1,4 @@
-import request from './http.client'
+import request from "./http.client"
 
 class MembershipService {
   //user 列表
@@ -8,7 +8,7 @@ class MembershipService {
       per_page: data?.rowsPerPage,
       keyword: data?.keyword,
     }
-    return request.instance().get('/membership', { params })
+    return request.instance().get("/membership", { params })
   }
 }
 

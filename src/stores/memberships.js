@@ -1,5 +1,5 @@
-import MembershipService from '../api/membership.service'
-import Toast from '../utils/toast'
+import MembershipService from "../api/membership.service"
+import Toast from "../utils/toast"
 
 export default {
   namespaced: true,
@@ -24,7 +24,7 @@ export default {
     },
 
     DELETE_MEMBERSHIP(state, payload) {
-      const index = state.memberships.findIndex(p => p.id === payload)
+      const index = state.memberships.findIndex((p) => p.id === payload)
       state.memberships.splice(index, 1)
     },
     RESET_MEMBERSHIP(state) {
@@ -35,19 +35,19 @@ export default {
     async loadAllMemberships({ commit }, payload) {
       const res = await MembershipService.list(payload)
       if (res.data.data) {
-        commit('SET_MEMBERSHIPS', res.data.data.items)
-        commit('SET_META', res.data.data.meta)
+        commit("SET_MEMBERSHIPS", res.data.data.items)
+        commit("SET_META", res.data.data.meta)
       }
     },
 
     clearMembership({ commit }) {
-      commit('RESET_MEMBERSHIP')
+      commit("RESET_MEMBERSHIP")
     },
 
     async loadMembership({ commit }, membershipId) {
       const res = await MembershipService.show(membershipId)
       const membership = res.data.data
-      commit('SET_MEMBERSHIP', membership)
+      commit("SET_MEMBERSHIP", membership)
       Toast.success(res.data.message)
     },
 
@@ -55,7 +55,7 @@ export default {
       const res = await MembershipService.create(payload)
       const membership = res.data.data
 
-      commit('SET_MEMBERSHIP', membership)
+      commit("SET_MEMBERSHIP", membership)
       Toast.success(res.data.message)
       return true
     },
@@ -63,14 +63,14 @@ export default {
     async updateMembership({ commit }, payload) {
       const res = await MembershipService.update(payload)
       const membership = res.data.data
-      commit('membership/SET_MEMBERSHIP', membership, { root: true })
+      commit("membership/SET_MEMBERSHIP", membership, { root: true })
       Toast.success(res.data.message)
     },
 
     async deleteMembership({ commit }, membershipId) {
       const res = await MembershipService.delete(membershipId)
       if (res.data.success) {
-        commit('DELETE_MEMBERSHIP', membershipId)
+        commit("DELETE_MEMBERSHIP", membershipId)
         Toast.success(res.data.message)
       } else {
         Toast.error(res.data.message)
@@ -87,8 +87,8 @@ export default {
     getMembership(state) {
       return { ...state.membershipInfo }
     },
-    findByOrderId: state => id => {
-      return state.memberships.find(membership => membership.id === id)
+    findByOrderId: (state) => (id) => {
+      return state.memberships.find((membership) => membership.id === id)
     },
     getMeta(state) {
       return { ...state.meta }

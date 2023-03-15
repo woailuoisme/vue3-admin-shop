@@ -27,7 +27,7 @@
           </template>
 
           <template #item-role="{ role }">
-            <v-chip color="primary" small tile>{{ roleLabel(role) }}</v-chip>
+            <v-chip color="primary" small tile>{{ $filter.roleLabel(role) }}</v-chip>
           </template>
 
           <template #item-operation="item">
@@ -47,13 +47,11 @@
 </template>
 
 <script setup>
-import TableImage from '@/components/table/TableImage'
-import Breadcrumb from '@/components/shared/Breadcrumb'
-import DialogConfirm from './components/common/DialogConfirm'
-import EntityForm from './components/user/EntityForm'
-import { roleLabel } from '@/utils/table'
-import { computed, nextTick, onMounted, ref, watch } from 'vue'
-import { useAdminUser, useBreadcrumb, useGlobal, useTableHeader } from '@/stores'
+import TableImage from "@/components/table/TableImage"
+import DialogConfirm from "./components/common/DialogConfirm"
+import EntityForm from "./components/user/EntityForm"
+import { computed, nextTick, onMounted, ref, watch } from "vue"
+import { useAdminUser, useBreadcrumb, useGlobal, useTableHeader } from "@/stores"
 
 const adminUserStore = useAdminUser()
 const globalStore = useGlobal()
@@ -68,7 +66,7 @@ const loading = computed(() => globalStore.isLoading)
 const isNew = computed(() => adminUserStore.isNew)
 const editedItem = computed(() => adminUserStore.getEditedItem)
 const editedIndex = computed(() => adminUserStore.getEditedIndex)
-const content = ref('')
+const content = ref("")
 
 const dialogEntity = ref(false)
 const dialogDelete = ref(false)
@@ -83,17 +81,17 @@ onMounted(() => {
 
 watch(
   requestParams,
-  value => {
+  (value) => {
     adminUserStore.loadAllUsers(requestParams)
   },
-  { deep: true }
+  { deep: true },
 )
-watch(dialogEntity, val => {
+watch(dialogEntity, (val) => {
   console.log(val)
   val || close()
 })
 
-watch(dialogDelete, val => {
+watch(dialogDelete, (val) => {
   console.log(val)
   val || closeDelete()
 })

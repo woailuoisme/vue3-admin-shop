@@ -1,18 +1,16 @@
-const _ = require('lodash')
-const pluralize = require('pluralize')
-const { trim } = require('lodash/string')
-const {plural, camelToKebab, camelToDot, camelToSnake,pascale} = require("../util");
+const { camelCase, trim } = require("lodash-es")
+const pluralize = require("pluralize")
+const { plural, camelToKebab, camelToDot, camelToSnake, pascale } = require("../util")
 exports.apiContent = (model, withImage = false) => {
   const newModel = trim(model)
-  const camelModel =_.camelCase(newModel)
+  const camelModel = camelCase(newModel)
   const pascalName = pascale(camelModel)
   const pluralName = plural(camelModel)
   const pluralPascalName = plural(pascalName)
   const kebabName = camelToKebab(camelModel)
   const dotName = camelToDot(camelModel)
   const snakeName = camelToSnake(camelModel)
-  console.log(newModel,camelModel,pascalName,pluralName,pluralPascalName,kebabName,dotName,snakeName)
-
+  console.log(newModel, camelModel, pascalName, pluralName, pluralPascalName, kebabName, dotName, snakeName)
 
   const withImageFile = `
 import client from './http.client'

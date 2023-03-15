@@ -1,4 +1,4 @@
-import PromotionAwardService from '../api/promotion.award.service'
+import PromotionAwardService from "../api/promotion.award.service"
 
 export default {
   namespaced: true,
@@ -21,14 +21,14 @@ export default {
     async loadAllPromotionAward({ commit }, payload) {
       const res = await PromotionAwardService.list(payload)
       if (res.data.data) {
-        commit('SET_PROMOTION_AWARD', res.data.data)
+        commit("SET_PROMOTION_AWARD", res.data.data)
       }
     },
 
     async loadSinglePromotionAward({ commit }, payload) {
       const res = await PromotionAwardService.show(payload)
       if (res.data.data) {
-        commit('SET_SINGLE_PROMOTION_AWARD', res.data.data)
+        commit("SET_SINGLE_PROMOTION_AWARD", res.data.data)
       }
     },
   },
@@ -39,8 +39,8 @@ export default {
     getPromotionAwards(state) {
       return state.awards
     },
-    findByOrderId: state => id => {
-      return state.awards.find(award => award.id === id)
+    findByOrderId: (state) => (id) => {
+      return state.awards.find((award) => award.id === id)
     },
   },
 }

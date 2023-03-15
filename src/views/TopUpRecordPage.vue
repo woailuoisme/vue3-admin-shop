@@ -43,9 +43,9 @@
 </template>
 
 <script setup>
-import Breadcrumb from '@/components/shared/Breadcrumb'
-import { computed, onMounted, ref, watch, nextTick } from 'vue'
-import { useBreadcrumb, useGlobal, useTableHeader, useTopUpRecord } from '@/stores'
+import Breadcrumb from "@/components/shared/Breadcrumb"
+import { computed, onMounted, ref, watch, nextTick } from "vue"
+import { useBreadcrumb, useGlobal, useTableHeader, useTopUpRecord } from "@/stores"
 
 const globalStore = useGlobal()
 const breadcrumbStore = useBreadcrumb()
@@ -65,7 +65,7 @@ const dialogDetail = ref(false)
 const requestParams = ref({
   page: 1,
   rowsPerPage: 10,
-  keyword: '',
+  keyword: "",
 })
 
 let mapProduct
@@ -76,18 +76,18 @@ onMounted(() => {
 
 watch(
   requestParams,
-  value => {
+  (value) => {
     recordStore.loadAllRecords(requestParams.value._rawValue)
   },
-  { deep: true }
+  { deep: true },
 )
 
-watch(dialogEntity, val => {
+watch(dialogEntity, (val) => {
   console.log(val)
   val || close()
 })
 
-watch(dialogDetail, val => {
+watch(dialogDetail, (val) => {
   console.log(val)
   val || close()
 })
@@ -98,11 +98,11 @@ function detail(item) {
 }
 
 function isShow(item) {
-  if (item.status === 'pending') {
+  if (item.status === "pending") {
     return true
-  } else if (item.status === 'finished') {
+  } else if (item.status === "finished") {
     return false
-  } else if (item.status === 'rejected') {
+  } else if (item.status === "rejected") {
     return true
   }
   return false
@@ -129,29 +129,29 @@ function save() {
 
 function activeColor(value) {
   if (value) {
-    return 'success'
+    return "success"
   } else {
-    return 'error'
+    return "error"
   }
 }
 
 function statusLabel(value) {
-  if (value === 'pending') {
-    return '已申请'
-  } else if (value === 'finished') {
-    return '已通过'
-  } else if (value === 'rejected') {
-    return '已拒绝'
+  if (value === "pending") {
+    return "已申请"
+  } else if (value === "finished") {
+    return "已通过"
+  } else if (value === "rejected") {
+    return "已拒绝"
   }
 }
 
 function statusClass(value) {
-  if (value === 'pending') {
-    return 'primary'
-  } else if (value === 'finished') {
-    return 'success'
-  } else if (value === 'rejected') {
-    return 'error'
+  if (value === "pending") {
+    return "primary"
+  } else if (value === "finished") {
+    return "success"
+  } else if (value === "rejected") {
+    return "error"
   }
 }
 </script>

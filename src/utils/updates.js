@@ -1,4 +1,4 @@
-import { addMinutes, isPast, format } from 'date-fns'
+import { addMinutes, isPast, format } from "date-fns"
 // import update from '@/api/updateSite'
 
 const MINUTES_TO_CHECK_FOR_UPDATES = 120
@@ -21,15 +21,15 @@ export const compareVersion = (latestVersion, localVersion) => {
 
 // If no localstorage appVersion or checkForAppUpdatesAt have been set, then set them
 export const setLocalStorageDateForUpdates = () => {
-  if (window.localStorage.getItem('checkForAppUpdatesAt') === null) {
-    window.localStorage.setItem('checkForAppUpdatesAt', JSON.stringify(format(new Date(), 't')))
+  if (window.localStorage.getItem("checkForAppUpdatesAt") === null) {
+    window.localStorage.setItem("checkForAppUpdatesAt", JSON.stringify(format(new Date(), "t")))
   }
 }
 
 // This is useful for iOS due the cache when app is added to home screen.
 export const checkIfUpdateIsNeeded = (latestVersion, localVersion) => {
   // Set new date/time for next update check
-  window.localStorage.setItem('checkForAppUpdatesAt', JSON.stringify(format(addMinutes(new Date(), MINUTES_TO_CHECK_FOR_UPDATES), 't')))
+  window.localStorage.setItem("checkForAppUpdatesAt", JSON.stringify(format(addMinutes(new Date(), MINUTES_TO_CHECK_FOR_UPDATES), "t")))
   // If there is a new version available, so refresh page
   const shouldForceRefresh = compareVersion(latestVersion, localVersion)
   if (shouldForceRefresh) {

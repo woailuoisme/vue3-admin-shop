@@ -32,7 +32,7 @@
 </template>
 
 <script setup>
-import { defineEmits, defineProps, ref } from 'vue'
+import { defineEmits, defineProps, ref } from "vue"
 
 const props = defineProps({
   record: {
@@ -41,24 +41,24 @@ const props = defineProps({
   },
 })
 
-const emit = defineEmits(['update:modelValue', 'close', 'save'])
+const emit = defineEmits(["update:modelValue", "close", "save"])
 
 const editedItem = ref(props.record)
 
 function confirmLabel($value) {
   if ($value) {
-    return '通过'
+    return "通过"
   } else {
-    return '拒绝'
+    return "拒绝"
   }
 }
 
 function close() {
-  emit('close')
+  emit("close")
 }
 
 function save() {
-  emit('save')
+  emit("save")
 }
 </script>
 

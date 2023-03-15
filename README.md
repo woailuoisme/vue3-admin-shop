@@ -11,6 +11,4 @@ yarn gv
 
 ```
 
-
-
 See [Configuration Reference](https://vitejs.dev/config/).

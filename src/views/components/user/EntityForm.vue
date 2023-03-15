@@ -1,7 +1,7 @@
 <template>
   <v-card>
     <v-card-title>
-      <span class="text-h5">{{ isNew ? '新增' : '编辑' }}</span>
+      <span class="text-h5">{{ isNew ? "新增" : "编辑" }}</span>
     </v-card-title>
     <v-card-text>
       <v-container>
@@ -66,7 +66,7 @@
 </template>
 
 <script setup>
-import { defineEmits, defineProps, onMounted, reactive, ref, watch } from 'vue'
+import { defineEmits, defineProps, onMounted, reactive, ref, watch } from "vue"
 
 const props = defineProps({
   isNew: {
@@ -78,16 +78,16 @@ const props = defineProps({
     required: true,
   },
 })
-const emit = defineEmits(['save', 'close'])
+const emit = defineEmits(["save", "close"])
 const showPassword = ref(false)
 const valid = ref(false)
 let entity = reactive({
-  name: '',
-  email: '',
+  name: "",
+  email: "",
   password: null,
   avatar: null,
   avatarFile: [],
-  role: '',
+  role: "",
 })
 
 onMounted(() => {
@@ -96,21 +96,21 @@ onMounted(() => {
 
 const roleList = [
   {
-    name: '管理员',
-    value: 'admin',
+    name: "管理员",
+    value: "admin",
   },
   {
-    name: '普通用户',
-    value: 'general',
+    name: "普通用户",
+    value: "general",
   },
 ]
 
 function save(value) {
-  emit('save', value)
+  emit("save", value)
 }
 
 function close() {
-  emit('close')
+  emit("close")
 }
 </script>
 

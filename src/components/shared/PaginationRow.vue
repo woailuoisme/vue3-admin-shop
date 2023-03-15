@@ -66,7 +66,7 @@
 </template>
 
 <script setup>
-import { defineEmits, defineProps, ref } from 'vue'
+import { defineEmits, defineProps, ref } from "vue"
 
 const props = defineProps({
   loading: {
@@ -95,33 +95,33 @@ const props = defineProps({
     },
   },
 })
-const emit = defineEmits(['update:perPage', 'update:page'])
+const emit = defineEmits(["update:perPage", "update:page"])
 
 const modelPage = ref(props.page)
 const modelPerPage = ref(props.perPage)
 const selectPerPageList = [
   {
-    name: '10',
+    name: "10",
     value: 10,
   },
   {
-    name: '15',
+    name: "15",
     value: 15,
   },
   {
-    name: '20',
+    name: "20",
     value: 20,
   },
 ]
 
 function perPageChange(value) {
   console.log(`per_page ${value}`)
-  emit('update:perPage', modelPerPage.value)
+  emit("update:perPage", modelPerPage.value)
 }
 
 function pageChange(value) {
   console.log(`page ${value}`)
-  emit('update:page', modelPage.value)
+  emit("update:page", modelPage.value)
 }
 </script>
 

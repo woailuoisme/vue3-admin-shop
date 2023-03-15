@@ -22,21 +22,21 @@
 </template>
 
 <script setup>
-import { defineProps, defineEmits, ref } from 'vue'
+import { defineProps, defineEmits, ref } from "vue"
 
 const props = defineProps({
   modelValue: Array,
 })
 
-const emit = defineEmits(['update:modelValue'])
+const emit = defineEmits(["update:modelValue"])
 
 const images = ref(null)
 
 const options = {
-  url: 'https://httpbin.org/post',
+  url: "https://httpbin.org/post",
   thumbnailWidth: 150,
   maxFilesize: 2,
-  acceptedFiles: '.png,.jpg,.gif,.bmp,.jpeg',
+  acceptedFiles: ".png,.jpg,.gif,.bmp,.jpeg",
   parallelUploads: 3,
   maxFiles: 3,
   uploadMultiple: true,
@@ -45,37 +45,37 @@ const options = {
 }
 
 async function afterUploadComplete(response) {
-  if (response.status === 'success') {
-    console.log('upload successful')
+  if (response.status === "success") {
+    console.log("upload successful")
   } else {
-    console.log('upload failed')
+    console.log("upload failed")
   }
 }
 
 function fileAdd() {
-  console.log('getAcceptedFiles', images.value.getAcceptedFiles())
-  console.log('getActiveFiles', images.value.getActiveFiles())
-  console.log('getRejectedFiles', images.value.getRejectedFiles())
-  console.log('getQueuedFiles', images.value.getQueuedFiles())
-  emit('update:modelValue', images.value.getAcceptedFiles())
+  console.log("getAcceptedFiles", images.value.getAcceptedFiles())
+  console.log("getActiveFiles", images.value.getActiveFiles())
+  console.log("getRejectedFiles", images.value.getRejectedFiles())
+  console.log("getQueuedFiles", images.value.getQueuedFiles())
+  emit("update:modelValue", images.value.getAcceptedFiles())
 }
 
 function filesAdd() {
-  console.log('filesAdd')
-  emit('update:modelValue', images.value.getAcceptedFiles())
+  console.log("filesAdd")
+  emit("update:modelValue", images.value.getAcceptedFiles())
 }
 
 function fileAddManually() {
-  console.log('fileAddManually')
-  emit('update:modelValue', images.value.getAcceptedFiles())
+  console.log("fileAddManually")
+  emit("update:modelValue", images.value.getAcceptedFiles())
 }
 
 function fileRemove() {
-  console.log('getAcceptedFiles', images.value.getAcceptedFiles())
-  console.log('getActiveFiles', images.value.getActiveFiles())
-  console.log('getRejectedFiles', images.value.getRejectedFiles())
-  console.log('getQueuedFiles', images.value.getQueuedFiles())
-  emit('update:modelValue', images.value.getAcceptedFiles())
+  console.log("getAcceptedFiles", images.value.getAcceptedFiles())
+  console.log("getActiveFiles", images.value.getActiveFiles())
+  console.log("getRejectedFiles", images.value.getRejectedFiles())
+  console.log("getQueuedFiles", images.value.getQueuedFiles())
+  emit("update:modelValue", images.value.getAcceptedFiles())
 }
 </script>
 

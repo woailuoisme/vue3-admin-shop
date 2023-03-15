@@ -1,9 +1,9 @@
-import OrderService from '../api/order.service'
-import Toast from '@/utils/toast'
-import { defineStore } from 'pinia'
+import OrderService from "../api/order.service"
+import Toast from "@/utils/toast"
+import { defineStore } from "pinia"
 
 /** Global Store */
-export default defineStore('order', {
+export default defineStore("order", {
   // Default Global State
   state: () => ({
     orders: [],
@@ -22,8 +22,8 @@ export default defineStore('order', {
     defaultItem: {
       id: 0,
       category_id: 0,
-      description: '',
-      content: '',
+      description: "",
+      content: "",
       thumbnail: [],
       sale_price: 1,
       stock: 1,
@@ -38,11 +38,11 @@ export default defineStore('order', {
     isNew(state) {
       return state.editedIndex === -1
     },
-    findById: state => id => {
-      return state.orders.find(p => p.id === id)
+    findById: (state) => (id) => {
+      return state.orders.find((p) => p.id === id)
     },
-    findIndexById: state => id => {
-      return state.orders.findIndex(p => p.id === id)
+    findIndexById: (state) => (id) => {
+      return state.orders.findIndex((p) => p.id === id)
     },
     hasData(state) {
       return !!state.orders.length
@@ -50,55 +50,55 @@ export default defineStore('order', {
     isDisplayPagination(state) {
       return !!(state.meta && state.meta.last_page && state.meta.last_page > 1)
     },
-    findByOrderNum: state => num => {
-      return state.orders.find(order => order.order_num === num)
+    findByOrderNum: (state) => (num) => {
+      return state.orders.find((order) => order.order_num === num)
     },
-    getMapOrder: state => id => {
-      let order = state.orders.find(order => order.id === id)
+    getMapOrder: (state) => (id) => {
+      let order = state.orders.find((order) => order.id === id)
       let mapOrderList = []
       Object.keys(order).map(function (key, index) {
         let fb = {}
-        if (key === 'id') {
+        if (key === "id") {
           fb.key = key
-          fb.label = 'id'
-          fb.value = order['id']
+          fb.label = "id"
+          fb.value = order["id"]
           mapOrderList.push(fb)
         }
-        if (key === 'order_num') {
+        if (key === "order_num") {
           fb.key = key
-          fb.label = '订单编号'
-          fb.value = order['order_num']
+          fb.label = "订单编号"
+          fb.value = order["order_num"]
           mapOrderList.push(fb)
         }
-        if (key === 'order_status') {
+        if (key === "order_status") {
           fb.key = key
-          fb.label = '订单状态'
-          fb.value = order['order_status']
+          fb.label = "订单状态"
+          fb.value = order["order_status"]
           mapOrderList.push(fb)
         }
-        if (key === 'amount') {
+        if (key === "amount") {
           fb.key = key
-          fb.label = '金额'
-          fb.value = order['amount']
+          fb.label = "金额"
+          fb.value = order["amount"]
           mapOrderList.push(fb)
         }
-        if (key === 'user') {
+        if (key === "user") {
           fb.key = key
-          fb.label = '用户'
-          fb.value = order['user']
+          fb.label = "用户"
+          fb.value = order["user"]
           mapOrderList.push(fb)
         }
 
-        if (key === 'user_remark') {
+        if (key === "user_remark") {
           fb.key = key
-          fb.label = '备注'
-          fb.value = order['user_remark']
+          fb.label = "备注"
+          fb.value = order["user_remark"]
           mapOrderList.push(fb)
         }
-        if (key === 'paid_at') {
+        if (key === "paid_at") {
           fb.key = key
-          fb.label = '支付时间'
-          fb.value = order['paid_at']
+          fb.label = "支付时间"
+          fb.value = order["paid_at"]
           mapOrderList.push(fb)
         }
         // if (key === "order_expired") {
@@ -107,22 +107,22 @@ export default defineStore('order', {
         //     fb.value = order['order_expired']
         //     mapOrderList.push(fb)
         // }
-        if (key === 'express_no') {
+        if (key === "express_no") {
           fb.key = key
-          fb.label = '物流编号'
-          fb.value = order['express_no']
+          fb.label = "物流编号"
+          fb.value = order["express_no"]
           mapOrderList.push(fb)
         }
-        if (key === 'express_company') {
+        if (key === "express_company") {
           fb.key = key
-          fb.label = '物流公司'
-          fb.value = order['express_company']
+          fb.label = "物流公司"
+          fb.value = order["express_company"]
           mapOrderList.push(fb)
         }
-        if (key === 'created_at') {
+        if (key === "created_at") {
           fb.key = key
-          fb.label = '创建时间'
-          fb.value = order['created_at']
+          fb.label = "创建时间"
+          fb.value = order["created_at"]
           mapOrderList.push(fb)
         }
       })
@@ -132,14 +132,14 @@ export default defineStore('order', {
   // Actions
   actions: {
     setEditedIndex(id) {
-      this.editedIndex = this.orders.findIndex(m => m.id === id)
+      this.editedIndex = this.orders.findIndex((m) => m.id === id)
     },
     resetEdited() {
       this.editedIndex = -1
       this.editedItem = Object.assign({}, this.defaultItem)
     },
     findAndSetItem(item) {
-      this.editedIndex = this.orders.findIndex(m => m.id === item.id)
+      this.editedIndex = this.orders.findIndex((m) => m.id === item.id)
       this.editedItem = Object.assign({}, item)
     },
     async loadAllOrders(payload) {
@@ -152,7 +152,7 @@ export default defineStore('order', {
     async updateOrderExpress(payload) {
       const res = await OrderService.updateExpress(payload)
       if (res.data.success) {
-        const index = this.orders.findIndex(p => p.id === payload.id)
+        const index = this.orders.findIndex((p) => p.id === payload.id)
         Object.assign(this.orders[index], payload)
         Toast.success(res.data.message)
       } else {

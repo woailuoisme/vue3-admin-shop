@@ -1,8 +1,8 @@
 <script setup>
-import VueApexCharts from 'vue3-apexcharts'
-import { useTheme } from 'vuetify'
-import { hexToRgb } from '@/utils/util'
-import { computed } from 'vue'
+import VueApexCharts from "vue3-apexcharts"
+import { useTheme } from "vuetify"
+import { hexToRgb } from "@/utils/util"
+import { computed } from "vue"
 const vuetifyTheme = useTheme()
 const currentTheme = computed(() => {
   return vuetifyTheme.current.value.colors
@@ -23,7 +23,7 @@ const chartOptions = computed(() => {
     },
     tooltip: { enabled: false },
     grid: {
-      borderColor: `rgba(${hexToRgb(String(variableTheme.value['border-color']))},${variableTheme.value['border-opacity']})`,
+      borderColor: `rgba(${hexToRgb(String(variableTheme.value["border-color"]))},${variableTheme.value["border-opacity"]})`,
       strokeDashArray: 6,
       xaxis: { lines: { show: true } },
       yaxis: { lines: { show: false } },
@@ -36,8 +36,8 @@ const chartOptions = computed(() => {
     },
     stroke: {
       width: 3,
-      lineCap: 'butt',
-      curve: 'straight',
+      lineCap: "butt",
+      curve: "straight",
     },
     colors: [currentTheme.value.primary],
     markers: {
@@ -45,8 +45,8 @@ const chartOptions = computed(() => {
       offsetY: 4,
       offsetX: -2,
       strokeWidth: 3,
-      colors: ['transparent'],
-      strokeColors: 'transparent',
+      colors: ["transparent"],
+      strokeColors: "transparent",
       discrete: [
         {
           size: 5.5,

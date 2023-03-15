@@ -1,17 +1,17 @@
-import { stringify } from 'query-string'
+import { stringify } from "query-string"
 
 export const sendRequest = ({ url, method, useCredentials = false, body, headers = {}, queryParams = {} }) => {
   const options = {
     method: method,
-    headers: new Headers({ 'content-type': 'application/json', ...headers }), // by default setting the content-type to be json type
+    headers: new Headers({ "content-type": "application/json", ...headers }), // by default setting the content-type to be json type
     body: body ? JSON.stringify(body) : null,
   }
-  if (useCredentials) options.credentials = 'include'
+  if (useCredentials) options.credentials = "include"
   if (queryParams) {
     url = `${url}?${stringify(queryParams)}`
   }
 
-  return fetch(url, options).then(res => {
+  return fetch(url, options).then((res) => {
     if (res.ok) {
       return res.json()
     } else {

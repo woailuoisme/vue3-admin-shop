@@ -1,15 +1,15 @@
 <script setup>
-import VueApexCharts from 'vue3-apexcharts'
-import { useTheme } from 'vuetify'
-import { hexToRgb } from '@/utils/util'
-import { ref, computed } from 'vue'
+import VueApexCharts from "vue3-apexcharts"
+import { useTheme } from "vuetify"
+import { hexToRgb } from "@/utils/util"
+import { ref, computed } from "vue"
 
 const vuetifyTheme = useTheme()
 const options = computed(() => {
   const currentTheme = ref(vuetifyTheme.current.value.colors)
   const variableTheme = ref(vuetifyTheme.current.value.variables)
-  const disabledColor = `rgba(${hexToRgb(currentTheme.value['on-surface'])},${variableTheme.value['disabled-opacity']})`
-  const borderColor = `rgba(${hexToRgb(String(variableTheme.value['border-color']))},${variableTheme.value['border-opacity']})`
+  const disabledColor = `rgba(${hexToRgb(currentTheme.value["on-surface"])},${variableTheme.value["disabled-opacity"]})`
+  const borderColor = `rgba(${hexToRgb(String(variableTheme.value["border-color"]))},${variableTheme.value["border-opacity"]})`
 
   return {
     chart: {
@@ -20,9 +20,9 @@ const options = computed(() => {
       bar: {
         borderRadius: 9,
         distributed: true,
-        columnWidth: '40%',
-        endingShape: 'rounded',
-        startingShape: 'rounded',
+        columnWidth: "40%",
+        endingShape: "rounded",
+        startingShape: "rounded",
       },
     },
     stroke: {
@@ -50,12 +50,12 @@ const options = computed(() => {
       currentTheme.value.background,
     ],
     states: {
-      hover: { filter: { type: 'none' } },
-      active: { filter: { type: 'none' } },
+      hover: { filter: { type: "none" } },
+      active: { filter: { type: "none" } },
     },
     xaxis: {
-      categories: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
-      tickPlacement: 'on',
+      categories: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
+      tickPlacement: "on",
       labels: { show: false },
       crosshairs: { opacity: 0 },
       axisTicks: { show: false },
@@ -68,9 +68,9 @@ const options = computed(() => {
         offsetX: -17,
         style: {
           colors: disabledColor,
-          fontSize: '12px',
+          fontSize: "12px",
         },
-        formatter: value => `${value > 999 ? `${(value / 1000).toFixed(0)}` : value}k`,
+        formatter: (value) => `${value > 999 ? `${(value / 1000).toFixed(0)}` : value}k`,
       },
     },
   }

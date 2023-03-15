@@ -1,4 +1,4 @@
-import request from './http.client'
+import request from "./http.client"
 
 class OrderService {
   list(data) {
@@ -7,7 +7,7 @@ class OrderService {
       per_page: data?.rowsPerPage,
     }
     if (data?.keyword) params.keyword = data.keyword
-    return request.instance().get('/orders', { params })
+    return request.instance().get("/orders", { params })
   }
 
   updateExpress(data) {
@@ -17,7 +17,7 @@ class OrderService {
       company: data.company,
     }
 
-    return request.instance().put('/order_update_express', body)
+    return request.instance().put("/order_update_express", body)
   }
 }
 

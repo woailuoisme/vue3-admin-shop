@@ -1,6 +1,6 @@
-const pluralize = require('pluralize')
+const pluralize = require("pluralize")
 
-exports.camelCase=(str)=> {
+exports.camelCase = (str) => {
   return str.replace(/[_.-](\w|$)/g, function (_, x) {
     return x.toUpperCase()
   })
@@ -11,7 +11,7 @@ exports.camelize = (str) => {
     .replace(/(?:^\w|[A-Z]|\b\w)/g, function (word, index) {
       return index === 0 ? word.toLowerCase() : word.toUpperCase()
     })
-    .replace(/\s+/g, '')
+    .replace(/\s+/g, "")
 }
 
 exports.pascale = (text) => {
@@ -20,7 +20,7 @@ exports.pascale = (text) => {
     .replace(/(?:^\w|[A-Z]|\b\w)/g, function (word, index) {
       return word.toUpperCase()
     })
-    .replace(/\s+/g, '')
+    .replace(/\s+/g, "")
 }
 
 exports.camelToSnake = (str) => str.replace(/[A-Z]/g, (letter) => `_${letter.toLowerCase()}`)
@@ -32,11 +32,9 @@ exports.plural = (value) => {
 }
 
 exports.replaceAll = (str, mapObj) => {
-  const re = new RegExp(Object.keys(mapObj).join('|'), 'gi')
+  const re = new RegExp(Object.keys(mapObj).join("|"), "gi")
 
   return str.replace(re, function (matched) {
     return mapObj[matched.toLowerCase()]
   })
 }
-
-

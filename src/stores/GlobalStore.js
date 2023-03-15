@@ -1,24 +1,24 @@
-import { defineStore } from 'pinia'
+import { defineStore } from "pinia"
 
 /** Global Store */
-export default defineStore('global', {
+export default defineStore("global", {
   // Default Global State
   state: () => ({
     loading: false,
     progress: null,
-    message: '',
+    message: "",
   }),
   // Getters
   getters: {
     /** Loading overlay visibility */
-    isLoading: state => state.loading,
+    isLoading: (state) => state.loading,
     /** Loadig progress value */
-    getProgress: state => {
+    getProgress: (state) => {
       state.loading = true
       return state.progress
     },
     /** Snackbar Text */
-    getMessage: state => state.message,
+    getMessage: (state) => state.message,
   },
   // Actions
   actions: {

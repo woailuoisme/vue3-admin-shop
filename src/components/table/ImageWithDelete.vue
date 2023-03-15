@@ -28,14 +28,14 @@
 </template>
 
 <script setup>
-import errImg from '@/assets/image/default_image_1.png'
+import errImg from "@/assets/image/default_image_1.png"
 
-import { defineEmits, defineProps, ref } from 'vue'
+import { defineEmits, defineProps, ref } from "vue"
 
 const props = defineProps({
   image: {
     type: String,
-    default: '',
+    default: "",
   },
   id: {
     type: Number,
@@ -43,12 +43,12 @@ const props = defineProps({
   },
 })
 
-const emit = defineEmits(['delete'])
+const emit = defineEmits(["delete"])
 
 const img = ref(props.image)
 
 function close() {
-  emit('delete')
+  emit("delete")
 }
 
 function remove(value) {}

@@ -6,19 +6,19 @@
 </template>
 
 <script setup>
-import { onMounted, ref } from 'vue'
+import { onMounted, ref } from "vue"
 
 const isTop = ref(false)
 
 function scrollToTop() {
   window.scrollTo({
     top: 0,
-    behavior: 'smooth',
+    behavior: "smooth",
   })
 }
 
 onMounted(() => {
-  window.addEventListener('scroll', () => {
+  window.addEventListener("scroll", () => {
     let scrollPos = window.scrollY
     isTop.value = scrollPos >= 50
   })

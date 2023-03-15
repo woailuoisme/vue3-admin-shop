@@ -1,4 +1,4 @@
-import request from './http.client'
+import request from "./http.client"
 
 class FeedbackService {
   list(data) {
@@ -7,7 +7,7 @@ class FeedbackService {
       per_page: data?.rowsPerPage,
     }
     if (data?.keyword) params.keyword = data.keyword
-    return request.instance().get('/feedbacks', { params })
+    return request.instance().get("/feedbacks", { params })
   }
 
   show(id) {

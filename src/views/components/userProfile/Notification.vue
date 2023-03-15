@@ -1,26 +1,26 @@
 <script setup>
-import { ref } from 'vue'
+import { ref } from "vue"
 const recentDevices = ref([
   {
-    type: 'New for you',
+    type: "New for you",
     email: true,
     browser: true,
     app: true,
   },
   {
-    type: 'Account activity',
+    type: "Account activity",
     email: true,
     browser: true,
     app: true,
   },
   {
-    type: 'A new browser used to sign in',
+    type: "A new browser used to sign in",
     email: true,
     browser: true,
     app: false,
   },
   {
-    type: 'A new device is linked',
+    type: "A new device is linked",
     email: true,
     browser: false,
     app: false,

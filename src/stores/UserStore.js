@@ -1,11 +1,11 @@
-import UserService from '../api/user.service'
-import Toast from '../utils/toast'
+import UserService from "../api/user.service"
+import Toast from "../utils/toast"
 
-import { defineStore } from 'pinia'
-import { format } from 'date-fns'
+import { defineStore } from "pinia"
+import { format } from "date-fns"
 
 /** Config Store */
-export default defineStore('user', {
+export default defineStore("user", {
   // Default Config State
   state: () => ({
     users: [],
@@ -23,21 +23,21 @@ export default defineStore('user', {
     editedIndex: -1,
     editedItem: {
       id: 0,
-      name: '',
-      email: '',
+      name: "",
+      email: "",
       password: null,
       avatar: null,
       avatarFile: [],
-      role: '',
+      role: "",
     },
     defaultItem: {
       id: 0,
-      name: '',
-      email: '',
+      name: "",
+      email: "",
       password: null,
       avatar: null,
       avatarFile: [],
-      role: '',
+      role: "",
     },
   }),
   // Getters
@@ -55,11 +55,11 @@ export default defineStore('user', {
       return state.editedIndex
     },
 
-    findById: state => id => {
-      return state.managers.find(user => user.id === id)
+    findById: (state) => (id) => {
+      return state.managers.find((user) => user.id === id)
     },
-    findIndexById: state => id => {
-      return state.managers.findIndex(user => user.id === id)
+    findIndexById: (state) => (id) => {
+      return state.managers.findIndex((user) => user.id === id)
     },
     hasData(state) {
       return !!state.users.length
@@ -70,8 +70,8 @@ export default defineStore('user', {
     getUser(state) {
       return { ...state.userInfo }
     },
-    findByOrderId: state => id => {
-      return state.users.find(user => user.id === id)
+    findByOrderId: (state) => (id) => {
+      return state.users.find((user) => user.id === id)
     },
     getMeta(state) {
       return { ...state.meta }
@@ -113,7 +113,7 @@ export default defineStore('user', {
       const res = await UserService.toggleLottery(payload)
       if (res.data.data) {
         const user = res.data.data
-        const index = this.users.findIndex(p => p.id === payload.id)
+        const index = this.users.findIndex((p) => p.id === payload.id)
         this.users[index] = Object.assign({}, user)
         Toast.success(res.data.message)
       }
@@ -122,10 +122,10 @@ export default defineStore('user', {
     async downloadExcel() {
       try {
         const res = await UserService.downloadExcel()
-        let blob = new Blob([res.data], { type: 'application/xlsx' })
-        let link = document.createElement('a')
+        let blob = new Blob([res.data], { type: "application/xlsx" })
+        let link = document.createElement("a")
         link.href = window.URL.createObjectURL(blob)
-        let now = format(new Date(), 'yyyy-MM-dd_HH_mm_ss')
+        let now = format(new Date(), "yyyy-MM-dd_HH_mm_ss")
         link.download = `user_excel_${now}.xlsx`
         link.click()
       } catch (e) {

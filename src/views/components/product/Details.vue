@@ -28,7 +28,7 @@
                 <v-col cols="12">
                   <v-col cols="12">
                     <v-chip color="info" small>
-                      {{ isActivityLabel(value.value) }}
+                      {{ $filter.isActivityLabel(value.value) }}
                     </v-chip>
                   </v-col>
                 </v-col>
@@ -72,10 +72,8 @@
 </template>
 
 <script setup>
-import tableImage from '@/components/table/tableImage'
-import { defineProps, defineEmits, ref, watch } from 'vue'
-import TableImage from '@/components/table/TableImage'
-import { isActivityLabel } from '@/utils/table'
+import { defineProps, defineEmits } from "vue"
+import TableImage from "@/components/table/TableImage"
 
 const props = defineProps({
   product: {
@@ -84,10 +82,10 @@ const props = defineProps({
   },
 })
 
-const emit = defineEmits(['update:modelValue', 'close'])
+const emit = defineEmits(["update:modelValue", "close"])
 
 function close() {
-  emit('close')
+  emit("close")
 }
 </script>
 

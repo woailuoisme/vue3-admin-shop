@@ -1,76 +1,76 @@
 <script setup>
-import americanBank from '@/assets/images/logos/american-bank.png'
-import aws from '@/assets/images/logos/aws.png'
-import citiBank from '@/assets/images/logos/citi-bank.png'
-import digitalOcean from '@/assets/images/logos/digital-ocean.png'
-import github from '@/assets/images/logos/github.png'
-import google from '@/assets/images/logos/google.png'
-import gumroad from '@/assets/images/logos/gumroad.png'
-import mastercardLabel from '@/assets/images/logos/mastercard-label.png'
-import slack from '@/assets/images/logos/slack.png'
-import stripe from '@/assets/images/logos/stripe.png'
+import americanBank from "@/assets/images/logos/american-bank.png"
+import aws from "@/assets/images/logos/aws.png"
+import citiBank from "@/assets/images/logos/citi-bank.png"
+import digitalOcean from "@/assets/images/logos/digital-ocean.png"
+import github from "@/assets/images/logos/github.png"
+import google from "@/assets/images/logos/google.png"
+import gumroad from "@/assets/images/logos/gumroad.png"
+import mastercardLabel from "@/assets/images/logos/mastercard-label.png"
+import slack from "@/assets/images/logos/slack.png"
+import stripe from "@/assets/images/logos/stripe.png"
 
 const deposits = [
   {
-    title: 'Gumroad Account',
-    subtitle: 'Sell UI Kit',
-    amount: '+$4,650',
+    title: "Gumroad Account",
+    subtitle: "Sell UI Kit",
+    amount: "+$4,650",
     logo: gumroad,
   },
   {
-    title: 'Mastercard',
-    subtitle: 'Wallet deposit',
-    amount: '+$92,705',
+    title: "Mastercard",
+    subtitle: "Wallet deposit",
+    amount: "+$92,705",
     logo: mastercardLabel,
   },
   {
-    title: 'Stripe Account',
-    subtitle: 'iOS Application',
-    amount: '+$957',
+    title: "Stripe Account",
+    subtitle: "iOS Application",
+    amount: "+$957",
     logo: stripe,
   },
   {
-    title: 'American Bank',
-    subtitle: 'American Bank',
-    amount: '+$6,837',
+    title: "American Bank",
+    subtitle: "American Bank",
+    amount: "+$6,837",
     logo: americanBank,
   },
   {
-    title: 'Bank Account',
-    subtitle: 'Wallet deposit',
-    amount: '+$8,934',
+    title: "Bank Account",
+    subtitle: "Wallet deposit",
+    amount: "+$8,934",
     logo: citiBank,
   },
 ]
 const withdraws = [
   {
-    title: 'Google Adsense',
-    subtitle: 'Paypal deposit',
-    amount: '-$145',
+    title: "Google Adsense",
+    subtitle: "Paypal deposit",
+    amount: "-$145",
     logo: google,
   },
   {
-    title: 'Github Enterprise',
-    subtitle: 'Security & compliance',
-    amount: '-$1870',
+    title: "Github Enterprise",
+    subtitle: "Security & compliance",
+    amount: "-$1870",
     logo: github,
   },
   {
-    title: 'Upgrade Slack Plan',
-    subtitle: 'Debit card deposit',
-    amount: '-$450',
+    title: "Upgrade Slack Plan",
+    subtitle: "Debit card deposit",
+    amount: "-$450",
     logo: slack,
   },
   {
-    title: 'Digital Ocean',
-    subtitle: 'Cloud Hosting',
-    amount: '-$540',
+    title: "Digital Ocean",
+    subtitle: "Cloud Hosting",
+    amount: "-$540",
     logo: digitalOcean,
   },
   {
-    title: 'AWS Account',
-    subtitle: 'Choosing a Cloud Platform',
-    amount: '-$21',
+    title: "AWS Account",
+    subtitle: "Choosing a Cloud Platform",
+    amount: "-$21",
     logo: aws,
   },
 ]

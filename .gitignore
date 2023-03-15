@@ -22,3 +22,14 @@ pnpm-debug.log*
 *.sw?
 
 .eslintcache
+
+/src/typings/components.d.ts
+/src/typings/auto-imports.d.ts
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+!.vscode/launch.json
+!.vscode/settings.json
+
+package-lock.json
+yarn.lock

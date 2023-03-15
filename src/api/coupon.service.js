@@ -1,4 +1,4 @@
-import request from './http.client'
+import request from "./http.client"
 
 class CouponService {
   list(data) {
@@ -7,7 +7,7 @@ class CouponService {
       per_page: data?.rowsPerPage,
       keyword: data?.keyword,
     }
-    return request.instance().get('/coupons', { params })
+    return request.instance().get("/coupons", { params })
   }
 
   show(id) {

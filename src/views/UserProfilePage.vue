@@ -45,11 +45,11 @@
 </template>
 
 <script setup>
-import { computed, nextTick, onMounted, ref, watch } from 'vue'
-const tab = ref('two')
-import Account from './components/userProfile/Account'
-import Notification from './components/userProfile/Notification'
-import Security from './components/userProfile/Security'
+import { computed, nextTick, onMounted, ref, watch } from "vue"
+const tab = ref("two")
+import Account from "./components/userProfile/Account"
+import Notification from "./components/userProfile/Notification"
+import Security from "./components/userProfile/Security"
 </script>
 
 <style scoped></style>

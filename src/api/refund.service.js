@@ -1,5 +1,5 @@
-import request from './http.client'
-import { canUsed } from '@/utils/util'
+import request from "./http.client"
+import { canUsed } from "@/utils/util"
 
 class RefundRecordService {
   list(data) {
@@ -8,7 +8,7 @@ class RefundRecordService {
       per_page: data?.rowsPerPage,
     }
     if (data?.keyword) params.keyword = data.keyword
-    return request.instance().get('/refund_records', { params })
+    return request.instance().get("/refund_records", { params })
   }
 
   show(id) {

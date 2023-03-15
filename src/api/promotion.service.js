@@ -1,5 +1,5 @@
-import client from './http.client'
-import { canUsed } from '@/utils/util'
+import client from "./http.client"
+import { canUsed } from "@/utils/util"
 
 class PromotionService {
   list(data) {
@@ -8,7 +8,7 @@ class PromotionService {
       per_page: data?.rowsPerPage,
     }
     if (data?.keyword) params.keyword = data.keyword
-    return client.instance().get('/promotion', { params })
+    return client.instance().get("/promotion", { params })
   }
 
   show(id) {
@@ -17,15 +17,15 @@ class PromotionService {
 
   create(data) {
     let formData = new FormData()
-    formData.append('name', data.name)
-    formData.append('description', data.description)
-    formData.append('rules', data.rules)
+    formData.append("name", data.name)
+    formData.append("description", data.description)
+    formData.append("rules", data.rules)
     if (data.imageFile) {
-      formData.append('image', data.imageFile)
+      formData.append("image", data.imageFile)
     }
     return client.instance().post(`/promotion`, formData, {
       headers: {
-        'Content-Type': 'multipart/form-data',
+        "Content-Type": "multipart/form-data",
       },
     })
   }
@@ -33,15 +33,15 @@ class PromotionService {
   update(data) {
     debugger
     let formData = new FormData()
-    formData.append('name', data.name)
-    formData.append('description', data.description)
-    formData.append('rules', data.rules)
+    formData.append("name", data.name)
+    formData.append("description", data.description)
+    formData.append("rules", data.rules)
     if (data.imageFile) {
-      formData.append('image', data.imageFile)
+      formData.append("image", data.imageFile)
     }
     return client.instance().post(`/promotion_update/${data.id}`, formData, {
       headers: {
-        'Content-Type': 'multipart/form-data',
+        "Content-Type": "multipart/form-data",
       },
     })
   }

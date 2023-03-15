@@ -28,10 +28,10 @@
 </template>
 
 <script setup>
-import axios from 'axios'
-import Toast from '@/utils/toast'
+import axios from "axios"
+import Toast from "@/utils/toast"
 
-import { ref, computed, defineProps, reactive } from 'vue'
+import { ref, computed, defineProps, reactive } from "vue"
 
 const props = defineProps({})
 const emit = defineEmits([])
@@ -39,8 +39,8 @@ const emit = defineEmits([])
 const file = ref([])
 const data = reactive({
   uploadPercentage: 0,
-  uploadMsg: '',
-  image: '',
+  uploadMsg: "",
+  image: "",
   uploading: false,
   uploadedSuccess: false,
 })
@@ -50,44 +50,44 @@ const existsFile = computed(() => !!file.value)
 function reset() {
   file.value = null
   data.uploadPercentage = 0
-  data.uploadMsg = ''
+  data.uploadMsg = ""
 }
 
 const instance = axios.create({
-  baseURL: 'http://localhost:8000/api/v1/admin',
-  headers: { 'Content-Type': 'multipart/form-data' },
+  baseURL: "http://localhost:8000/api/v1/admin",
+  headers: { "Content-Type": "multipart/form-data" },
 })
 
 async function deleteFile() {
   try {
-    const res = await axios.delete('/upload/category')
-    if (res.data.success === 'success') {
-      Toast.success('图片删除成功')
+    const res = await axios.delete("/upload/category")
+    if (res.data.success === "success") {
+      Toast.success("图片删除成功")
     }
   } catch (e) {
-    Toast.error('图片产出失败')
+    Toast.error("图片产出失败")
   }
 }
 
 async function submitFile() {
   let formData = new FormData()
-  formData.append('category_id', 2)
-  formData.append('image', file.value)
-  const onUploadProgress = progressEvent => {
+  formData.append("category_id", 2)
+  formData.append("image", file.value)
+  const onUploadProgress = (progressEvent) => {
     data.uploadPercentage = Math.round((progressEvent.loaded / progressEvent.total) * 100)
   }
   try {
     data.uploading = true
-    const res = await instance.post('/upload/category', formData, { onUploadProgress })
+    const res = await instance.post("/upload/category", formData, { onUploadProgress })
     data.image = res.data.data
     data.uploadedSuccess = true
     data.uploading = false
-    Toast.success('图片上传成功')
+    Toast.success("图片上传成功")
     reset()
   } catch (e) {
     data.uploadedSuccess = false
     data.uploading = false
-    Toast.error('图片上传失败')
+    Toast.error("图片上传失败")
     reset()
   }
 }

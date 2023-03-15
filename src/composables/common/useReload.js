@@ -1,5 +1,5 @@
-import { nextTick } from 'vue'
-import useBoolean from './useBoolean'
+import { nextTick } from "vue"
+import useBoolean from "./useBoolean"
 
 export default function useReload() {
   // 重载的标志

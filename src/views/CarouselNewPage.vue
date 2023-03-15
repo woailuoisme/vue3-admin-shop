@@ -8,7 +8,7 @@
             <v-icon size="1.9rem" icon="mdi-refresh" @click.stop="refresh" />
           </template>
           <v-card-title>
-            <v-btn variant="flat" color="primary" dark>{{ $t('form.title.add') }}</v-btn>
+            <v-btn variant="flat" color="primary" dark>{{ $t("form.title.add") }}</v-btn>
           </v-card-title>
         </v-card-item>
       </v-card>
@@ -61,12 +61,11 @@
 </template>
 
 <script setup>
-import Breadcrumb from '@/components/shared/Breadcrumb'
-import TableImage from '@/components/table/TableImage'
-import { computed, nextTick, onMounted, ref, unref, watch } from 'vue'
-import { useCarousel, useGlobal, useTableHeader } from '@/stores'
-import { storeToRefs } from 'pinia/dist/pinia'
-import _ from 'lodash'
+import TableImage from "@/components/table/TableImage"
+import { computed, nextTick, onMounted, ref, unref, watch } from "vue"
+import { useCarousel, useGlobal, useTableHeader } from "@/stores"
+import { storeToRefs } from "pinia/dist/pinia"
+import { debounce } from "lodash-es"
 
 const carouselStore = useCarousel()
 const globalStore = useGlobal()
@@ -87,7 +86,8 @@ onMounted(() => {
   carouselStore.loadAllCarousels(unref(requestParams.value))
 })
 
-const search = _.debounce(value => carouselStore.loadAllCarousels(value), 800)
+const search = debounce((value) => carouselStore.loadAllCarousels(value), 800)
+
 function refresh() {
   search(unref(requestParams.value))
 }
@@ -97,7 +97,7 @@ function dragChange(e) {
   if (!item) return
   let index = item.newIndex
   carousels.value.forEach((item, index) => (item.order = index + 1))
-  const mapCarousel = carousels.value.map(c => {
+  const mapCarousel = carousels.value.map((c) => {
     return { id: c?.id, order: c.order }
   })
   console.log(mapCarousel)
@@ -106,18 +106,18 @@ function dragChange(e) {
 
 watch(
   requestParams,
-  value => {
+  (value) => {
     carouselStore.loadAllCarousels(requestParams.value._rawValue)
   },
-  { deep: true }
+  { deep: true },
 )
 
-watch(dialogEntity, val => {
+watch(dialogEntity, (val) => {
   console.log(val)
   val || close()
 })
 
-watch(dialogDelete, val => {
+watch(dialogDelete, (val) => {
   console.log(val)
   val || closeDelete()
 })

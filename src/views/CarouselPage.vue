@@ -3,7 +3,7 @@
     <v-col cols="12">
       <v-card>
         <v-toolbar flat>
-          <v-btn variant="flat" color="primary" dark>{{ $t('form.title.add') }}</v-btn>
+          <v-btn variant="flat" color="primary" dark>{{ $t("form.title.add") }}</v-btn>
           <v-spacer />
         </v-toolbar>
       </v-card>
@@ -40,11 +40,11 @@
 </template>
 
 <script setup>
-import Breadcrumb from '@/components/shared/Breadcrumb'
-import TableImage from '@/components/table/TableImage'
-import { computed, nextTick, onMounted, ref, watch } from 'vue'
-import { useBreadcrumb, useCarousel, useGlobal, useTableHeader } from '@/stores'
-import { storeToRefs } from 'pinia/dist/pinia'
+import Breadcrumb from "@/components/shared/Breadcrumb"
+import TableImage from "@/components/table/TableImage"
+import { computed, nextTick, onMounted, ref, watch } from "vue"
+import { useBreadcrumb, useCarousel, useGlobal, useTableHeader } from "@/stores"
+import { storeToRefs } from "pinia/dist/pinia"
 
 const carouselStore = useCarousel()
 const globalStore = useGlobal()
@@ -69,18 +69,18 @@ onMounted(() => {
 
 watch(
   requestParams,
-  value => {
+  (value) => {
     carouselStore.loadAllCarousels(requestParams.value._rawValue)
   },
-  { deep: true }
+  { deep: true },
 )
 
-watch(dialogEntity, val => {
+watch(dialogEntity, (val) => {
   console.log(val)
   val || close()
 })
 
-watch(dialogDelete, val => {
+watch(dialogDelete, (val) => {
   console.log(val)
   val || closeDelete()
 })

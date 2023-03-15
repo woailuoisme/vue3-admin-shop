@@ -22,9 +22,9 @@
 </template>
 
 <script setup>
-import myEditor from '@/components/myEditor'
-import { defineEmits, defineProps, onMounted, reactive, ref, watch } from 'vue'
-import { TME_IMAGE_UPLOAD } from '@/utils/urls'
+import myEditor from "@/components/myEditor"
+import { defineEmits, defineProps, onMounted, reactive, ref, watch } from "vue"
+import { TME_IMAGE_UPLOAD } from "@/utils/urls"
 
 const props = defineProps({
   // isNew: {
@@ -37,18 +37,18 @@ const props = defineProps({
   },
 })
 
-const emit = defineEmits(['save', 'close'])
+const emit = defineEmits(["save", "close"])
 
 const valid = ref(false)
 
 const editedItem = reactive(props.item)
 
 function save(value) {
-  emit('save', value)
+  emit("save", value)
 }
 
 function close() {
-  emit('close')
+  emit("close")
 }
 </script>
 

@@ -32,7 +32,7 @@
 </template>
 
 <script setup>
-import { defineEmits, defineProps, onMounted, reactive, ref, watch } from 'vue'
+import { defineEmits, defineProps, onMounted, reactive, ref, watch } from "vue"
 
 const props = defineProps({
   isNew: {
@@ -44,21 +44,21 @@ const props = defineProps({
     required: true,
   },
 })
-const emit = defineEmits(['save', 'close'])
+const emit = defineEmits(["save", "close"])
 const valid = ref(false)
 let entity = reactive({
   confirmed: false,
-  remark: '',
+  remark: "",
 })
 
 const editedItem = reactive(props.item)
 
 function save(value) {
-  emit('save', value)
+  emit("save", value)
 }
 
 function close() {
-  emit('close')
+  emit("close")
 }
 </script>
 

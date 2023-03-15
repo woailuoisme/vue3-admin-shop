@@ -1,7 +1,7 @@
-import IntegralRecordService from '../api/integral.record.service'
-import { defineStore } from 'pinia/dist/pinia'
+import IntegralRecordService from "../api/integral.record.service"
+import { defineStore } from "pinia/dist/pinia"
 
-export default defineStore('integral-record', {
+export default defineStore("integral-record", {
   // Default Config State
   state: () => ({
     integralRecords: [],
@@ -21,8 +21,8 @@ export default defineStore('integral-record', {
     isDisplayPagination(state) {
       return !!(state.meta && state.meta.last_page && state.meta.last_page > 1)
     },
-    findByOrderId: state => id => {
-      return state.integralRecords.find(order => order.id === id)
+    findByOrderId: (state) => (id) => {
+      return state.integralRecords.find((order) => order.id === id)
     },
   },
   // Actions

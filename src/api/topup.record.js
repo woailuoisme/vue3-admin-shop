@@ -1,5 +1,5 @@
-import request from './http.client'
-import { canUsed } from '@/utils/util'
+import request from "./http.client"
+import { canUsed } from "@/utils/util"
 
 class TopUpRecordService {
   list(data) {
@@ -8,7 +8,7 @@ class TopUpRecordService {
       per_page: data?.rowsPerPage,
     }
     if (data?.keyword) params.keyword = data.keyword
-    return request.instance().get('/top_up_records', { params })
+    return request.instance().get("/top_up_records", { params })
   }
 
   show(id) {

@@ -39,10 +39,10 @@
           ></v-text-field>
 
           <v-btn :loading="isLoading" :disabled="isLoading" block size="x-large" color="primary" @click="submit">
-            {{ $t('login.button') }}
+            {{ $t("login.button") }}
           </v-btn>
 
-          <div class="text-caption font-weight-bold text-uppercase my-3">{{ $t('login.orsign') }}</div>
+          <div class="text-caption font-weight-bold text-uppercase my-3">{{ $t("login.orsign") }}</div>
 
           <!-- external providers list -->
           <v-btn
@@ -62,24 +62,24 @@
           <div v-if="errorProvider" class="error--text">{{ errorProviderMessages }}</div>
         </v-form>
         <a class="mt-5 text-decoration-underline" style="cursor: pointer" @click="toLoginModule('forgot')">
-          {{ $t('login.forgot') }}
+          {{ $t("login.forgot") }}
         </a>
       </v-card-text>
     </v-card>
 
     <div class="text-center mt-6">
-      {{ $t('login.noaccount') }}
+      {{ $t("login.noaccount") }}
       <a style="cursor: pointer" class="font-weight-bold text-decoration-underline" @click="toLoginModule('sign-up')">
-        {{ $t('login.create') }}
+        {{ $t("login.create") }}
       </a>
     </div>
   </div>
 </template>
 
 <script setup>
-import { ref, storeToRefs } from 'vue'
-import { useRouterPush } from '@/composables'
-import { useAuthStore } from '@/store'
+import { ref, storeToRefs } from "vue"
+import { useRouterPush } from "@/composables"
+import { useAuthStore } from "@/store"
 
 const auth = useAuthStore()
 const { loginLoading: isLoading } = storeToRefs(auth)
@@ -87,31 +87,31 @@ const { login } = useAuthStore()
 const { toLoginModule } = useRouterPush()
 const form = ref()
 const isFormValid = ref(false)
-const email = ref('admin')
-const password = ref('admin123')
+const email = ref("admin")
+const password = ref("admin123")
 const error = ref(false)
-const errorMessages = ref('')
+const errorMessages = ref("")
 const errorProvider = ref(false)
-const errorProviderMessages = ref('')
+const errorProviderMessages = ref("")
 const showPassword = ref(false)
 const providers = ref([
   {
-    id: 'google',
-    label: 'Google',
+    id: "google",
+    label: "Google",
     isLoading: false,
   },
   {
-    id: 'facebook',
-    label: 'Facebook',
+    id: "facebook",
+    label: "Facebook",
     isLoading: false,
   },
 ])
 const rules = ref({
-  required: value => (value && Boolean(value)) || 'Required',
+  required: (value) => (value && Boolean(value)) || "Required",
 })
 
 const submit = () => {
-  form.value?.validate().then(async r => {
+  form.value?.validate().then(async (r) => {
     if (r.valid) {
       await login(email.value, password.value)
     }
@@ -119,8 +119,8 @@ const submit = () => {
 }
 const resetErrors = () => {
   error.value = false
-  errorMessages.value = ''
+  errorMessages.value = ""
   errorProvider.value = false
-  errorProviderMessages.value = ''
+  errorProviderMessages.value = ""
 }
 </script>

@@ -37,11 +37,11 @@
 </template>
 
 <script setup>
-import Breadcrumb from '@/components/shared/Breadcrumb'
-import TextTooltip from '@/components/table/TextTooltip'
-import Details from './components/feedback/Details'
-import { computed, onMounted, ref, toRaw } from 'vue'
-import { useBreadcrumb, useFeedback, useGlobal, useTableHeader } from '@/stores'
+import Breadcrumb from "@/components/shared/Breadcrumb"
+import TextTooltip from "@/components/table/TextTooltip"
+import Details from "./components/feedback/Details"
+import { computed, onMounted, ref, toRaw } from "vue"
+import { useBreadcrumb, useFeedback, useGlobal, useTableHeader } from "@/stores"
 
 const feedbackStore = useFeedback()
 const globalStore = useGlobal()
@@ -60,7 +60,7 @@ let mapFeedback
 const requestParams = ref({
   page: 1,
   rowsPerPage: 10,
-  keyword: '',
+  keyword: "",
 })
 
 const dialogDetail = ref(false)

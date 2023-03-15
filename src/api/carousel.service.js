@@ -1,4 +1,4 @@
-import client from './http.client'
+import client from "./http.client"
 
 class CarouselService {
   list(data) {
@@ -7,7 +7,7 @@ class CarouselService {
       per_page: data?.rowsPerPage,
     }
     if (data?.keyword) params.keyword = data.keyword
-    return client.instance().get('/carousels', { params })
+    return client.instance().get("/carousels", { params })
   }
 
   show(id) {
@@ -16,24 +16,24 @@ class CarouselService {
 
   store(data) {
     let formData = new FormData()
-    formData.append('order', data.order)
-    formData.append('image', data.image)
+    formData.append("order", data.order)
+    formData.append("image", data.image)
     return client.instance().post(`/carousels`, formData, {
       headers: {
-        'Content-Type': 'multipart/form-data',
+        "Content-Type": "multipart/form-data",
       },
     })
   }
 
   update(data) {
     let formData = new FormData()
-    formData.append('order', data.order)
+    formData.append("order", data.order)
     if (data.image) {
-      formData.append('image', data.image)
+      formData.append("image", data.image)
     }
     return client.instance().post(`/carousel_update/${data.id}`, formData, {
       headers: {
-        'Content-Type': 'multipart/form-data',
+        "Content-Type": "multipart/form-data",
       },
     })
   }

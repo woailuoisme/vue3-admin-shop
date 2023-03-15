@@ -18,11 +18,11 @@
 </template>
 
 <script setup>
-import router from '@/router'
-import img from '@/assets/image/error/500.svg'
+import router from "@/router"
+import img from "@/assets/image/error/500.svg"
 
 function goHome() {
-  router.push({ path: '/' })
+  router.push({ path: "/" })
 }
 </script>
 

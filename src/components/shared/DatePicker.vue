@@ -10,8 +10,8 @@
 </template>
 
 <script setup>
-import { defineEmits, defineProps, ref } from 'vue'
-import { format } from 'date-fns'
+import { defineEmits, defineProps, ref } from "vue"
+import { format } from "date-fns"
 // import {zhCN} from 'date-fns/locale'
 const props = defineProps({
   modelValue: {
@@ -21,27 +21,27 @@ const props = defineProps({
   },
 })
 
-const emit = defineEmits(['update:modelValue'])
+const emit = defineEmits(["update:modelValue"])
 
 const date = ref(props.modelValue)
 
-const handleDate = modelData => {
+const handleDate = (modelData) => {
   date.value = modelData
   // do something else with the data
   console.log(modelData)
-  emit('update:modelValue', modelData)
+  emit("update:modelValue", modelData)
 }
 
-const dateFormat = date => {
+const dateFormat = (date) => {
   const dt = date
   const padL = (nr, len = 2, chr = `0`) => `${nr}`.padStart(2, chr)
   return `${dt.getFullYear()}-${padL(dt.getMonth() + 1)}-${padL(dt.getDate())} ${padL(dt.getHours())}:${padL(dt.getMinutes())}:${padL(
-    dt.getSeconds()
+    dt.getSeconds(),
   )}`
 }
 
-const formatDate = date => {
-  return date ? format(date, 'yyyy-MM-dd HH:mm:ss') : ''
+const formatDate = (date) => {
+  return date ? format(date, "yyyy-MM-dd HH:mm:ss") : ""
 }
 </script>
 

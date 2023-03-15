@@ -130,18 +130,18 @@
 </template>
 
 <script setup>
-import Breadcrumb from '@/Components/shared/breadcrumb.vue'
-import { computed, onMounted, reactive } from 'vue'
+import Breadcrumb from "@/Components/shared/breadcrumb.vue"
+import { computed, onMounted, reactive } from "vue"
 
-import { useBreadcrumb } from '@/stores'
+import { useBreadcrumb } from "@/stores"
 
 const breadcrumbStore = useBreadcrumb()
 const data = reactive({
   statistics: [
-    { label: '当日交易量', value: 75.521, updatedTime: '1小时前' },
-    { label: '总交易量', value: 75.521, updatedTime: '1分钟前' },
-    { label: '当日注册量', value: 75.521, updatedTime: '3小时前' },
-    { label: '总注册量', value: 75.521, updatedTime: '1天前' },
+    { label: "当日交易量", value: 75.521, updatedTime: "1小时前" },
+    { label: "总交易量", value: 75.521, updatedTime: "1分钟前" },
+    { label: "当日注册量", value: 75.521, updatedTime: "3小时前" },
+    { label: "总注册量", value: 75.521, updatedTime: "1天前" },
   ],
 
   donut: {
@@ -151,11 +151,11 @@ const data = reactive({
 
   newOptions: {
     chart: {
-      id: '_bar',
+      id: "_bar",
     },
     series: [
       {
-        name: 'sales',
+        name: "sales",
         data: [30, 40, 35, 50, 49, 60, 70, 91, 125],
       },
     ],
@@ -166,25 +166,25 @@ const data = reactive({
 
   options: {
     chart: {
-      id: 'vue_chart',
+      id: "vue_chart",
     },
     xaxis: {
-      categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+      categories: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
     },
   },
   series: [
     {
-      name: 'series-1',
+      name: "series-1",
       data: [55, 62, 89, 66, 98, 72, 101, 75, 94, 120, 117, 139],
     },
     {
-      name: 'series-2',
+      name: "series-2",
       data: [57, 72, 99, 33, 66, 77, 108, 99, 100, 120, 117, 77],
     },
   ],
   donutOptions: {
     series: [44, 55, 41, 17, 15, 10, 33, 90, 10, 12, 40, 6],
-    labels: ['Create', 'Explore', 'Play', 'Evolve', 'Learn', 'Arouse', 'SHHHHHH', 'Nest', 'Revitalize', 'Fund', 'Lead', 'Sleep'],
+    labels: ["Create", "Explore", "Play", "Evolve", "Learn", "Arouse", "SHHHHHH", "Nest", "Revitalize", "Fund", "Lead", "Sleep"],
   },
 })
 

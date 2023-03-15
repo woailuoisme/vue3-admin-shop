@@ -1,7 +1,7 @@
-import { inject, provide } from 'vue'
-import { InjectionKey } from 'vue'
+import { inject, provide } from "vue"
+import { InjectionKey } from "vue"
 
-export default function useContext(contextName = 'context') {
+export default function useContext(contextName = "context") {
   const injectKey = Symbol(contextName)
 
   function useProvide(context) {

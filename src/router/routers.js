@@ -1,15 +1,16 @@
-import { errorModule } from './errorRouters'
-import { menuModule } from './menuRouters'
+import { errorModule } from "./errorRouters"
+import { menuModule } from "./menuRouters"
+import { authModule } from "./authRouters"
 
 const personModule = [
   {
-    path: '/person',
-    name: 'profile',
+    path: "/person",
+    name: "profile",
     children: [
       {
-        path: '/profile',
-        name: 'person_profile',
-        component: () => import('@/views/UserProfilePage.vue'),
+        path: "/profile",
+        name: "person_profile",
+        component: () => import("@/views/UserProfilePage.vue"),
       },
     ],
   },
@@ -17,9 +18,9 @@ const personModule = [
 
 const testModule = [
   {
-    path: '/drag',
-    name: '/drag',
-    component: () => import('@/components/shared/DragSorted.vue'),
+    path: "/drag",
+    name: "/drag",
+    component: () => import("@/components/shared/DragSorted.vue"),
   },
   // {
   //   path: '/product/form',
@@ -27,10 +28,10 @@ const testModule = [
   //   component: () => import('@/views/components/adminProduct/DialogEntityForm'),
   // },
   {
-    path: '/form',
-    name: 'form',
-    component: () => import('@/views/FormVuePage.vue'),
+    path: "/form",
+    name: "form",
+    component: () => import("@/views/FormVuePage.vue"),
   },
 ]
 
-export const routers = [...personModule, ...errorModule, ...menuModule, ...testModule]
+export const routers = [...personModule, ...authModule, ...errorModule, ...menuModule, ...testModule]

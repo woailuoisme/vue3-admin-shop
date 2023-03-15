@@ -25,7 +25,7 @@
                       </template>
                     </v-img>
                   </v-avatar>
-                  <span class="ml-4">{{ value.value.nickname ?? '' }}</span>
+                  <span class="ml-4">{{ value.value.nickname ?? "" }}</span>
                 </v-col>
               </v-row>
             </td>
@@ -61,8 +61,8 @@
 </template>
 
 <script setup>
-import img from '@/assets/image/default_image_1.png'
-import { defineEmits, defineProps } from 'vue'
+import img from "@/assets/image/default_image_1.png"
+import { defineEmits, defineProps } from "vue"
 
 const props = defineProps({
   feedback: {
@@ -71,10 +71,10 @@ const props = defineProps({
   },
 })
 
-const emit = defineEmits(['update:modelValue', 'close'])
+const emit = defineEmits(["update:modelValue", "close"])
 
 function close() {
-  emit('close')
+  emit("close")
 }
 </script>
 

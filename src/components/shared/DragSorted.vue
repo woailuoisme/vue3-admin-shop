@@ -11,16 +11,16 @@
 </template>
 
 <script setup>
-import draggable from 'vuedraggable'
-import ImageRemove from '@/components/shared/ImageRemove'
-import { ref, toRaw, markRaw } from 'vue'
+import draggable from "vuedraggable"
+import ImageRemove from "@/components/shared/ImageRemove"
+import { ref, toRaw, markRaw } from "vue"
 
 const list = ref([
-  { name: 'John', id: 0, url: 'https://via.placeholder.com/150', position: 1 },
-  { name: 'Joao', id: 1, url: 'https://via.placeholder.com/150', position: 2 },
-  { name: 'Jean', id: 2, url: 'https://via.placeholder.com/150', position: 3 },
-  { name: 'Tom', id: 3, url: 'https://via.placeholder.com/150', position: 4 },
-  { name: 'Alice', id: 4, url: 'https://via.placeholder.com/150', position: 5 },
+  { name: "John", id: 0, url: "https://via.placeholder.com/150", position: 1 },
+  { name: "Joao", id: 1, url: "https://via.placeholder.com/150", position: 2 },
+  { name: "Jean", id: 2, url: "https://via.placeholder.com/150", position: 3 },
+  { name: "Tom", id: 3, url: "https://via.placeholder.com/150", position: 4 },
+  { name: "Alice", id: 4, url: "https://via.placeholder.com/150", position: 5 },
 ])
 
 function onChange(e) {

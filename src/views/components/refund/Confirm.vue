@@ -32,7 +32,7 @@
 </template>
 
 <script setup>
-import { defineEmits, defineProps, reactive, ref } from 'vue'
+import { defineEmits, defineProps, reactive, ref } from "vue"
 
 const props = defineProps({
   refund: {
@@ -41,18 +41,18 @@ const props = defineProps({
   },
 })
 
-const emit = defineEmits(['save', 'close'])
+const emit = defineEmits(["save", "close"])
 
 const valid = ref(false)
 
 let editedItem = reactive(props.refund)
 
 function save(value) {
-  emit('save', value)
+  emit("save", value)
 }
 
 function close() {
-  emit('close')
+  emit("close")
 }
 </script>
 

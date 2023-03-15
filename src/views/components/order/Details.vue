@@ -23,7 +23,7 @@
             <td v-else-if="value.key === 'order_status'" class="text-center" style="width: 80%">
               <v-row align="center" justify="center">
                 <v-col cols="12">
-                  <span>{{ orderStatusLabel(value.value) }}</span>
+                  <span>{{ $filter.orderStatusLabel(value.value) }}</span>
                 </v-col>
               </v-row>
             </td>
@@ -42,8 +42,7 @@
 </template>
 
 <script setup>
-import { defineProps, defineEmits, ref, watch } from 'vue'
-import { orderStatusLabel } from '@/utils/table'
+import { defineProps, defineEmits, ref, watch } from "vue"
 
 const props = defineProps({
   category: {
@@ -52,10 +51,10 @@ const props = defineProps({
   },
 })
 
-const emit = defineEmits(['update:modelValue', 'close'])
+const emit = defineEmits(["update:modelValue", "close"])
 
 function close() {
-  emit('close')
+  emit("close")
 }
 </script>
 

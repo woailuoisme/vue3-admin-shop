@@ -1,7 +1,7 @@
 <template>
   <v-card>
     <v-card-title>
-      <span class="text-h5">{{ isNew ? '新增' : '编辑' }}</span>
+      <span class="text-h5">{{ isNew ? "新增" : "编辑" }}</span>
     </v-card-title>
     <v-card-text>
       <v-container>
@@ -43,7 +43,7 @@
 </template>
 
 <script setup>
-import { defineEmits, defineProps, onMounted, reactive, ref, watch } from 'vue'
+import { defineEmits, defineProps, onMounted, reactive, ref, watch } from "vue"
 
 const props = defineProps({
   isNew: {
@@ -56,18 +56,18 @@ const props = defineProps({
   },
 })
 
-const emit = defineEmits(['save', 'close'])
+const emit = defineEmits(["save", "close"])
 
 const valid = ref(false)
 
 const editedItem = reactive(props.item)
 
 function save(value) {
-  emit('save', value)
+  emit("save", value)
 }
 
 function close() {
-  emit('close')
+  emit("close")
 }
 </script>
 

@@ -29,18 +29,18 @@
 </template>
 
 <script setup>
-import { computed, ref } from 'vue'
-import { useLoading } from '@/hooks'
+import { computed, ref } from "vue"
+import { useLoading } from "@/hooks"
 
 const { loading: isLoading, startLoading, endLoading } = useLoading()
-const newPassword = ref('')
+const newPassword = ref("")
 const errorNewPassword = ref(false)
-const errorNewPasswordMessage = ref('')
+const errorNewPasswordMessage = ref("")
 const showPassword = ref(false)
-const status = ref('Resetting password')
+const status = ref("Resetting password")
 const error = ref()
 const rules = ref({
-  required: value => (value && Boolean(value)) || 'Required',
+  required: (value) => (value && Boolean(value)) || "Required",
 })
 
 const confirmPasswordReset = () => {
@@ -52,6 +52,6 @@ const confirmPasswordReset = () => {
 
 const resetErrors = () => {
   errorNewPassword.value = false
-  errorNewPasswordMessage.value = ''
+  errorNewPasswordMessage.value = ""
 }
 </script>

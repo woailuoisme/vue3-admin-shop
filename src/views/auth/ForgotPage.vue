@@ -1,8 +1,8 @@
 <template>
   <v-card class="text-center pa-1">
-    <v-card-title class="justify-center text-h4 mb-2">{{ $t('forgot.title') }}</v-card-title>
+    <v-card-title class="justify-center text-h4 mb-2">{{ $t("forgot.title") }}</v-card-title>
     <v-card-subtitle>
-      {{ $t('forgot.subtitle') }}
+      {{ $t("forgot.subtitle") }}
     </v-card-subtitle>
 
     <!-- reset form -->
@@ -21,44 +21,44 @@
           @change="resetErrors"
         ></v-text-field>
 
-        <v-btn :loading="isLoading" block size="x-large" color="primary" @click="submit">{{ $t('forgot.button') }}</v-btn>
+        <v-btn :loading="isLoading" block size="x-large" color="primary" @click="submit">{{ $t("forgot.button") }}</v-btn>
       </v-form>
     </v-card-text>
     <a class="text-decoration-underline text-center mt-6 cursor-pointer" @click="toLoginModule('sign-in')">
-      {{ $t('forgot.backtosign') }}
+      {{ $t("forgot.backtosign") }}
     </a>
   </v-card>
 </template>
 
 <script setup>
-import { useLoading } from '@/hooks'
-import { useRouterPush } from '@/composables'
-import { ref } from 'vue'
+import { useLoading } from "@/hooks"
+import { useRouterPush } from "@/composables"
+import { ref } from "vue"
 
 const { toLoginModule } = useRouterPush()
 const { loading: isLoading, startLoading, endLoading } = useLoading()
 const isFormValid = ref(false)
-const email = ref('')
+const email = ref("")
 const error = ref(false)
-const errorMessages = ref('')
+const errorMessages = ref("")
 const rules = ref({
-  required: value => !!value || 'Required',
+  required: (value) => !!value || "Required",
 })
 const form = ref()
 
 const submit = () => {
-  form.value?.validate().then(r => {
+  form.value?.validate().then((r) => {
     if (r.valid) {
       startLoading()
       setTimeout(() => {
         endLoading()
-        window.$snackBar?.success('action success')
+        window.$snackBar?.success("action success")
       }, 1000)
     }
   })
 }
 const resetErrors = () => {
   error.value = false
-  errorMessages.value = ''
+  errorMessages.value = ""
 }
 </script>

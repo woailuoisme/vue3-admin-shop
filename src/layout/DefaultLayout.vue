@@ -4,6 +4,10 @@
   </v-main>
 </template>
 
-<script setup name="DefaultLayout"></script>
+<script setup>
+defineOptions({
+  name: "AuthLayout",
+})
+</script>
 
 <style scoped></style>

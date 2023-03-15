@@ -1,9 +1,9 @@
 <template>
   <v-row>
     <v-col cols="12">
-      <v-toolbar :elevation="2" flat>
+      <v-toolbar :elevation="4" density="comfortable" class="align-center">
         <v-btn variant="flat" color="primary" @click.stop="addItem">
-          {{ $t('table.operation.add') }}
+          {{ $t("table.operation.add") }}
         </v-btn>
         <v-spacer />
         <v-text-field
@@ -14,6 +14,17 @@
           single-line
           hide-details
         />
+        <v-divider vertical thickness="2" color="primary" class="mx-2"></v-divider>
+        <div class="mx-4">
+          <v-btn
+            variant="flat"
+            icon="mdi-refresh"
+            :class="{ 'animate-spin': isLoading }"
+            color="info"
+            size="medium"
+            @click="reload"
+          ></v-btn>
+        </div>
       </v-toolbar>
     </v-col>
   </v-row>
@@ -26,10 +37,12 @@
           :loading="isLoading"
           :headers="headers"
           :items="amounts"
+          :hide-footer="isHideFooter"
         >
           <template #item-operation="item">
-            <v-btn color="info" @click.stop="editItem(item)">{{ $t('table.operation.update') }}</v-btn>
-            <v-btn class="mx-3" color="error" @click.stop="deleteItem(item)">{{ $t('table.operation.delete') }}</v-btn>
+            <!--            <v-icon icon="mdi-eye-outline" color="info" size="large"  @click.stop="viewItem(item)"></v-icon> -->
+            <v-icon icon="mdi-square-edit-outline" color="primary" size="large" class="mx-1" @click.stop="editItem(item)"></v-icon>
+            <v-icon icon="mdi-trash-can-outline" color="error" size="large" @click.stop="deleteItem(item)"></v-icon>
           </template>
         </easy-data-table>
       </v-card>
@@ -44,12 +57,12 @@
 </template>
 
 <script setup>
-import DialogConfirm from './components/common/DialogConfirm'
-import Entity from './components/topUpAmount/Entity'
-import { computed, nextTick, onMounted, ref, unref, watch } from 'vue'
-import { storeToRefs } from 'pinia'
-import { useBreadcrumb, useGlobal, useTopUpAmount, useTableHeader } from '@/stores'
-import _ from 'lodash'
+import DialogConfirm from "./components/common/DialogConfirm"
+import Entity from "./components/topUpAmount/Entity"
+import { computed, nextTick, onMounted, ref, unref, watch } from "vue"
+import { storeToRefs } from "pinia"
+import { useBreadcrumb, useGlobal, useTableHeader, useTopUpAmount } from "@/stores"
+import { debounce } from "lodash-es"
 
 const amountStore = useTopUpAmount()
 const globalStore = useGlobal()
@@ -57,27 +70,27 @@ const breadcrumbStore = useBreadcrumb()
 const tableHeaderStore = useTableHeader()
 const headers = computed(() => tableHeaderStore.topUpAmount)
 
-const { amounts, total, isNew, editedItem, editedIndex } = storeToRefs(amountStore)
+const { amounts, total, isNew, editedItem, editedIndex, isHideFooter } = storeToRefs(amountStore)
 const { isLoading } = storeToRefs(globalStore)
 const dialogEntity = ref(false)
 const dialogDelete = ref(false)
 const requestParams = ref({
   page: 1,
   rowsPerPage: 10,
-  sortBy: '',
-  sortType: '',
+  sortBy: "",
+  sortType: "",
 })
-const search = _.debounce(value => amountStore.loadAllAmount(value), 800)
+const search = debounce((value) => amountStore.loadAllAmount(value), 800)
 
 onMounted(() => {
   amountStore.loadAllAmount(unref(requestParams))
 })
 watch(
   requestParams,
-  value => {
+  (value) => {
     search(unref(requestParams))
   },
-  { deep: true }
+  { deep: true },
 )
 
 watch(
@@ -87,8 +100,12 @@ watch(
     newEntry || close()
     newDelete || closeDelete()
   },
-  { deep: true }
+  { deep: true },
 )
+
+function reload() {
+  search(unref(requestParams))
+}
 
 function addItem() {
   dialogEntity.value = true

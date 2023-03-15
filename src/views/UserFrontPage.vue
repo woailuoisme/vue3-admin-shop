@@ -54,10 +54,10 @@
 </template>
 
 <script setup>
-import TableImage from '@/components/table/TableImage'
-import Breadcrumb from '@/components/shared/Breadcrumb'
-import { computed, nextTick, onMounted, ref, watch } from 'vue'
-import { useBreadcrumb, useGlobal, useUser, useProductCategory, useTableHeader } from '@/stores'
+import TableImage from "@/components/table/TableImage"
+import Breadcrumb from "@/components/shared/Breadcrumb"
+import { computed, nextTick, onMounted, ref, watch } from "vue"
+import { useBreadcrumb, useGlobal, useUser, useProductCategory, useTableHeader } from "@/stores"
 
 const userStore = useUser()
 const globalStore = useGlobal()
@@ -83,10 +83,10 @@ let mapProduct
 
 watch(
   requestParams,
-  value => {
+  (value) => {
     userStore.loadAllUsers(requestParams.value._rawValue)
   },
-  { deep: true }
+  { deep: true },
 )
 
 onMounted(() => {

@@ -1,9 +1,9 @@
-import CarouselService from '../api/carousel.service'
-import Toast from '../utils/toast'
+import CarouselService from "../api/carousel.service"
+import Toast from "../utils/toast"
 
-import { defineStore } from 'pinia'
+import { defineStore } from "pinia"
 
-export default defineStore('carousel', {
+export default defineStore("carousel", {
   state: () => ({
     carousels: [],
     meta: {},
@@ -12,12 +12,12 @@ export default defineStore('carousel', {
     editedIndex: -1,
     editedItem: {
       id: -1,
-      order: '',
+      order: "",
       image: null,
     },
     defaultItem: {
       id: -1,
-      order: '',
+      order: "",
       image: null,
     },
   }),
@@ -29,11 +29,11 @@ export default defineStore('carousel', {
     isNew(state) {
       return state.editedIndex === -1
     },
-    findById: state => id => {
-      return state.products.find(p => p.id === id)
+    findById: (state) => (id) => {
+      return state.products.find((p) => p.id === id)
     },
-    findIndexById: state => id => {
-      return state.products.findIndex(p => p.id === id)
+    findIndexById: (state) => (id) => {
+      return state.products.findIndex((p) => p.id === id)
     },
     hasData(state) {
       return !!state.carousels.length
@@ -48,14 +48,14 @@ export default defineStore('carousel', {
   // Actions
   actions: {
     setEditedIndex(id) {
-      this.editedIndex = this.managers.findIndex(user => user.id === id)
+      this.editedIndex = this.managers.findIndex((user) => user.id === id)
     },
     resetEdited() {
       this.editedIndex = -1
       this.editedItem = Object.assign({}, this.defaultItem)
     },
     findAndSetItem(item) {
-      this.editedIndex = this.managers.findIndex(user => user.id === item.id)
+      this.editedIndex = this.managers.findIndex((user) => user.id === item.id)
       this.editedItem = Object.assign({}, item)
     },
 
@@ -83,7 +83,7 @@ export default defineStore('carousel', {
     async updateCarousel(payload) {
       const res = await CarouselService.update(payload)
       const carousel = res.data.data
-      const index = this.carousels.findIndex(p => p.id === carousel.id)
+      const index = this.carousels.findIndex((p) => p.id === carousel.id)
       Object.assign(this.carousels[index], carousel)
       Toast.success(res.data.message)
     },
@@ -91,7 +91,7 @@ export default defineStore('carousel', {
     async deleteCarousel(carouselId) {
       const res = await CarouselService.delete(carouselId)
       if (res.data.success) {
-        const index = this.carousels.findIndex(p => p.id === carouselId)
+        const index = this.carousels.findIndex((p) => p.id === carouselId)
         this.carousels.splice(index, 1)
         Toast.success(res.data.message)
       } else {

@@ -11,7 +11,6 @@
             <v-btn color="primary" v-bind="props">Open Dialog</v-btn>
           </template>
           <v-card>
-            <my-editor />
             <v-card-actions>
               <v-btn variant="flat" color="primary" block @click="dialog = false">Close Dialog</v-btn>
             </v-card-actions>
@@ -126,23 +125,22 @@
 </template>
 
 <script setup>
-import DatePicker from '@/components/shared/DatePicker'
-import DataFilter from '@/components/table/DataFilter'
-import MyEditor from '@/components/myEditor'
-import { getCurrentInstance, onMounted, ref, watch } from 'vue'
-import { useField, useForm } from 'vee-validate'
-import yup from '@/utils/validation'
-import FileSingleImageInput from '@/components/shared/FileSingleImageInput'
-import Dropzone from '@/components/shared/Dropzone'
-import DelayButton from '@/components/shared/DelayButton'
-import FileUpload from '@/components/shared/FileUpload'
-import OTP from '@/components/OTP'
-import InputInteger from '@/components/shared/InputInteger'
+import DatePicker from "@/components/shared/DatePicker"
+import DataFilter from "@/components/table/DataFilter"
+import { getCurrentInstance, onMounted, ref, watch } from "vue"
+import { useField, useForm } from "vee-validate"
+import yup from "@/utils/validation"
+import FileSingleImageInput from "@/components/shared/FileSingleImageInput"
+import Dropzone from "@/components/shared/Dropzone"
+import DelayButton from "@/components/shared/DelayButton"
+import FileUpload from "@/components/shared/FileUpload"
+import OTP from "@/components/OTP"
+import InputInteger from "@/components/shared/InputInteger"
 const newDate = ref(new Date())
 const dialog = ref(false)
 const images = ref([])
 
-watch(images, value => {
+watch(images, (value) => {
   console.log(value)
 })
 
@@ -156,7 +154,7 @@ const model = ref(true)
 const num = ref(1)
 
 let userSchema = yup.object({
-  name: yup.string().required().label('姓名'),
+  name: yup.string().required().label("姓名"),
   phone: yup.string().required(),
   email: yup.string().required(),
   select: yup.string().required(),
@@ -167,27 +165,27 @@ let userSchema = yup.object({
 const { handleSubmit, handleReset, meta } = useForm({
   validationSchema: userSchema,
   initialValues: {
-    name: 'hello',
-    phone: '16620702222',
-    email: 'ailuo@126.com ',
-    select: 'Item 2',
+    name: "hello",
+    phone: "16620702222",
+    email: "ailuo@126.com ",
+    select: "Item 2",
     checkbox: false,
   },
 })
 
-const name = useField('name')
-const phone = useField('phone')
-const email = useField('email')
-const select = useField('select')
-const checkbox = useField('checkbox')
-const image = useField('image')
+const name = useField("name")
+const phone = useField("phone")
+const email = useField("email")
+const select = useField("select")
+const checkbox = useField("checkbox")
+const image = useField("image")
 const singleImage = ref(null)
 
 // name.setValue('1')
 
-const items = ref(['Item 1', 'Item 2', 'Item 3', 'Item 4'])
+const items = ref(["Item 1", "Item 2", "Item 3", "Item 4"])
 const imagesDropzoneOptions = {
-  url: 'https://httpbin.org/post',
+  url: "https://httpbin.org/post",
   thumbnailWidth: 150,
   maxFilesize: 2,
   // acceptedFiles: ".png,.jpg,.gif,.bmp,.jpeg",
@@ -199,14 +197,14 @@ const imagesDropzoneOptions = {
 }
 
 async function afterUploadComplete(response) {
-  if (response.status === 'success') {
-    console.log('upload successful')
+  if (response.status === "success") {
+    console.log("upload successful")
   } else {
-    console.log('upload failed')
+    console.log("upload failed")
   }
 }
 
-const submit = handleSubmit(values => {
+const submit = handleSubmit((values) => {
   // alert(JSON.stringify(values, null, 2))
   console.log(values)
   alert(JSON.stringify(values, null, 2))

@@ -35,12 +35,12 @@
 </template>
 
 <script setup>
-import Breadcrumb from '@/components/shared/Breadcrumb'
-import Details from './components/about/Details'
-import Entity from './components/about/Entity'
-import { computed, nextTick, onMounted, ref, watch } from 'vue'
-import { useBreadcrumb, useAbout, useGlobal, useTableHeader } from '@/stores'
-import { trim } from 'lodash/string'
+import Breadcrumb from "@/components/shared/Breadcrumb"
+import Details from "./components/about/Details"
+import Entity from "./components/about/Entity"
+import { computed, nextTick, onMounted, ref, watch } from "vue"
+import { useBreadcrumb, useAbout, useGlobal, useTableHeader } from "@/stores"
+import { trim } from "lodash-es"
 
 const aboutStore = useAbout()
 const globalStore = useGlobal()
@@ -71,13 +71,13 @@ onMounted(() => {
 
 watch(
   requestParams,
-  value => {
+  (value) => {
     aboutStore.loadAllAbouts(requestParams.value._rawValue)
   },
-  { deep: true }
+  { deep: true },
 )
 
-watch(dialogEntity, val => {
+watch(dialogEntity, (val) => {
   console.log(val)
   val || close()
 })
@@ -88,12 +88,12 @@ function detail(item) {
 }
 
 function typeLabel(value) {
-  if (trim(value) === 'about_us') {
-    return '关于我们'
-  } else if (trim(value) === 'user_agreement') {
-    return '用户协议'
-  } else if (trim(value) === 'privacy_agreement') {
-    return '隐私协议'
+  if (trim(value) === "about_us") {
+    return "关于我们"
+  } else if (trim(value) === "user_agreement") {
+    return "用户协议"
+  } else if (trim(value) === "privacy_agreement") {
+    return "隐私协议"
   }
 }
 

@@ -1,13 +1,13 @@
 export function filterAuthRoutesByUserPermission(routes, permission) {
-  return routes.map(route => filterAuthRouteByUserPermission(route, permission)).flat(1)
+  return routes.map((route) => filterAuthRouteByUserPermission(route, permission)).flat(1)
 }
 
 function filterAuthRouteByUserPermission(route, permission) {
   const filterRoute = { ...route }
-  const hasPermission = !route.meta.permissions || permission === 'admin' || route.meta.permissions.includes(permission)
+  const hasPermission = !route.meta.permissions || permission === "admin" || route.meta.permissions.includes(permission)
 
   if (filterRoute.children) {
-    const filterChildren = filterRoute.children.map(item => filterAuthRouteByUserPermission(item, permission)).flat(1)
+    const filterChildren = filterRoute.children.map((item) => filterAuthRouteByUserPermission(item, permission)).flat(1)
     Object.assign(filterRoute, { children: filterChildren })
   }
   return hasPermission ? [filterRoute] : []
@@ -18,7 +18,7 @@ function filterAuthRouteByUserPermission(route, permission) {
  * @param routes - 固定路由
  */
 export function getConstantRouteNames(routes) {
-  return routes.map(route => getConstantRouteName(route)).flat(1)
+  return routes.map((route) => getConstantRouteName(route)).flat(1)
 }
 
 /**
@@ -28,7 +28,7 @@ export function getConstantRouteNames(routes) {
 function getConstantRouteName(route) {
   const names = [route.name]
   if (route.children.length) {
-    names.push(...route.children.map(item => getConstantRouteName(item)).flat(1))
+    names.push(...route.children.map((item) => getConstantRouteName(item)).flat(1))
   }
   return names
 }
@@ -42,7 +42,7 @@ export function sortRoutes(routes) {
     .sort((next, pre) => {
       return Number(next.meta?.order) - Number(pre.meta?.order)
     })
-    .map(i => {
+    .map((i) => {
       if (i.children) sortRoutes(i.children)
       return i
     })
@@ -55,7 +55,7 @@ export function sortRoutes(routes) {
 export function handleModuleRoutes(modules) {
   const routes = []
 
-  Object.keys(modules).forEach(key => {
+  Object.keys(modules).forEach((key) => {
     const item = modules[key].default
     if (item) {
       routes.push(item)
@@ -73,10 +73,10 @@ export function handleModuleRoutes(modules) {
  */
 export function getCacheRoutes(routes) {
   const cacheNames = []
-  routes.forEach(route => {
+  routes.forEach((route) => {
     // 只需要获取二级路由的缓存的组件名
     if (hasChildren(route)) {
-      route.children.forEach(item => {
+      route.children.forEach((item) => {
         if (isKeepAlive(item)) {
           cacheNames.push(item.name)
         }

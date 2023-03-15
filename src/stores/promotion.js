@@ -1,5 +1,5 @@
-import PromotionService from '@/api/promotion.service'
-import Toast from '@/utils/toast'
+import PromotionService from "@/api/promotion.service"
+import Toast from "@/utils/toast"
 
 export default {
   namespaced: true,
@@ -15,14 +15,14 @@ export default {
       state.singlePromotion = payload
     },
     DELETE_CAROUSEL(state, payload) {
-      const index = state.promotions.findIndex(p => p.id === payload)
+      const index = state.promotions.findIndex((p) => p.id === payload)
       state.promotions.splice(index, 1)
     },
     CREATE_CAROUSEL(state, payload) {
       state.promotions.unshift(payload)
     },
     UPDATE_CAROUSEL(state, payload) {
-      const index = state.promotions.findIndex(p => p.id === payload.id)
+      const index = state.promotions.findIndex((p) => p.id === payload.id)
       Object.assign(state.promotions[index], payload)
     },
   },
@@ -30,13 +30,13 @@ export default {
     async loadAllPromotion({ commit }, payload) {
       const res = await PromotionService.list(payload)
       if (res.data.data) {
-        commit('SET_PROMOTIONS', res.data.data)
+        commit("SET_PROMOTIONS", res.data.data)
       }
     },
     async loadSinglePromotion({ commit }, payload) {
       const res = await PromotionService.show(payload)
       if (res.data.data) {
-        commit('SET_SINGLE_PROMOTION', res.data.data)
+        commit("SET_SINGLE_PROMOTION", res.data.data)
       }
     },
 
@@ -44,7 +44,7 @@ export default {
       const res = await PromotionService.store(payload)
       const carousel = res.data.data
 
-      commit('CREATE_CAROUSEL', carousel)
+      commit("CREATE_CAROUSEL", carousel)
       Toast.success(res.data.message)
       return true
     },
@@ -52,14 +52,14 @@ export default {
     async updatePromotion({ commit }, payload) {
       const res = await PromotionService.update(payload)
       const carousel = res.data.data
-      commit('UPDATE_CAROUSEL', carousel)
+      commit("UPDATE_CAROUSEL", carousel)
       Toast.success(res.data.message)
     },
 
     async deletePromotion({ commit }, carouselId) {
       const res = await PromotionService.delete(carouselId)
       if (res.data.success) {
-        commit('DELETE_CAROUSEL', carouselId)
+        commit("DELETE_CAROUSEL", carouselId)
         Toast.success(res.data.message)
       } else {
         Toast.error(res.data.message)
@@ -73,8 +73,8 @@ export default {
     getPromotions(state) {
       return state.promotions
     },
-    findByOrderId: state => id => {
-      return state.promotions.find(promotion => promotion.id === id)
+    findByOrderId: (state) => (id) => {
+      return state.promotions.find((promotion) => promotion.id === id)
     },
   },
 }

@@ -1,8 +1,8 @@
-import client from '@/api/http.client'
+import client from "@/api/http.client"
 
 class AboutUsService {
   list() {
-    return client.instance().get('/about_us')
+    return client.instance().get("/about_us")
   }
 
   show(id) {
@@ -13,7 +13,7 @@ class AboutUsService {
     const body = {
       content: data.content,
     }
-    return client.instance().post('/about_us', body)
+    return client.instance().post("/about_us", body)
   }
 
   update(data = {}) {

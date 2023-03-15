@@ -1,10 +1,10 @@
-import ProductService from '../api/product.service'
-import Toast from '../utils/toast'
+import ProductService from "../api/product.service"
+import Toast from "../utils/toast"
 
-import { defineStore } from 'pinia'
+import { defineStore } from "pinia"
 
 /** Config Store */
-export default defineStore('product', {
+export default defineStore("product", {
   // Default Config State
   state: () => ({
     products: [],
@@ -13,8 +13,8 @@ export default defineStore('product', {
     editedIndex: -1,
     editedItem: {
       category_id: 0,
-      description: '',
-      content: '',
+      description: "",
+      content: "",
       thumbnail: null,
       sale_price: 1,
       stock: 1,
@@ -22,8 +22,8 @@ export default defineStore('product', {
     },
     defaultItem: {
       category_id: 0,
-      description: '',
-      content: '',
+      description: "",
+      content: "",
       thumbnail: [],
       sale_price: 1,
       stock: 1,
@@ -39,108 +39,95 @@ export default defineStore('product', {
     isNew(state) {
       return state.editedIndex === -1
     },
-    getEditedItem(state) {
-      return state.editedItem
+
+    findById: (state) => (id) => {
+      return state.products.find((p) => p.id === id)
     },
-    getEditedIndex(state) {
-      return state.editedIndex
-    },
-    findById: state => id => {
-      return state.products.find(p => p.id === id)
-    },
-    findIndexById: state => id => {
-      return state.products.findIndex(p => p.id === id)
-    },
-    getProducts(state) {
-      return [...state.products]
+    findIndexById: (state) => (id) => {
+      return state.products.findIndex((p) => p.id === id)
     },
 
-    getProductMerchants(state) {
-      return state.productMerchants
-    },
     hasData(state) {
       return !!state.products.length
     },
     getProduct(state) {
       return { ...state.productInfo }
     },
-    findByProductId: state => id => {
-      return state.products.find(product => product.id === id)
+    findByProductId: (state) => (id) => {
+      return state.products.find((product) => product.id === id)
     },
-    getMeta(state) {
-      return { ...state.meta }
-    },
+
     isDisplayPagination(state) {
       return !!(state.meta && state.meta.last_page && state.meta.last_page > 1)
     },
 
-    getMapProduct: state => id => {
-      let product = state.products.find(product => product.id === id)
+    getMapProduct: (state) => (id) => {
+      let product = state.products.find((product) => product.id === id)
       let mapProductList = []
       Object.keys(product).map(function (key, index) {
         let fb = {}
-        if (key === 'id') {
+        if (key === "id") {
           fb.key = key
-          fb.label = 'ID'
-          fb.value = product['id']
+          fb.label = "ID"
+          fb.value = product["id"]
           mapProductList.push(fb)
         }
-        if (key === 'category') {
+        if (key === "category") {
           fb.key = key
-          fb.label = '产品类别'
-          fb.value = product['category']
+          fb.label = "产品类别"
+          fb.value = product["category"]
           mapProductList.push(fb)
         }
-        if (key === 'description') {
+        if (key === "description") {
           fb.key = key
-          fb.label = '产品描述'
-          fb.value = product['description']
+          fb.label = "产品描述"
+          fb.value = product["description"]
           mapProductList.push(fb)
         }
-        if (key === 'is_sale') {
+        if (key === "is_sale") {
           fb.key = key
-          fb.label = '是否上线'
-          fb.value = product['is_sale']
-          mapProductList.push(fb)
-        }
-
-        if (key === 'thumbnail') {
-          fb.key = key
-          fb.label = '产品封面'
-          fb.value = product['thumbnail']
+          fb.label = "是否上线"
+          fb.value = product["is_sale"]
           mapProductList.push(fb)
         }
 
-        if (key === 'sale_price') {
+        if (key === "thumbnail") {
           fb.key = key
-          fb.label = '销售价格'
-          fb.value = product['sale_price']
-          mapProductList.push(fb)
-        }
-        if (key === 'sale_count') {
-          fb.key = key
-          fb.label = '销售数量'
-          fb.value = product['sale_count']
-          mapProductList.push(fb)
-        }
-        if (key === 'stock') {
-          fb.key = key
-          fb.label = '库存'
-          fb.value = product['stock']
+          fb.label = "产品封面"
+          fb.value = product["thumbnail"]
           mapProductList.push(fb)
         }
 
-        if (key === 'images') {
+        if (key === "sale_price") {
           fb.key = key
-          fb.label = '产品内容图'
-          fb.value = product['images']
+          fb.label = "销售价格"
+          fb.value = product["sale_price"]
+          mapProductList.push(fb)
+        }
+        if (key === "sale_count") {
+          fb.key = key
+          fb.label = "销售数量"
+          fb.value = product["sale_count"]
+          mapProductList.push(fb)
+        }
+        if (key === "stock") {
+          fb.key = key
+          fb.label = "库存"
+          fb.value = product["stock"]
           mapProductList.push(fb)
         }
 
-        if (key === 'created_at') {
+        if (key === "images") {
           fb.key = key
-          fb.label = '创建时间'
-          fb.value = product['created_at']
+          fb.label = "产品内容图"
+          fb.value = product["images"]
+          mapProductList.push(fb)
+        }
+
+        if (key === "created_at") {
+          fb.key = key
+          fb.label = "创建时间"
+          fb.value = product["created_at"]
           mapProductList.push(fb)
         }
       })
@@ -151,15 +138,15 @@ export default defineStore('product', {
   // Actions
   actions: {
     setEditedIndex(id) {
-      this.editedIndex = this.products.findIndex(user => user.id === id)
+      this.editedIndex = this.products.findIndex((user) => user.id === id)
     },
     resetEdited() {
       this.editedIndex = -1
       this.editedItem = Object.assign({}, this.defaultItem)
     },
     findAndSetItem(item) {
-      this.editedIndex = this.products.findIndex(user => user.id === item.id)
-      this.editedItem = Object.assign({}, item)
+      this.editedIndex = this.products.findIndex((p) => p.id === item.id)
+      this.editedItem = Object.assign({}, this.products[this.editedIndex])
     },
 
     async loadAllProducts(payload) {
@@ -176,7 +163,7 @@ export default defineStore('product', {
       const res = await ProductService.toggleSale(payload)
       if (res.data.data) {
         const product = res.data.data
-        const index = this.products.findIndex(p => p.id === payload.id)
+        const index = this.products.findIndex((p) => p.id === payload.id)
         this.products[index] = Object.assign({}, product)
         Toast.success(res.data.message)
       }
@@ -201,7 +188,7 @@ export default defineStore('product', {
     },
 
     async updateProduct(payload) {
-      const index = this.products.findIndex(p => p.id === payload.id)
+      const index = this.products.findIndex((p) => p.id === payload.id)
       this.editedIndex = index
       this.editedItem = Object.assign({}, this.products[index])
       const res = await ProductService.update(payload)
@@ -214,7 +201,7 @@ export default defineStore('product', {
     },
 
     async deleteProduct(productId) {
-      const index = this.products.findIndex(p => p.id === productId)
+      const index = this.products.findIndex((p) => p.id === productId)
       const res = await ProductService.delete(productId)
       if (res.data.success) {
         this.products.splice(index, 1)

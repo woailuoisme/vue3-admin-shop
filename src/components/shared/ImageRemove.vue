@@ -28,19 +28,19 @@
 </template>
 
 <script setup>
-import errImg from '@/assets/image/default_image_1.png'
-import { defineProps, defineEmits, ref } from 'vue'
+import errImg from "@/assets/image/default_image_1.png"
+import { defineProps, defineEmits, ref } from "vue"
 
 const props = defineProps({
   url: String,
 })
 
-const emit = defineEmits(['delete'])
+const emit = defineEmits(["delete"])
 // const imageUrl = ref(props.url)
 
-const deleteImage = url => {
-  console.log('delete', url)
-  emit('delete')
+const deleteImage = (url) => {
+  console.log("delete", url)
+  emit("delete")
 }
 
 function load() {

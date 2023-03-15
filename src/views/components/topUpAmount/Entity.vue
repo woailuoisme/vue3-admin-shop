@@ -2,7 +2,7 @@
   <v-form @submit.prevent="submit">
     <v-card>
       <v-card-title class="text-center">
-        <span class="text-h5">{{ isNew ? $t('form.title.add') : $t('form.title.edit') }}</span>
+        <span class="text-h5">{{ isNew ? $t("form.title.add") : $t("form.title.edit") }}</span>
       </v-card-title>
       <v-divider />
       <v-card-text>
@@ -34,9 +34,9 @@
       <v-divider :thickness="2" />
       <v-card-actions class="py-4">
         <v-spacer />
-        <v-btn variant="flat" color="secondary" size="large" @click="close">{{ $t('form.cancel') }}</v-btn>
+        <v-btn variant="flat" color="secondary" size="large" @click="close">{{ $t("form.cancel") }}</v-btn>
         <v-spacer />
-        <v-btn variant="flat" :disabled="!meta.valid" color="success" size="large" type="submit">{{ $t('form.save') }}</v-btn>
+        <v-btn variant="flat" :disabled="!meta.valid" color="success" size="large" type="submit">{{ $t("form.save") }}</v-btn>
         <v-spacer />
       </v-card-actions>
     </v-card>
@@ -44,9 +44,9 @@
 </template>
 
 <script setup>
-import { defineEmits, defineProps, reactive } from 'vue'
-import { useField, useForm } from 'vee-validate'
-import yup from '@/utils/validation'
+import { defineEmits, defineProps, reactive } from "vue"
+import { useField, useForm } from "vee-validate"
+import yup from "@/utils/validation"
 
 const props = defineProps({
   isNew: {
@@ -64,13 +64,13 @@ const props = defineProps({
     },
   },
 })
-const emit = defineEmits(['save', 'close'])
+const emit = defineEmits(["save", "close"])
 
 const editedItem = reactive(props.item)
 
 const validationSchema = yup.object({
-  amount: yup.number().integer().required().min(1).label('金额'),
-  integral: yup.number().integer().required().min(1).label('积分'),
+  amount: yup.number().integer().required().min(1).label("金额"),
+  integral: yup.number().integer().required().min(1).label("积分"),
 })
 
 const { handleSubmit, meta, submitCount } = useForm({
@@ -82,15 +82,15 @@ const { handleSubmit, meta, submitCount } = useForm({
   validateOnMount: true,
 })
 
-const amount = useField('amount')
-const integral = useField('integral')
+const amount = useField("amount")
+const integral = useField("integral")
 
-const submit = handleSubmit(values => {
-  emit('save', values)
+const submit = handleSubmit((values) => {
+  emit("save", values)
 })
 
 function close() {
-  emit('close')
+  emit("close")
 }
 </script>
 

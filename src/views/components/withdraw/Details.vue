@@ -26,7 +26,7 @@
 </template>
 
 <script setup>
-import { defineProps, defineEmits } from 'vue'
+import { defineProps, defineEmits } from "vue"
 
 const props = defineProps({
   withdraw: {
@@ -36,10 +36,10 @@ const props = defineProps({
   },
 })
 
-const emit = defineEmits(['update:modelValue', 'close'])
+const emit = defineEmits(["update:modelValue", "close"])
 
 function close() {
-  emit('close')
+  emit("close")
 }
 </script>
 

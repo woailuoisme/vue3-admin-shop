@@ -28,22 +28,22 @@
 </template>
 
 <script setup>
-import { defineProps, defineEmits, ref, reactive } from 'vue'
-import validators from '@/utils/validators'
+import { defineProps, defineEmits, ref, reactive } from "vue"
+import validators from "@/utils/validators"
 
 const props = defineProps({
   item: {
     type: Object,
     default: () => {
       return {
-        no: '',
-        company: '',
+        no: "",
+        company: "",
       }
     },
   },
 })
 
-const emit = defineEmits(['update'])
+const emit = defineEmits(["update"])
 
 const editedItem = ref(props.item)
 

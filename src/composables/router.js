@@ -1,6 +1,6 @@
-import { useRouter } from 'vue-router'
-import { RouteLocationRaw } from 'vue-router'
-import globalRouter from '@/router'
+import { useRouter } from "vue-router"
+import { RouteLocationRaw } from "vue-router"
+import globalRouter from "@/router"
 
 /**
  * 路由跳转
@@ -18,7 +18,7 @@ export function useRouterPush(inSetup = true) {
   function routerPush(to, newTab = false) {
     if (newTab) {
       const routerData = router.resolve(to)
-      window.open(routerData.href, '_blank')
+      window.open(routerData.href, "_blank")
     } else {
       router.push(to)
     }
@@ -34,13 +34,13 @@ export function useRouterPush(inSetup = true) {
    * @param newTab - 在新的浏览器标签打开
    */
   function toHome(newTab = false) {
-    routerPush({ name: 'root' }, newTab)
+    routerPush({ name: "root" }, newTab)
   }
 
   function toLogin(loginModule, redirectUrl) {
-    const module = loginModule === 'login' || loginModule === 'sign-in'
+    const module = loginModule === "login" || loginModule === "sign-in"
     const routeLocation = {
-      name: 'login',
+      name: "login",
       params: { module },
     }
     const redirect = redirectUrl || route.value.fullPath
@@ -50,7 +50,7 @@ export function useRouterPush(inSetup = true) {
 
   function toLoginModule(module) {
     const { query } = route.value
-    routerPush({ name: 'login', params: { module }, query })
+    routerPush({ name: "login", params: { module }, query })
   }
 
   function toLoginRedirect() {

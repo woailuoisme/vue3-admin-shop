@@ -1,7 +1,7 @@
 <template>
   <v-card>
     <v-card-title>
-      <span class="text-h5">{{ isNew ? '新增' : '编辑' }}</span>
+      <span class="text-h5">{{ isNew ? "新增" : "编辑" }}</span>
     </v-card-title>
     <v-card-text>
       <v-container>
@@ -47,7 +47,12 @@
               />
             </v-col>
             <v-col cols="3">
-              <v-switch v-model="editedItem.is_sale" color="primary" inset :label="`是否上线？答：${saleLabel(editedItem.is_sale)}`" />
+              <v-switch
+                v-model="editedItem.is_sale"
+                color="primary"
+                inset
+                :label="`是否上线？答：${$filter.saleLabel(editedItem.is_sale)}`"
+              />
             </v-col>
 
             <v-col cols="3">
@@ -67,7 +72,7 @@
           <v-row>
             <v-col cols="12">
               <div class="title">产品内容</div>
-              <my-editor v-model="editedItem.content" :rules="[rule.required('产品内容')]" img-upload-url="http://localhost/" />
+              <!--              <my-editor v-model="editedItem.content" :rules="[rule.required('产品内容')]" img-upload-url="http://localhost/" /> -->
             </v-col>
           </v-row>
           <v-row>
@@ -133,11 +138,9 @@
 </template>
 
 <script setup>
-import defaultImage from '@/assets/image/default_image_1.png'
-import { defineEmits, defineProps, reactive, ref } from 'vue'
-import { saleLabel } from '@/utils/table'
-import validators from '@/utils/validators'
-import MyEditor from '@/components/myEditor'
+import defaultImage from "@/assets/image/default_image_1.png"
+import { defineEmits, defineProps, reactive, ref } from "vue"
+import validators from "@/utils/validators"
 
 const props = defineProps({
   isNew: {
@@ -154,12 +157,12 @@ const props = defineProps({
     required: true,
   },
 })
-const emit = defineEmits(['save', 'close'])
+const emit = defineEmits(["save", "close"])
 const valid = ref(false)
 const editedItem = reactive(props.item)
 const rule = reactive({ ...validators })
 const imagesDropzoneOptions = {
-  url: 'https://httpbin.org/post',
+  url: "https://httpbin.org/post",
   thumbnailWidth: 150,
   maxFilesize: 2,
   // acceptedFiles: ".png,.jpg,.gif,.bmp,.jpeg",
@@ -171,30 +174,30 @@ const imagesDropzoneOptions = {
 }
 
 async function afterUploadComplete(response) {
-  if (response.status === 'success') {
-    console.log('upload successful')
+  if (response.status === "success") {
+    console.log("upload successful")
   } else {
-    console.log('upload failed')
+    console.log("upload failed")
   }
 }
 
 async function mediaUpload(blobInfo, success, failure) {
   let data = new FormData()
-  data.append('image', blobInfo.blob(), blobInfo.filename())
+  data.append("image", blobInfo.blob(), blobInfo.filename())
   try {
     // const res = await api().post('/common/media_upload', data)
     // success(res.data.data)
   } catch (err) {
-    failure('HTTP Error: ' + err.message)
+    failure("HTTP Error: " + err.message)
   }
 }
 
 function save(value) {
-  emit('save', value)
+  emit("save", value)
 }
 
 function close() {
-  emit('close')
+  emit("close")
 }
 </script>
 
