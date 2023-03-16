@@ -3,7 +3,8 @@ import Toast from "@/utils/toast"
 import router from "@/router"
 import { useGlobal, useAuth } from "@/stores"
 import NProgress from "nprogress"
-import storage from "@/utils/storage"
+import { useLocalStorage } from "@/utils"
+const storage = useLocalStorage()
 
 class HttpClient {
   instance(auth = true, withFile = false) {
@@ -26,6 +27,7 @@ class HttpClient {
       headers: headers,
       timeout: 50000,
     })
+
     client.interceptors.request.use(
       (config) => {
         // NProgress.start()

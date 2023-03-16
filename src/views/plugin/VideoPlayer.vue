@@ -9,9 +9,10 @@
 <script setup lang="ts">
 import { onMounted, onUnmounted, ref } from "vue"
 import Player from "xgplayer"
-
-const domRef = ref<HTMLElement>()
-const player = ref<Player>()
+//HTMLElement
+const domRef = ref()
+//Player
+const player = ref()
 
 function renderXgPlayer() {
   if (!domRef.value) return

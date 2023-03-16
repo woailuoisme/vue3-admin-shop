@@ -17,6 +17,8 @@ import Layouts from "vite-plugin-vue-layouts";
 import {FileSystemIconLoader} from "unplugin-icons/loaders";
 import {createSvgIconsPlugin} from 'vite-plugin-svg-icons';
 import vueJsx from '@vitejs/plugin-vue-jsx'
+import zipPack from "vite-plugin-zip-pack";
+import VueMacros from 'unplugin-vue-macros/vite';
 
 export default function unplugin(mode) {
   const {VITE_ICON_PREFIX,VITE_APP_NAME} = loadEnv(mode, process.cwd());
@@ -29,12 +31,12 @@ export default function unplugin(mode) {
   const collectionName = 'local';
 
   return [
+    VueMacros({}),
     vue({
       template: { transformAssetUrls },
     }),
     VueSetupExtend(),
     Components({
-
       dirs: ['src/components'],
       extensions: ['vue'],
       types: [{ from: 'vue-router', names: ['RouterLink', 'RouterView'] }],
@@ -82,7 +84,6 @@ export default function unplugin(mode) {
        }
       ],
       // dirs: [`${srcPath}/plugins`, `${srcPath}/filters`, `${srcPath}/store/**`, `${srcPath}/router`,
-      //   `${srcPath}/views`,`${srcPath}/components`,
       // ],
       dirs:['src'],
       resolvers: [
@@ -141,6 +142,7 @@ export default function unplugin(mode) {
       },
     }),
     vueJsx({optimize: false, enableObjectSlots: true}),
+    zipPack()
 
   ];
 }

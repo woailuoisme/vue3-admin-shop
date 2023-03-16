@@ -5,7 +5,25 @@
         <v-toolbar flat>
           <v-toolbar-title>提现管理</v-toolbar-title>
           <v-spacer />
-          <v-text-field v-model="requestParams.keyword" append-icon="mdi-magnify" placeholder="姓名" single-line hide-details solo />
+          <v-text-field
+            v-model="requestParams.keyword"
+            variant="outlined"
+            prepend-inner-icon="mdi-magnify"
+            :placeholder="$t('table.search.keyword')"
+            single-line
+            hide-details
+          />
+          <v-divider vertical thickness="2" color="primary" class="mx-2"></v-divider>
+
+          <v-btn
+            class="ma-4"
+            variant="flat"
+            icon="mdi-refresh"
+            :class="{ 'animate-spin': loading }"
+            color="info"
+            size="medium"
+            @click="reload"
+          ></v-btn>
         </v-toolbar>
       </v-card>
     </v-col>
@@ -39,10 +57,10 @@
 </template>
 
 <script setup>
-import Breadcrumb from "@/components/shared/Breadcrumb"
 import Details from "./components/withdraw/Details"
-import { computed, nextTick, onMounted, ref, watch } from "vue"
+import { computed, nextTick, onMounted, ref, unref, watch } from "vue"
 import { useBreadcrumb, useGlobal, useWithdraw, useTableHeader } from "@/stores"
+import { debounce } from "lodash-es"
 
 const withdrawStore = useWithdraw()
 const globalStore = useGlobal()
@@ -65,19 +83,22 @@ let mapWithdraw
 const requestParams = ref({
   page: 1,
   rowsPerPage: 10,
-  keyword: "",
+  sortBy: "",
+  sortType: "",
 })
+
+const search = debounce((value) => withdrawStore.loadAllWithdraws(value), 800)
 let mapCategory
 
 onMounted(() => {
   console.log("onMounted")
-  withdrawStore.loadAllWithdraws(requestParams.value._rawValue)
+  withdrawStore.loadAllWithdraws(unref(requestParams))
 })
 
 watch(
   requestParams,
   (value) => {
-    withdrawStore.loadAllWithdraws(requestParams.value._rawValue)
+    search(unref(requestParams))
   },
   { deep: true },
 )
@@ -86,6 +107,10 @@ watch(dialogEntity, (val) => {
   console.log(val)
   val || close()
 })
+
+function reload() {
+  search(unref(requestParams))
+}
 
 function isShow(item) {
   if (item.status === "pending") {

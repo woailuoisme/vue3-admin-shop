@@ -1,10 +1,9 @@
-// import TopUpAmountService from "@/api/topup.amount.service"
-import { topUpAmountRequest } from "@/api"
+import { topUpAmountService } from "@/api"
 import { defineStore } from "pinia"
 import Toast from "@/utils/toast"
 import i18n from "@/plugins/i18n"
 const { t } = i18n.global
-const { list, store, show, update, remove } = topUpAmountRequest()
+const { list, store, show, update, remove } = topUpAmountService()
 export default defineStore("top-up-amount", {
   state: () => ({
     amounts: [],

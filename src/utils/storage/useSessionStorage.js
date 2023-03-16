@@ -1,6 +1,6 @@
 import { decrypto, encrypto } from "@/utils"
 
-function createSessionStorage() {
+export function useSessionStorage() {
   function set(key, value) {
     const json = encrypto(value)
     sessionStorage.setItem(key, json)
@@ -31,5 +31,3 @@ function createSessionStorage() {
     clear,
   }
 }
-
-export const sessionStg = createSessionStorage()

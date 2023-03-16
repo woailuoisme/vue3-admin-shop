@@ -1,2 +1,2 @@
-export * from "./local"
-export * from "./session"
+export * from "./useSessionStorage"
+export * from "./useLocalStorage"

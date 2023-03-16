@@ -12,7 +12,7 @@ import compress from './compress';
 import {loadEnv} from "vite";
 
 export function setupVitePlugins(mode) {
-  const plugins = [ vueJsx({optimize: false, enableObjectSlots: true}), DefineOptions(), ...unplugin(mode)];
+  const plugins = [ vueJsx({optimize: false, enableObjectSlots: true}), DefineOptions({include: [/\.vue$/, /\.vue\?vue/],}), ...unplugin(mode)];
   const viteEnv = loadEnv(mode, process.cwd())
   const {VITE_VISUALIZER,VITE_COMPRESS,VITE_PWA,VITE_VERCEL} = loadEnv(mode, process.cwd());
 

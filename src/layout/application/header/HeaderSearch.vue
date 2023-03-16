@@ -14,8 +14,8 @@
     @update:modelValue="searchSelect"
   >
     <template #item="{ props, item }">
-      <v-list-item v-bind="props" :prepend-avatar="item?.raw?.avatar" :title="item?.raw?.name" :subtitle="item?.raw?.group"></v-list-item>
-      <v-divider></v-divider>
+      <v-list-item v-bind="props" :to="item.path" prepend-icon="mdi-arrow-forward" :title="item.title" :subtitle="item.name"></v-list-item>
+      <v-divider thickness="6" inset></v-divider>
     </template>
   </v-autocomplete>
 </template>

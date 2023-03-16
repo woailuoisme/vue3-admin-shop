@@ -13,6 +13,15 @@
             hide-details
             solo
           />
+          <v-btn
+            class="ma-4"
+            variant="flat"
+            icon="mdi-refresh"
+            :class="{ 'animate-spin': loading }"
+            color="info"
+            size="medium"
+            @click="reload"
+          ></v-btn>
         </v-toolbar>
       </v-card>
     </v-col>
@@ -60,11 +69,10 @@
 </template>
 
 <script setup>
-import Breadcrumb from "@/components/shared/Breadcrumb"
 import TextTooltip from "@/components/table/TextTooltip"
-// import DialogDetails from './components/refund/D'
-import { computed, nextTick, onMounted, ref, watch } from "vue"
+import { computed, nextTick, onMounted, ref, unref, watch } from "vue"
 import { useBreadcrumb, useGlobal, useRefund, useTableHeader } from "@/stores"
+import { debounce } from "lodash-es"
 
 const refundStore = useRefund()
 const globalStore = useGlobal()
@@ -86,18 +94,20 @@ let mapRefund = []
 const requestParams = ref({
   page: 1,
   rowsPerPage: 10,
-  keyword: "",
+  sortBy: "",
+  sortType: "",
 })
+const search = debounce((value) => refundStore.loadAllRefunds(value), 800)
 
 onMounted(() => {
   console.log("onMounted")
-  refundStore.loadAllRefunds(requestParams.value._rawValue)
+  refundStore.loadAllRefunds(unref(requestParams))
 })
 
 watch(
   requestParams,
   (value) => {
-    refundStore.loadAllRefunds(requestParams.value._rawValue)
+    search(unref(requestParams))
   },
   { deep: true },
 )
@@ -106,6 +116,10 @@ watch(dialogEntity, (val) => {
   console.log(val)
   val || close()
 })
+
+function reload() {
+  search(unref(requestParams))
+}
 
 function isShow(item) {
   if (item.status === "pending") {

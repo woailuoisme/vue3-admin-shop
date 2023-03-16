@@ -2,7 +2,9 @@ import { defineStore } from "pinia"
 import AuthService from "../api/auth.service"
 import toast from "../utils/toast"
 import router from "@/router"
-import storage from "@/utils/storage"
+import { useLocalStorage } from "@/utils"
+
+const storage = useLocalStorage()
 
 export default defineStore("auth", {
   state: () => ({

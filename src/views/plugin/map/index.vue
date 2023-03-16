@@ -11,7 +11,7 @@
 </template>
 
 <script setup lang="ts">
-import type { Component } from "vue"
+import { Component } from "vue"
 import { BaiduMap, GaodeMap, TencentMap } from "./components"
 
 interface Map {

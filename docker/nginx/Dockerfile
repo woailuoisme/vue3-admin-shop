@@ -1,4 +1,5 @@
 FROM nginx:alpine
+#docker pull fholzer/nginx-brotli:latest
 
 ARG CHANGE_SOURCE=false
 RUN if [ ${CHANGE_SOURCE} = true ]; then \

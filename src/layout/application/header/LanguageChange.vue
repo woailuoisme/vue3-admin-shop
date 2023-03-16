@@ -31,7 +31,6 @@ defineProps({
     type: Boolean,
     default: false,
   },
-  // Show the country label
   showLabel: {
     type: Boolean,
     default: true,
@@ -51,6 +50,7 @@ const availableLocales = computed(() => {
 })
 
 const setLocale = (use) => {
+  console.log("current language:", use)
   locale.value = use
 }
 </script>

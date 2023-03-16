@@ -4,6 +4,7 @@ module.exports = {
     node: true,
     browser: true,
     es2021: true,
+    "vue/setup-compiler-macros": true,
   },
   plugins: ["vue"],
   parser: "vue-eslint-parser",

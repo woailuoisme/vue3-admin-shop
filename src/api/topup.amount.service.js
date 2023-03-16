@@ -1,22 +1,17 @@
 import request from "./http.client"
+import { getBaseFilterParams } from "@/utils"
 
-class TopUpAmountService {
-  list(data) {
-    console.log(data)
-    let params = {}
-    if (data?.page) params.page = data?.page
-    if (data?.rowsPerPage) params.per_page = data?.rowsPerPage
-    if (data?.sortBy) params.sortBy = data.sortBy
-    if (data?.sortType) params.sortType = data.sortType
-    if (data?.keyword) params.keyword = data.keyword
+export const topUpAmountService = () => {
+  function list(data) {
+    const params = getBaseFilterParams(data)
     return request.instance().get("/top_up_amount", { params })
   }
 
-  show(id) {
+  function show(id) {
     return request.instance().get(`/top_up_amount/${id}`)
   }
 
-  store(data) {
+  function store(data) {
     let body = {
       integral: data?.integral,
       amount: data?.amount,
@@ -24,7 +19,7 @@ class TopUpAmountService {
     return request.instance().post(`/top_up_amount`, body)
   }
 
-  update(data) {
+  function update(data) {
     let body = {
       integral: data?.integral,
       amount: data?.amount,
@@ -32,7 +27,7 @@ class TopUpAmountService {
     return request.instance().put(`/top_up_amount/${data?.id}`, body)
   }
 
-  delete(id) {
+  function remove(id) {
     const body = {
       ids: [id],
     }
@@ -40,6 +35,6 @@ class TopUpAmountService {
       data: body,
     })
   }
-}
 
-export default new TopUpAmountService()
+  return { list, show, store, update, remove }
+}

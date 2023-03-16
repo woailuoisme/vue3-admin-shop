@@ -1,12 +1,9 @@
 import { decrypto, encrypto } from "@/utils"
 
-class CreateLocalStorage {
-  // DEFAULT_CACHE_TIME = 60 * 60 * 24 * 7
-  constructor() {
-    this.DEFAULT_CACHE_TIME = 60 * 60 * 24 * 7
-  }
+export function useLocalStorage() {
+  const DEFAULT_CACHE_TIME = 60 * 60 * 24 * 7
 
-  set(key, value, expire = this.DEFAULT_CACHE_TIME) {
+  function set(key, value, expire = DEFAULT_CACHE_TIME) {
     const storageData = {
       value,
       expire: expire ? new Date().getTime() + expire * 1000 : null,
@@ -15,7 +12,7 @@ class CreateLocalStorage {
     window.localStorage.setItem(key, json)
   }
 
-  get(key) {
+  function get(key) {
     const json = window.localStorage.getItem(key)
     if (json) {
       let storageData
@@ -37,13 +34,19 @@ class CreateLocalStorage {
     return null
   }
 
-  remove(key) {
+  function remove(key) {
     window.localStorage.removeItem(key)
   }
 
-  clear() {
+  function clear() {
     window.localStorage.clear()
   }
-}
 
-export default new CreateLocalStorage()
+  return {
+    set,
+    get,
+    remove,
+    clear,
+    DEFAULT_CACHE_TIME,
+  }
+}

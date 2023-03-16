@@ -1,6 +1,4 @@
-// import path from 'path';
-const path = require('path')
-
+import path from 'path';
 /**
  * 获取项目根路径
  * @descrition 末尾不带斜杠

@@ -15,16 +15,15 @@
           hide-details
         />
         <v-divider vertical thickness="2" color="primary" class="mx-2"></v-divider>
-        <div class="mx-4">
-          <v-btn
-            variant="flat"
-            icon="mdi-refresh"
-            :class="{ 'animate-spin': isLoading }"
-            color="info"
-            size="medium"
-            @click="reload"
-          ></v-btn>
-        </div>
+        <v-btn
+          class="ma-4"
+          variant="flat"
+          icon="mdi-refresh"
+          :class="{ 'animate-spin': isLoading }"
+          color="info"
+          size="medium"
+          @click="reload"
+        ></v-btn>
       </v-toolbar>
     </v-col>
   </v-row>
