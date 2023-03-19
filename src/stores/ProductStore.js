@@ -213,7 +213,6 @@ export default defineStore("product", {
 
     // async deleteMultiProduct(productIds) {
     //   const res = await ProductService.deleteMultiple(productIds)
-    //   debugger
     //   if (res.data.success) {
     //     const index = this.products.findIndex((p) => p.id === payload.product_id)
     //     const imageIndex = this.products[index].images.findIndex((p) => p.id === payload.id)

@@ -1,6 +1,218 @@
+usermenu:
+  notSignin: 未登录
+  profile: 个人资料
+  signin: 登入
+  signout: 登出
+  dashboard: 仪表板
+cms: 内容管理
+utility:
+  maintenance: 维护中
+error:
+  other: 发生错误
+  notfound: 网页未找到
+locale:
+  ru: Russian
+  en: English
+login:
+  button: 登入
+  noaccount: 还没有帐号？
+  password: 密码
+  orsign: 或使用登录
+  create: 在此处创建一个
+  error: 电子邮件/密码组合无效
+  forgot: 忘记密码？
+  title: 登入
+  email: 电子邮件
+common:
+  add: 加
+  cancel: 取消
+  confirm: 确认
+  contact: 联系我们
+  faq: 常问问题
+  save: 保存
+  description: 描述
+  tos: 服务条款
+  title: 标题
+  delete: 删除
+  policy: 隐私政策
+ecommerce:
+  about: 关于这个项目
+  description: 描述
+  discount: 折扣
+  cart: 大车
+  products: 产品展示
+  customerReviews: 顾客评论
+  search: 搜索产品
+  total: 总
+  buyNow: 立即购买
+  freeShipping: 免费送货
+  reviews: 评论
+  shipping: 运输
+  collections: 馆藏
+  continue: 继续购物
+  price: 价钱
+  addToCart: 添加到购物车
+  details: 产品详情
+  inStock: 有现货
+  up: 及以上
+  brand: 牌
+  checkout: 查看
+  results: 结果（{0}，共{1}）
+  summary: 订单摘要
+  quantity: 数量
+  filters: 筛选器
+  subtotal: 小计
+  orders: 订单
+  priceRange: 价格范围
+faq:
+  call: 还有其他问题吗？请伸出手
+welcomeBack: 欢迎回来
+$vuetify:
+  calendar:
+    moreEvents: 还有{0}个
+  dataIterator:
+    loadingText: 正在载入项目...
+    noResultsText: 未找到匹配的记录
+  badge: 徽章
+  dataFooter:
+    firstPage: 第一页
+    lastPage: 最后一页
+    nextPage: 下一页
+    pageText: "{2}中的{0}-{1}"
+    prevPage: 上一页
+    itemsPerPageAll: 所有
+    itemsPerPageText: 每页项目：
+  pagination:
+    ariaLabel:
+      next: 下一页
+      previous: 上一页
+      wrapper: 分页导航
+      page: 转到页面{0}
+      currentPage: 当前页，第{0}页
+  timePicker:
+    am: AM
+    pm: PM
+  dataTable:
+    sortBy: 排序方式
+    itemsPerPageText: 每页行数：
+    ariaLabel:
+      sortDescending: 降序排列。
+      sortAscending: 升序排列。
+      activateAscending: 激活以升序排序。
+      activateDescending: 激活以降序排列。
+      activateNone: 激活以删除排序。
+      sortNone: 未排序。
+  datePicker:
+    itemsSelected: 已选择{0}
+    prevMonthAriaLabel: 前一个月
+    nextYearAriaLabel: 明年
+    prevYearAriaLabel: 前一年
+    nextMonthAriaLabel: 下个月
+  carousel:
+    next: 下一个视觉
+    prev: 以前的视觉
+    ariaLabel:
+      delimiter: "{1}的轮播幻灯片{0}"
+  fileInput:
+    counterSize: "{0}个文件（共{1}个）"
+    counter: "{0}个文件"
+  close: 关
+  noDataText: 无可用数据
+dashboard:
+  viewReport: 查看报告
+  tickets: 支持票
+  activity: 活动信息
+  sources: 流量来源
+  recentOrders: 最近的订单
+  lastweek: 与上周
+  orders: 订单
+  weeklySales: 每周销售
+  customers: 顾客
+  sales: 营业额
+email:
+  emptyList: 空的电子邮件清单
+  starred: 已加星标
+  compose: 编写邮件
+  subject: 学科
+  work: 工作
+  drafts: 草稿
+  invoice: 发票
+  inbox: 收件箱
+  send: 发送
+  sent: 已发送
+  labels: 标签
+  trash: 垃圾
+table:
+  search:
+    keyword: 关键字
+  operation:
+    add: 新增
+    view: 查看
+    update: 修改
+    delete: 删除
 nav:
   about: 关于
   home: 主页
+check:
+  button: 设置新密码并登录
+  backtosign: 返回登录
+  verifyemail: 正在验证电子邮件地址...
+  verifylink: 正在验证链接...
+  error: 动作链接无效
+  newpassword: 新密码
+  title: 设置新密码
+  emailverified: 电子邮件已验证！重定向中...
+menu:
+  usersList: 清单
+  blank: 空白页
+  authForgot: 忘记密码
+  utilityHelp: 常见问题/帮助
+  auth: 验证页面
+  ecommerceList: 产品展示
+  utilitySoon: 快来了
+  authRegister: 注册/注册
+  errorUnexpected: 意想不到的/ 500
+  ecommerceOrders: 订单
+  feedback: 反馈
+  authReset: 重设密码
+  ecommerceProductDetails: 产品详情
+  levels2-1: 级别2.1
+  logout: 登出
+  search: 搜索（按“ Ctrl + /”进行聚焦）
+  pages: 页数
+  docs: 文献资料
+  ecommerce: 电子商务
+  disabled: 菜单已禁用
+  chat-channel: 聊天频道
+  levels3-2: 级别3.2
+  levels2-2: 级别2.2
+  levels3-1: 级别3.1
+  dashboard: 仪表板
+  email: 电子邮件
+  others: 其他
+  apps: apps
+  authLogin: 登录/登录
+  landingPage: 登陆页面
+  profile: 个人资料
+  pricingPage: 定价页面
+  users: 用户数
+  todo: 去做
+  authVerify: 验证邮件
+  errorNotFound: 找不到/ 404
+  ecommerceCart: 大车
+  usersEdit: 编辑
+  utilityPages: 实用页面
+  chat: 聊天室
+  errorPages: 错误页面
+  utilityMaintenance: 保养
+  support: 支持
+  board: 任务板
+  levels: 菜单级别
+todo:
+  completed: 已完成
+  tasks: 任务
+  addTask: 添加任务
+  labels: 标签
 breadcrumb:
   dashboard: 仪表盘
   home: 主页
@@ -16,250 +228,40 @@ form:
   title:
     add: 新增
     edit: 编辑
+chat:
+  channel: 频道|频道
+  online: 在线用户（{count}）
+  addChannel: 添加频道
+  message: 信息
 response:
   success: 数据响应成功
   failed: 数据响应失败
-cms: 内容管理
-locale:
-  ru: Russian
-  en: English
-table:
-  search:
-    keyword: 关键字
-  operation:
-    add: 新增
-    view: 查看
-    update: 修改
-    delete: 删除
-
-welcomeBack: 欢迎回来
-common:
-  add: 加
-  confirm: 确认
-  cancel: 取消
-  description: 描述
-  delete: 删除
-  title: 标题
-  save: 保存
-  faq: 常问问题
-  contact: 联系我们
-  tos: 服务条款
-  policy: 隐私政策
-board:
-  titlePlaceholder: 输入此卡的标题
-  deleteDescription: 您确定要删除此卡吗？
-  editCard: 编辑卡
-  deleteCard: 删除卡
-  state:
-    TODO: 去做
-    INPROGRESS: 进行中
-    TESTING: 测试中
-    DONE: 完成
-chat:
-  online: "在线用户（{count}）"
-  addChannel: 添加频道
-  channel: 频道|频道
-  message: 信息
-email:
-  compose: 编写邮件
-  send: 发送
-  subject: 学科
-  labels: 标签
-  emptyList: 空的电子邮件清单
-  inbox: 收件箱
-  sent: 已发送
-  drafts: 草稿
-  starred: 已加星标
-  trash: 垃圾
-  work: 工作
-  invoice: 发票
-todo:
-  addTask: 添加任务
-  tasks: 任务
-  completed: 已完成
-  labels: 标签
-dashboard:
-  activity: 活动
-  weeklySales: 每周销售
-  sales: 营业额
-  recentOrders: 最近的订单
-  sources: 流量来源
-  lastweek: 与上周
-  orders: 订单
-  customers: 顾客
-  tickets: 支持票
-  viewReport: 查看报告
-usermenu:
-  profile: 个人资料
-  signin: 登入
-  dashboard: 仪表板
-  signout: 登出
-  notSignin: 未登录
-error:
-  notfound: 网页未找到
-  other: 发生错误
-check:
-  title: 设置新密码
-  backtosign: 返回登录
-  newpassword: 新密码
-  button: 设置新密码并登录
-  error: 动作链接无效
-  verifylink: 正在验证链接...
-  verifyemail: 正在验证电子邮件地址...
-  emailverified: 电子邮件已验证！重定向中...
 forgot:
-  title: 忘记密码？
-  subtitle: 输入您的帐户电子邮件地址，我们将向您发送一个链接以重置密码。
-  email: 电子邮件
   button: 要求重设密码
   backtosign: 返回登录
-login:
-  title: 登入
+  subtitle: 输入您的帐户电子邮件地址，我们将向您发送一个链接以重置密码。
+  title: 忘记密码？
   email: 电子邮件
-  password: 密码
-  button: 登入
-  orsign: 或使用登录
-  forgot: 忘记密码？
-  noaccount: 还没有帐号？
-  create: 在此处创建一个
-  error: 电子邮件/密码组合无效
+user:
+  profile:
+    title: 个人信息
+board:
+  state:
+    TODO: 去做
+    DONE: 完成
+    TESTING: 测试中
+    INPROGRESS: 进行中
+  deleteDescription: 您确定要删除此卡吗？
+  deleteCard: 删除卡
+  titlePlaceholder: 输入此卡的标题
+  editCard: 编辑卡
 register:
-  title: 创建帐号
-  name: 全名
-  email: 电子邮件
-  password: 密码
   button: 创建帐号
+  password: 密码
   orsign: 或注册
-  agree: 签署即表示您同意
-  account: 已经有帐号了？
   signin: 登入
-utility:
-  maintenance: 维护中
-faq:
-  call: 还有其他问题吗？请伸出手
-ecommerce:
-  products: 产品展示
-  filters: 筛选器
-  collections: 馆藏
-  priceRange: 价格范围
-  customerReviews: 顾客评论
-  up: 及以上
-  brand: 牌
-  search: 搜索产品
-  results: "结果（{0}，共{1}）"
-  orders: 订单
-  shipping: 运输
-  freeShipping: 免费送货
-  inStock: 有现货
-  quantity: 数量
-  addToCart: 添加到购物车
-  buyNow: 立即购买
-  price: 价钱
-  about: 关于这个项目
-  description: 描述
-  reviews: 评论
-  details: 产品详情
-  cart: 大车
-  summary: 订单摘要
-  total: 总
-  discount: 折扣
-  subtotal: 小计
-  continue: 继续购物
-  checkout: 查看
-menu:
-  apps: apps
-  search: 搜索（按“ Ctrl + /”进行聚焦）
-  dashboard: 仪表板
-  logout: 登出
-  profile: 个人资料
-  blank: 空白页
-  pages: 页数
-  others: 其他
+  name: 全名
+  agree: 签署即表示您同意
+  title: 创建帐号
+  account: 已经有帐号了？
   email: 电子邮件
-  chat: 聊天室
-  chat-channel: 聊天频道
-  todo: 去做
-  board: 任务板
-  users: 用户数
-  usersList: 清单
-  usersEdit: 编辑
-  ecommerce: 电子商务
-  ecommerceList: 产品展示
-  ecommerceProductDetails: 产品详情
-  ecommerceOrders: 订单
-  ecommerceCart: 大车
-  auth: 验证页面
-  authLogin: 登录/登录
-  authRegister: 注册/注册
-  authVerify: 验证邮件
-  authForgot: 忘记密码
-  authReset: 重设密码
-  errorPages: 错误页面
-  errorNotFound: 找不到/ 404
-  errorUnexpected: 意想不到的/ 500
-  utilityPages: 实用页面
-  utilityMaintenance: 保养
-  utilitySoon: 快来了
-  utilityHelp: 常见问题/帮助
-  levels: 菜单级别
-  levels2-1: 级别2.1
-  levels2-2: 级别2.2
-  levels3-1: 级别3.1
-  levels3-2: 级别3.2
-  disabled: 菜单已禁用
-  docs: 文献资料
-  feedback: 反馈
-  support: 支持
-  landingPage: 登陆页面
-  pricingPage: 定价页面
-$vuetify:
-  badge: 徽章
-  close: 关
-  dataIterator:
-    noResultsText: 未找到匹配的记录
-    loadingText: 正在载入项目...
-  dataTable:
-    itemsPerPageText: 每页行数：
-    ariaLabel:
-      sortDescending: 降序排列。
-      sortAscending: 升序排列。
-      sortNone: 未排序。
-      activateNone: 激活以删除排序。
-      activateDescending: 激活以降序排列。
-      activateAscending: 激活以升序排序。
-    sortBy: 排序方式
-  dataFooter:
-    itemsPerPageText: 每页项目：
-    itemsPerPageAll: 所有
-    nextPage: 下一页
-    prevPage: 上一页
-    firstPage: 第一页
-    lastPage: 最后一页
-    pageText: "{2}中的{0}-{1}"
-  datePicker:
-    itemsSelected: "已选择{0}"
-    nextMonthAriaLabel: 下个月
-    nextYearAriaLabel: 明年
-    prevMonthAriaLabel: 前一个月
-    prevYearAriaLabel: 前一年
-  noDataText: 无可用数据
-  carousel:
-    prev: 以前的视觉
-    next: 下一个视觉
-    ariaLabel:
-      delimiter: "{1}的轮播幻灯片{0}"
-  calendar:
-    moreEvents: "还有{0}个"
-  fileInput:
-    counter: "{0}个文件"
-    counterSize: "{0}个文件（共{1}个）"
-  timePicker:
-    am: AM
-    pm: PM
-  pagination:
-    ariaLabel:
-      wrapper: 分页导航
-      next: 下一页
-      previous: 上一页
-      page: "转到页面{0}"
-      currentPage: "当前页，第{0}页"

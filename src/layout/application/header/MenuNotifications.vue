@@ -1,8 +1,8 @@
 <template>
-  <v-menu offset-y left transition="slide-y-transition">
+  <v-menu left offset-y transition="slide-y-transition">
     <template #activator="{ props }">
-      <v-btn icon class="text-none" v-bind="props">
-        <v-badge content="6" color="primary" bordered>
+      <v-btn class="text-none" icon v-bind="props">
+        <v-badge bordered color="primary" content="6">
           <v-icon>mdi-bell-outline</v-icon>
         </v-badge>
       </v-btn>
@@ -10,21 +10,23 @@
 
     <!-- dropdown card -->
     <v-card>
-      <v-list three-line dense max-width="400">
+      <v-list dense max-height="400" max-width="400" three-line>
         <v-list-subheader class="pa-2 font-weight-bold">Notifications</v-list-subheader>
-        <div v-for="(item, index) in items" :key="index">
-          <v-divider v-if="index > 0 && index < items.length" inset></v-divider>
-          <v-list-item :title="item.title" :subtitle="item.subtitle">
-            <template #prepend>
-              <v-avatar :icon="item.icon" size="32" :color="item.color"></v-avatar>
-            </template>
-            <v-list-item-action class="align-self-center">{{ item.time }}</v-list-item-action>
-          </v-list-item>
-        </div>
+        <perfect-scrollbar>
+          <div v-for="(item, index) in items" :key="index">
+            <v-list-item :subtitle="item.subtitle" :title="item.title">
+              <template #prepend>
+                <v-avatar :color="item.color" :icon="item.icon" size="32"></v-avatar>
+              </template>
+              <v-list-item-action class="align-self-center">{{ item.time }}</v-list-item-action>
+            </v-list-item>
+            <v-divider thickness="2" color="primary" class="opacity-90"></v-divider>
+          </div>
+        </perfect-scrollbar>
       </v-list>
 
       <div class="text-center py-2">
-        <v-btn small>See all</v-btn>
+        <v-btn block>See all</v-btn>
       </div>
     </v-card>
   </v-menu>
@@ -32,6 +34,7 @@
 
 <script setup>
 import { ref } from "vue"
+
 const items = ref([
   {
     title: "Brunch this weekend?",

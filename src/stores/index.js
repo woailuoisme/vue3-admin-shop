@@ -1,4 +1,3 @@
-import piniaPluginPersistedstate from "pinia-plugin-persistedstate"
 import { createPinia } from "pinia"
 import useGlobal from "./GlobalStore"
 import useConfig from "./ConfigStore"
@@ -46,5 +45,4 @@ export {
 // export usePost()
 /** Pinia Store */
 const pinia = createPinia()
-pinia.use(piniaPluginPersistedstate)
 export default pinia

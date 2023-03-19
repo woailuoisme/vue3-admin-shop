@@ -1,9 +1,17 @@
 <template>
   <v-container fluid>
     <!--    <data-filter></data-filter> -->
-    <o-t-p></o-t-p>
+    <!--    <one-time-pwd></one-time-pwd> -->
     <input-integer v-model="num"></input-integer>
     {{ num }}
+    <v-row>
+      <v-col cols="12">
+        <editor-md v-model="editor"></editor-md>
+      </v-col>
+      <div>
+        {{ editor }}
+      </div>
+    </v-row>
     <v-card>
       <v-card-title>
         <v-dialog v-model="dialog" width="auto" persistent>
@@ -106,7 +114,6 @@
             </v-col>
           </v-row>
 
-          <my-editor />
           <v-switch
             v-model="model"
             :true-value="1"
@@ -133,9 +140,10 @@ import yup from "@/utils/validation"
 import FileSingleImageInput from "@/components/shared/FileSingleImageInput"
 import Dropzone from "@/components/shared/Dropzone"
 import DelayButton from "@/components/shared/DelayButton"
-import FileUpload from "@/components/shared/FileUpload"
-import OTP from "@/components/OTP"
+import FileUpload from "@/components/shared/FileImageUpload"
+import OneTimePwd from "@/components/OneTimePwd"
 import InputInteger from "@/components/shared/InputInteger"
+import EditorMd from "@/components/editor/EditorMd"
 const newDate = ref(new Date())
 const dialog = ref(false)
 const images = ref([])
@@ -152,6 +160,7 @@ onMounted(() => {
 
 const model = ref(true)
 const num = ref(1)
+const editor = ref(1)
 
 let userSchema = yup.object({
   name: yup.string().required().label("姓名"),

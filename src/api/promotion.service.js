@@ -31,7 +31,6 @@ class PromotionService {
   }
 
   update(data) {
-    debugger
     let formData = new FormData()
     formData.append("name", data.name)
     formData.append("description", data.description)

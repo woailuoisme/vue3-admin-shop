@@ -81,7 +81,7 @@ export function registerPlugins(app) {
   registerFilters(app)
 
   setup()
-  app.component("VOtpInput", VOtpInput)
+  app.component("OtpInput", VOtpInput)
   app.component("FilePond", FilePond)
   app.component("EasyDataTable", Vue3EasyDataTable)
   app.component("Draggable", Draggable)

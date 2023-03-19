@@ -8,7 +8,7 @@
         <v-row>
           <v-col cols="12">
             <div class="title">内容</div>
-            <my-editor v-model="editedItem.content" :img-upload-url="TME_IMAGE_UPLOAD" />
+            <editor-md></editor-md>
           </v-col>
         </v-row>
       </v-container>
@@ -22,7 +22,6 @@
 </template>
 
 <script setup>
-import myEditor from "@/components/myEditor"
 import { defineEmits, defineProps, onMounted, reactive, ref, watch } from "vue"
 import { TME_IMAGE_UPLOAD } from "@/utils/urls"
 

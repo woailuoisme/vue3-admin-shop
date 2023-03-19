@@ -1,6 +1,6 @@
 <template>
   <div style="display: flex; flex-direction: row; align-items: center">
-    <v-otp-input
+    <otp-input
       ref="otpInput"
       should-auto-focus
       is-input-num
@@ -17,6 +17,7 @@
 </template>
 
 <script setup>
+// import '' from ''
 import { defineProps, defineEmits, ref } from "vue"
 
 const otpInput = ref(null)

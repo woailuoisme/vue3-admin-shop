@@ -23,7 +23,7 @@
           <v-divider class="my-2" thickness="3" />
 
           <!-- 👉 Profile -->
-          <v-list-item link>
+          <v-list-item link :to="{ path: '/user/profile' }">
             <template #prepend>
               <v-icon class="me-2" icon="mdi-account-outline" size="22" />
             </template>

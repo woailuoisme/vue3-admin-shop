@@ -6,10 +6,19 @@ module.exports = {
     es2021: true,
     "vue/setup-compiler-macros": true,
   },
+  globals: {
+    defineEmits: "readonly",
+  },
   plugins: ["vue"],
   parser: "vue-eslint-parser",
   ignorePatterns: ["src/@iconify/*.js", "node_modules", "dist", "*.d.ts"],
-  extends: ["eslint:recommended", "plugin:vue/vue3-recommended", "plugin:prettier/recommended", "plugin:promise/recommended"],
+  extends: [
+    "eslint:recommended",
+    "plugin:vue/vue3-recommended",
+    "plugin:prettier/recommended",
+    "plugin:promise/recommended",
+    "./.eslintrc-auto-import.json",
+  ],
   rules: {
     // "no-console": process.env.NODE_ENV === "prod" ? "error" : "off",
     // "no-debugger": process.env.NODE_ENV === "prod" ? "error" : "off",

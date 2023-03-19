@@ -13,8 +13,8 @@ export default {
   VBtn: {
     // set v-btn default color to primary
     color: "primary",
-    // variant: 'flat',
-    variant: "elevated",
+    variant: "flat",
+    // variant: "elevated",
   },
   VChip: {
     elevation: 0,

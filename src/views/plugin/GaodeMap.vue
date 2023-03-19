@@ -16,12 +16,12 @@ const domRef = ref()
 async function renderMap() {
   await load(true)
   if (!domRef.value) return
-  const map = new AMap.Map(domRef.value, {
-    zoom: 11,
-    center: [114.05834626586915, 22.546789983033168],
-    viewMode: "3D",
-  })
-  map.getCenter()
+  // const map = new AMap.Map(domRef.value, {
+  //   zoom: 11,
+  //   center: [114.05834626586915, 22.546789983033168],
+  //   viewMode: "3D",
+  // })
+  // map.getCenter()
 }
 
 onMounted(() => {

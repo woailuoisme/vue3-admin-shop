@@ -8,19 +8,19 @@ import vueJsx from '@vitejs/plugin-vue-jsx';
 import DefineOptions from 'unplugin-vue-define-options/vite'
 import unplugin from './unplugin';
 import visualizer from './visualizer';
-import compress from './compress';
+import zip from './zip';
 import {loadEnv} from "vite";
 
 export function setupVitePlugins(mode) {
-  const plugins = [ vueJsx({optimize: false, enableObjectSlots: true}), DefineOptions({include: [/\.vue$/, /\.vue\?vue/],}), ...unplugin(mode)];
+  const plugins = [ vueJsx({optimize: false, enableObjectSlots: true}),
+    DefineOptions({include: [/\.vue$/, /\.vue\?vue/],}),
+    zip(mode),
+    ...unplugin(mode)];
   const viteEnv = loadEnv(mode, process.cwd())
   const {VITE_VISUALIZER,VITE_COMPRESS,VITE_PWA,VITE_VERCEL} = loadEnv(mode, process.cwd());
 
   if (VITE_VISUALIZER === 'Y') {
     plugins.push(visualizer);
-  }
-  if (VITE_COMPRESS === 'Y') {
-    plugins.push(compress(viteEnv));
   }
   if (VITE_PWA === 'Y' || VITE_VERCEL === 'Y') {
     plugins.push(pwa());

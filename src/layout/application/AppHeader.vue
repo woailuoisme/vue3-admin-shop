@@ -7,12 +7,13 @@
     <v-spacer />
 
     <header-search></header-search>
+    <copy-btn></copy-btn>
     <v-divider class="mx-2" inset vertical thickness="3" />
     <language-change></language-change>
+    <header-full-screen></header-full-screen>
     <theme-switcher></theme-switcher>
     <menu-notifications></menu-notifications>
     <v-divider class="mx-2" inset vertical thickness="3" />
-
     <menu-profile></menu-profile>
   </v-app-bar>
 
@@ -61,6 +62,7 @@ import avatar1 from "@/assets/images/avatars/avatar-1.png"
 import MenuNotifications from "@/layout/application/header/MenuNotifications"
 import LanguageChange from "@/layout/application/header/LanguageChange"
 import HeaderSearch from "@/layout/application/header/HeaderSearch"
+import HeaderFullScreen from "@/layout/application/header/HeaderFullScreen"
 
 const authStore = useAuth()
 const menuStore = useMenu()

@@ -50,7 +50,6 @@ const size = 2
 const rules = [
   (value) => !!value || `${label} 必填`,
   (value) => {
-    debugger
     !value || !value.length || types.includes(value[0]?.type) || `仅接收: ${exes} 文件!`
   },
 

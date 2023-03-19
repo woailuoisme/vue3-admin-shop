@@ -1,7 +1,7 @@
 import Components from 'unplugin-vue-components/vite';
 import AutoImport from 'unplugin-auto-import/vite';
 import Icons from 'unplugin-icons/vite'
-import {getSrcPath} from '../utils';
+import {getRootPath, getSrcPath} from '../utils';
 import IconsResolver from 'unplugin-icons/resolver'
 import VueSetupExtend from "vite-plugin-vue-setup-extend";
 import ViteComponents from "unplugin-vue-components/vite";
@@ -13,7 +13,6 @@ import {createHtmlPlugin} from "vite-plugin-html";
 import {loadEnv} from "vite";
 import vuetify, {transformAssetUrls} from 'vite-plugin-vuetify'
 import vue from '@vitejs/plugin-vue'
-import Layouts from "vite-plugin-vue-layouts";
 import {FileSystemIconLoader} from "unplugin-icons/loaders";
 import {createSvgIconsPlugin} from 'vite-plugin-svg-icons';
 import vueJsx from '@vitejs/plugin-vue-jsx'
@@ -24,6 +23,7 @@ export default function unplugin(mode) {
   const {VITE_ICON_PREFIX,VITE_APP_NAME} = loadEnv(mode, process.cwd());
   console.log(process.cwd(),VITE_APP_NAME,VITE_ICON_PREFIX)
   const srcPath = getSrcPath();
+  const rootPath = getRootPath();
   resolve(srcPath,'/')
   const localIconPath = `${srcPath}/assets/images/svgs`;
 
@@ -49,18 +49,8 @@ export default function unplugin(mode) {
             prefix: VITE_ICON_PREFIX
           }
         ),
-        (componentName) => {
-          // where `componentName` is always CapitalCase
-          if (componentName.startsWith('V'))
-            return {name: componentName, from: 'vuetify/lib/labs/components'}
-        },
-        // (componentName) => {
-        //   // where `componentName` is always CapitalCase
-        //   if (componentName.endsWith('Provider'))
-        //     return {name: componentName, from: '@/components/provider'}
-        // }
       ],
-      dts: 'src/typings/components.d.ts',
+      dts: `${rootPath}/.components.d.ts`,
     }),
 
     AutoImport({
@@ -74,17 +64,22 @@ export default function unplugin(mode) {
       imports: [
         'vue',
         'vee-validate',
-       // '@vueuse/core',
+       '@vueuse/core',
+        // 'yup',
        //  'vee-validate': ['useForm','userField'],
         {
         'vuetify': ['useTheme'],
         'vue-router': ['useRoute','useRouter'],
         'vue-i18n': ['useI18n'],
         'pinia': ['storeToRefs'],
-       }
+       },
+        {
+          from: `${srcPath}/utils/validation`,
+          imports: ['yup'],
+          type: true,
+        },
       ],
-      // dirs: [`${srcPath}/plugins`, `${srcPath}/filters`, `${srcPath}/store/**`, `${srcPath}/router`,
-      // ],
+      // dirs: [`${srcPath}/plugins`, `${srcPath}/filters`, `${srcPath}/store/**`, `${srcPath}/router`,],
       dirs:['src'],
       resolvers: [
         VuetifyResolver(),
@@ -93,10 +88,13 @@ export default function unplugin(mode) {
           componentPrefix: VITE_ICON_PREFIX,
           enabledCollections: [collectionName],
         }),
-
       ],
-      dts: "src/typings/auto-imports.d.ts",
-
+      dts: `${rootPath}/.auto-imports.d.ts`,
+      eslintrc: {
+        enabled: true, // Default `false`
+        filepath: `${rootPath}/.eslintrc-auto-import.json`, // Default `./.eslintrc-auto-import.json`
+        globalsPropValue: true, // Default `true`, (true | false | 'readonly' | 'readable' | 'writable' | 'writeable')
+      },
     }),
     Icons({
       compiler: 'vue3',
@@ -132,7 +130,6 @@ export default function unplugin(mode) {
         configFile: 'src/styles/settings.scss',
       },
     }),
-    Layouts(),
     createHtmlPlugin({
       minify: true,
       inject: {

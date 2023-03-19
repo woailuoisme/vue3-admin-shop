@@ -1,6 +1,6 @@
 import { computed } from "vue"
-import { REGEXP_PHONE } from "@/config"
-import { fetchSmsCode } from "@/service"
+// import { REGEXP_PHONE } from "@/config"
+// import { fetchSmsCode } from "@/service"
 import { useLoading } from "../common"
 import useCountDown from "./useCountDown"
 
@@ -22,15 +22,16 @@ export default function useSmsCode() {
   })
 
   /** 判断手机号码格式是否正确 */
-  function isPhoneValid(phone: string) {
+  function isPhoneValid(phone) {
     let valid = true
     if (phone.trim() === "") {
       window.$message?.error("手机号码不能为空！")
       valid = false
-    } else if (!REGEXP_PHONE.test(phone)) {
-      window.$message?.error("手机号码格式错误！")
-      valid = false
     }
+    // else if (!REGEXP_PHONE.test(phone)) {
+    //   window.$message?.error("手机号码格式错误！")
+    //   valid = false
+    // }
     return valid
   }
 
@@ -43,11 +44,11 @@ export default function useSmsCode() {
     if (!valid || loading.value) return
 
     startLoading()
-    const { data } = await fetchSmsCode(phone)
-    if (data) {
-      window.$message?.success("验证码发送成功！")
-      start()
-    }
+    // const { data } = await fetchSmsCode(phone)
+    // if (data) {
+    //   window.$message?.success("验证码发送成功！")
+    //   start()
+    // }
     endLoading()
   }
 

@@ -1,6 +1,7 @@
 import { humanReadableFileSize } from "vuetify/lib/util/helpers"
 import { format, isPast, parseISO } from "date-fns"
 import { trim } from "lodash-es"
+import { readURL } from "@/utils"
 
 const kebab = (str) => {
   return (str || "").replace(/([a-z])([A-Z])/g, "$1-$2").toLowerCase()
@@ -95,6 +96,35 @@ export function orderShowExpress(value) {
   } else {
     return false
   }
+}
+
+export function getStatus(value) {
+  const status = {
+    pending: "pending",
+    paid: "Professional",
+    pending_finished: "Rejected",
+    pending_review: "Rejected",
+    express: "Resigned",
+    canceled: "Applied",
+  }
+  if (Object.keys(value).includes(value)) {
+    return status[value]
+  }
+  return value
+}
+
+export function getsStatusColor(value) {
+  const statusColor = {
+    Current: "primary",
+    Professional: "success",
+    Rejected: "error",
+    Resigned: "warning",
+    Applied: "info",
+  }
+  if (Object.keys(statusColor).includes(value)) {
+    return statusColor[value]
+  }
+  return value
 }
 
 export default {

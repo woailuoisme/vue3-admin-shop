@@ -3,7 +3,6 @@
     <v-card class="text-center pa-1">
       <v-card-title class="justify-center text-h4 mb-2 font-weight-regular">Welcome</v-card-title>
       <v-card-subtitle>Sign in to your account</v-card-subtitle>
-
       <!-- sign in form -->
       <v-card-text>
         <v-form ref="form" v-model="isFormValid">

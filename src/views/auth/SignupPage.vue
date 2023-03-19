@@ -92,7 +92,7 @@
   </div>
 </template>
 
-<script lang="ts" setup>
+<script setup>
 import { ref } from "vue"
 import { useLoading } from "@/hooks"
 import { useRouterPush } from "@/composables"

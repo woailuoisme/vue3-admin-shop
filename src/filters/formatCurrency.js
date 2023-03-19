@@ -20,7 +20,6 @@ export function formatPrice(price, currency) {
       if (currency.currencySymbolPosition === "left") {
         priceParts = priceParts.reverse()
       }
-
       return priceParts.join("")
     } else {
       return numberFormatted
