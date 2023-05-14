@@ -2,42 +2,61 @@
   <product-filter @change="filterChange"></product-filter>
   <v-row>
     <v-col cols="12">
-      <v-toolbar :elevation="4" density="comfortable" class="align-center">
-        <v-btn variant="flat" color="primary" @click.stop="addItem">
-          {{ $t("table.operation.add") }}
-        </v-btn>
-        <v-spacer />
-        <v-text-field
-          v-model="requestParams.keyword"
-          variant="outlined"
-          prepend-inner-icon="mdi-magnify"
-          :placeholder="$t('table.search.keyword')"
-          single-line
-          hide-details
-        />
-        <v-divider vertical thickness="2" color="primary" class="mx-2"></v-divider>
-        <div class="mx-4">
-          <v-btn variant="flat" :loading="isLoading" icon="mdi-refresh" color="success" size="medium" @click="reload"></v-btn>
-        </div>
-      </v-toolbar>
+      <v-card>
+        <v-card-title class="d-flex align-center">
+          <v-btn color="primary" variant="flat" @click.stop="addItem">
+            {{ $t("table.operation.add") }}
+          </v-btn>
+          <v-divider class="mx-2" color="primary" thickness="2" vertical></v-divider>
+          <v-fade-transition>
+            <batch v-if="isNotEmpty"></batch>
+          </v-fade-transition>
+          <v-spacer />
+          <v-text-field
+            v-model="requestParams.keyword"
+            :placeholder="$t('table.search.keyword')"
+            density="comfortable"
+            hide-details
+            prepend-inner-icon="mdi-magnify"
+            single-line
+            variant="outlined"
+          />
+          <v-divider class="mx-2" color="primary" thickness="2" vertical></v-divider>
+          <div class="mx-4">
+            <v-btn
+              :class="{ 'animate-spin': isLoading }"
+              color="success"
+              icon="mdi-refresh"
+              size="medium"
+              variant="flat"
+              @click="reload"
+            ></v-btn>
+          </div>
+        </v-card-title>
+      </v-card>
     </v-col>
   </v-row>
   <v-row>
     <v-col cols="12">
       <v-card>
         <easy-data-table
-          v-model:server-options="requestParams"
           v-model:items-selected="itemsSelected"
-          :server-items-length="total"
-          :loading="isLoading"
+          v-model:server-options="requestParams"
+          v-bind="dataTableAttr"
           :headers="headers"
           :items="products"
+          :loading="isLoading"
+          :server-items-length="total"
+          :table-class-name="tableClass"
+          :theme-color="tableColor"
+          :hide-footer="isHideFooter"
+          :rows-items="[10, 20, 40]"
         >
           <template #[`item-category.second_name`]="item">
-            <v-chip variant="outlined" color="primary">{{ item.category.second_name }}</v-chip>
+            <v-chip color="primary" variant="outlined">{{ item.category.second_name }}</v-chip>
           </template>
           <template #item-thumbnail="item">
-            <table-image :max-height="50" :max-width="50" :image="item.thumbnail" />
+            <table-image :image="item.thumbnail" :max-height="50" :max-width="50" />
           </template>
           <template #item-description="item">
             <text-tooltip :text="item.description" />
@@ -49,10 +68,10 @@
             <div class="d-flex justify-center">
               <v-switch
                 v-model="item.is_sale"
-                color="primary"
-                :true-value="1"
                 :false-value="0"
                 :label="`${item.is_sale ? '是' : '否'}`"
+                :true-value="1"
+                color="primary"
                 inset
                 @change="toggleSale(item)"
               />
@@ -60,9 +79,9 @@
           </template>
 
           <template #item-operation="item">
-            <v-icon class="ml-1" icon="mdi-eye-outline" color="info" size="large" @click.stop="viewItem(item)"></v-icon>
-            <v-icon class="ml-1" icon="mdi-square-edit-outline" color="primary" size="large" @click.stop="editItem(item)"></v-icon>
-            <v-icon class="ml-1" icon="mdi-trash-can-outline" color="error" size="large" @click.stop="deleteItem(item)"></v-icon>
+            <v-icon class="ml-1" color="info" icon="mdi-eye-outline" size="large" @click.stop="viewItem(item)"></v-icon>
+            <v-icon class="ml-1" color="primary" icon="mdi-square-edit-outline" size="large" @click.stop="editItem(item)"></v-icon>
+            <v-icon class="ml-1" color="error" icon="mdi-trash-can-outline" size="large" @click.stop="deleteItem(item)"></v-icon>
           </template>
         </easy-data-table>
       </v-card>
@@ -72,7 +91,7 @@
     <dialog-confirm @close="closeDelete" @confirm="deleteItemConfirm" />
   </v-dialog>
   <v-dialog v-model="dialogEntity" max-width="1300px">
-    <entity :item="editedItem" :is-new="isNew" @close="dialogEntity = false" @save="save" />
+    <entity :is-new="isNew" :item="editedItem" @close="dialogEntity = false" @save="save" />
   </v-dialog>
   <v-dialog v-model="dialogDetail" max-width="1300px">
     <details :product="mapProduct" @close="dialogDetail = false" />
@@ -83,27 +102,31 @@
 import TableImage from "@/components/table/TableImage"
 import TextTooltip from "@/components/table/TextTooltip"
 import DialogConfirm from "./components/common/DialogConfirm"
-import Entity from "./components/product/Entity"
-import Details from "./components/product/Details"
+import Entity from "./components/product/ProductEntity"
+import Details from "./components/product/ProductDetails"
 import { computed, nextTick, onMounted, ref, unref, watch } from "vue"
 import { useBreadcrumb, useGlobal, useProduct, useProductCategory, useTableHeader } from "@/stores"
 import { storeToRefs } from "pinia"
 import { debounce } from "lodash-es"
 import ProductFilter from "@/views/components/product/ProductFilter"
+import Batch from "@/views/components/product/ProductBatch"
+import { dataTableAttr } from "@/utils"
+import { useTheme } from "vuetify"
 
 const productStore = useProduct()
 const globalStore = useGlobal()
 const breadcrumbStore = useBreadcrumb()
 const tableHeaderStore = useTableHeader()
 const categoryStore = useProductCategory()
+const vuetifyTheme = useTheme()
 
-const categories = computed(() => categoryStore.categories)
-
-const headers = computed(() => tableHeaderStore.products)
-const breadcrumbs = computed(() => breadcrumbStore.product)
+const { categories } = storeToRefs(categoryStore)
+const { products: headers } = storeToRefs(tableHeaderStore)
+const { product: breadcrumbs } = storeToRefs(breadcrumbStore)
 const { isLoading } = storeToRefs(globalStore)
-const { products, total, isNew, editedIndex, editedItem } = storeToRefs(productStore)
-// const findProduct = computed(() => productStore.findById)
+const { products, total, isNew, editedIndex, editedItem, isHideFooter } = storeToRefs(productStore)
+const tableClass = computed(() => (vuetifyTheme.current.value.dark ? "customize-table-dark" : "customize-table"))
+const tableColor = computed(() => vuetifyTheme.current.value.colors.primary)
 
 const dialogEntity = ref(false)
 const dialogDelete = ref(false)
@@ -111,8 +134,9 @@ const dialogDetail = ref(false)
 const requestParams = ref({
   page: 1,
   rowsPerPage: 10,
-  sortBy: "",
-  sortType: "",
+  sortBy: "created_at",
+  sortType: "desc",
+  keyword: "",
 })
 const mapProduct = ref([])
 const itemsSelected = ref([])
@@ -122,7 +146,6 @@ const isNotEmpty = computed(() => idsSelected.value.length > 0)
 const search = debounce((value) => productStore.loadAllProducts(value), 800)
 
 onMounted(() => {
-  // categoryStore.loadCategories()
   search(unref(requestParams))
 })
 

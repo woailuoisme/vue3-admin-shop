@@ -5,9 +5,7 @@
       <span>{{ appName }}</span>
     </v-toolbar-title>
     <v-spacer />
-
     <header-search></header-search>
-    <copy-btn></copy-btn>
     <v-divider class="mx-2" inset vertical thickness="3" />
     <language-change></language-change>
     <header-full-screen></header-full-screen>
@@ -17,13 +15,11 @@
     <menu-profile></menu-profile>
   </v-app-bar>
 
-  <v-navigation-drawer v-if="isAuthed" v-model="drawer" permanent temporary rail expand-on-hover app>
-    <v-list color="transparent">
-      <v-list-item :prepend-avatar="user?.avatar ?? avatar1" :title="user?.name" :subtitle="user?.role"></v-list-item>
-    </v-list>
-
+  <v-navigation-drawer v-if="isAuthed" v-model="drawer" permanent temporary rounded expand-on-hover app>
+    <!--    <v-list color="transparent"> -->
+    <!--      <v-list-item :prepend-avatar="user?.avatar ?? avatar1" :title="user?.name" :subtitle="user?.role"></v-list-item> -->
+    <!--    </v-list> -->
     <v-divider></v-divider>
-
     <v-list color="transparent" dense>
       <template v-for="(item, index) in menuItems" :key="index">
         <v-list-group v-if="item.children" active-color="primary" color="primary" :prepend-icon="item.prependIcon" :value="item.text">
@@ -54,11 +50,9 @@
 </template>
 
 <script setup>
-import { computed, ref } from "vue"
 import { useAuth, useConfig, useMenu } from "@/stores"
 import ThemeSwitcher from "@/layout/application/header/ThemeSwitcher"
 import MenuProfile from "./header/MenuProfile"
-import avatar1 from "@/assets/images/avatars/avatar-1.png"
 import MenuNotifications from "@/layout/application/header/MenuNotifications"
 import LanguageChange from "@/layout/application/header/LanguageChange"
 import HeaderSearch from "@/layout/application/header/HeaderSearch"

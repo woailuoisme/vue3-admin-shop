@@ -1,8 +1,7 @@
 import * as yup from "yup"
-import { imageWidthAndHeight } from "@/utils/util"
-// import printValue from './printValue'
+
 const typeStr = (val) => {
-  if (val === "number") return "数值"
+  if (val === "number") return "数字"
   if (val === "boolean") return "布尔"
   if (val === "string") return "字符"
   if (val === "date") return "时间"
@@ -13,10 +12,10 @@ const typeStr = (val) => {
 
 yup.setLocale({
   mixed: {
-    default: "${path} 无效",
-    required: "${path} 必填",
-    oneOf: "${path} 必须是 ${values} 其中之一",
-    notOneOf: "${path} 非 ${values} 其中之一",
+    default: "${path}无效",
+    required: "${path}是必填项",
+    oneOf: "${path}必须是以下值之一：${values}",
+    notOneOf: "${path}不能是以下值之一：${values}",
     // notType: ({ path, type, value, originalValue }) => {
     //   const castMsg = originalValue != null && originalValue !== value ? ` (从 \`${printValue(originalValue, true)}\` 转换).` : '.'
     //   return type !== 'mixed'
@@ -28,122 +27,57 @@ yup.setLocale({
     },
   },
   string: {
-    length: "${path} 长度必须等于 ${length} 个字符",
-    min: "${path} 至少 ${min} 个字符",
-    max: "${path} 最多 ${max} 个字符",
+    length: "${path}必须是${length}个字符",
+    min: "${path}不能少于${min}个字符",
+    max: "${path}不能超过${max}个字符",
+    email: "${path}必须是一个有效的电子邮件地址",
     matches: '${path} 必须匹配 "${regex}"',
-    email: "${path} 必须是一个有效的email格式",
-    url: "${path} 必须是一个有效的url",
-    trim: "${path} 必须是一个去除空格的字符",
-    lowercase: "${path} 必须是小写字符串",
-    uppercase: "${path} 必须是大写字符串",
+    url: "${path}必须是一个有效的URL",
+    trim: "${path}不能有前导或尾随空格",
+    lowercase: "${path}必须是小写",
+    uppercase: "${path}必须是大写",
   },
   number: {
-    min: "${path} 必须大于等于 ${min}",
-    max: "${path} 必须小于等于 ${max}",
-    lessThan: "${path} 必须小于 ${less}",
-    moreThan: "${path} 必须大于 ${more}",
-    positive: "${path} 必须是正数",
-    negative: "${path} 必须是负数",
-    integer: "${path} 必须是整数",
+    min: "${path}必须大于或等于${min}",
+    max: "${path}必须小于或等于${max}",
+    lessThan: "${path}必须小于${less}",
+    moreThan: "${path}必须大于${more}",
+    positive: "${path}必须是一个正数",
+    negative: "${path}必须是一个负数",
+    integer: "${path}必须是一个整数",
   },
   date: {
-    min: "${path} 必须晚于 ${min}",
-    max: "${path} 必须早于 ${max}",
+    min: "${path}字段必须在${min}之后",
+    max: "${path}字段必须在${max}之前",
   },
   array: {
-    min: "${path} 字段必须至少有 ${min} 个项目",
-    max: "$${path} 字段必须小于或等于 ${max} 个项目",
+    min: "${path}字段必须至少有${min}项",
+    max: "${path}字段不能超过${max}项",
   },
   object: {
-    noUnknown: "${path} 字段不能有未在对象中指定的键",
+    noUnknown: "${path}字段不能包含未知的键",
   },
 })
-yup.addMethod(yup.string, "name", function nameMethod(message) {
-  const nameRegex = /^[a-zA-Z]+( [a-zA-Z]+)*$/
-  // eslint-disable-next-line no-template-curly-in-string
-  return this.test("name", "名字", function nameTest() {
-    return nameRegex.test(this.options.originalValue) || this.createError({ message })
+
+yup.addMethod(yup.string, "name", function () {
+  return this.matches(/^[a-zA-Z0-9_]{4,16}$/, "名字必须包含4到16个字符，只能包含字母、数字和下划线")
+})
+
+yup.addMethod(yup.mixed, "image", function (message = "请上传图片") {
+  return this.test("fileType", message, function (value) {
+    return value && value[0] && /^image\/(png|jpe?g|gif)$/.test(value[0].type)
   })
 })
 
-yup.addMethod(yup.mixed, "imageDimensionCheck", function (message, requiredWidth, requiredHeight) {
-  return this.test("image-width-height-check", message, async function (value) {
-    const { path, createError } = this
-
-    if (!value) return
-
-    const imgDimensions = await imageWidthAndHeight(value)
-
-    if (imgDimensions.width !== requiredWidth) {
-      return createError({ path, message: `The file width needs to be the ${requiredWidth}px!` })
-    }
-
-    if (imgDimensions.height !== requiredHeight) {
-      return createError({ path, message: `The file height needs to be the ${requiredHeight}px!` })
-    }
-
-    return true
-  })
+yup.addMethod(yup.number, "maxFileSize", function (maxSize, message = "文件大小超过限制") {
+  return this.test("maxFileSize", message, (value) => !value || value.size <= maxSize)
 })
 
-yup.addMethod(yup.mixed, "fileRequired", function () {
-  return this.test("file-required", function (value) {
-    const { path, createError } = this
-    if (!value) return
-    if (value instanceof File || value[0] instanceof File) {
-      return true
-    }
-    return createError({ path, message: `文件 必填!` })
+yup.addMethod(yup.object, "imageDimension", function () {
+  return this.shape({
+    width: yup.number().min(100).max(2000).required(),
+    height: yup.number().min(100).max(2000).required(),
   })
-})
-
-yup.addMethod(yup.mixed, "fileSize", function (fileSize) {
-  return this.test("file-size", fileSize, function (value) {
-    const { path, createError } = this
-    if (!value) return
-    if (value instanceof File) {
-      const size = value.size / 1024 / 1024
-      if (size > fileSize) {
-        return createError({ path, message: `文件大小需要小于${fileSize}M !` })
-      }
-    } else if (value[0] instanceof File) {
-      const size = value[0].size / 1024 / 1024
-      if (size > fileSize) {
-        return createError({ path, message: `文件大小需要小于${fileSize}M !` })
-      }
-    }
-    return true
-  })
-})
-
-yup.addMethod(yup.mixed, "imageType", function (types) {
-  return this.test("file-type", types, function (value) {
-    if (!types) types = ["image/jpg", "image/jpeg", "image/png"]
-    const exes = types.map((type) => type.split("/")[1]).join(" ")
-    const { path, createError } = this
-    if (!value) return
-    if (value instanceof File && !types.includes(value?.type)) {
-      return createError({ path, message: `仅接收: ${exes} 文件!` })
-    } else if (value[0] instanceof File && !types.includes(value[0]?.type)) {
-      return createError({ path, message: `仅接收: ${exes} 文件!` })
-    }
-    return true
-  })
-})
-
-const validFileExtensions = { image: ["jpg", "gif", "png", "jpeg", "svg", "webp"] }
-const MAX_FILE_SIZE = 2 * 1024 * 1024 //100KB
-function isValidFileType(fileName, fileType) {
-  return fileName && validFileExtensions[fileType].indexOf(fileName.split(".").pop()) > -1
-}
-
-yup.object().shape({
-  image: yup
-    .mixed()
-    .required("Required")
-    .test("is-valid-type", "Not a valid image type", (value) => isValidFileType(value && value.name.toLowerCase(), "image"))
-    .test("is-valid-size", "Max allowed size is 100KB", (value) => value && value.size <= MAX_FILE_SIZE),
 })
 
 export default yup

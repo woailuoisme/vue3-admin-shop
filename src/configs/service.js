@@ -31,3 +31,5 @@ export const ERROR_STATUS = {
   505: "505: http版本不支持该请求~",
   [DEFAULT_REQUEST_ERROR_CODE]: DEFAULT_REQUEST_ERROR_MSG,
 }
+export const NO_ERROR_MSG_CODE = []
+export const REFRESH_TOKEN_CODE = [66666]

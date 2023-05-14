@@ -3,9 +3,9 @@
     <v-card-title class="d-flex align-center">
       <div class="ml-3">{{ $t("dashboard.activity") }}</div>
       <v-spacer></v-spacer>
-      <v-menu offset-y left transition="slide-y-transition">
+      <v-menu left offset-y transition="slide-y-transition">
         <template #activator="{ props }">
-          <v-btn icon v-bind="props" flat>
+          <v-btn flat icon v-bind="props">
             <v-icon>mdi-dots-vertical</v-icon>
           </v-btn>
         </template>
@@ -13,25 +13,32 @@
           <v-list-item
             v-for="(item, index) in menuItems"
             :key="index"
-            :to="item?.link"
             :disabled="item?.disabled"
-            link
             :prepend-icon="item.icon"
             :title="item.text"
+            :to="item?.link"
+            link
           ></v-list-item>
         </v-list>
       </v-menu>
     </v-card-title>
-    <v-divider thickness="2" inset></v-divider>
+    <v-divider inset thickness="2"></v-divider>
     <v-card-text>
       <perfect-scrollbar>
-        <v-timeline class="pa-0" density="comfortable" align="start" truncate-line="start">
+        <v-timeline density="comfortable" side="end">
           <v-timeline-item v-for="(item, index) in activity" :key="index" :dot-color="item.color" size="small">
-            <strong>{{ item.what }}</strong>
-            <div class="text-caption">
-              <div>{{ item.where }}</div>
-              <div class="text-grey">{{ item.when }}</div>
-            </div>
+            <!--            <template v-slot:icon> -->
+            <!--              <v-avatar image="https://i.pravatar.cc/64"></v-avatar> -->
+            <!--            </template> -->
+            <template #opposite>
+              <span>{{ item.when }}</span>
+            </template>
+            <v-card class="elevation-2">
+              <v-card-title class="text-h6">
+                {{ item.where }}
+              </v-card-title>
+              <v-card-text>{{ item.what }}</v-card-text>
+            </v-card>
           </v-timeline-item>
         </v-timeline>
       </perfect-scrollbar>
@@ -41,13 +48,6 @@
 
 <script setup>
 import { reactive } from "vue"
-
-// interface _menu {
-//   icon: string,
-//   text: string,
-//   disabled?: boolean,
-//   link?: string
-// }
 
 const menuItems = reactive([
   { icon: "mdi-refresh", text: "Refresh" },

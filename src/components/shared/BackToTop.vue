@@ -1,12 +1,14 @@
 <template>
-  <div class="back-to-top-btn" :class="[{ 'go-top': isTop }]" @click="scrollToTop">
+  <div class="back-to-top-btn" :class="[{ 'go-top': show }]" @click="scrollToTop">
     <!--    <i class='ri-arrow-up-s-line'></i> -->
     <v-icon size="x-large" icon="mdi-arrow-up" />
   </div>
 </template>
 
 <script setup>
-import { onMounted, ref } from "vue"
+import { computed, onMounted, ref } from "vue"
+import { useWindowScroll } from "@vueuse/core"
+import { useTheme } from "vuetify"
 
 const isTop = ref(false)
 
@@ -17,22 +19,40 @@ function scrollToTop() {
   })
 }
 
-onMounted(() => {
-  window.addEventListener("scroll", () => {
-    let scrollPos = window.scrollY
-    isTop.value = scrollPos >= 50
-  })
-})
+const { y: scrollY } = useWindowScroll()
+
+const show = computed(() => scrollY.value > 180)
+
+// onMounted(() => {
+//   window.addEventListener("scroll", () => {
+//     let scrollPos = window.scrollY
+//     isTop.value = scrollPos >= 50
+//   })
+// })
+
+const { global } = useTheme()
+
+// const cssVars = computed(() => {
+//   return {
+//     "--primaryColor": global.current.value.colors.primary,
+//   }
+// })
+const primaryColor = global.current.value.colors.primary
 </script>
 
 <style lang="scss" scoped>
+//$primary: var(primaryColor);
+//$primary-1: var(--primaryColor1);
+//$transition: all 500ms ease;
+$primary: var(--primaryColor);
+
 .back-to-top-btn {
   position: fixed;
   cursor: pointer;
   bottom: -100px;
   right: 20px;
   color: #ffffff;
-  background-color: #1867c0;
+  background-color: v-bind(primaryColor);
   z-index: 4;
   width: 45px;
   text-align: center;
@@ -64,7 +84,8 @@ onMounted(() => {
   }
 
   &:hover {
-    background-color: #1867c0;
+    //background-color: #1867c0;
+    opacity: 0.5;
     color: #ffffff;
     transition: 0.6s;
     box-shadow: 0 4px 6px rgba(50, 50, 93, 0.11), 0 1px 3px rgba(0, 0, 0, 0.08);

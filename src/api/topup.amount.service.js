@@ -1,9 +1,9 @@
-import request from "./http.client"
-import { getBaseFilterParams } from "@/utils"
+import request from "@/api/http.client"
+import { buildBaseParams, buildQueryParams } from "@/utils"
 
 export const topUpAmountService = () => {
   function list(data) {
-    const params = getBaseFilterParams(data)
+    const params = buildQueryParams(data)
     return request.instance().get("/top_up_amount", { params })
   }
 

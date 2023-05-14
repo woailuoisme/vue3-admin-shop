@@ -1,7 +1,7 @@
 <template>
   <v-card class="pa-2">
     <h1>Please verify the email</h1>
-    <div class="mb-6 overline">Please check your email for the link to verify the email.</div>
+    <div class="mb-6 overline">Please check your email for the link to verify the email</div>
     <v-btn :loading="isLoading" :disabled="disabled" block depressed size="x-large" color="primary" @click="resend">
       Re-send email {{ seconds }}
     </v-btn>
@@ -9,7 +9,6 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from "vue"
 import { useLoading } from "@/hooks"
 
 const TIMEOUT = 10

@@ -55,27 +55,27 @@ class Toast {
   }
 }
 
-export const userToast = () => {
-  function show(msg) {
+export const useToastMsg = () => {
+  function showMsg(msg) {
     toast(msg, options)
   }
 
-  function info(msg) {
+  function infoMsg(msg) {
     toast.info(msg, options)
   }
 
-  function success(msg) {
+  function successMsg(msg) {
     toast.success(msg, options)
   }
 
-  function warning(msg) {
+  function warningMsg(msg) {
     toast.warning(msg, options)
   }
 
-  function error(msg) {
+  function errorMsg(msg) {
     toast.error(msg, options)
   }
-  return { show, info, success, warning, error }
+  return { showMsg, infoMsg, successMsg, warningMsg, errorMsg }
 }
 
 export default Toast

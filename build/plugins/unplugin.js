@@ -1,14 +1,13 @@
 import Components from 'unplugin-vue-components/vite';
 import AutoImport from 'unplugin-auto-import/vite';
 import Icons from 'unplugin-icons/vite'
-import {getRootPath, getSrcPath} from '../utils';
+import {getRootPath, getSrcPath} from '../utils/index';
 import IconsResolver from 'unplugin-icons/resolver'
 import VueSetupExtend from "vite-plugin-vue-setup-extend";
 import ViteComponents from "unplugin-vue-components/vite";
 import {VuetifyResolver} from "unplugin-vue-components/resolvers";
 import VueI18nPlugin from "@intlify/unplugin-vue-i18n/vite";
-import {dirname, resolve} from "node:path";
-import {fileURLToPath} from "node:url";
+import {resolve} from "node:path";
 import {createHtmlPlugin} from "vite-plugin-html";
 import {loadEnv} from "vite";
 import vuetify, {transformAssetUrls} from 'vite-plugin-vuetify'
@@ -20,26 +19,25 @@ import zipPack from "vite-plugin-zip-pack";
 import VueMacros from 'unplugin-vue-macros/vite';
 
 export default function unplugin(mode) {
-  const {VITE_ICON_PREFIX,VITE_APP_NAME} = loadEnv(mode, process.cwd());
-  console.log(process.cwd(),VITE_APP_NAME,VITE_ICON_PREFIX)
+  const {VITE_ICON_PREFIX, VITE_APP_NAME} = loadEnv(mode, process.cwd());
+  console.log(process.cwd(), VITE_APP_NAME, VITE_ICON_PREFIX)
   const srcPath = getSrcPath();
   const rootPath = getRootPath();
-  resolve(srcPath,'/')
+  resolve(srcPath, '/')
   const localIconPath = `${srcPath}/assets/images/svgs`;
-
   /** 本地svg图标集合名称 */
   const collectionName = 'local';
 
   return [
     VueMacros({}),
     vue({
-      template: { transformAssetUrls },
+      template: {transformAssetUrls},
     }),
     VueSetupExtend(),
     Components({
       dirs: ['src/components'],
       extensions: ['vue'],
-      types: [{ from: 'vue-router', names: ['RouterLink', 'RouterView'] }],
+      types: [{from: 'vue-router', names: ['RouterLink', 'RouterView']}],
       deep: true, // search for subdirectories
       resolvers: [
         VuetifyResolver(),
@@ -64,15 +62,15 @@ export default function unplugin(mode) {
       imports: [
         'vue',
         'vee-validate',
-       '@vueuse/core',
+        '@vueuse/core',
         // 'yup',
-       //  'vee-validate': ['useForm','userField'],
+        //  'vee-validate': ['useForm','userField'],
         {
-        'vuetify': ['useTheme'],
-        'vue-router': ['useRoute','useRouter'],
-        'vue-i18n': ['useI18n'],
-        'pinia': ['storeToRefs'],
-       },
+          'vuetify': ['useTheme'],
+          'vue-router': ['useRoute', 'useRouter'],
+          'vue-i18n': ['useI18n'],
+          'pinia': ['storeToRefs'],
+        },
         {
           from: `${srcPath}/utils/validation`,
           imports: ['yup'],
@@ -80,7 +78,7 @@ export default function unplugin(mode) {
         },
       ],
       // dirs: [`${srcPath}/plugins`, `${srcPath}/filters`, `${srcPath}/store/**`, `${srcPath}/router`,],
-      dirs:['src'],
+      dirs: ['src'],
       resolvers: [
         VuetifyResolver(),
         IconsResolver({

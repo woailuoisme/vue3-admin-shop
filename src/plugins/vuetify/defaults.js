@@ -1,23 +1,31 @@
 export default {
   VAlert: {
     density: "comfortable",
+    border: "start",
+    closable: true,
+  },
+  VTooltip: {
+    color: "grey-lighten-4",
+    density: "comfortable",
+    location: "top",
   },
   VAvatar: {
-    // ℹ️ Remove after next release
     variant: "flat",
   },
   VBadge: {
-    // set v-badge default color to primary
     color: "primary",
   },
   VBtn: {
-    // set v-btn default color to primary
     color: "primary",
-    variant: "flat",
-    // variant: "elevated",
+    variant: "elevated",
   },
   VChip: {
     elevation: 0,
+    variant: "outlined",
+  },
+  VDivider: {
+    class: "border-opacity-75",
+    thickness: 1,
   },
   VMenu: {
     VList: {
@@ -29,21 +37,15 @@ export default {
     density: "comfortable",
   },
   VTabs: {
-    // set v-tabs default color to primary
     color: "primary",
   },
-  VTooltip: {
-    // set v-tooltip default location to top
-    location: "top",
-  },
-
   VList: {
+    nav: true,
     VListItem: {
       activeColor: "primary",
     },
   },
   VCheckbox: {
-    // set v-checkbox default color to primary
     color: "primary",
     density: "comfortable",
     hideDetails: "auto",
@@ -55,6 +57,7 @@ export default {
   },
   VRadio: {
     density: "comfortable",
+    color: "primary",
     hideDetails: "auto",
   },
   VSelect: {
@@ -65,28 +68,23 @@ export default {
     clearIcon: "mdi-close",
   },
   VRangeSlider: {
-    // set v-range-slider default color to primary
     color: "primary",
     density: "comfortable",
     thumbLabel: true,
     hideDetails: "auto",
   },
   VRating: {
-    // set v-rating default color to primary
     color: "warning",
   },
   VProgressCircular: {
-    // set v-progress-circular default color to primary
     color: "primary",
   },
   VSlider: {
-    // set v-slider default color to primary
     color: "primary",
     hideDetails: "auto",
   },
   VTextField: {
     variant: "outlined",
-    // density: 'comfortable',
     color: "primary",
     hideDetails: "auto",
     clearIcon: "mdi-close",
@@ -97,7 +95,6 @@ export default {
     color: "primary",
     hideDetails: "auto",
     clearIcon: "mdi-close",
-    // noDataText: i18n.global.t('$vuetify.dataIterator.noResultsText')
   },
   VCombobox: {
     variant: "outlined",
@@ -110,6 +107,7 @@ export default {
     density: "comfortable",
     color: "primary",
     hideDetails: "auto",
+    clearIcon: "mdi-close",
   },
   VTextarea: {
     variant: "outlined",
@@ -118,7 +116,6 @@ export default {
     hideDetails: "auto",
   },
   VSwitch: {
-    // set v-switch default color to primary
     color: "primary",
     hideDetails: "auto",
   },

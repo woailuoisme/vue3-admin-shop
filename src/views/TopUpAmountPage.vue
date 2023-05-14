@@ -1,45 +1,50 @@
 <template>
   <v-row>
     <v-col cols="12">
-      <v-toolbar :elevation="4" density="comfortable" class="align-center">
-        <v-btn variant="flat" color="primary" @click.stop="addItem">
-          {{ $t("table.operation.add") }}
-        </v-btn>
-        <v-spacer />
-        <v-text-field
-          v-model="requestParams.keyword"
-          variant="outlined"
-          prepend-inner-icon="mdi-magnify"
-          :placeholder="$t('table.search.keyword')"
-          single-line
-          hide-details
-        />
-        <v-divider vertical thickness="2" color="primary" class="mx-2"></v-divider>
-        <v-btn
-          class="ma-4"
-          variant="flat"
-          icon="mdi-refresh"
-          :class="{ 'animate-spin': isLoading }"
-          color="info"
-          size="medium"
-          @click="reload"
-        ></v-btn>
-      </v-toolbar>
+      <v-card>
+        <v-card-title class="d-flex align-center">
+          <v-btn variant="flat" color="primary" @click.stop="addItem">
+            {{ $t("table.operation.add") }}
+          </v-btn>
+          <v-spacer />
+          <v-text-field
+            v-model="requestParams.keyword"
+            variant="outlined"
+            prepend-inner-icon="mdi-magnify"
+            :placeholder="$t('table.search.keyword')"
+            single-line
+            hide-details
+          />
+          <v-divider vertical thickness="2" color="primary" class="mx-2"></v-divider>
+          <v-btn
+            class="ma-4"
+            variant="flat"
+            icon="mdi-refresh"
+            :class="{ 'animate-spin': isLoading }"
+            color="info"
+            size="medium"
+            @click="reload"
+          ></v-btn>
+        </v-card-title>
+      </v-card>
     </v-col>
   </v-row>
+
   <v-row>
     <v-col cols="12">
       <v-card :loading="isLoading" :disabled="isLoading">
         <easy-data-table
+          v-bind="dataTableAttr"
           v-model:server-options="requestParams"
           :server-items-length="total"
           :loading="isLoading"
           :headers="headers"
           :items="amounts"
+          :theme-color="tableColor"
+          :table-class-name="tableClass"
           :hide-footer="isHideFooter"
         >
           <template #item-operation="item">
-            <!--            <v-icon icon="mdi-eye-outline" color="info" size="large"  @click.stop="viewItem(item)"></v-icon> -->
             <v-icon icon="mdi-square-edit-outline" color="primary" size="large" class="mx-1" @click.stop="editItem(item)"></v-icon>
             <v-icon icon="mdi-trash-can-outline" color="error" size="large" @click.stop="deleteItem(item)"></v-icon>
           </template>
@@ -57,12 +62,12 @@
 
 <script setup>
 import DialogConfirm from "./components/common/DialogConfirm"
-import Entity from "./components/topUpAmount/Entity"
-import { computed, nextTick, onMounted, ref, unref, watch } from "vue"
+import Entity from "./components/topUpAmount/TopUpEntity"
 import { storeToRefs } from "pinia"
 import { useBreadcrumb, useGlobal, useTableHeader, useTopUpAmount } from "@/stores"
 import { debounce } from "lodash-es"
-
+import { computed } from "vue"
+import { dataTableAttr } from "@/utils"
 const amountStore = useTopUpAmount()
 const globalStore = useGlobal()
 const breadcrumbStore = useBreadcrumb()
@@ -71,6 +76,9 @@ const headers = computed(() => tableHeaderStore.topUpAmount)
 
 const { amounts, total, isNew, editedItem, editedIndex, isHideFooter } = storeToRefs(amountStore)
 const { isLoading } = storeToRefs(globalStore)
+const vuetifyTheme = useTheme()
+const tableClass = computed(() => (vuetifyTheme.current.value.dark ? "customize-table-dark" : "customize-table"))
+const tableColor = computed(() => vuetifyTheme.current.value.colors.primary)
 const dialogEntity = ref(false)
 const dialogDelete = ref(false)
 const requestParams = ref({
@@ -87,17 +95,8 @@ onMounted(() => {
 watch(
   requestParams,
   (value) => {
-    search(unref(requestParams))
-  },
-  { deep: true },
-)
-
-watch(
-  [dialogEntity, dialogDelete, requestParams],
-  ([newEntry, newDelete, newRequestParams]) => {
-    console.log(newEntry, newDelete)
-    newEntry || close()
-    newDelete || closeDelete()
+    debugger
+    search(unref(value))
   },
   { deep: true },
 )
@@ -120,16 +119,16 @@ function deleteItem(item) {
   dialogDelete.value = true
 }
 
-function close() {
-  dialogEntity.value = false
+function deleteItemConfirm() {
+  amountStore.deleteAmount(editedItem.value.id)
+  dialogDelete.value = false
   nextTick(() => {
     amountStore.resetEdited()
   })
 }
 
-function deleteItemConfirm(item) {
-  amountStore.deleteAmount(editedItem.value.id)
-  dialogDelete.value = false
+function close() {
+  dialogEntity.value = false
   nextTick(() => {
     amountStore.resetEdited()
   })

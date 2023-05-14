@@ -4,7 +4,6 @@ import useConfig from "./ConfigStore"
 import useMenu from "./MenuStore"
 import useAuth from "./AuthStore"
 import useBreadcrumb from "./BreadcrumbStore"
-import useUser from "./UserStore"
 import useAdminUser from "./AdminUserStore"
 import useAboutUs from "./AboutUsStore"
 import useAbout from "./AboutUsStore"
@@ -19,6 +18,7 @@ import useTopUpRecord from "./TopUpRecordStore"
 import useWithdraw from "./WithdrawStore"
 import useRefund from "./RefundStore"
 import useIntegralRecord from "./integralRecordStore"
+import useAppStore from "./AppStore"
 
 export {
   useConfig,
@@ -26,7 +26,6 @@ export {
   useMenu,
   useAuth,
   useBreadcrumb,
-  useUser,
   useAdminUser,
   useAboutUs,
   useCarousel,
@@ -41,6 +40,7 @@ export {
   useTopUpAmount,
   useTopUpRecord,
   useIntegralRecord,
+  useAppStore,
 }
 // export usePost()
 /** Pinia Store */

@@ -1,4 +1,4 @@
-import { addMinutes, isPast, format } from "date-fns"
+// import { addMinutes, isPast, format } from "date-fns"
 // import update from '@/api/updateSite'
 
 const MINUTES_TO_CHECK_FOR_UPDATES = 120
@@ -29,7 +29,7 @@ export const setLocalStorageDateForUpdates = () => {
 // This is useful for iOS due the cache when app is added to home screen.
 export const checkIfUpdateIsNeeded = (latestVersion, localVersion) => {
   // Set new date/time for next update check
-  window.localStorage.setItem("checkForAppUpdatesAt", JSON.stringify(format(addMinutes(new Date(), MINUTES_TO_CHECK_FOR_UPDATES), "t")))
+  // window.localStorage.setItem("checkForAppUpdatesAt", JSON.stringify(format(addMinutes(new Date(), MINUTES_TO_CHECK_FOR_UPDATES), "t")))
   // If there is a new version available, so refresh page
   const shouldForceRefresh = compareVersion(latestVersion, localVersion)
   if (shouldForceRefresh) {
@@ -39,23 +39,23 @@ export const checkIfUpdateIsNeeded = (latestVersion, localVersion) => {
 }
 
 // Gets file from axios at url SERVER/version.json
-// export const checkForUpdates = () => {
-//   setLocalStorageDateForUpdates()
-//   // Checks if checkForAppUpdatesAt set in localstorage is past to check for updates
-//   if (isPast(new Date(fromUnixTime(JSON.parse(window.localStorage.getItem('checkForAppUpdatesAt')))))) {
-//     update
-//       .checkIfUpdatedSiteVersion()
-//       .then((response) => {
-//         if (response.status === 200) {
-//           // Get latestVersion from response
-//           const latestVersion = response.data.version.trim()
-//           // Get localVersion from localstorage
-//           const localVersion = store.getters.appVersion
-//           // Checks if an update is needed
-//           checkIfUpdateIsNeeded(latestVersion, localVersion)
-//         }
-//       })
-//       // eslint-disable-next-line no-unused-vars
-//       .catch((error) => {})
-//   }
-// }
+export const checkForUpdates = () => {
+  setLocalStorageDateForUpdates()
+  // Checks if checkForAppUpdatesAt set in localstorage is past to check for updates
+  // if (isPast(new Date(fromUnixTime(JSON.parse(window.localStorage.getItem('checkForAppUpdatesAt')))))) {
+  // update
+  //   .checkIfUpdatedSiteVersion()
+  //   .then((response) => {
+  //     if (response.status === 200) {
+  //       // Get latestVersion from response
+  //       const latestVersion = response.data.version.trim()
+  //       // Get localVersion from localstorage
+  //       const localVersion = store.getters.appVersion
+  //       // Checks if an update is needed
+  //       checkIfUpdateIsNeeded(latestVersion, localVersion)
+  //     }
+  //   })
+  //   // eslint-disable-next-line no-unused-vars
+  //   .catch((error) => {})
+  // }
+}

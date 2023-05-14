@@ -1,7 +1,8 @@
 <template>
   <v-badge v-bind="avatarBadgeProps">
     <v-avatar style="cursor: pointer" color="primary" variant="tonal">
-      <v-img :src="user?.avatar ?? avatar1" cover />
+      <!--      <v-img :src="user?.avatar ?? avatar1" cover /> -->
+      <v-img :src="aMaleOne" cover />
       <!-- SECTION Menu -->
       <v-menu activator="parent" open-on-hover width="230" scale-transition location="bottom end" offset="14px">
         <v-list>
@@ -12,6 +13,7 @@
                 <v-badge v-bind="avatarBadgeProps">
                   <v-avatar color="primary" size="40" variant="outlined">
                     <v-img :src="user?.avatar ?? avatar1" cover />
+                    <!--                    <v-img :src="aMaleOne" cover /> -->
                   </v-avatar>
                 </v-badge>
               </v-list-item-action>
@@ -66,7 +68,7 @@
 <script setup>
 import { computed } from "vue"
 import { useAuth } from "@/stores"
-import avatar1 from "@/assets/images/avatars/avatar-1.png"
+import { aMaleOne } from "@/assets"
 import router from "@/router"
 
 const avatarBadgeProps = {

@@ -1,36 +1,28 @@
 <template>
   <v-footer class="d-flex justify-space-between" app border height="20">
-    <span class="px-4 py-2 bg-gray text-center">Now: {{ formatted }}</span>
-    <vue-countdown v-slot="{ days, hours, minutes, seconds }" :time="diffYear">
-      距离 {{ year }} 年 结束 ：{{ days }} days, {{ hours }} hours, {{ minutes }} minutes, {{ seconds }} seconds.
-    </vue-countdown>
+    <span>Copyright ©2021 Vuetify Admin</span>
+    <span class="px-4 py-2 bg-gray text-center">Today: {{ formatted }}</span>
+    <span>距离 {{ year }} 年 结束 ：{{ timer.days }} 天, {{ timer.hours }} 小时, {{ timer.minutes }} 分钟, {{ timer.seconds }} 秒</span>
   </v-footer>
 </template>
 
 <script setup>
-import { onMounted, ref, onUnmounted } from "vue"
-import { getYear, endOfYear, differenceInMilliseconds, format } from "date-fns"
-import { useDateFormat, useNow } from "@vueuse/core"
+import { useTimer } from "vue-timer-hook"
+import dayjs from "dayjs"
 
-const formatter = ref("YYYY-MM-DD HH:mm:ss")
-const formatted = useDateFormat(useNow(), formatter)
+const diff = dayjs().diff(dayjs().startOf("year"), "seconds")
 
-const now = new Date()
-const year = getYear(now)
-const diffYear = differenceInMilliseconds(endOfYear(now), now)
+const time = new Date()
+time.setSeconds(time.getSeconds() + diff)
+const timer = useTimer(time)
 
-function getNow() {
-  const today = new Date()
-  timestamp.value = format(today, "yyyy-MM-dd")
-}
+const formatted = dayjs().format("YYYY MM DD")
 
 onMounted(() => {
-  // setInterval(getNow, 60000)
+  timer.start()
 })
 
 onUnmounted(() => {
-  // clearInterval(getNow)
+  timer.pause()
 })
-
-const timestamp = ref(format(new Date(), "yyyy-MM-dd"))
 </script>

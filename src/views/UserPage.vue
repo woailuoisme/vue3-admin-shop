@@ -12,7 +12,6 @@
           alternating
           header-text-direction="center"
           body-text-direction="center"
-          table-class-name="customize-table"
           :server-items-length="serverItemsLength"
           :loading="loading"
           :headers="headers"
@@ -27,7 +26,7 @@
           </template>
 
           <template #item-role="{ role }">
-            <v-chip color="primary" small tile>{{ $filter.roleLabel(role) }}</v-chip>
+            <v-chip color="primary" small tile>{{ roleLabel(role) }}</v-chip>
           </template>
 
           <template #item-operation="item">
@@ -49,9 +48,10 @@
 <script setup>
 import TableImage from "@/components/table/TableImage"
 import DialogConfirm from "./components/common/DialogConfirm"
-import EntityForm from "./components/user/EntityForm"
+import EntityForm from "./components/user/UserEntityForm"
 import { computed, nextTick, onMounted, ref, watch } from "vue"
 import { useAdminUser, useBreadcrumb, useGlobal, useTableHeader } from "@/stores"
+import { roleLabel } from "@/filters"
 
 const adminUserStore = useAdminUser()
 const globalStore = useGlobal()

@@ -7,12 +7,11 @@
 </template>
 
 <script setup>
-import { computed } from "vue"
 import router from "@/router"
 import { pascale } from "@/utils"
 
 const layout = computed(() => {
-  console.log("Layout=====" + router.currentRoute.value.meta?.layout)
+  console.log("Layout===" + router.currentRoute.value.meta?.layout)
   const metaLayout = router.currentRoute.value.meta?.layout
   if (metaLayout) {
     return pascale(metaLayout) + "Layout"

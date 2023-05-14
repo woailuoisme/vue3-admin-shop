@@ -1,11 +1,11 @@
-import { defineConfig, loadEnv } from "vite"
+import {defineConfig, loadEnv} from "vite"
 
-import { setupVitePlugins, getSrcPath, getRootPath } from "./build"
-import { format } from "date-fns"
-import { fileURLToPath } from "node:url"
+import {setupVitePlugins, getSrcPath, getRootPath} from "./build"
+import {fileURLToPath} from "node:url"
+import dayjs from "dayjs";
 
 // https://vitejs.dev/config/
-export default defineConfig(async ({ command, mode }) => {
+export default defineConfig(async ({command, mode}) => {
   const viteEnv = loadEnv(mode, process.cwd())
   const rootPath = getRootPath()
   const srcPath = getSrcPath()
@@ -17,7 +17,7 @@ export default defineConfig(async ({ command, mode }) => {
     },
     plugins: setupVitePlugins(mode),
     define: {
-      __PROJECT_BUILD_TIME__: JSON.stringify(format(new Date(), "yyyy-MM-dd HH:mm:ss")),
+      __PROJECT_BUILD_TIME__: JSON.stringify(dayjs().format("YYYY-MM-DD HH:mm:ss")),
     },
     resolve: {
       alias: {

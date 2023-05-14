@@ -14,7 +14,7 @@ import { ref } from "vue"
 import { useClipboard } from "@vueuse/core"
 
 const source = ref("")
-const { copy, isSupported } = useClipboard()
+const { copy, isSupported, copied } = useClipboard()
 
 function handleCopy() {
   if (!isSupported) {

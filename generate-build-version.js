@@ -4,7 +4,6 @@ const packageJson = require("./package.json")
 // import * as packageJson from './package.json';
 const chalk = require("chalk")
 // import chalk from "chalk";
-
 const appVersion = packageJson.version
 const dt = new Date()
 const padL = (nr, len = 2, chr = `0`) => `${nr}`.padStart(2, chr)

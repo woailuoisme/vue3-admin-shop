@@ -11,7 +11,7 @@
 
 <script setup>
 import { defineEmits, defineProps, ref } from "vue"
-import { format } from "date-fns"
+import dayjs from "dayjs"
 // import {zhCN} from 'date-fns/locale'
 const props = defineProps({
   modelValue: {
@@ -41,7 +41,7 @@ const dateFormat = (date) => {
 }
 
 const formatDate = (date) => {
-  return date ? format(date, "yyyy-MM-dd HH:mm:ss") : ""
+  return date ? dayjs(date).format("YYYY-MM-DD HH:mm:ss") : ""
 }
 </script>
 

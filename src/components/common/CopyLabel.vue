@@ -12,7 +12,6 @@ import { onBeforeUnmount, ref } from "vue"
 import { clipboard } from "@/plugins/clipboard"
 import { animate } from "@/plugins/animate"
 const props = defineProps({
-  // Text to copy to clipboard.ts
   text: {
     type: String,
     default: "",

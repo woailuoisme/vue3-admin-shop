@@ -36,8 +36,8 @@
 
 <script setup>
 import Breadcrumb from "@/components/shared/Breadcrumb"
-import Details from "./components/about/Details"
-import Entity from "./components/about/Entity"
+import Details from "./components/about/AboutDetails"
+import Entity from "./components/about/AboutEntity"
 import { computed, nextTick, onMounted, ref, watch } from "vue"
 import { useBreadcrumb, useAbout, useGlobal, useTableHeader } from "@/stores"
 import { trim } from "lodash-es"

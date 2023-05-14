@@ -1,7 +1,5 @@
 import { humanReadableFileSize } from "vuetify/lib/util/helpers"
-import { format, isPast, parseISO } from "date-fns"
 import { trim } from "lodash-es"
-import { readURL } from "@/utils"
 
 const kebab = (str) => {
   return (str || "").replace(/([a-z])([A-Z])/g, "$1-$2").toLowerCase()
@@ -12,19 +10,10 @@ const bytes = (byte) => {
 }
 
 export const roleLabel = (value) => {
-  if (trim(value) === "admin") {
-    return "管理员"
-  } else if (trim(value) === "general") {
-    return "普通用户"
-  } else if (trim(value) === "normal") {
-    return "普通用户"
-  } else {
-    return "unknow"
-  }
-}
-
-export const datetime = (value) => {
-  return format(value, "yyyy-MM-DD HH:mm:ss")
+  if (trim(value) === "admin") return "管理员"
+  else if (trim(value) === "general") return "普通用户"
+  else if (trim(value) === "normal") return "普通用户"
+  else return "unknow"
 }
 
 export const saleLabel = (value) => {
@@ -38,11 +27,7 @@ export const saleColor = (isSale) => {
   }
 }
 export const isActivityLabel = (isSale) => {
-  if (isSale === 0) {
-    return "否"
-  } else if (isSale === 1) {
-    return "是"
-  }
+  return isSale === 0 ? "否" : "是"
 }
 export const isActivityColor = (isSale) => {
   if (isSale === 0) {
@@ -59,44 +44,38 @@ export const getColor = (calories) => {
 }
 
 export const orderStatusLabel = (value) => {
-  if (value === "pending") {
-    return "未支付"
-  } else if (value === "paid") {
-    return "已支付"
-  } else if (value === "pending_finished") {
-    return "待完成"
-  } else if (value === "pending_review") {
-    return "待评论"
-  } else if (value === "express") {
-    return "运输中"
-  } else if (value === "finished") {
-    return "已完成"
-  } else if (value === "canceled") {
-    return "已取消"
-  } else if (value === '"refunded"') {
-    return "已退款"
-  }
+  if (value === "pending") return "未支付"
+  else if (value === "paid") return "已支付"
+  else if (value === "pending_finished") return "待完成"
+  else if (value === "pending_review") return "待评论"
+  else if (value === "express") return "运输中"
+  else if (value === "finished") return "已完成"
+  else if (value === "canceled") return "已取消"
+  else if (value === '"refunded"') return "已退款"
+  else return "unknown"
 }
 
 export function orderShowExpress(value) {
-  if (value === "pending") {
-    return false
-  } else if (value === "paid") {
-    return true
-  } else if (value === "pending_finished") {
-    return false
-  } else if (value === "pending_review") {
-    return true
-  } else if (value === "express") {
-    return true
-  } else if (value === "finished") {
-    return false
-  } else if (value === "canceled") {
-    return false
-  } else {
-    return false
-  }
+  if (value === "pending") return false
+  else if (value === "paid") return true
+  else if (value === "pending_finished") return false
+  else if (value === "pending_review") return true
+  else if (value === "express") return true
+  else if (value === "finished") return false
+  else if (value === "canceled") return false
+  else return false
 }
+
+export const orderStatus = [
+  { label: "未支付", value: "pending" },
+  { label: "已支付", value: "paid" },
+  { label: "待完成", value: "pending_finished" },
+  { label: "待评论", value: "pending_review" },
+  { label: "运输中", value: "finished" },
+  { label: "已完成", value: "finished" },
+  { label: "已取消", value: "canceled" },
+  { label: "全部", value: "all" },
+]
 
 export function getStatus(value) {
   const status = {

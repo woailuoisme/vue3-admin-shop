@@ -5,7 +5,7 @@ import { useLoading } from "../common"
 import useCountDown from "./useCountDown"
 
 export default function useSmsCode() {
-  const { loading, startLoading, endLoading } = useLoading()
+  const { loading, start: startLoading, end } = useLoading()
   const { counts, start, isCounting } = useCountDown(60)
 
   const initLabel = "获取验证码"
@@ -43,13 +43,13 @@ export default function useSmsCode() {
     const valid = isPhoneValid(phone)
     if (!valid || loading.value) return
 
-    startLoading()
+    start()
     // const { data } = await fetchSmsCode(phone)
     // if (data) {
     //   window.$message?.success("验证码发送成功！")
     //   start()
     // }
-    endLoading()
+    end()
   }
 
   return {

@@ -16,3 +16,8 @@ export const dataTypeLabels = {
   map: "[object Map]",
   file: "[object File]",
 }
+export const httpContentType = {
+  json: "application/json",
+  formUrlencoded: "application/x-www-form-urlencoded",
+  formData: "multipart/form-data",
+}

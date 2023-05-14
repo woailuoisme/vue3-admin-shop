@@ -13,11 +13,13 @@
       <v-card :loading="isLoading" :disabled="isLoading">
         <easy-data-table
           v-model:server-options="requestParams"
+          v-bind="dataTableAttr"
           :server-items-length="total"
           :loading="isLoading"
           :headers="headers"
           :items="categories"
           :table-class-name="tableClass"
+          :theme-color="tableColor"
           :hide-footer="isHideFooter"
         >
           <template #item-image_url="{ image_url }">
@@ -39,32 +41,30 @@
     <dialog-confirm @close="closeDelete" @confirm="deleteItemConfirm" />
   </v-dialog>
   <v-dialog v-model="dialogEntity" max-width="600px">
-    <entity :item="editedItem" :is-new="isNew" @close="dialogEntity = false" @save="save" />
+    <category-entity :item="editedItem" :is-new="isNew" @close="dialogEntity = false" @save="save" />
   </v-dialog>
 </template>
 
 <script setup>
 import TableImage from "@/components/table/TableImage"
 import DialogConfirm from "./components/common/DialogConfirm"
-import Entity from "./components/productCategory/Entity"
+import CategoryEntity from "./components/productCategory/CategoryEntity"
 import { computed, nextTick, onMounted, ref, unref, watch } from "vue"
 import { useBreadcrumb, useGlobal, useProductCategory, useTableHeader } from "@/stores"
 import { storeToRefs } from "pinia"
 import { useTheme } from "vuetify"
-
-const globalStore = useGlobal()
-const breadcrumbStore = useBreadcrumb()
-const tableHeaderStore = useTableHeader()
-const categoryStore = useProductCategory()
+import { dataTableAttr } from "@/utils"
 const vuetifyTheme = useTheme()
-
-const headers = computed(() => tableHeaderStore.productCategories)
-const breadcrumbs = computed(() => breadcrumbStore.productCategory)
-
+const globalStore = useGlobal(),
+  breadcrumbStore = useBreadcrumb(),
+  tableHeaderStore = useTableHeader(),
+  categoryStore = useProductCategory()
+const tableClass = computed(() => (vuetifyTheme.current.value.dark ? "customize-table-dark" : "customize-table"))
+const tableColor = computed(() => vuetifyTheme.current.value.colors.primary)
+const { productCategory: breadcrumbs } = storeToRefs(breadcrumbStore)
+const { productCategories: headers } = storeToRefs(tableHeaderStore)
 const { categories, total, isNew, editedItem, editedIndex, isHideFooter } = storeToRefs(categoryStore)
 const { isLoading } = storeToRefs(globalStore)
-
-const tableClass = computed(() => (vuetifyTheme.global.name.value === "dark" ? "customize-table-dark" : "customize-table"))
 
 const dialogEntity = ref(false)
 const dialogDelete = ref(false)

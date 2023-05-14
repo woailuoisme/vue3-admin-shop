@@ -7,7 +7,7 @@ import '@vue/runtime-core'
 
 export {}
 
-declare module "@vue/runtime-core" {
+declare module '@vue/runtime-core' {
   export interface GlobalComponents {
     BackToTop: typeof import("./src/components/shared/BackToTop.vue")["default"]
     Breadcrumb: typeof import("./src/components/shared/Breadcrumb.vue")["default"]
@@ -42,8 +42,8 @@ declare module "@vue/runtime-core" {
     OneTimePwd: typeof import("./src/components/OneTimePwd.vue")["default"]
     PaginationRow: typeof import("./src/components/shared/PaginationRow.vue")["default"]
     ReloadButton: typeof import("./src/components/ReloadButton.vue")["default"]
-    RouterLink: typeof import("vue-router")["RouterLink"]
-    RouterView: typeof import("vue-router")["RouterView"]
+    RouterLink: typeof import('vue-router')['RouterLink']
+    RouterView: typeof import('vue-router')['RouterView']
     SideConfigMenu: typeof import("./src/components/common/SideConfigMenu.vue")["default"]
     SvgIcon: typeof import("./src/components/common/SvgIcon.vue")["default"]
     TableImage: typeof import("./src/components/table/TableImage.vue")["default"]

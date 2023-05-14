@@ -31,8 +31,8 @@
 </template>
 
 <script setup>
-import { format } from "date-fns"
 import { computed } from "vue"
+import dayjs from "dayjs"
 
 const props = defineProps({
   series: {
@@ -70,7 +70,8 @@ const props = defineProps({
 })
 
 const formatDate = (date) => {
-  return date ? format(date, "dd MM") : ""
+  // return date ? format(date, "dd MM") : ""
+  return date ? dayjs(date).format("DD MM") : ""
 }
 
 const chartOptions = computed(() => {

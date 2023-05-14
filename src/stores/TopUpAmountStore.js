@@ -1,9 +1,11 @@
 import { topUpAmountService } from "@/api"
 import { defineStore } from "pinia"
-import Toast from "@/utils/toast"
-import i18n from "@/plugins/i18n"
-const { t } = i18n.global
+// import i18n from "@/plugins/i18n"
+// const { t } = i18n.global
+import { t } from "@/utils"
+import { useToastMsg } from "@/utils/toast"
 const { list, store, show, update, remove } = topUpAmountService()
+const { successMsg, errorMsg } = useToastMsg()
 export default defineStore("top-up-amount", {
   state: () => ({
     amounts: [],
@@ -55,7 +57,7 @@ export default defineStore("top-up-amount", {
       const res = await list(payload)
       if (res.data.success) {
         this.amounts = res.data.data
-        Toast.success(t("response.success"))
+        successMsg(t("response.success"))
       }
     },
 
@@ -63,7 +65,7 @@ export default defineStore("top-up-amount", {
       const res = await show(payload)
       if (res.data.success) {
         this.amount = res.data?.data
-        Toast.success(t("response.success"))
+        successMsg(t("response.success"))
       }
     },
 
@@ -71,7 +73,7 @@ export default defineStore("top-up-amount", {
       const res = await store(payload)
       const amount = res.data?.data
       this.amounts.unshift(amount)
-      Toast.success(t("response.success"))
+      successMsg(t("response.success"))
     },
 
     async updateAmount(payload) {
@@ -80,9 +82,9 @@ export default defineStore("top-up-amount", {
       if (res.data.success) {
         const index = this.amounts.findIndex((p) => p.id === payload.id)
         Object.assign(this.amounts[index], amount)
-        Toast.success(t("response.success"))
+        successMsg(t("response.success"))
       } else {
-        Toast.error(t("response.failed"))
+        errorMsg(t("response.failed"))
       }
     },
 
@@ -91,9 +93,9 @@ export default defineStore("top-up-amount", {
       if (res.data.success) {
         const index = this.amounts.findIndex((p) => p.id === topUpId)
         this.amounts.splice(index, 1)
-        Toast.success(t("response.success"))
+        successMsg(t("response.success"))
       } else {
-        Toast.error(t("response.failed"))
+        errorMsg(t("response.failed"))
       }
     },
   },

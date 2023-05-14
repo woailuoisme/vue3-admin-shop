@@ -1,0 +1,328 @@
+<template>
+  <div class="wrapper-stepper" :style="cssVars">
+    <div class="stepper">
+      <div class="stepper-progress">
+        <div class="stepper-progress-bar" :style="'width:' + stepperProgress"></div>
+      </div>
+      <div
+        v-for="(item, index) in props.tabs"
+        :key="index"
+        class="stepper-item"
+        :class="{
+          current: props.step === index + 1,
+          success: props.step > index + 1,
+        }"
+      >
+        <div class="stepper-item-counter">
+          <img v-if="item.iconSuccess" class="icon-success" :src="item.iconSuccess" alt="Check Mark" />
+          <check-mark v-else class="icon-success" :color="primaryColor1" alt="Check Mark" />
+          <span class="number">{{ index + 1 }}</span>
+        </div>
+        <span class="stepper-item-title">{{ item.title }}</span>
+      </div>
+    </div>
+
+    <!-- stepper content -->
+    <div v-for="index in props.tabs.length" :key="index" class="stepper-content">
+      <div v-if="props.step === index" class="stepper-pane">
+        <slot :name="index"></slot>
+      </div>
+    </div>
+
+    <!-- stepper-control-component -->
+    <div class="controls">
+      <button v-if="props.step !== 1" class="btn" @click="decrementStep">
+        {{ props.backText }}
+      </button>
+      <button
+        v-if="props.step !== props.tabs.length"
+        class="btn btn--default-2"
+        :disabled="!props.tabs[props.step - 1].isValid"
+        @click="incrementStep"
+      >
+        {{ props.nextText }}
+      </button>
+      <button v-else class="btn btn--default-2" :disabled="!props.tabs[props.step - 1].isValid || loading" @click="finalize">
+        <span v-if="loading" class="loader"></span>
+        <span v-else>{{ props.doneText }}</span>
+      </button>
+    </div>
+  </div>
+</template>
+
+<!-- https://github.com/woailuoisme/vue3-stepper/blob/main/src/App.vue -->
+<script setup>
+import { computed, reactive } from "vue"
+import { useTheme } from "vuetify"
+import CheckMark from "./CheckMark.vue"
+
+const props = defineProps({
+  step: {
+    type: Number,
+    default: 1,
+  },
+  tabs: {
+    type: Array,
+    default: reactive([
+      {
+        title: "Step 1",
+        iconSuccess: null,
+        isValid: true,
+      },
+      {
+        title: "Step 2",
+        iconSuccess: null,
+        isValid: true,
+      },
+      {
+        title: "Step 3",
+        iconSuccess: null,
+        isValid: true,
+      },
+    ]),
+  },
+  finalize: {
+    type: Function,
+    default: function () {
+      return {}
+    },
+  },
+  backText: {
+    type: String,
+    default: "Back",
+  },
+  nextText: {
+    type: String,
+    default: "Next",
+  },
+  doneText: {
+    type: String,
+    default: "Done",
+  },
+  loading: {
+    type: Boolean,
+    default: false,
+  },
+  primaryColor1: {
+    type: String,
+    default: "orange",
+  },
+  primaryColor2: {
+    type: String,
+    default: "#fff",
+  },
+})
+const emit = defineEmits(["update:step"])
+const theme = useTheme()
+
+const cssVars = computed(() => {
+  return {
+    "--primaryColor1": props.primaryColor1,
+    "--primaryColor2": props.primaryColor2,
+  }
+})
+
+const incrementStep = () => {
+  const step = props.step + 1
+  emit("update:step", step)
+}
+
+const decrementStep = () => {
+  const step = props.step - 1
+  emit("update:step", step)
+}
+
+const stepperProgress = computed(() => {
+  return (100 / (props.tabs.length - 1)) * (props.step - 1) + "%"
+})
+</script>
+
+<style scoped lang="scss">
+$primary-1: var(--primaryColor1);
+$primary-2: var(--primaryColor2);
+$transition: all 500ms ease;
+
+body {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: sans-serif;
+}
+
+.tx-default-2 {
+  color: $primary-1;
+  font-weight: 600;
+}
+
+.wrapper-stepper {
+  padding: 60px;
+}
+
+.stepper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: auto;
+  position: relative;
+  z-index: 0;
+  margin-bottom: 5px;
+
+  &-progress {
+    position: absolute;
+    background-color: #c5c5c5;
+    height: 2px;
+    z-index: -1;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+
+    &-bar {
+      position: absolute;
+      left: 0;
+      height: 100%;
+      width: 0;
+      background-color: $primary-1;
+      transition: $transition;
+    }
+  }
+}
+
+.stepper-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: #c5c5c5;
+  transition: $transition;
+
+  &-counter {
+    height: 68px;
+    width: 68px;
+    display: grid;
+    place-items: center;
+    background-color: $primary-2;
+    border-radius: 100%;
+    border: 2px solid #c5c5c5;
+    position: relative;
+
+    .icon-success {
+      position: absolute;
+      opacity: 0;
+      transform: scale(0);
+      width: 24px;
+      transition: $transition;
+    }
+
+    .number {
+      font-size: 22px;
+      transition: $transition;
+    }
+  }
+
+  &-title {
+    position: absolute;
+    text-align: center;
+    font-size: 14px;
+    bottom: -43px;
+  }
+}
+
+.stepper-item.success {
+  .stepper-item-counter {
+    border-color: $primary-1;
+    font-weight: 600;
+
+    .icon-success {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    .number {
+      opacity: 0;
+      transform: scale(0);
+    }
+  }
+
+  .stepper-item-title {
+    color: $primary-1;
+  }
+}
+
+.stepper-item.current {
+  .stepper-item-counter {
+    border-color: $primary-1;
+    background-color: $primary-1;
+    color: #fff;
+    font-weight: 600;
+  }
+
+  .stepper-item-title {
+    color: #818181;
+  }
+}
+
+.stepper-pane {
+  color: #333;
+  text-align: center;
+  background-color: #fff;
+  border-radius: 15px;
+  padding: 25px 25px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  margin: 60px 0 20px 0;
+}
+
+.controls {
+  display: flex;
+}
+
+.btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 6px 16px;
+  text-align: center;
+  vertical-align: middle;
+  cursor: pointer;
+  line-height: 1.5;
+  transition: all 150ms;
+  border-radius: 4px;
+  width: fit-content;
+  font-size: 0.75rem;
+  color: #333;
+  background-color: #f0f0f0;
+  border: 1px solid #f0f0f0;
+
+  &:disabled {
+    opacity: 0.5;
+    pointer-events: none;
+  }
+
+  &--default-2 {
+    background-color: $primary-1;
+    border-color: $primary-1;
+    color: #fff;
+    margin-left: auto;
+  }
+}
+
+.loader {
+  width: 20px;
+  height: 20px;
+  border: 2px solid #fff;
+  border-bottom-color: transparent;
+  border-radius: 50%;
+  display: inline-block;
+  box-sizing: border-box;
+  animation: rotation 1s linear infinite;
+}
+
+@keyframes rotation {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+</style>

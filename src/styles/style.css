@@ -1,7 +1,5 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
+@import "transition.css";
+@import "theme.css";
 /* datatable*/
 .customize-table {
   --easy-table-header-font-size: 14px;
@@ -20,23 +18,27 @@
 }
 
 .customize-table-dark {
+  --easy-table-border: 1px solid #445269;
+  --easy-table-row-border: 1px solid #445269;
+  --easy-table-header-item-padding: 10px 15px;
+
   --easy-table-header-font-size: 14px;
   --easy-table-header-height: 50px;
   --easy-table-header-background-color: #312d4b;
-  --easy-table-header-font-color: #ffffff;
+  --easy-table-header-font-color: #bdbdbd;
 
   --easy-table-body-row-height: 50px;
   --easy-table-body-row-font-size: 14px;
-  --easy-table-body-row-font-color: #ffffff;
+  --easy-table-body-row-font-color: #bdbdbd;
   --easy-table-body-row-background-color: #312d4b;
-  --easy-table-body-row-hover-font-color: #ffffff;
+  --easy-table-body-row-hover-font-color: #bdbdbd;
   --easy-table-body-row-hover-background-color: #28243d;
 
   --easy-table-footer-font-size: 16px;
   --easy-table-footer-padding: 0px 10px;
   --easy-table-footer-height: 70px;
   --easy-table-footer-background-color: #312d4b;
-  --easy-table-footer-font-color: #ffffff;
+  --easy-table-footer-font-color: #bdbdbd;
 
   --easy-table-rows-per-page-selector-width: 70px;
   --easy-table-rows-per-page-selector-option-padding: 10px;

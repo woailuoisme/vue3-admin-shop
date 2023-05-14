@@ -4,17 +4,6 @@ export const errorModule = [
     redirect: "/404",
   },
   {
-    path: "/login",
-    name: "login",
-    meta: {
-      title: "用户登录",
-      layout: "default",
-      requiredAuth: false,
-    },
-    component: () => import("@/views/auth/LoginPage.vue"),
-  },
-
-  {
     path: "/404",
     name: "not_found",
     meta: {

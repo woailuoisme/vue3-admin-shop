@@ -1,33 +1,30 @@
 <template>
-  <hover-container class="w-64px h-full" tooltip-content="重新加载" placement="bottom-end" @click="handleRefresh">
-    <icon-mdi-refresh class="text-22px" :class="{ 'animate-spin': loading }" />
-  </hover-container>
+  <v-tooltip text="重新加载">
+    <template #activator="{ props }">
+      <v-icon
+        v-bind="props"
+        size="lg"
+        color="success"
+        :class="{ 'animate-spin': loading }"
+        icon="mdi-refresh"
+        @click.stop="refresh"
+      ></v-icon>
+    </template>
+  </v-tooltip>
 </template>
 
 <script setup>
-import { useRoute } from "vue-router"
-import { useAppStore, useRouteStore } from "@/store"
 import { useLoading } from "@/hooks"
+const emit = defineEmits(["refresh"])
+
 defineOptions({ name: "ReloadButton" })
 
-const app = useAppStore()
-const routeStore = useRouteStore()
-const route = useRoute()
-const { loading, startLoading, endLoading } = useLoading()
+const { loading, start, end } = useLoading()
 
-function handleRefresh() {
-  const isCached = routeStore.cacheRoutes.includes(String(route.name))
-  if (isCached) {
-    routeStore.removeCacheRoute(route.name)
-  }
-  startLoading()
-  app.reloadPage()
-  setTimeout(() => {
-    if (isCached) {
-      routeStore.addCacheRoute(route.name)
-    }
-    endLoading()
-  }, 1000)
+const refresh = () => {
+  start()
+  emit("refresh")
+  end()
 }
 </script>
 

@@ -1,5 +1,4 @@
 import request from "./http.client"
-import { canUsed } from "@/utils/util"
 
 class TopUpRecordService {
   list(data) {

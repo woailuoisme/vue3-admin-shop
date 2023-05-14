@@ -1,5 +1,4 @@
 import client from "./http.client"
-import { canUsed } from "@/utils/util"
 
 class WithdrawService {
   list(data) {

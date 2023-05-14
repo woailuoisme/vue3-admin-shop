@@ -39,7 +39,7 @@
 <script setup>
 import Breadcrumb from "@/components/shared/Breadcrumb"
 import TextTooltip from "@/components/table/TextTooltip"
-import Details from "./components/feedback/Details"
+import Details from "./components/feedback/FeedbackDetails"
 import { computed, onMounted, ref, toRaw } from "vue"
 import { useBreadcrumb, useFeedback, useGlobal, useTableHeader } from "@/stores"
 

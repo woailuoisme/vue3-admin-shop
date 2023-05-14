@@ -1,6 +1,6 @@
 <template>
   <div class="d-flex justify-center">
-    <v-img :src="modelImage" cover :aspect-ratio="6 / 5" :max-width="maxWidth" :max-height="maxHeight" @error="modelImage = errorImg">
+    <v-img :src="modelImage" cover :aspect-ratio="6 / 5" :max-width="maxWidth" :max-height="maxHeight" @error="modelImage = dImgOne">
       <template #placeholder>
         <v-row class="fill-height ma-0" align="center" justify="center">
           <v-progress-circular indeterminate color="grey lighten-5" />
@@ -12,8 +12,7 @@
 
 <script setup>
 import { defineProps, ref } from "vue"
-
-import errorImg from "@/assets/image/default_image_1.png"
+import { dImgOne } from "@/assets"
 
 const props = defineProps({
   image: {

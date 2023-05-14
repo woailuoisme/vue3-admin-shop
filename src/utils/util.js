@@ -1,14 +1,8 @@
-// import { format } from 'date-fns'
 import { humanReadableFileSize } from "vuetify/lib/util/helpers"
-import { isPast, parseISO } from "date-fns"
 
 export const canUsed = function (data) {
   return typeof data !== "undefined" && data !== null && !!data
 }
-
-// const formatDate = (d, dateFormat = 'MM/dd/yyyy') => {
-//   return format(d, dateFormat)
-// }
 
 const formatDate = (dt) => {
   if (typeof dt?.getMonth !== "function") {
@@ -30,6 +24,51 @@ const kebab = (str) => {
 
 const bytes = (byte) => {
   return humanReadableFileSize(byte)
+}
+
+function formatTimeDiff(diff) {
+  const seconds = Math.floor(diff / 1000)
+  const minutes = Math.floor(seconds / 60)
+  const hours = Math.floor(minutes / 60)
+
+  const secondsRemainder = seconds % 60
+  const minutesRemainder = minutes % 60
+
+  const hourStr = hours > 0 ? `${hours}小时` : ""
+  const minuteStr = minutesRemainder > 0 ? `${minutesRemainder}分钟` : ""
+  const secondStr = secondsRemainder > 0 ? `${secondsRemainder}秒` : ""
+
+  return `${hourStr}${minuteStr}${secondStr}`
+}
+
+function timeDiff(start, end) {
+  const diff = new Date(end) - new Date(start)
+  const seconds = Math.floor(diff / 1000)
+  const minutes = Math.floor(seconds / 60)
+  const hours = Math.floor(minutes / 60)
+  const days = Math.floor(hours / 24)
+  const years = Math.floor(days / 365)
+
+  if (years > 0) {
+    return `${days} year${days > 1 ? "s" : ""} ago`
+  } else if (days > 0) {
+    return `${days} day${days > 1 ? "s" : ""} ago`
+  } else if (hours > 0) {
+    return `${hours} hour${hours > 1 ? "s" : ""} ago`
+  } else if (minutes > 0) {
+    return `${minutes} minute${minutes > 1 ? "s" : ""} ago`
+  } else {
+    return `${seconds} second${seconds > 1 ? "s" : ""} ago`
+  }
+}
+
+function timeAgo(time) {}
+
+export const bytesToSize = (bytes) => {
+  const sizes = ["Bytes", "KB", "MB", "GB", "TB"]
+  if (bytes === 0) return "0 Bytes"
+  const i = Math.floor(Math.log(bytes) / Math.log(1024))
+  return parseFloat((bytes / Math.pow(1024, i)).toFixed(2)) + " " + sizes[i]
 }
 
 /**
@@ -100,16 +139,6 @@ export const imageWidthAndHeight = (provideFile) => {
   })
 }
 
-// Checks if tokenExpiration in localstorage date is past, if so then trigger an update
-export const checkIfTokenNeedsRefresh = () => {
-  // Checks if time set in localstorage is past to check for refresh token
-  if (window.localStorage.getItem("token") !== null && window.localStorage.getItem("tokenExpiration") !== null) {
-    if (isPast(new Date(parseISO(JSON.parse(window.localStorage.getItem("tokenExpiration"))) * 1000))) {
-      // store.dispatch('refreshToken')
-    }
-  }
-}
-
 export async function copy(text) {
   try {
     await navigator.clipboard.writeText(text)
@@ -144,23 +173,6 @@ export function throttle(fn, wait) {
     }
   }
 }
-
-/**
- * Return nav link props to use
- * @param {Object, String} item navigation routeName or route Object provided in navigation data
- */
-// export const getComputedNavLinkToProp = computed(() => (link) => {
-//   const props = {
-//     target: link.target,
-//     rel: link.rel,
-//   }
-//   // If route is string => it assumes string is route name => Create route object from route name
-//   // If route is not string => It assumes it's route object => returns passed route object
-//   if (link.to) props.to = typeof link.to === 'string' ? { name: link.to } : link.to
-//   else props.href = link.href
-//
-//   return props
-// })
 
 /**
  * Convert Hex color to rgb

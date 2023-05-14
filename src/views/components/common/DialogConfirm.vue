@@ -6,9 +6,9 @@
     <v-divider :thickness="1" class="border-opacity-75" />
     <v-card-actions>
       <v-spacer />
-      <v-btn variant="flat" color="blue lighten-2 " @click="close">取消</v-btn>
+      <v-btn variant="outlined" color="info" @click="close">取消</v-btn>
       <v-spacer />
-      <v-btn variant="flat" color="error darken-1" @click="confirm">确认</v-btn>
+      <v-btn variant="elevated" color="error" @click="confirm">确认</v-btn>
       <v-spacer />
     </v-card-actions>
   </v-card>

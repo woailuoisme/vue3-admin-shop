@@ -57,7 +57,7 @@
 </template>
 
 <script setup>
-import Details from "./components/withdraw/Details"
+import Details from "./components/withdraw/WithdrawDetails"
 import { computed, nextTick, onMounted, ref, unref, watch } from "vue"
 import { useBreadcrumb, useGlobal, useWithdraw, useTableHeader } from "@/stores"
 import { debounce } from "lodash-es"

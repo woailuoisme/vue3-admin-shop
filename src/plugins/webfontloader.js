@@ -14,8 +14,7 @@ export async function loadFonts() {
     // https://fonts.google.com/
     google: {
       families: [
-        "ZCOOL+XiaoWei&display=swap",
-        "Noto+Sans+SC:wght@100;300;400&display=swap",
+        // "Noto+Sans+SC:wght@100;300;400;500;700;900&display=swap",
         "Roboto:ital,wght@0,100;0,300;0,400;0,500;1,400&display=swap",
       ],
     },

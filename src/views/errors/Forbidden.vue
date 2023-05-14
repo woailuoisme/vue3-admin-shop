@@ -3,11 +3,11 @@
     <v-container fluid class="fill-height">
       <v-layout class="align-center justify-center">
         <div class="mr-3 hidden-sm-and-down">
-          <img :src="img" />
+          <img :src="auth403" />
         </div>
         <div class="text-md-center">
           <h1>403</h1>
-          <h2 class="my-3 headline">Sorry, access denied.</h2>
+          <h2 class="my-3 headline">{{ $t("error.access_denied") }}</h2>
           <div>
             <v-btn color="primary" @click="goHome">Go Home</v-btn>
           </div>
@@ -19,7 +19,7 @@
 
 <script setup>
 import router from "@/router"
-import img from "@/assets/image/error/403.svg"
+import { auth403 } from "@/assets"
 
 function goHome() {
   router.push({ path: "/" })

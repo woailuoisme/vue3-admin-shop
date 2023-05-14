@@ -10,6 +10,9 @@ utility:
 error:
   other: 发生错误
   notfound: 网页未找到
+  access_denied: "抱歉，拒绝访问 "
+  page_not_found: " 抱歉，页面未找到！"
+  server_down: "抱歉，服务已下线！ "
 locale:
   ru: Russian
   en: English
@@ -150,6 +153,7 @@ table:
     view: 查看
     update: 修改
     delete: 删除
+go_home: 回到主页
 nav:
   about: 关于
   home: 主页

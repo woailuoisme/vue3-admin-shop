@@ -4,50 +4,49 @@ export const authModule = [
     name: "login",
     meta: {
       title: "用户登录",
-      layout: "default",
+      layout: "auth",
       requiredAuth: false,
     },
     component: () => import("@/views/auth/LoginPage.vue"),
   },
-
-  {
-    path: "/forgotPassword",
-    name: "forgotPassword",
-    meta: {
-      title: "忘记密码",
-      layout: "default",
-      requiredAuth: false,
-    },
-    component: () => import("@/views/auth/ForgotPage.vue"),
-  },
-
   {
     path: "/register",
     name: "register",
     meta: {
       title: "用户注册",
-      layout: "default",
+      layout: "auth",
       requiredAuth: false,
     },
     component: () => import("@/views/auth/RegisterVue.vue"),
   },
+
   {
-    path: "/signup",
-    name: "signup",
+    path: "/forgotPwd",
+    name: "forgotPwd",
     meta: {
-      title: "重置密码",
-      layout: "default",
+      title: "忘记密码",
+      layout: "auth",
       requiredAuth: false,
     },
-    component: () => import("@/views/auth/SignupPage.vue"),
+    component: () => import("@/views/auth/ForgotPage.vue"),
+  },
+  {
+    path: "/resetPwd",
+    name: "resetPwd",
+    meta: {
+      title: "重置密码",
+      layout: "auth",
+      requiredAuth: false,
+    },
+    component: () => import("@/views/auth/ResetPage.vue"),
   },
 
   {
-    path: "/login",
-    name: "login",
+    path: "/verifyEmail",
+    name: "verifyEmail",
     meta: {
       title: "verifyEmail",
-      layout: "default",
+      layout: "auth",
       requiredAuth: false,
     },
     component: () => import("@/views/auth/VerifyEmailPage.vue"),

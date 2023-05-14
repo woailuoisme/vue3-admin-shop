@@ -1,5 +1,4 @@
 import client from "./http.client"
-import { canUsed } from "@/utils/util"
 
 class ProductService {
   list(data) {
@@ -74,15 +73,15 @@ class ProductService {
 
   _attributes(data) {
     let formData = new FormData()
-    canUsed(data.category_id) && formData.append("category_id", data.category_id)
-    canUsed(data.description) && formData.append("description", data.description)
-    canUsed(data.content) && formData.append("content", data.content)
-    canUsed(data.thumbnail) && formData.append("thumbnail", data.thumbnail)
-    canUsed(data.attribute) && formData.append("attribute", data.attribute)
-    canUsed(data.is_sale) && formData.append("is_sale", data.is_sale ? 1 : 0)
-    canUsed(data.sale_price) && formData.append("sale_price", data.sale_price)
-    canUsed(data.sale_count) && formData.append("sale_count", data.sale_count)
-    canUsed(data.stock) && formData.append("stock", data.stock)
+    if (data?.category_id) formData.append("category_id", data.category_id)
+    if (data?.description) formData.append("description", data.description)
+    if (data?.content) formData.append("content", data.content)
+    if (data?.thumbnail) formData.append("thumbnail", data.thumbnail)
+    if (data?.attribute) formData.append("attribute", data.attribute)
+    if (data?.is_sale) formData.append("is_sale", data.is_sale ? 1 : 0)
+    if (data?.sale_price) formData.append("sale_price", data.sale_price)
+    if (data?.sale_count) formData.append("sale_count", data.sale_count)
+    if (data?.stock) formData.append("stock", data.stock)
     if (data.images) {
       data.images.forEach((v) => formData.append(`images[]`, v))
     }

@@ -1,6 +1,5 @@
 import request from "./http.client"
 import client from "@/api/http.client"
-import { canUsed } from "@/utils/util"
 
 class UserBackendService {
   list(data) {

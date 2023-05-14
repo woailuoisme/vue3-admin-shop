@@ -31,12 +31,11 @@
 </template>
 
 <script setup>
-import { useLoading } from "@/hooks"
-import { useRouterPush } from "@/composables"
+import { useRouterPush, useLoading } from "@/hooks"
 import { ref } from "vue"
 
 const { toLoginModule } = useRouterPush()
-const { loading: isLoading, startLoading, endLoading } = useLoading()
+const { loading: isLoading, start, end } = useLoading()
 const isFormValid = ref(false)
 const email = ref("")
 const error = ref(false)
@@ -46,17 +45,7 @@ const rules = ref({
 })
 const form = ref()
 
-const submit = () => {
-  form.value?.validate().then((r) => {
-    if (r.valid) {
-      startLoading()
-      setTimeout(() => {
-        endLoading()
-        window.$snackBar?.success("action success")
-      }, 1000)
-    }
-  })
-}
+const submit = () => {}
 const resetErrors = () => {
   error.value = false
   errorMessages.value = ""

@@ -1,22 +1,84 @@
+const purpleTheme = {
+  name: "PurpleTheme",
+  dark: false,
+  variables: {
+    "border-color": "#eeeeee",
+    "carousel-control-size": 10,
+  },
+  colors: {
+    primary: "#5D87FF",
+    secondary: "#49BEFF",
+    info: "#539BFF",
+    success: "#13DEB9",
+    accent: "#FFAB91",
+    warning: "#FFAE1F",
+    error: "#FA896B",
+    muted: "#5a6a85",
+    textPrimary: "#2A3547",
+    textSecondary: "#2A3547",
+    borderColor: "#e5eaef",
+    inputBorder: "#000",
+    containerBg: "#ffffff",
+    hoverColor: "#f6f9fc",
+    surface: "#fff",
+    "on-surface-variant": "#fff",
+    grey100: "#F2F6FA",
+    grey200: "#EAEFF4",
+  },
+}
+
+const customLightTheme = {
+  dark: false,
+  colors: {
+    background: "#FFFFFF",
+    surface: "#FFFFFF",
+    primary: "#6200EE",
+    "primary-darken-1": "#3700B3",
+    secondary: "#03DAC6",
+    "secondary-darken-1": "#018786",
+    error: "#B00020",
+    info: "#2196F3",
+    success: "#4CAF50",
+    warning: "#FB8C00",
+  },
+}
+//https://vuetifyjs.com/en/styles/colors/
+const customDarkTheme = {
+  dark: true,
+  colors: {
+    background: "#15202b",
+    surface: "#15202b",
+    primary: "#3f51b5",
+    secondary: "#03dac6",
+    error: "#f44336",
+    info: "#2196F3",
+    success: "#4caf50",
+    warning: "#fb8c00",
+  },
+}
+
 const theme = {
   defaultTheme: "light",
   themes: {
+    purpleTheme,
+    customLightTheme,
+    customDarkTheme,
     light: {
       dark: false,
       colors: {
         primary: "#9155FD",
         secondary: "#BA68C8",
-        "on-secondary": "#fff",
         success: "#41b883",
         info: "#16B1FF",
         warning: "#FFB400",
         error: "#FF4C51",
+        background: "#F4F5FA",
         "on-primary": "#FFFFFF",
+        "on-secondary": "#fff",
         "on-success": "#FFFFFF",
         "on-warning": "#FFFFFF",
-        background: "#F4F5FA",
-        "on-background": "#3A3541",
         "on-surface": "#3A3541",
+        "on-background": "#3A3541",
         "grey-50": "#FAFAFA",
         "grey-100": "#F5F5F5",
         "grey-200": "#EEEEEE",
@@ -76,4 +138,5 @@ const theme = {
     },
   },
 }
+
 export default theme

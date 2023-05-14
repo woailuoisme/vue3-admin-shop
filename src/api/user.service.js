@@ -1,5 +1,4 @@
 import client from "@/api/http.client"
-import { canUsed } from "@/utils/util"
 
 class UserService {
   list(data) {

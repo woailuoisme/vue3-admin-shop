@@ -1,7 +1,5 @@
 <template>
   <v-container fluid>
-    <!--    <data-filter></data-filter> -->
-    <!--    <one-time-pwd></one-time-pwd> -->
     <input-integer v-model="num"></input-integer>
     {{ num }}
     <v-row>
@@ -133,17 +131,14 @@
 
 <script setup>
 import DatePicker from "@/components/shared/DatePicker"
-import DataFilter from "@/components/table/DataFilter"
 import { getCurrentInstance, onMounted, ref, watch } from "vue"
 import { useField, useForm } from "vee-validate"
 import yup from "@/utils/validation"
 import FileSingleImageInput from "@/components/shared/FileSingleImageInput"
 import Dropzone from "@/components/shared/Dropzone"
 import DelayButton from "@/components/shared/DelayButton"
-import FileUpload from "@/components/shared/FileImageUpload"
-import OneTimePwd from "@/components/OneTimePwd"
 import InputInteger from "@/components/shared/InputInteger"
-import EditorMd from "@/components/editor/EditorMd"
+import EditorMd from "@/components/editor/MdEditor"
 const newDate = ref(new Date())
 const dialog = ref(false)
 const images = ref([])
@@ -168,7 +163,7 @@ let userSchema = yup.object({
   email: yup.string().required(),
   select: yup.string().required(),
   checkbox: yup.boolean().required().oneOf([true, false]),
-  image: yup.mixed().fileRequired().fileSize(2).imageType(),
+  // image: yup.mixed().image().maxFileSize(2),
 })
 
 const { handleSubmit, handleReset, meta } = useForm({

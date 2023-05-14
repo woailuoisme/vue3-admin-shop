@@ -3,7 +3,7 @@
     <v-col cols="12">
       <v-expansion-panels>
         <v-expansion-panel class="ma-0 pa-0">
-          <v-expansion-panel-title class="bg-success text-h6">添加查询规则</v-expansion-panel-title>
+          <v-expansion-panel-title class="bg-primary text-h6">添加查询规则</v-expansion-panel-title>
           <v-expansion-panel-text class="ma-0 pa-0">
             <v-container fluid>
               <v-row class="align-center">

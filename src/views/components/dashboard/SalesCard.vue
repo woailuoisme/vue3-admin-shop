@@ -16,9 +16,9 @@
       <div class="d-flex flex-column flex-grow-1">
         <div class="pa-2">
           <div class="text-h4">
-            {{ $filter.formatCurrency(26358.49) }}
+            {{ formatCurrency(26358.49) }}
           </div>
-          <div class="text-primary-lighten-1 mt-1">{{ $filter.formatCurrency(7123.21) }} {{ $t("dashboard.lastweek") }}</div>
+          <div class="text-primary-lighten-1 mt-1">{{ formatCurrency(7123.21) }} {{ $t("dashboard.lastweek") }}</div>
         </div>
 
         <v-spacer></v-spacer>
@@ -27,7 +27,7 @@
           <div class="title mb-1">{{ $t("dashboard.weeklySales") }}</div>
           <div class="d-flex align-center">
             <div class="text-h4">
-              {{ $filter.formatCurrency(value) }}
+              {{ formatCurrency(value) }}
             </div>
             <v-spacer></v-spacer>
             <div class="d-flex flex-column text-right">
@@ -48,7 +48,8 @@
 <script setup>
 import { computed } from "vue"
 import { useTheme } from "vuetify"
-import { format } from "date-fns"
+import { formatCurrency } from "@/filters"
+import dayjs from "dayjs"
 const props = defineProps({
   value: {
     type: Number,
@@ -98,7 +99,7 @@ const props = defineProps({
 })
 const emit = defineEmits(["actionClicked"])
 const formatDate = (date) => {
-  return date ? format(date, "dd MM") : ""
+  return date ? dayjs(date).format("DD MM") : ""
 }
 const { themes, current } = useTheme()
 

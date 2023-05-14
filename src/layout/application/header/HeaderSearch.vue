@@ -1,28 +1,34 @@
 <template>
   <v-autocomplete
     ref="auto"
-    placeholder="`路由搜索`"
+    placeholder="`路由搜索(ctrl+/)`"
     prepend-inner-icon="mdi-magnify"
     hide-details
     :items="searchMenus"
     item-title="title"
     item-value="path"
     clearable
-    variant="filled"
+    variant="outlined"
     density="comfortable"
-    class="v-text-field-rounded rounded-pill"
     single-line
-    @update:modelValue="searchSelect"
+    open-on-clear
+    :custom-filter="customFilter"
+    :search="search"
+    active
   >
     <template #item="{ props, item }">
-      <v-list-item v-bind="props" :to="item.raw.path" :title="item.raw.title" :subtitle="item.raw.path"></v-list-item>
+      <v-list-item :to="item.raw.path">
+        <!--        <v-list-item-title v-html="highlight(item.raw.title)"></v-list-item-title> -->
+        <!--        <v-list-item-subtitle v-html="highlight(item.raw.path)"></v-list-item-subtitle> -->
+        <v-list-item-title>{{ item.raw.title }}</v-list-item-title>
+        <v-list-item-subtitle>{{ item.raw.path }}</v-list-item-subtitle>
+      </v-list-item>
+      <v-divider color="primary" :thickness="2"></v-divider>
     </template>
   </v-autocomplete>
 </template>
 
 <script setup>
-import { computed, defineProps, ref, onMounted } from "vue"
-import router from "@/router"
 import { menuModule } from "@/router/menuRouters"
 import { flatten } from "@/utils"
 
@@ -30,7 +36,8 @@ const props = defineProps({
   book: Object,
 })
 
-const auto = ref()
+const auto = ref(null)
+const search = ref("")
 
 function getRoutes() {
   const flatRoutes = flatten(menuModule)
@@ -46,22 +53,44 @@ function getRoutes() {
   return mapRoutes
 }
 
+const customFilter = (value, query, item) => {
+  if (value == null || query == null) return -1
+  return item.raw.title.toLowerCase().includes(query.toLowerCase()) || item.raw.path.toLowerCase().includes(query.toLowerCase())
+}
+
 const searchMenus = getRoutes()
 
-const searchSelect = (item) => {
-  if (item) router.push({ path: item })
-}
-function keyUp(e) {
-  let evt = window.event || e
-  if (evt.keyCode === 80 && evt.altKey) {
-    alert("Keyboard shortcut working!")
-    return false
+function onKeyDown(event) {
+  if (event.ctrlKey && event.key === "/") {
+    event.preventDefault()
+    auto.value.$el.querySelector("input").focus()
+    auto.value.menu = !auto.value.menu
   }
 }
 
 onMounted(() => {
-  document.onkeyup = keyUp
+  window.addEventListener("keydown", onKeyDown)
 })
+onUnmounted(() => {
+  window.removeEventListener("keydown", onKeyDown)
+})
+
+function highlight(text) {
+  if (!search.value) {
+    return text
+  }
+  const regex = new RegExp(search.value, "ig")
+  const match = text.match(regex)
+  if (!match) {
+    return text
+  }
+  // return text.replace(regex, `<span class="v-autocomplete__highlight">${match[0]}</span>`);
+  return text.replace(regex, (match) => `<strong>${match}</strong>`)
+}
 </script>
 
-<style scoped></style>
+<style scoped>
+.v-autocomplete__highlight {
+  color: #1976d2;
+}
+</style>

@@ -2,13 +2,11 @@ module.exports = {
   printWidth: 140,
   tabWidth: 2,
   useTabs: false,
-  semi: false, // 结尾加分号
-  singleQuote: false, // jsx 不使用单引号，而使用双引号
-  jsxSingleQuote: false,
-  jsxBracketSameLine: false, // 在多行JSX元素的最后一行追加 >
-  quoteProps: "as-needed", // 对象的 key 仅在必要时用引号
-  trailingComma: "all", // 确保对象的最后一个属性后有逗号
-  bracketSpacing: true, // 大括号有空格 { name: 'rose' }
+  semi: false,
+  singleQuote: false,
+  quoteProps: "as-needed",
+  trailingComma: "all",
+  bracketSpacing: true,
   arrowParens: "always", //  箭头函数，只有一个参数的时候，也需要括号
   requirePragma: false, // 是否严格按照文件顶部的特殊注释格式化代码
   insertPragma: false, // 是否在格式化的文件顶部插入Pragma标记 @prettier，以表明该文件被prettier格式化过了

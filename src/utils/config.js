@@ -1,17 +1,12 @@
-// let environment = process.env.NODE_ENV
-let environment = "dev"
-
-function getUrl(environment) {
-  switch (environment) {
-    case "local":
-      return "http://localhost:8000/api/v1/admin"
-    case "dev":
-      return "http://39.96.171.46/api/v1/admin"
-    case "prod":
-      return "https://zzrxxa.com/api/v1/admin"
-    default:
-      return "http://localhost:8000/api/v1/admin"
-  }
+export const dataTableAttr = {
+  rowsPerPageMessage: "每页",
+  emptyMessage: "暂无数据",
+  headerTextDirection: "center",
+  bodyTextDirection: "center",
+  alternating: false,
+  // themeColor:"#f48225",
+  buttonsPagination: true,
+  // tableClassName: 'customize-table',
+  tableClassName: "customize-table",
+  // rowsItems: () => [10, 20, 50, 100],
 }
-export let baseUrl = getUrl(environment)
-export default { baseUrl }

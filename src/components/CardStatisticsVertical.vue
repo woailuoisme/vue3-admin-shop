@@ -9,8 +9,9 @@
 // }
 import { controlledComputed } from "@vueuse/core"
 
-const props = withDefaults(defineProps(), {
-  color: "primary",
+const props = defineProps({
+  color: String,
+  default: primary,
 })
 
 const isPositive = controlledComputed(

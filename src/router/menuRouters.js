@@ -76,7 +76,7 @@ export const menuModule = [
         path: "/product/list",
         name: "product_list",
         meta: {
-          title: "后台用户管理",
+          title: "产品管理",
           layout: "menu",
           requiredAuth: true,
           permission: "home",

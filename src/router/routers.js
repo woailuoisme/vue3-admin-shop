@@ -30,8 +30,23 @@ const personModule = [
 const testModule = [
   {
     path: "/drag",
-    name: "/drag",
+    name: "drag",
     component: () => import("@/components/shared/DragSorted.vue"),
+  },
+  {
+    path: "/menu",
+    name: "menu",
+    component: () => import("@/views/menu/MenuView.vue"),
+  },
+  {
+    path: "/tree",
+    name: "tree",
+    component: () => import("@/views/tree/Tree.vue"),
+  },
+  {
+    path: "/step",
+    name: "step",
+    component: () => import("@/views/step/StepperPage.vue"),
   },
   {
     path: "/upload",

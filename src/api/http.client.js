@@ -1,15 +1,14 @@
 import axios from "axios"
-import Toast from "@/utils/toast"
 import router from "@/router"
-import { useGlobal, useAuth } from "@/stores"
-import NProgress from "nprogress"
-import { useLocalStorage } from "@/utils"
+import { useGlobal } from "@/stores"
+import { useLocalStorage, useToastMsg, startProgress, endProgress } from "@/utils"
 const storage = useLocalStorage()
+
+const { errorMsg } = useToastMsg()
 
 class HttpClient {
   instance(auth = true, withFile = false) {
     const globalStore = useGlobal()
-    const authStore = useAuth()
     const userString = storage.get("user")
     const user = userString ? JSON.parse(userString) : ""
     const token = user && user.token ? user.token : ""
@@ -30,73 +29,57 @@ class HttpClient {
 
     client.interceptors.request.use(
       (config) => {
-        // NProgress.start()
-        NProgress.start()
+        startProgress()
         globalStore.setLoading(true)
         return config
       },
       (error) => {
         globalStore.setLoading(false)
-        Toast.error(error.message)
+        errorMsg(error.message)
         return Promise.reject(error)
       },
     )
     client.interceptors.response.use(
       (response) => {
-        NProgress.done()
+        endProgress()
         globalStore.setLoading(false)
         return Promise.resolve(response)
       },
       (error) => {
-        NProgress.done()
+        endProgress()
         if (error.code === "ECONNABORTED" || error.code === "ETIMEDOUT") {
-          Toast.error("请求超时")
+          errorMsg("请求超时")
         }
         if (error.code === "ERR_NETWORK") {
-          Toast.error("网络异常")
+          errorMsg("网络异常")
         }
-        if (error.response) {
-          if (error.response.status) {
-            switch (error.response.status) {
-              case 400:
-                Toast.error(error.response.data.message ?? error.response.data.message)
-                console.error(error.response.status, error.message)
-                console.log("📡 API | Nothing to display", "Data Not Found")
-                break
-
-              case 401: // authentication error, logout the user
-                Toast.error("认证无效或已过期,请重新登录！")
-                authStore.resetUser()
-                router.replace({ name: "login" })
-                // router.push({ name: 'dashboard' }
-                console.log("📡 API | Please login again", "Session Expired")
-                break
-
-              case 403:
-                Toast.error("权限拒绝！")
-                // router.replace('/403')
-                router.replace({ name: "forbidden" })
-                console.error(error.response.status, error.message)
-                console.log("📡 API | Access denied", "Data Not Found")
-                break
-
-              case 404:
-                Toast.error("未返回资源！")
-                console.error(error.response.status, error.message)
-                console.log("📡 API | Dataset not found", "Data Not Found")
-                break
-
-              case 422:
-                Toast.error("请求参数错误！")
-                console.log("📡 API | Validation error", "Unprocessable Content")
-                break
-              case 500:
-                Toast.error("服务端异常")
-                router.replace({ name: "server_error" })
-                break
-              default:
-                console.error(error.response.status, error.message)
-            }
+        if (error?.response && error.response.status) {
+          switch (error.response.status) {
+            case 400:
+              errorMsg(error.response.data.message ?? error.response.data.message)
+              break
+            case 401:
+              errorMsg("认证无效或已过期,请重新登录！")
+              storage.remove("user")
+              router.replace({ name: "login" })
+              break
+            case 403:
+              errorMsg("权限拒绝！")
+              router.replace({ name: "forbidden" })
+              break
+            case 404:
+              errorMsg("未返回资源！")
+              break
+            case 422:
+              errorMsg("请求参数错误！")
+              break
+            case 500:
+              errorMsg("服务端异常")
+              router.replace({ name: "server_error" })
+              break
+            default:
+              console.error(error.response.status, error.message)
+              return Promise.reject(error)
           }
         }
         globalStore.setLoading(false)

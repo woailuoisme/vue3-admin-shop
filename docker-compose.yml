@@ -1,0 +1,16 @@
+version: "3.8"
+networks:
+  frontend:
+    external: true
+services:
+  vueAdmin:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: vueAdmin
+    image: ailuoga/admin:latest
+    ports:
+      - "8801:80"
+    restart: always
+    networks:
+      - frontend

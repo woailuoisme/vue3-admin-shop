@@ -10,6 +10,9 @@ utility:
 error:
   other: An Error Ocurred
   notfound: Page Not Found
+  access_denied: Sorry, access denied.
+  page_not_found: Sorry, page not found
+  server_down: Sorry, the server is down.
 locale:
   ru: Russian
   en: English
@@ -150,6 +153,7 @@ table:
     view: view
     update: update
     delete: delete
+go_home: Go Home
 nav:
   about: About
   home: Home

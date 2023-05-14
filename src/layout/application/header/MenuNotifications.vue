@@ -1,8 +1,13 @@
 <template>
   <v-menu left offset-y transition="slide-y-transition">
     <template #activator="{ props }">
+      <!--      <v-btn class="text-none" icon v-bind="props"> -->
+      <!--        <v-badge bordered color="primary" content="6"> -->
+      <!--          <v-icon>mdi-bell-outline</v-icon> -->
+      <!--        </v-badge> -->
+      <!--      </v-btn> -->
       <v-btn class="text-none" icon v-bind="props">
-        <v-badge bordered color="primary" content="6">
+        <v-badge content="2" color="error">
           <v-icon>mdi-bell-outline</v-icon>
         </v-badge>
       </v-btn>

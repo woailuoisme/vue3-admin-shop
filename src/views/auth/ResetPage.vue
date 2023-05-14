@@ -1,6 +1,6 @@
 <template>
   <v-card class="pa-2">
-    <v-card-title class="justify-center text-h4 mb-2">Set new password</v-card-title>
+    <v-card-title class="text-center text-h4 mb-2">Set in 4</v-card-title>
     <div class="overline">{{ status }}</div>
     <div class="error--text mt-2 mb-4">{{ error }}</div>
 
@@ -8,31 +8,27 @@
 
     <v-text-field
       v-model="newPassword"
-      :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
-      :rules="[rules.required]"
+      prepend-inner-icon="mdi-lock"
+      :append-inner-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
       :type="showPassword ? 'text' : 'password'"
-      :error="errorNewPassword"
-      :error-messages="errorNewPasswordMessage"
-      variant="underlined"
+      variant="outlined"
       name="password"
-      label="New Password"
-      class="mt-4"
-      @change="resetErrors"
+      label="新密码"
+      class="my-4"
       @keyup.enter="confirmPasswordReset"
       @click:append="showPassword = !showPassword"
     ></v-text-field>
 
     <v-btn :loading="isLoading" block depressed size="x-large" color="primary" @click="confirmPasswordReset">
-      Set new password and Sign In
+      Set new password and Sign
     </v-btn>
   </v-card>
 </template>
 
 <script setup>
-import { computed, ref } from "vue"
 import { useLoading } from "@/hooks"
 
-const { loading: isLoading, startLoading, endLoading } = useLoading()
+const { loading: isLoading, start, end } = useLoading()
 const newPassword = ref("")
 const errorNewPassword = ref(false)
 const errorNewPasswordMessage = ref("")
@@ -44,9 +40,9 @@ const rules = ref({
 })
 
 const confirmPasswordReset = () => {
-  startLoading()
+  start()
   setTimeout(() => {
-    endLoading()
+    end()
   }, 1000)
 }
 

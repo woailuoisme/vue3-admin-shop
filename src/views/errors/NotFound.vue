@@ -3,11 +3,11 @@
     <v-container class="fill-height" fluid>
       <v-layout class="align-center justify-center">
         <div class="mr-3 hidden-sm-and-down">
-          <img :src="img" />
+          <img :src="auth404" />
         </div>
         <div class="text-md-center">
           <h1>404</h1>
-          <h2 class="my-3 headline">Sorry, page not found</h2>
+          <h2 class="my-3 headline">{{ $t("error.page_not_found") }}</h2>
           <div>
             <v-btn color="primary" @click="goHome">Go Home</v-btn>
           </div>
@@ -19,7 +19,7 @@
 
 <script setup>
 import router from "@/router"
-import img from "@/assets/image/error/404.svg"
+import { auth404 } from "@/assets"
 
 function goHome() {
   router.push({ path: "/" })
