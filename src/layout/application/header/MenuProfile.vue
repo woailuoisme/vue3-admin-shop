@@ -22,7 +22,7 @@
             <v-list-item-subtitle class="text-disabled">{{ user?.role }}</v-list-item-subtitle>
           </v-list-item>
 
-          <v-divider class="my-2" thickness="3" />
+          <v-divider class="my-2" thickness="1" />
 
           <!-- 👉 Profile -->
           <v-list-item link :to="{ path: '/user/profile' }">
@@ -49,7 +49,7 @@
           <!--          </v-list-item> -->
 
           <!-- Divider -->
-          <v-divider class="my-2" thickness="3" />
+          <v-divider class="my-2" thickness="1" />
 
           <!-- 👉 Logout -->
           <v-list-item to="/login" @click="userLogout">

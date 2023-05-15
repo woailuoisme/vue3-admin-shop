@@ -32,6 +32,7 @@
     <v-col cols="12">
       <v-card :loading="loading" :disabled="loading">
         <easy-data-table
+          v-bind="dataTableAttr"
           v-model:server-options="requestParams"
           :server-items-length="serverItemsLength"
           :loading="loading"
@@ -61,6 +62,7 @@ import Details from "./components/withdraw/WithdrawDetails"
 import { computed, nextTick, onMounted, ref, unref, watch } from "vue"
 import { useBreadcrumb, useGlobal, useWithdraw, useTableHeader } from "@/stores"
 import { debounce } from "lodash-es"
+import { dataTableAttr } from "@/utils"
 
 const withdrawStore = useWithdraw()
 const globalStore = useGlobal()

@@ -16,7 +16,6 @@ module.exports = {
   rangeStart: 0, // 每个文件格式化的范围是文件的全部内容
   rangeEnd: Infinity,
   bracketSameLine: false, // jsx 标签的反尖括号需要换行
-  // 根据显示样式决定 html 要不要折行
   vueIndentScriptAndStyle: false, // vue 文件中的 script 和 style 内不用缩进
   embeddedLanguageFormatting: "auto", // 格式化内嵌代码
 }

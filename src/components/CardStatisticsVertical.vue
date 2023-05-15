@@ -11,7 +11,7 @@ import { controlledComputed } from "@vueuse/core"
 
 const props = defineProps({
   color: String,
-  default: primary,
+  default: () => "primary",
 })
 
 const isPositive = controlledComputed(

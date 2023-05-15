@@ -7,7 +7,7 @@ module.exports = {
     "vue/setup-compiler-macros": true,
   },
   globals: {
-    defineEmits: "readonly",
+    defineOptions: "readonly",
   },
   plugins: ["vue"],
   parser: "vue-eslint-parser",
@@ -22,7 +22,6 @@ module.exports = {
   rules: {
     // "no-console": process.env.NODE_ENV === "prod" ? "error" : "off",
     // "no-debugger": process.env.NODE_ENV === "prod" ? "error" : "off",
-
     "no-console": "off",
     "no-debugger": "off",
     "no-unused-vars": [
@@ -38,13 +37,13 @@ module.exports = {
     // --fix  component in template name to  kebab-case  PascalCase  camelCase  Snake_case
     "vue/component-name-in-template-casing": ["error", "kebab-case", { registeredComponentsOnly: false }],
     // --fix  component in template name to  kebab-case
-    "vue/custom-event-name-casing": [
-      "error",
-      "camelCase",
-      {
-        ignores: ["/^(click):[a-z]+((d)|([A-Z0-9][a-z0-9]+))*([A-Z])?/"],
-      },
-    ],
+    // "vue/custom-event-name-casing": [
+    //   "error",
+    //   "camelCase",
+    //   {
+    //     ignores: ["/^(click):[a-z]+((d)|([A-Z0-9][a-z0-9]+))*([A-Z])?/"],
+    //   },
+    // ],
     "vue/define-macros-order": "error",
     "vue/html-comment-content-newline": "error",
     "vue/html-comment-content-spacing": "error",
@@ -52,7 +51,6 @@ module.exports = {
     "vue/match-component-file-name": "error",
     "vue/no-child-content": "error",
     "vue/multi-word-component-names": "off",
-
     // NOTE this rule only supported in SFC,  Users of the unplugin-vue-define-options should disable
     // that rule: https://github.com/vuejs/eslint-plugin-vue/issues/1886
     // 'vue/no-duplicate-attr-inheritance': 'error',
@@ -66,7 +64,6 @@ module.exports = {
     "vue/prefer-separate-static-class": "error",
     "vue/prefer-true-attribute-shorthand": "error",
     "vue/v-on-function-call": "error",
-
     // -- Extension Rules
     "vue/no-irregular-whitespace": "error",
     "vue/template-curly-spacing": "error",

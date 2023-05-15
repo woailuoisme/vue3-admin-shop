@@ -32,7 +32,7 @@ export default defineStore("auth", {
         let user = response.data.data
         this.user = user
         storage.set("user", JSON.stringify(user))
-        router.replace({ name: "dashboard" })
+        await router.replace({ name: "dashboard" })
         toast.success("用户登录成功")
         return true
       }

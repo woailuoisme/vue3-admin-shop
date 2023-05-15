@@ -21,6 +21,7 @@
     <v-col cols="12">
       <v-card :loading="isLoading" :disabled="isLoading">
         <easy-data-table
+          v-bind="dataTableAttr"
           v-model:server-options="requestParams"
           :server-items-length="total"
           :loading="isLoading"
@@ -81,8 +82,10 @@ import Toast from "@/utils/toast"
 import { debounce } from "lodash-es"
 import CopyLabel from "@/components/common/CopyLabel"
 import { useClipboard } from "@vueuse/core"
+
 const { toClipboard } = useClipboard()
 import { orderStatusLabel, orderShowExpress } from "@/filters"
+import { dataTableAttr } from "@/utils"
 
 const globalStore = useGlobal()
 const breadcrumbStore = useBreadcrumb()
@@ -110,7 +113,6 @@ const requestParams = ref({
 
 const showStatus = ref(false)
 const orderNoStatus = ref("")
-
 const mapCategory = ref({})
 const search = debounce((value) => orderStore.loadAllOrders(value), 600)
 onMounted(() => {
@@ -150,6 +152,7 @@ function close() {
     orderStore.resetEdited()
   })
 }
+
 function closeDetails() {
   dialogDetail.value = false
   nextTick(() => {
@@ -169,42 +172,3 @@ function save(values) {
   close()
 }
 </script>
-
-<style scoped>
-.filter-column {
-  display: flex;
-  align-items: center;
-  justify-items: center;
-  position: relative;
-  cursor: pointer;
-}
-
-.filter-icon {
-  cursor: pointer;
-  width: 15px !important;
-  height: 15px !important;
-  margin-right: 4px;
-}
-
-.filter-menu {
-  padding: 4px 4px;
-  z-index: 1;
-  position: absolute;
-  top: 35px;
-  width: 130px;
-  height: 50px;
-  background-color: #eee;
-  border: 1px solid #eee;
-}
-
-.filter-status-menu {
-  height: 40px !important;
-}
-
-.filter-age-menu {
-  height: 40px;
-}
-.slider {
-  margin-top: 36px;
-}
-</style>

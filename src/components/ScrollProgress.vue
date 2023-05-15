@@ -54,9 +54,9 @@ watchPostEffect(() => {
   const parent = scrollElement.value === document ? scrollElement.value.documentElement : scrollElement.value
   scrollProgress.value = scrollY.value / (parent.scrollHeight - parent.clientHeight)
   animation.value.cancel()
-  if (autoHide && root.value) {
-    animation.value = root.value.animate({ opacity: [1, 0] }, { duration: 500, delay: 2000, fill: "both", easing: "ease-out" })
-  }
+  // if (autoHide && root.value) {
+  //   animation.value = root.value.animate({ opacity: [1, 0] }, { duration: 500, delay: 2000, fill: "both", easing: "ease-out" })
+  // }
 })
 </script>
 

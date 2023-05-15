@@ -34,12 +34,12 @@
 </template>
 
 <script>
-import CardBasic from "@/views/card/card-basic/CardBasic"
+// import CardBasic from "@/views/card/card-basic/CardBasic"
 import CardNavigation from "@/views/card/card-basic/CardNavigation"
-import CardSolid from "@/views/card/card-basic/CardSolid"
+// import CardSolid from "@/views/card/card-basic/CardSolid"
 export default {
   name: "CardView",
-  components: { CardSolid, CardNavigation, CardBasic },
+  // components: { CardSolid, CardNavigation, CardBasic },
 }
 </script>
 

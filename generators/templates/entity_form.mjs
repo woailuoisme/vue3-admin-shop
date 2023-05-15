@@ -1,16 +1,16 @@
-import {camelToDot, camelToKebab, camelToSnake, plural} from "../util.mjs"
-import {camelCase, trim} from "lodash-es"
+import { camelToDot, camelToKebab, camelToSnake, pascale, plural } from "../util.mjs"
+import { camelCase, trim } from "lodash-es"
 
 export const entityFormContent = (model) => {
-    const newModel = trim(model)
-    const camelModel = camelCase(newModel)
-    const pascalName = capitalize(camelModel)
-    const pluralName = plural(camelModel)
-    const kebabName = camelToKebab(camelModel)
-    const dotName = camelToDot(camelModel)
-    const snakeName = camelToSnake(camelModel)
+  const newModel = trim(model)
+  const camelModel = camelCase(newModel)
+  const pascalName = pascale(camelModel)
+  const pluralName = plural(camelModel)
+  const kebabName = camelToKebab(camelModel)
+  const dotName = camelToDot(camelModel)
+  const snakeName = camelToSnake(camelModel)
 
-    return `
+  return `
 <template>
   <v-form @submit.prevent="submit">
     <v-card>
@@ -44,7 +44,7 @@ export const entityFormContent = (model) => {
           </v-row>
         </v-container>
       </v-card-text>
-      <v-divider :thickness="2" />
+      <v-divider :thickness="1" />
       <v-card-actions class="py-4">
         <v-spacer />
         <v-btn variant="flat" color="secondary" size="large" @click="close">{{ $t('form.cancel') }}</v-btn>

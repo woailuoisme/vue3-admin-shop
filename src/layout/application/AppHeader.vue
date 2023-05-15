@@ -6,12 +6,12 @@
     </v-toolbar-title>
     <v-spacer />
     <header-search></header-search>
-    <v-divider class="mx-2" inset vertical thickness="3" />
+    <v-divider class="mx-2" inset vertical thickness="1" />
     <language-change></language-change>
     <header-full-screen></header-full-screen>
     <theme-switcher></theme-switcher>
     <menu-notifications></menu-notifications>
-    <v-divider class="mx-2" inset vertical thickness="3" />
+    <v-divider class="mx-2" inset vertical thickness="1" />
     <menu-profile></menu-profile>
   </v-app-bar>
 

@@ -1,17 +1,17 @@
-import {camelToDot, camelToKebab, camelToSnake, pascale, plural} from "../util.mjs"
-import {camelCase, trim} from "lodash-es"
+import { camelToDot, camelToKebab, camelToSnake, pascale, plural } from "../util.mjs"
+import { camelCase, trim } from "lodash-es"
 
 export const storeContent = (model) => {
-    const newModel = trim(model)
-    const camelName = camelCase(newModel)
-    const pascalName = pascale(camelName)
-    const pluralName = plural(camelName)
-    const pluralPascalName = plural(pascalName)
-    const kebabName = camelToKebab(camelName)
-    const dotName = camelToDot(camelName)
-    const snakeName = camelToSnake(camelName)
+  const newModel = trim(model)
+  const camelName = camelCase(newModel)
+  const pascalName = pascale(camelName)
+  const pluralName = plural(camelName)
+  const pluralPascalName = plural(pascalName)
+  const kebabName = camelToKebab(camelName)
+  const dotName = camelToDot(camelName)
+  const snakeName = camelToSnake(camelName)
 
-    return `
+  return `
 import ${pascalName}Service from '@/api/${dotName}.service'
 import Toast from '@/utils/toast'
 import { defineStore } from 'pinia'

@@ -22,7 +22,7 @@ export const compareVersion = (latestVersion, localVersion) => {
 // If no localstorage appVersion or checkForAppUpdatesAt have been set, then set them
 export const setLocalStorageDateForUpdates = () => {
   if (window.localStorage.getItem("checkForAppUpdatesAt") === null) {
-    window.localStorage.setItem("checkForAppUpdatesAt", JSON.stringify(format(new Date(), "t")))
+    // window.localStorage.setItem("checkForAppUpdatesAt", JSON.stringify(format(new Date(), "t")))
   }
 }
 

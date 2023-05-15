@@ -12,15 +12,16 @@
     "build:analyze": "vite build --mode analyze",
     "build:clean": "rimraf dist",
     "preview": "vite preview",
-    "gv_local": "cross-env NODE_ENV=local node generate-build-version ",
-    "gv_dev": "cross-env NODE_ENV=dev node generate-build-version ",
-    "gv_prod": "cross-env NODE_ENV=prod node generate-build-version ",
+    "gv_local": "cross-env NODE_ENV=local node gen-version.mjs ",
+    "gv_dev": "cross-env NODE_ENV=dev node gen-version.mjs ",
+    "gv_prod": "cross-env NODE_ENV=prod node gen-version.mjs ",
     "lint": "eslint ./ --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --ignore-path .gitignore",
     "lint-fix": "eslint ./ --ext .vue,.js,.cjs,.mjs,.jsx --fix --color --cache --max-warnings=-1",
     "format": "prettier --write ./ --ext .vue,.js,.jsx,.cjs,.mjs,.yml,.json,.html",
     "prepare": "husky install",
     "pre": "npm run  format && npm run lint-fix",
-    "g": "node .\\generators\\cmd.mjs make"
+    "g": "node ./generators/index.mjs",
+    "upload": "node deploy/index.mjs"
   },
   "dependencies": {
     "@chenfengyuan/vue-countdown": "^2.1.1",
@@ -34,7 +35,6 @@
     "@vueuse/core": "^10.1.2",
     "apexcharts": "^3.40.0",
     "axios": "^1.4.0",
-    "colord": "^2.9.3",
     "core-js": "^3.30.2",
     "crypto-js": "^4.1.1",
     "dayjs": "^1.11.7",
@@ -88,12 +88,14 @@
     "clear": "^0.1.0",
     "commander": "^10.0.1",
     "cross-env": "^7.0.3",
+    "dotenv": "^16.0.3",
     "eslint": "^8.40.0",
     "eslint-config-prettier": "^8.8.0",
     "eslint-plugin-prettier": "^4.2.1",
     "eslint-plugin-promise": "^6.1.1",
     "eslint-plugin-vue": "^9.12.0",
     "execa": "^7.1.1",
+    "figlet": "^1.6.0",
     "husky": "^8.0.3",
     "jszip": "^3.10.1",
     "lint-staged": "^13.2.2",
@@ -104,6 +106,7 @@
     "rollup-plugin-visualizer": "^5.9.0",
     "sass": "^1.62.1",
     "ssh2": "^1.13.0",
+    "ssh2-sftp-client": "^9.1.0",
     "unplugin-auto-import": "^0.15.3",
     "unplugin-icons": "^0.16.1",
     "unplugin-vue-components": "^0.24.1",
@@ -117,8 +120,7 @@
     "vite-plugin-vue-layouts": "^0.8.0",
     "vite-plugin-vue-setup-extend": "^0.4.0",
     "vite-plugin-vuetify": "^1.0.2",
-    "vite-plugin-zip-pack": "^1.0.5",
-    "yargs": "^17.7.2"
+    "vite-plugin-zip-pack": "^1.0.5"
   },
   "husky": {
     "hooks": {

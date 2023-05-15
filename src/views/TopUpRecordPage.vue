@@ -19,6 +19,7 @@
     <v-col cols="12">
       <v-card :loading="loading" :disabled="loading">
         <easy-data-table
+          v-bind="dataTableAttr"
           v-model:server-options="requestParams"
           :server-items-length="serverItemsLength"
           :loading="loading"
@@ -46,6 +47,7 @@
 import Breadcrumb from "@/components/shared/Breadcrumb"
 import { computed, onMounted, ref, watch, nextTick } from "vue"
 import { useBreadcrumb, useGlobal, useTableHeader, useTopUpRecord } from "@/stores"
+import { dataTableAttr } from "@/utils"
 
 const globalStore = useGlobal()
 const breadcrumbStore = useBreadcrumb()

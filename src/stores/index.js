@@ -4,6 +4,7 @@ import useConfig from "./ConfigStore"
 import useMenu from "./MenuStore"
 import useAuth from "./AuthStore"
 import useBreadcrumb from "./BreadcrumbStore"
+import useUser from "./UserStore"
 import useAdminUser from "./AdminUserStore"
 import useAboutUs from "./AboutUsStore"
 import useAbout from "./AboutUsStore"
@@ -26,6 +27,7 @@ export {
   useMenu,
   useAuth,
   useBreadcrumb,
+  useUser,
   useAdminUser,
   useAboutUs,
   useCarousel,

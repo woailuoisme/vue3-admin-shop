@@ -62,7 +62,6 @@
 
 <script setup>
 import TableImage from "@/components/table/TableImage"
-import { computed, nextTick, onMounted, ref, unref, watch } from "vue"
 import { useCarousel, useGlobal, useTableHeader } from "@/stores"
 import { storeToRefs } from "pinia/dist/pinia"
 import { debounce } from "lodash-es"

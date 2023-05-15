@@ -13,12 +13,12 @@
             <v-icon start>mdi-account</v-icon>
             Account
           </v-tab>
-          <v-divider vertical thickness="2" />
+          <v-divider vertical thickness="1" />
           <v-tab value="two">
             <v-icon start>mdi-lock</v-icon>
             Security
           </v-tab>
-          <v-divider vertical thickness="2" />
+          <v-divider vertical thickness="1" />
           <v-tab value="three">
             <v-icon start>mdi-access-point</v-icon>
             Notifications
@@ -51,6 +51,7 @@
 
 <script setup>
 import { computed, nextTick, onMounted, ref, watch } from "vue"
+
 const tab = ref("one")
 import Account from "./components/userProfile/Account"
 import Notification from "./components/userProfile/Notification"

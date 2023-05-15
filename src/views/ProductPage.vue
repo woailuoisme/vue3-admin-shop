@@ -7,7 +7,7 @@
           <v-btn color="primary" variant="flat" @click.stop="addItem">
             {{ $t("table.operation.add") }}
           </v-btn>
-          <v-divider class="mx-2" color="primary" thickness="2" vertical></v-divider>
+          <v-divider class="mx-2" color="primary" thickness="1" vertical></v-divider>
           <v-fade-transition>
             <batch v-if="isNotEmpty"></batch>
           </v-fade-transition>
@@ -21,7 +21,7 @@
             single-line
             variant="outlined"
           />
-          <v-divider class="mx-2" color="primary" thickness="2" vertical></v-divider>
+          <v-divider class="mx-2" color="primary" thickness="1" vertical></v-divider>
           <div class="mx-4">
             <v-btn
               :class="{ 'animate-spin': isLoading }"
@@ -104,7 +104,6 @@ import TextTooltip from "@/components/table/TextTooltip"
 import DialogConfirm from "./components/common/DialogConfirm"
 import Entity from "./components/product/ProductEntity"
 import Details from "./components/product/ProductDetails"
-import { computed, nextTick, onMounted, ref, unref, watch } from "vue"
 import { useBreadcrumb, useGlobal, useProduct, useProductCategory, useTableHeader } from "@/stores"
 import { storeToRefs } from "pinia"
 import { debounce } from "lodash-es"

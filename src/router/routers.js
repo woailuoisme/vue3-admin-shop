@@ -38,11 +38,11 @@ const testModule = [
     name: "menu",
     component: () => import("@/views/menu/MenuView.vue"),
   },
-  {
-    path: "/tree",
-    name: "tree",
-    component: () => import("@/views/tree/Tree.vue"),
-  },
+  // {
+  //   path: "/tree",
+  //   name: "tree",
+  //   component: () => import("@/views/tree/Tree.vue"),
+  // },
   {
     path: "/step",
     name: "step",

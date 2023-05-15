@@ -126,7 +126,7 @@
 
 <script setup>
 import { ref } from "vue"
-import avatar1 from "@/assets/images/avatars/avatar-1.png"
+import avatar1 from "@/assets/images/svg/avatar/avatar-female-3.svg"
 
 const accountData = {
   avatarImg: avatar1,

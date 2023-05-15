@@ -67,6 +67,7 @@
 .v-navigation-drawer__content {
   flex: 1 1 auto;
 }
+
 .v-navigation-drawer__content .v-list-item__prepend > .v-icon {
   margin-inline-end: 14px;
 }
@@ -78,16 +79,20 @@
 .v-table table {
   padding: 4px 4px 8px;
 }
+
 .v-table table th {
-  //text-transform: uppercase;
+  text-transform: uppercase;
   white-space: nowrap;
 }
+
 .v-table table td {
   border-bottom: 0 !important;
 }
+
 .v-table table tbody tr {
   transition: box-shadow 0.2s, transform 0.2s;
 }
+
 .v-table table tbody tr:not(.v-data-table__selected):hover {
   box-shadow: 0 3px 15px -2px rgba(0, 0, 0, 0.12);
   transform: translateY(-4px);

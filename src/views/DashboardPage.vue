@@ -1,6 +1,6 @@
 <template>
   <v-row>
-    <v-col xl="12" sm="6" md="3" class="pa-2">
+    <v-col xm="12" sm="6" md="3" class="pa-2">
       <v-card class="elevation-2">
         <v-card-title>
           <v-row class="justify-center align-center">
@@ -24,7 +24,7 @@
       </v-card>
     </v-col>
 
-    <v-col xl="12" sm="6" md="3" class="pa-2">
+    <v-col xm="12" sm="6" md="3" class="pa-2">
       <v-card class="elevation-2">
         <v-card-title>
           <v-row class="justify-center align-center">
@@ -48,7 +48,7 @@
       </v-card>
     </v-col>
 
-    <v-col xl="12" sm="6" md="3" class="pa-2">
+    <v-col xm="12" sm="6" md="3" class="pa-2">
       <v-card class="elevation-2">
         <v-card-title>
           <v-row class="justify-center align-center">
@@ -71,7 +71,7 @@
         </v-card-actions>
       </v-card>
     </v-col>
-    <v-col xl="12" sm="6" md="3" class="pa-2">
+    <v-col xm="12" sm="6" md="3" class="pa-2">
       <v-card class="elevation-2">
         <v-card-title>
           <v-row align="center" justify="center">
@@ -96,7 +96,7 @@
     </v-col>
   </v-row>
   <v-row>
-    <v-col cols="12" sm="12" md="6" xl="4">
+    <v-col cols="12" sm="12" md="6">
       <v-card>
         <v-card-text>
           <apexchart type="line" :options="data.options" :series="data.series" />
@@ -104,7 +104,7 @@
       </v-card>
     </v-col>
 
-    <v-col cols="12" sm="12" md="6" xl="4">
+    <v-col cols="12" sm="12" md="6">
       <v-card>
         <v-card-text>
           <apexchart type="bar" :options="data.options" :series="data.series" />
@@ -112,14 +112,14 @@
       </v-card>
     </v-col>
 
-    <v-col cols="12" sm="12" md="6" xl="4">
+    <v-col cols="12" sm="12" md="6">
       <v-card>
         <v-card-text>
           <apexchart type="pie" :options="data.donut.options" :series="data.donut.series" />
         </v-card-text>
       </v-card>
     </v-col>
-    <v-col cols="12" sm="12" md="6" xl="4">
+    <v-col cols="12" sm="12" md="6">
       <v-card>
         <v-card-text>
           <apexchart type="donut" :options="data.donutOptions" :series="data.donutOptions.series" />

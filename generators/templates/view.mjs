@@ -1,17 +1,17 @@
-import {camelToDot, camelToKebab, camelToSnake, pascale, plural} from "../util.mjs"
-import {camelCase, trim} from "lodash-es"
+import { camelToDot, camelToKebab, camelToSnake, pascale, plural } from "../util.mjs"
+import { camelCase, trim } from "lodash-es"
 
 export const viewContent = (model) => {
-    const newModel = trim(model)
-    const camelName = camelCase(newModel)
-    const pascalName = pascale(camelName)
-    const pluralName = plural(camelName)
-    const pluralPascalName = plural(pascalName)
-    const kebabName = camelToKebab(camelName)
-    const dotName = camelToDot(camelName)
-    const snakeName = camelToSnake(camelName)
+  const newModel = trim(model)
+  const camelName = camelCase(newModel)
+  const pascalName = pascale(camelName)
+  const pluralName = plural(camelName)
+  const pluralPascalName = plural(pascalName)
+  const kebabName = camelToKebab(camelName)
+  const dotName = camelToDot(camelName)
+  const snakeName = camelToSnake(camelName)
 
-    return `
+  return `
   <template>
   <v-container fluid>
     <v-row>
