@@ -26,7 +26,7 @@ export default defineConfig(async ({ mode }) => {
       extensions: [".js", ".json", ".jsx", ".mjs", ".ts", ".tsx", ".vue"],
     },
     optimizeDeps: {
-      include: ["axios", "vue", "vue-router", "pinia", "@vueuse/core", "vee-validate", "apexcharts", "vditor", "wangeditor", "xgplayer"],
+      include: ["axios", "vue", "vue-router", "pinia", "@vueuse/core", "vee-validate", "apexcharts", "xgplayer"],
       exclude: ["vuetify"],
     },
     server: {

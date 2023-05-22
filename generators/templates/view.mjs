@@ -163,6 +163,5 @@ function save(values) {
 </script>
 
 <style scoped></style>
-
-  `
+`
 }

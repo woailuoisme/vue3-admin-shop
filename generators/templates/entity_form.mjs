@@ -52,7 +52,6 @@ export const entityFormContent = (model) => {
 </template>
 
 <script setup>
-import { defineEmits, defineProps, reactive } from 'vue'
 import { useField, useForm } from 'vee-validate'
 import yup from '@/utils/validation'
 

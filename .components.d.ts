@@ -7,7 +7,7 @@ import '@vue/runtime-core'
 
 export {}
 
-declare module '@vue/runtime-core' {
+declare module "@vue/runtime-core" {
   export interface GlobalComponents {
     AboutDetails: typeof import("./src/views/components/about/AboutDetails.vue")["default"]
     AboutEntity: typeof import("./src/views/components/about/AboutEntity.vue")["default"]
@@ -23,12 +23,12 @@ declare module '@vue/runtime-core' {
     AnalyticsTotalProfitLineCharts: typeof import("./src/views/components/dashboard/analytics/AnalyticsTotalProfitLineCharts.vue")["default"]
     AnalyticsTransactions: typeof import("./src/views/components/dashboard/analytics/AnalyticsTransactions.vue")["default"]
     AnalyticsWeeklyOverview: typeof import("./src/views/components/dashboard/analytics/AnalyticsWeeklyOverview.vue")["default"]
-    BackToTop: typeof import('./src/components/shared/BackToTop.vue')['default']
+    BackToTop: typeof import("./src/components/shared/BackToTop.vue")["default"]
     Breadcrumb: typeof import("./src/components/shared/Breadcrumb.vue")["default"]
     BuyNow: typeof import("./src/components/BuyNow.vue")["default"]
-    CardStatisticsVertical: typeof import('./src/components/CardStatisticsVertical.vue')['default']
+    CardStatisticsVertical: typeof import("./src/components/CardStatisticsVertical.vue")["default"]
     CarouselEntity: typeof import("./src/views/components/carousel/CarouselEntity.vue")["default"]
-    CarouselImage: typeof import('./src/components/table/CarouselImage.vue')['default']
+    CarouselImage: typeof import("./src/components/table/CarouselImage.vue")["default"]
     CategoryEntity: typeof import("./src/views/components/productCategory/CategoryEntity.vue")["default"]
     CheckMark: typeof import("./src/components/stepper/CheckMark.vue")["default"]
     CopyBtn: typeof import("./src/components/common/CopyBtn.vue")["default"]
@@ -48,7 +48,7 @@ declare module '@vue/runtime-core' {
     FlagIcon: typeof import("./src/components/common/FlagIcon.vue")["default"]
     ImagePreview: typeof import("./src/components/ImagePreview.vue")["default"]
     ImageRemove: typeof import("./src/components/shared/ImageRemove.vue")["default"]
-    ImageWithDelete: typeof import('./src/components/table/ImageWithDelete.vue')['default']
+    ImageWithDelete: typeof import("./src/components/table/ImageWithDelete.vue")["default"]
     InputInteger: typeof import("./src/components/shared/InputInteger.vue")["default"]
     InputNumber: typeof import("./src/components/shared/InputNumber.vue")["default"]
     Loading: typeof import("./src/components/shared/Loading.vue")["default"]
@@ -71,8 +71,8 @@ declare module '@vue/runtime-core' {
     ProductEntity: typeof import("./src/views/components/product/ProductEntity.vue")["default"]
     ProductFilter: typeof import("./src/views/components/product/ProductFilter.vue")["default"]
     ReloadButton: typeof import("./src/components/ReloadButton.vue")["default"]
-    RouterLink: typeof import('vue-router')['RouterLink']
-    RouterView: typeof import('vue-router')['RouterView']
+    RouterLink: typeof import("vue-router")["RouterLink"]
+    RouterView: typeof import("vue-router")["RouterView"]
     SalesCard: typeof import("./src/views/components/dashboard/SalesCard.vue")["default"]
     ScrollProgress: typeof import("./src/components/ScrollProgress.vue")["default"]
     Security: typeof import("./src/views/components/userProfile/Security.vue")["default"]
@@ -81,8 +81,8 @@ declare module '@vue/runtime-core' {
     Stepper: typeof import("./src/components/stepper/Stepper.vue")["default"]
     SvgIcon: typeof import("./src/components/common/SvgIcon.vue")["default"]
     TableCard: typeof import("./src/views/components/dashboard/TableCard.vue")["default"]
-    TableImage: typeof import('./src/components/table/TableImage.vue')['default']
-    TextTooltip: typeof import('./src/components/table/TextTooltip.vue')['default']
+    TableImage: typeof import("./src/components/table/TableImage.vue")["default"]
+    TextTooltip: typeof import("./src/components/table/TextTooltip.vue")["default"]
     ThirdDropzone: typeof import("./src/components/shared/ThirdDropzone.vue")["default"]
     TodoCard: typeof import("./src/views/components/dashboard/TodoCard.vue")["default"]
     TopUpEntity: typeof import("./src/views/components/topUpAmount/TopUpEntity.vue")["default"]
@@ -93,7 +93,6 @@ declare module '@vue/runtime-core' {
     UserEntityForm: typeof import("./src/views/components/user/UserEntityForm.vue")["default"]
     UserFrontDetail: typeof import("./src/views/components/userFront/UserFrontDetail.vue")["default"]
     VScrollProgress: typeof import("./src/components/VScrollProgress.vue")["default"]
-    VToast: typeof import("./src/components/VToast.vue")["default"]
     WithdrawDetails: typeof import("./src/views/components/withdraw/WithdrawDetails.vue")["default"]
     WithdrawEntity: typeof import("./src/views/components/withdraw/WithdrawEntity.vue")["default"]
   }

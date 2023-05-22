@@ -1,8 +1,6 @@
-import { trim } from "lodash-es"
 import { useNameCase } from "../util.mjs"
 
 export const apiContent = (model, withImage = false) => {
-  const newModel = trim(model)
   const result = useNameCase(model)
   const camelName = result.camelName
   const pascalName = result.pascalName

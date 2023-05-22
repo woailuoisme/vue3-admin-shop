@@ -7,13 +7,13 @@ import '@vue/runtime-core'
 
 export {}
 
-declare module '@vue/runtime-core' {
+declare module "@vue/runtime-core" {
   export interface GlobalComponents {
-    BackToTop: typeof import('./src/components/shared/BackToTop.vue')['default']
+    BackToTop: typeof import("./src/components/shared/BackToTop.vue")["default"]
     Breadcrumb: typeof import("./src/components/shared/Breadcrumb.vue")["default"]
     BuyNow: typeof import("./src/components/BuyNow.vue")["default"]
-    CardStatisticsVertical: typeof import('./src/components/CardStatisticsVertical.vue')['default']
-    CarouselImage: typeof import('./src/components/table/CarouselImage.vue')['default']
+    CardStatisticsVertical: typeof import("./src/components/CardStatisticsVertical.vue")["default"]
+    CarouselImage: typeof import("./src/components/table/CarouselImage.vue")["default"]
     CheckMark: typeof import("./src/components/stepper/CheckMark.vue")["default"]
     CopyBtn: typeof import("./src/components/common/CopyBtn.vue")["default"]
     CopyLabel: typeof import("./src/components/common/CopyLabel.vue")["default"]
@@ -34,7 +34,7 @@ declare module '@vue/runtime-core' {
     FlagIcon: typeof import("./src/components/common/FlagIcon.vue")["default"]
     ImagePreview: typeof import("./src/components/ImagePreview.vue")["default"]
     ImageRemove: typeof import("./src/components/shared/ImageRemove.vue")["default"]
-    ImageWithDelete: typeof import('./src/components/table/ImageWithDelete.vue')['default']
+    ImageWithDelete: typeof import("./src/components/table/ImageWithDelete.vue")["default"]
     Index_3: typeof import("./src/components/myEditor/index_3.vue")["default"]
     InputInteger: typeof import("./src/components/shared/InputInteger.vue")["default"]
     InputNumber: typeof import("./src/components/shared/InputNumber.vue")["default"]
@@ -50,14 +50,14 @@ declare module '@vue/runtime-core' {
     OneTimePwd: typeof import("./src/components/OneTimePwd.vue")["default"]
     PaginationRow: typeof import("./src/components/shared/PaginationRow.vue")["default"]
     ReloadButton: typeof import("./src/components/ReloadButton.vue")["default"]
-    RouterLink: typeof import('vue-router')['RouterLink']
-    RouterView: typeof import('vue-router')['RouterView']
+    RouterLink: typeof import("vue-router")["RouterLink"]
+    RouterView: typeof import("vue-router")["RouterView"]
     ScrollProgress: typeof import("./src/components/ScrollProgress.vue")["default"]
     SideConfigMenu: typeof import("./src/components/common/SideConfigMenu.vue")["default"]
     Stepper: typeof import("./src/components/stepper/Stepper.vue")["default"]
     SvgIcon: typeof import("./src/components/common/SvgIcon.vue")["default"]
-    TableImage: typeof import('./src/components/table/TableImage.vue')['default']
-    TextTooltip: typeof import('./src/components/table/TextTooltip.vue')['default']
+    TableImage: typeof import("./src/components/table/TableImage.vue")["default"]
+    TextTooltip: typeof import("./src/components/table/TextTooltip.vue")["default"]
     ThirdDropzone: typeof import("./src/components/shared/ThirdDropzone.vue")["default"]
     TrendPercent: typeof import("./src/components/common/TrendPercent.vue")["default"]
     Viewer: typeof import("./src/components/editor/TuiEditor/Viewer.vue")["default"]

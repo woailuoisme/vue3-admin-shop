@@ -23,9 +23,7 @@ pnpm-debug.log*
 *.sw?
 
 .eslintcache
-
 .eslintrc-auto-import.json
-
 
 # Editor directories and files
 .vscode/*

@@ -12,7 +12,7 @@ const props = defineProps({
   },
 })
 
-const password = ref(props.password)
+const pwd = ref(props.password)
 
 const passwordStrength = computed(() => {
   const strongRegex = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})")

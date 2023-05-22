@@ -6,7 +6,6 @@ import { existsSync } from "fs"
 
 const $$ = $({ stdio: "inherit" })
 const program = new Command()
-
 import clear from "clear"
 import { createFiles, deleteFiles } from "./generate.mjs"
 
@@ -15,7 +14,6 @@ const appPath = process.cwd()
 
 clear()
 program.version("0.0.1").name("admin command line").description("The vue3 vuetify2 admin command line tool")
-
 program
   .command("make")
   .description("generate templates")

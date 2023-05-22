@@ -5,9 +5,8 @@ import { apiContent } from "./templates/api_sevice.mjs"
 import { entityFormContent } from "./templates/entity_form.mjs"
 import { storeContent } from "./templates/store.mjs"
 import { viewContent } from "./templates/view.mjs"
-import { camelToDot, camelToKebab, camelToSnake, plural, pascalCase } from "./util.mjs"
-import { camelCase, trim } from "lodash-es"
 import { fileURLToPath } from "url"
+import { useNameCase } from "./util.mjs"
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
@@ -32,11 +31,6 @@ const _deleteFile = (directory, filename) => {
     console.log(chalk.yellow(`${filePath} file is not exists!!!`))
   }
 }
-
-const _appendStore = () => {}
-
-const _appendRouter = () => {}
-import { useNameCase } from "./util.mjs"
 
 const _resources = (model) => {
   const result = useNameCase(model)

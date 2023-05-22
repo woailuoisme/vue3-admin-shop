@@ -1,5 +1,4 @@
-import { camelToDot, camelToKebab, camelToSnake, pascalCase, plural, useNameCase } from "../util.mjs"
-import { camelCase, trim } from "lodash-es"
+import { useNameCase } from "../util.mjs"
 
 export const storeContent = (model) => {
   const result = useNameCase(model)
