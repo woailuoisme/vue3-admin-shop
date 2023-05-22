@@ -1,17 +1,15 @@
-import { camelToDot, camelToKebab, camelToSnake, pascale, plural } from "../util.mjs"
-import { camelCase, trim } from "lodash-es"
+import {camelToDot, camelToKebab, camelToSnake, pascalCase, plural, useNameCase} from "../util.mjs"
+import {camelCase, trim} from "lodash-es"
 
 export const storeContent = (model) => {
-  const newModel = trim(model)
-  const camelName = camelCase(newModel)
-  const pascalName = pascale(camelName)
-  const pluralName = plural(camelName)
-  const pluralPascalName = plural(pascalName)
-  const kebabName = camelToKebab(camelName)
-  const dotName = camelToDot(camelName)
-  const snakeName = camelToSnake(camelName)
+    const result = useNameCase(model);
+    const camelName = result.camelName
+    const pascalName = result.pascalName
+    const pluralCamelName = result.pluralCamelName
+    const kebabName = result.kebabName
+    const dotName = result.dotName
 
-  return `
+    return `
 import ${pascalName}Service from '@/api/${dotName}.service'
 import Toast from '@/utils/toast'
 import { defineStore } from 'pinia'
@@ -20,7 +18,7 @@ const { t } = i18n.global
 
 export default defineStore('${kebabName}', {
   state: () => ({
-    ${pluralName}: [],
+    ${pluralCamelName}: [],
     meta: {},
     ${camelName}: {},
     loading: false,
@@ -34,7 +32,7 @@ export default defineStore('${kebabName}', {
   }),
   getters: {
     total(state) {
-      return state?.${pluralName}.length ?? 0
+      return state?.${pluralCamelName}.length ?? 0
     },
     isHideFooter(state) {
       return state.meta=== undefined||Object.keys(state.meta).length === 0
@@ -43,32 +41,32 @@ export default defineStore('${kebabName}', {
       return state.editedIndex === -1
     },
     findById: (state) => (id) => {
-      return state.${pluralName}.find((p) => p.id === id)
+      return state.${pluralCamelName}.find((p) => p.id === id)
     },
     findIndexById: (state) => (id) => {
-      return state.${pluralName}.findIndex((p) => p.id === id)
+      return state.${pluralCamelName}.findIndex((p) => p.id === id)
     },
     hasData(state) {
-      return !!state.${pluralName}.length
+      return !!state.${pluralCamelName}.length
     },
   },
   actions: {
     setEditedIndex(id) {
-      this.editedIndex = this.${pluralName}.findIndex((m) => m.id === id)
+      this.editedIndex = this.${pluralCamelName}.findIndex((m) => m.id === id)
     },
     resetEdited() {
       this.editedIndex = -1
       this.editedItem = Object.assign({}, this.defaultItem)
     },
     findAndSetItem(item) {
-      this.editedIndex = this.${pluralName}.findIndex((m) => m.id === item.id)
+      this.editedIndex = this.${pluralCamelName}.findIndex((m) => m.id === item.id)
       this.editedItem = Object.assign({}, item)
     },
 
     async loadAll${pluralPascalName}(payload) {
       const res = await ${pascalName}Service.list(payload)
       if (res.data.success) {
-        this.${pluralName} = res.data.data
+        this.${pluralCamelName} = res.data.data
         this.meta = res.data?.meta
         Toast.success(t('response.success'))
       }
@@ -85,7 +83,7 @@ export default defineStore('${kebabName}', {
     async create${pascalName}(payload) {
       const res = await ${pascalName}Service.store(payload)
       const ${model} = res.data?.data
-      this.${pluralName}.unshift(${model})
+      this.${pluralCamelName}.unshift(${model})
       Toast.success(t('response.success'))
     },
 
@@ -93,8 +91,8 @@ export default defineStore('${kebabName}', {
       const res = await ${pascalName}Service.update(payload)
       const ${model} = res.data?.data
       if (res.data.success) {
-        const index = this.${pluralName}.findIndex((p) => p.id === payload.id)
-        Object.assign(this.${pluralName}[index], ${model})
+        const index = this.${pluralCamelName}.findIndex((p) => p.id === payload.id)
+        Object.assign(this.${pluralCamelName}[index], ${model})
         Toast.success(t('response.success'))
       } else {
         Toast.error(t('response.failed'))
@@ -104,8 +102,8 @@ export default defineStore('${kebabName}', {
     async delete${pascalName}(id) {
       const res = await ${pascalName}Service.delete(id)
       if (res.data.success) {
-        const index = this.${pluralName}.findIndex((p) => p.id === id)
-        this.${pluralName}.splice(index, 1)
+        const index = this.${pluralCamelName}.findIndex((p) => p.id === id)
+        this.${pluralCamelName}.splice(index, 1)
         Toast.success(t('response.success'))
       } else {
         Toast.error(t('response.failed'))

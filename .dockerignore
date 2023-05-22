@@ -1,0 +1,10 @@
+.idea
+.husky
+.nginx
+deploy
+generators
+node_modules
+.eslint*
+.prettierignore
+.prettierrc.js
+README.md

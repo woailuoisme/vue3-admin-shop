@@ -1,17 +1,13 @@
-import { camelToDot, camelToKebab, camelToSnake, pascale, plural } from "../util.mjs"
-import { camelCase, trim } from "lodash-es"
+import {useNameCase} from "../util.mjs"
 
 export const viewContent = (model) => {
-  const newModel = trim(model)
-  const camelName = camelCase(newModel)
-  const pascalName = pascale(camelName)
-  const pluralName = plural(camelName)
-  const pluralPascalName = plural(pascalName)
-  const kebabName = camelToKebab(camelName)
-  const dotName = camelToDot(camelName)
-  const snakeName = camelToSnake(camelName)
+    const result = useNameCase(model);
+    const camelName = result.camelName
+    const pascalName = result.pascalName
+    const pluralCamelName = result.pluralCamelName
+    const pluralPascalName = result.pluralPascalName
 
-  return `
+    return `
   <template>
   <v-container fluid>
     <v-row>
@@ -47,7 +43,7 @@ export const viewContent = (model) => {
             :server-items-length="total"
             :loading="isLoading"
             :headers="headers"
-            :items="${pluralName}"
+            :items="${pluralCamelName}"
             :table-class-name="tableClass"
             :hide-footer="isHideFooter"
           >
@@ -86,7 +82,7 @@ const tableHeaderStore = useTableHeader()
 const vuetifyTheme = useTheme()
 const headers = computed(() => tableHeaderStore.${camelName})
 const breadcrumbs = computed(() => breadcrumbStore.${camelName})
-const { ${pluralName}, total, isNew, editedItem, editedIndex,isHideFooter } = storeToRefs(${camelName}Store)
+const { ${pluralCamelName}, total, isNew, editedItem, editedIndex,isHideFooter } = storeToRefs(${camelName}Store)
 const { isLoading } = storeToRefs(globalStore)
 const tableClass = computed(()=> vuetifyTheme.global.name.value==='dark'?'customize-table-dark':'customize-table')
 const dialogEntity = ref(false)

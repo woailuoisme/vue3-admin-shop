@@ -1,16 +1,11 @@
-import { camelToDot, camelToKebab, camelToSnake, pascale, plural } from "../util.mjs"
-import { camelCase, trim } from "lodash-es"
+import {useNameCase} from "../util.mjs"
+import {trim} from "lodash-es"
 
 export const entityFormContent = (model) => {
-  const newModel = trim(model)
-  const camelModel = camelCase(newModel)
-  const pascalName = pascale(camelModel)
-  const pluralName = plural(camelModel)
-  const kebabName = camelToKebab(camelModel)
-  const dotName = camelToDot(camelModel)
-  const snakeName = camelToSnake(camelModel)
+    const result = useNameCase(model);
+    const camelName = result.camelName
 
-  return `
+    return `
 <template>
   <v-form @submit.prevent="submit">
     <v-card>

@@ -1,5 +1,5 @@
-# 保证你的build.sh脚本有任何错误就退出
-set -e
+
+set -e # 保证你的build.sh脚本有任何错误就退出
 
 # 添加下一行保证能够找到正确的Node和npm，以及yarn命令。
 export PATH=$NODEJS_BIN_LATEST:$PATH
