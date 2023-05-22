@@ -28,10 +28,6 @@
 </template>
 
 <script setup>
-import { dImgOne } from "@/assets"
-
-import { defineEmits, defineProps, ref } from "vue"
-
 const props = defineProps({
   image: {
     type: String,

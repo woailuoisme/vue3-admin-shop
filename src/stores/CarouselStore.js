@@ -1,7 +1,9 @@
 import CarouselService from "../api/carousel.service"
-import Toast from "../utils/toast"
+
+const toast = useToast()
 
 import { defineStore } from "pinia"
+import { useToast } from "vue-toastification"
 
 export default defineStore("carousel", {
   state: () => ({
@@ -70,13 +72,13 @@ export default defineStore("carousel", {
     async loadCarousel(carouselId) {
       const res = await CarouselService.show(carouselId)
       this.carouselInfo = res.data.data
-      Toast.success(res.data.message)
+      toast.success(res.data.message)
     },
 
     async createCarousel(payload) {
       const res = await CarouselService.store(payload)
       this.carousels.unshift(payload)
-      Toast.success(res.data.message)
+      toast.success(res.data.message)
       return true
     },
 
@@ -85,7 +87,7 @@ export default defineStore("carousel", {
       const carousel = res.data.data
       const index = this.carousels.findIndex((p) => p.id === carousel.id)
       Object.assign(this.carousels[index], carousel)
-      Toast.success(res.data.message)
+      toast.success(res.data.message)
     },
 
     async deleteCarousel(carouselId) {
@@ -93,9 +95,9 @@ export default defineStore("carousel", {
       if (res.data.success) {
         const index = this.carousels.findIndex((p) => p.id === carouselId)
         this.carousels.splice(index, 1)
-        Toast.success(res.data.message)
+        toast.success(res.data.message)
       } else {
-        Toast.error(res.data.message)
+        toast.error(res.data.message)
       }
     },
   },

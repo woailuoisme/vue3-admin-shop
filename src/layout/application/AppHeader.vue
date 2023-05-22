@@ -15,7 +15,7 @@
     <menu-profile></menu-profile>
   </v-app-bar>
 
-  <v-navigation-drawer v-if="isAuthed" v-model="drawer" permanent temporary rounded expand-on-hover app>
+  <v-navigation-drawer v-if="isAuthed" v-model="drawer" permanent temporary rail rounded expand-on-hover app>
     <!--    <v-list color="transparent"> -->
     <!--      <v-list-item :prepend-avatar="user?.avatar ?? avatar1" :title="user?.name" :subtitle="user?.role"></v-list-item> -->
     <!--    </v-list> -->

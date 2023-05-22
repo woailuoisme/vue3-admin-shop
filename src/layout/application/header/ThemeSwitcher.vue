@@ -6,8 +6,6 @@
 
 <script setup>
 import { useTheme } from "vuetify"
-import { watch, defineProps } from "vue"
-import { useCycleList, computedWithControl } from "@vueuse/core"
 
 const props = defineProps({
   themes: {

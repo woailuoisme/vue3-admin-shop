@@ -1,5 +1,6 @@
 import ProductService from "../api/product.service"
-import Toast from "../utils/toast"
+
+const toast = useToast()
 
 import { defineStore } from "pinia"
 
@@ -165,26 +166,26 @@ export default defineStore("product", {
         const product = res.data.data
         const index = this.products.findIndex((p) => p.id === payload.id)
         this.products[index] = Object.assign({}, product)
-        Toast.success(res.data.message)
+        toast.success(res.data.message)
       }
     },
 
     async removeProductImage(payload) {
       const res = await ProductService.removeProductImage(payload)
-      Toast.success(res.data.message)
+      toast.success(res.data.message)
     },
 
     async loadProduct(productId) {
       const res = await ProductService.show(productId)
       this.productInfo = res.data.data
-      Toast.success(res.data.message)
+      toast.success(res.data.message)
     },
 
     async createProduct(payload) {
       const res = await ProductService.create(payload)
       const product = res.data.data
       this.products.unshift(product)
-      Toast.success(res.data.message)
+      toast.success(res.data.message)
     },
 
     async updateProduct(payload) {
@@ -194,9 +195,9 @@ export default defineStore("product", {
       const res = await ProductService.update(payload)
       if (res.data.success) {
         Object.assign(this.products[index], res.data.data)
-        Toast.success(res.data.message)
+        toast.success(res.data.message)
       } else {
-        Toast.error(res.data.message)
+        toast.error(res.data.message)
       }
     },
 
@@ -205,9 +206,9 @@ export default defineStore("product", {
       const res = await ProductService.delete(productId)
       if (res.data.success) {
         this.products.splice(index, 1)
-        Toast.success(res.data.message)
+        toast.success(res.data.message)
       } else {
-        Toast.error(res.data.message)
+        toast.error(res.data.message)
       }
     },
 
@@ -217,9 +218,9 @@ export default defineStore("product", {
     //     const index = this.products.findIndex((p) => p.id === payload.product_id)
     //     const imageIndex = this.products[index].images.findIndex((p) => p.id === payload.id)
     //     this.products[index].images.splice(imageIndex, 1)
-    //     Toast.success(res.data.message)
+    //     toast.success(res.data.message)
     //   } else {
-    //     Toast.error(res.data.message)
+    //     toast.error(res.data.message)
     //   }
     // },
   },

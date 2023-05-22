@@ -14,7 +14,6 @@ import vuetify, {transformAssetUrls} from 'vite-plugin-vuetify'
 import vue from '@vitejs/plugin-vue'
 import {FileSystemIconLoader} from "unplugin-icons/loaders";
 import {createSvgIconsPlugin} from 'vite-plugin-svg-icons';
-import vueJsx from '@vitejs/plugin-vue-jsx'
 import zipPack from "vite-plugin-zip-pack";
 import VueMacros from 'unplugin-vue-macros/vite';
 
@@ -35,10 +34,10 @@ export default function unplugin(mode) {
     }),
     VueSetupExtend(),
     Components({
-      dirs: ['src/components'],
+      dirs: ['src/components', 'src/views/components'],
       extensions: ['vue'],
       types: [{from: 'vue-router', names: ['RouterLink', 'RouterView']}],
-      deep: true, // search for subdirectories
+      deep: true,
       resolvers: [
         VuetifyResolver(),
         IconsResolver(
@@ -63,13 +62,13 @@ export default function unplugin(mode) {
         'vue',
         'vee-validate',
         '@vueuse/core',
-        // 'yup',
-        //  'vee-validate': ['useForm','userField'],
         {
           'vuetify': ['useTheme'],
           'vue-router': ['useRoute', 'useRouter'],
           'vue-i18n': ['useI18n'],
+          'vue-toastification': ['useToast'],
           'pinia': ['storeToRefs'],
+          'lodash-es': ['trim', 'debounce'],
         },
         {
           from: `${srcPath}/utils/validation`,
@@ -77,8 +76,8 @@ export default function unplugin(mode) {
           type: true,
         },
       ],
-      // dirs: [`${srcPath}/plugins`, `${srcPath}/filters`, `${srcPath}/store/**`, `${srcPath}/router`,],
-      dirs: ['src'],
+      dirs: [`${srcPath}/plugins`, `${srcPath}/filters`, `${srcPath}/store/**`, `${srcPath}/router`, `${srcPath}/assets`],
+      // dirs: ['src'],
       resolvers: [
         VuetifyResolver(),
         IconsResolver({
@@ -88,6 +87,7 @@ export default function unplugin(mode) {
         }),
       ],
       dts: `${rootPath}/.auto-imports.d.ts`,
+      injectAtEnd: true,
       eslintrc: {
         enabled: true, // Default `false`
         filepath: `${rootPath}/.eslintrc-auto-import.json`, // Default `./.eslintrc-auto-import.json`
@@ -136,7 +136,6 @@ export default function unplugin(mode) {
         },
       },
     }),
-    vueJsx({optimize: false, enableObjectSlots: true}),
     zipPack()
 
   ];

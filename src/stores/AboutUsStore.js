@@ -1,5 +1,6 @@
 import AboutUsService from "../api/about.service"
-import Toast from "../utils/toast"
+
+const toast = useToast()
 
 import { defineStore } from "pinia"
 
@@ -79,7 +80,7 @@ export default defineStore("about", {
     async loadAbout(userId) {
       const res = await AboutUsService.show(userId)
       this.aboutInfo = res.data.data
-      Toast.success(res.data.message)
+      toast.success(res.data.message)
     },
 
     async createAbout(payload) {
@@ -102,7 +103,7 @@ export default defineStore("about", {
         const index = this.abouts.findIndex((p) => p.id === aboutId)
         this.abouts.splice(index, 1)
       } else {
-        Toast.error(res.data.message)
+        toast.error(res.data.message)
       }
     },
   },

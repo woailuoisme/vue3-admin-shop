@@ -12,19 +12,18 @@ steps:
   - name: deploy
     image: drillster/drone-rsync
     settings:
-     hosts:
-     - from_secret: AWS_SSH_HOST
-     user:
-       from_secret: AWS_SSH_USER
-     key:
-       from_secret: AWS_SSH_KEY
-     source: ./var/www/admin/dist
-     target: /var/www/admin
-     delete: true
+      hosts:
+        - from_secret: AWS_SSH_HOST
+      user:
+        from_secret: AWS_SSH_USER
+      key:
+        from_secret: AWS_SSH_KEY
+      source: ./var/www/admin/dist
+      target: /var/www/admin
+      delete: true
 
 trigger:
   branch:
     - main
   event:
     - push
-

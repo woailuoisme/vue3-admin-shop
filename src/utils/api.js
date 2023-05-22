@@ -59,16 +59,16 @@ export function buildQueryParams(data) {
   console.log(params)
   return params
 }
+
 const params = buildQueryParams(data)
 
 export function buildQueryString(data) {
   const params = buildQueryParams(data)
-  const queryString = qs.stringify(params, {
+  return qs.stringify(params, {
     arrayFormat: "brackets", // 指定数组格式为 []
     encodeValuesOnly: true, // 只编码值，不编码键
     skipNulls: true, // 跳过值为 null 或 undefined 的属性
   })
-  return queryString
 }
 
 // // 构建查询参数

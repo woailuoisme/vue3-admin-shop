@@ -8,13 +8,12 @@
 </template>
 
 <script setup>
-import { defineProps, defineEmits, ref } from "vue"
-
 const props = defineProps({
   book: Object,
 })
 const emit = defineEmits(["click"])
 const counting = ref(false)
+
 function click() {
   counting.value = true
   emit("click")

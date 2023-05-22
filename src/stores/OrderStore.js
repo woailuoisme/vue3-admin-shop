@@ -1,6 +1,7 @@
 import OrderService from "../api/order.service"
-import Toast from "@/utils/toast"
 import { defineStore } from "pinia"
+
+const toast = useToast()
 
 /** Global Store */
 export default defineStore("order", {
@@ -154,9 +155,9 @@ export default defineStore("order", {
       if (res.data.success) {
         const index = this.orders.findIndex((p) => p.id === payload.id)
         Object.assign(this.orders[index], payload)
-        Toast.success(res.data.message)
+        toast.success(res.data.message)
       } else {
-        Toast.error(res.data.message)
+        toast.error(res.data.message)
       }
     },
   },

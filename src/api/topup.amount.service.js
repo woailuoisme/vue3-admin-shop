@@ -1,5 +1,5 @@
 import request from "@/api/http.client"
-import { buildBaseParams, buildQueryParams } from "@/utils"
+import { buildQueryParams } from "@/utils"
 
 export const topUpAmountService = () => {
   function list(data) {

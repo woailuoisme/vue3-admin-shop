@@ -11,9 +11,6 @@
 </template>
 
 <script setup>
-import { defineProps, ref } from "vue"
-import { dImgOne } from "@/assets"
-
 const props = defineProps({
   image: {
     type: String,

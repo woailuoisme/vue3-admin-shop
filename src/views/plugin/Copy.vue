@@ -10,23 +10,21 @@
 </template>
 
 <script setup>
-import { ref } from "vue"
-import { useClipboard } from "@vueuse/core"
-
 const source = ref("")
 const { copy, isSupported, copied } = useClipboard()
+const toast = useToast()
 
-function handleCopy() {
+async function handleCopy() {
   if (!isSupported) {
-    window.$message?.error("您的浏览器不支持Clipboard API")
+    toast.error("您的浏览器不支持Clipboard API")
     return
   }
   if (!source.value) {
-    window.$message?.error("请输入要复制的内容")
+    toast.error("请输入要复制的内容")
     return
   }
-  copy(source.value)
-  window.$message?.success(`复制成功：${source.value}`)
+  await copy(source.value)
+  toast.success(`复制成功：${source.value}`)
 }
 </script>
 

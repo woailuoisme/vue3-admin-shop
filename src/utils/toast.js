@@ -1,81 +1,22 @@
 import { useToast } from "vue-toastification"
-
-const options = {
-  position: "top-right",
-  timeout: 1500,
-  closeOnClick: true,
-  pauseOnFocusLoss: true,
-  pauseOnHover: true,
-  draggable: true,
-  draggablePercent: 0.6,
-  showCloseButtonOnHover: false,
-  hideProgressBar: true,
-  closeButton: "button",
-  icon: true,
-  rtl: false,
-}
-
-const infoOptions = {
-  position: "top-center",
-  timeout: 1500,
-  closeOnClick: true,
-  pauseOnFocusLoss: true,
-  pauseOnHover: true,
-  draggable: true,
-  draggablePercent: 0.6,
-  showCloseButtonOnHover: false,
-  hideProgressBar: true,
-  closeButton: "button",
-  icon: true,
-  rtl: false,
-}
-
 // Get toast interface
 const toast = useToast()
-
-class Toast {
-  static show(msg) {
-    toast(msg, options)
-  }
-
-  static info(msg) {
-    toast.info(msg, options)
-  }
-
-  static success(msg) {
-    toast.success(msg, options)
-  }
-
-  static warning(msg) {
-    toast.warning(msg, options)
-  }
-
-  static error(msg) {
-    toast.error(msg, options)
-  }
-}
-
 export const useToastMsg = () => {
-  function showMsg(msg) {
-    toast(msg, options)
-  }
-
   function infoMsg(msg) {
-    toast.info(msg, options)
+    toast.info(msg)
   }
 
   function successMsg(msg) {
-    toast.success(msg, options)
+    toast.success(msg)
   }
 
-  function warningMsg(msg) {
-    toast.warning(msg, options)
+  function warnMsg(msg) {
+    toast.warning(msg)
   }
 
   function errorMsg(msg) {
-    toast.error(msg, options)
+    toast.error(msg)
   }
-  return { showMsg, infoMsg, successMsg, warningMsg, errorMsg }
-}
 
-export default Toast
+  return { infoMsg, successMsg, warnMsg, errorMsg }
+}

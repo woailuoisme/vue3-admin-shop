@@ -18,8 +18,8 @@
 </template>
 
 <script setup>
-import router from "@/router"
-import { auth500 } from "@/assets"
+// import router from "@/router"
+// import { auth500 } from "@/assets"
 
 function goHome() {
   router.push({ path: "/" })

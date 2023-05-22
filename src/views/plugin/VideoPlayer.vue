@@ -1,13 +1,12 @@
 <template>
   <div class="h-full">
-    <n-card title="视频播放器插件" class="h-full shadow-sm rounded-16px">
+    <v-card title="视频播放器插件" class="h-full shadow-sm rounded-16px">
       <div ref="domRef" class=""></div>
-    </n-card>
+    </v-card>
   </div>
 </template>
 
-<script setup lang="ts">
-import { onMounted, onUnmounted, ref } from "vue"
+<script setup>
 import Player from "xgplayer"
 //HTMLElement
 const domRef = ref()
@@ -24,6 +23,7 @@ function renderXgPlayer() {
     fluid: true,
   })
 }
+
 function destroyXgPlayer() {
   player.value?.destroy()
 }

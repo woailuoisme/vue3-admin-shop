@@ -6,10 +6,6 @@
 </template>
 
 <script setup>
-import { computed, onMounted, ref } from "vue"
-import { useWindowScroll } from "@vueuse/core"
-import { useTheme } from "vuetify"
-
 const isTop = ref(false)
 
 function scrollToTop() {

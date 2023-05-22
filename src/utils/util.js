@@ -144,7 +144,7 @@ export async function copy(text) {
     await navigator.clipboard.writeText(text)
     // alert('Copied');
   } catch ($e) {
-    // alert('Cannot copy');
+    // alert('Cannot toCopy');
   }
 }
 

@@ -78,12 +78,10 @@ import { computed, nextTick, onMounted, ref, unref, watch } from "vue"
 import { useBreadcrumb, useGlobal, useOrder, useTableHeader } from "@/stores"
 import { orderStatus } from "@/filters"
 import { storeToRefs } from "pinia/dist/pinia"
-import Toast from "@/utils/toast"
 import { debounce } from "lodash-es"
 import CopyLabel from "@/components/common/CopyLabel"
-import { useClipboard } from "@vueuse/core"
 
-const { toClipboard } = useClipboard()
+const { copy } = useClipboard()
 import { orderStatusLabel, orderShowExpress } from "@/filters"
 import { dataTableAttr } from "@/utils"
 
@@ -131,11 +129,12 @@ watch(dialogEntity, (val) => {
   val || close()
 })
 
-async function copy(value) {
+async function toCopy(value) {
   try {
-    toClipboard(value)
+    copy(value)
     show.value = true
-    Toast.info("'Copied to clipboard'")
+    const toast = useToast()
+    toast.info("'Copied to clipboard'")
   } catch (e) {
     console.error(e)
   }

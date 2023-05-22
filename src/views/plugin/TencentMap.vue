@@ -3,9 +3,9 @@
 </template>
 
 <script setup>
-import { onMounted, ref } from "vue"
 import { useScriptTag } from "@vueuse/core"
-import { TENCENT_MAP_SDK_URL } from "@/config"
+
+const { TENCENT_MAP_SDK_URL } = process.env
 
 defineOptions({ name: "TencentMap" })
 

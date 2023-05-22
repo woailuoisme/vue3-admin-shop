@@ -1,7 +1,7 @@
 <template>
   <v-card :disabled="loading" :loading="loading" class="elevation-12 blue-grey lighten-4" max-width="448">
     <v-form @keydown.enter="submit" @submit.prevent="submit">
-      <v-card-title class="text-center text-h6 text-md-h5 text-lg-h4 text-blue-darken-1 py-4">{{ title }}</v-card-title>
+      <v-card-title class="text-center text-h5 text-blue-darken-1 py-4">{{ title }}</v-card-title>
       <v-divider :thickness="1" />
       <v-card-text>
         <v-row>
@@ -31,7 +31,6 @@
           </v-col>
         </v-row>
         <div class="d-flex align-center justify-space-between flex-wrap mt-1 mb-4">
-          <!--          <v-checkbox label="记住我" /> -->
           <v-checkbox>
             <template #label>
               <div>

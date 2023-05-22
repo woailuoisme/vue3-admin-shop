@@ -1,11 +1,10 @@
-import {defineConfig, loadEnv} from "vite"
-
-import {setupVitePlugins, getSrcPath, getRootPath} from "./build"
+import { defineConfig, loadEnv } from "vite"
+import { setupVitePlugins, getSrcPath, getRootPath } from "./build"
 // import { fileURLToPath } from "node:url"
 import dayjs from "dayjs"
 
 // https://vitejs.dev/config/
-export default defineConfig(async ({command, mode}) => {
+export default defineConfig(async ({ mode }) => {
   const viteEnv = loadEnv(mode, process.cwd())
   const rootPath = getRootPath()
   const srcPath = getSrcPath()

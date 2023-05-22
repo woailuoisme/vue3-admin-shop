@@ -46,5 +46,4 @@ export {
 }
 // export usePost()
 /** Pinia Store */
-const pinia = createPinia()
-export default pinia
+export const pinia = createPinia()

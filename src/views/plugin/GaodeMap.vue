@@ -3,9 +3,9 @@
 </template>
 
 <script setup>
-import { onMounted, ref } from "vue"
 import { useScriptTag } from "@vueuse/core"
-import { GAODE_MAP_SDK_URL } from "@/config"
+
+const { GAODE_MAP_SDK_URL } = process.env
 
 defineOptions({ name: "GaodeMap" })
 

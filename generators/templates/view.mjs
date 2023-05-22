@@ -1,13 +1,13 @@
-import {useNameCase} from "../util.mjs"
+import { useNameCase } from "../util.mjs"
 
 export const viewContent = (model) => {
-    const result = useNameCase(model);
-    const camelName = result.camelName
-    const pascalName = result.pascalName
-    const pluralCamelName = result.pluralCamelName
-    const pluralPascalName = result.pluralPascalName
+  const result = useNameCase(model)
+  const camelName = result.camelName
+  const pascalName = result.pascalName
+  const pluralCamelName = result.pluralCamelName
+  const pluralPascalName = result.pluralPascalName
 
-    return `
+  return `
   <template>
   <v-container fluid>
     <v-row>

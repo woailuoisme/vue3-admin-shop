@@ -7,7 +7,6 @@
 //   change: number
 //   subtitle: string
 // }
-import { controlledComputed } from "@vueuse/core"
 
 const props = defineProps({
   color: String,

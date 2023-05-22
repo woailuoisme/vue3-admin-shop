@@ -1,6 +1,8 @@
 import UserBackendService from "../api/user.backend.service"
-import Toast from "../utils/toast"
 import { defineStore } from "pinia"
+import { useToast } from "vue-toastification"
+
+const toast = useToast()
 
 /** Config Store */
 export default defineStore("admin-user", {
@@ -47,7 +49,6 @@ export default defineStore("admin-user", {
     getEditedIndex(state) {
       return state.editedIndex
     },
-
     findById: (state) => (id) => {
       return state.managers.find((user) => user.id === id)
     },
@@ -117,7 +118,7 @@ export default defineStore("admin-user", {
         this.managers.splice(this.editedIndex, 1)
       } else {
         this.editedIndex = -1
-        Toast.error(res.data.message)
+        toast.error(res.data.message)
       }
     },
   },

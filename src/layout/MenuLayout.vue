@@ -22,7 +22,7 @@
 import AppHeader from "@/layout/application/AppHeader.vue"
 import BackToTop from "@/components/shared/BackToTop.vue"
 import globalRouter from "@/router"
-import AppFab from "@/layout/application/AppFab"
+// import AppFab from "@/layout/application/AppFab"
 import VScrollProgress from "@/components/VScrollProgress"
 
 defineOptions({

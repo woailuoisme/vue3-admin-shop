@@ -14,7 +14,6 @@
 
 <script setup>
 import { dImgOne } from "@/assets"
-import { defineEmits, defineProps } from "vue"
 
 const props = defineProps({
   items: {

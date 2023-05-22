@@ -1,5 +1,6 @@
 import GatewayService from "../api/gateway.service"
-import Toast from "@/utils/toast"
+
+const toast = useToast()
 
 export default {
   namespaced: true,
@@ -35,7 +36,7 @@ export default {
       const res = await GatewayService.update(payload)
       const gateway = res.data.data
       commit("UPDATE_GATEWAY", gateway)
-      Toast.success(res.data.message)
+      toast.success(res.data.message)
     },
   },
   getters: {

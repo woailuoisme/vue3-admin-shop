@@ -34,9 +34,7 @@
 </template>
 
 <script setup>
-import { defineEmits, defineProps, ref } from "vue"
 import ImageRemove from "@/components/shared/ImageRemove"
-import Toast from "@/utils/toast"
 import { uuid } from "@/utils/util"
 
 const props = defineProps({
@@ -55,6 +53,9 @@ const props = defineProps({
 })
 
 const emit = defineEmits(["update:modelValue"])
+
+const toast = useToast()
+
 const active = ref(false)
 const files = ref([])
 const inputFile = ref(null)
@@ -62,7 +63,7 @@ const inputFile = ref(null)
 const drop = (e) => {
   active.value = !active.value
   if (files.value.length + e.dataTransfer.files.length > props.maxFiles) {
-    Toast.error(`超出可上传的最大数量 ${props.maxFiles} 个！`)
+    toast.error(`超出可上传的最大数量 ${props.maxFiles} 个！`)
     return
   }
   files.value = Object.values(e.dataTransfer.files)
@@ -78,7 +79,7 @@ const drop = (e) => {
 const selectedFile = () => {
   active.value = !active.value
   if (files.value.length + inputFile.value.files.length > props.maxFiles) {
-    Toast.error(`超出可上传的最大数量 ${props.maxFiles} 个！`)
+    toast.error(`超出可上传的最大数量 ${props.maxFiles} 个！`)
     return
   }
   files.value = Object.values(inputFile.value.files)

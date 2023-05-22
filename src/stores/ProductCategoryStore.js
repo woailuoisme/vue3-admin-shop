@@ -1,6 +1,7 @@
 import ProductCategoryService from "../api/product.categories.service"
-import Toast from "../utils/toast"
 import { defineStore } from "pinia"
+
+const toast = useToast()
 
 /** Config Store */
 export default defineStore("product-category", {
@@ -72,9 +73,9 @@ export default defineStore("product-category", {
       const res = await ProductCategoryService.list(payload)
       if (res.data.data) {
         this.categories = res.data.data
-        Toast.success(res.data.message)
+        toast.success(res.data.message)
       } else {
-        Toast.error(res.data.message)
+        toast.error(res.data.message)
       }
     },
 
@@ -82,7 +83,7 @@ export default defineStore("product-category", {
       const res = await ProductCategoryService.store(payload)
       const category = res.data.data
       this.categories.unshift(category)
-      Toast.success(res.data.message)
+      toast.success(res.data.message)
     },
 
     async updateCategory(payload) {
@@ -90,7 +91,7 @@ export default defineStore("product-category", {
       const category = res.data.data
       const index = this.categories.findIndex((p) => p.id === payload.id)
       Object.assign(this.categories[index], category)
-      Toast.success(res.data.message)
+      toast.success(res.data.message)
     },
 
     async deleteCategory(categoryId) {
@@ -98,9 +99,9 @@ export default defineStore("product-category", {
       if (res.data.success) {
         const index = this.categories.findIndex((c) => c.id === categoryId)
         this.categories.splice(index, 1)
-        Toast.success(res.data.message)
+        toast.success(res.data.message)
       } else {
-        Toast.error(res.data.message)
+        toast.error(res.data.message)
       }
     },
   },

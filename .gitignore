@@ -24,9 +24,6 @@ pnpm-debug.log*
 
 .eslintcache
 
-.components.d.ts
-.auto-imports.d.ts
-.auto-components.d.ts
 .eslintrc-auto-import.json
 
 

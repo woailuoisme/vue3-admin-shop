@@ -39,8 +39,7 @@
   </div>
 </template>
 
-<script lang="ts" setup>
-import { ref } from "vue"
+<script setup>
 import { icons } from "./icons"
 
 const selectValue = ref("")

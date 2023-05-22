@@ -10,7 +10,7 @@
 </template>
 
 <script setup>
-import AppFooter from "@/layout/application/AppFooter"
+// import AppFooter from "@/layout/application/AppFooter"
 
 defineOptions({
   name: "AuthLayout",

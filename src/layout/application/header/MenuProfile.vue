@@ -66,7 +66,6 @@
 </template>
 
 <script setup>
-import { computed } from "vue"
 import { useAuth } from "@/stores"
 import { aMaleOne } from "@/assets"
 import router from "@/router"

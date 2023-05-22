@@ -1,5 +1,6 @@
 import PromotionService from "@/api/promotion.service"
-import Toast from "@/utils/toast"
+
+const toast = useToast()
 
 export default {
   namespaced: true,
@@ -45,7 +46,7 @@ export default {
       const carousel = res.data.data
 
       commit("CREATE_CAROUSEL", carousel)
-      Toast.success(res.data.message)
+      toast.success(res.data.message)
       return true
     },
 
@@ -53,16 +54,16 @@ export default {
       const res = await PromotionService.update(payload)
       const carousel = res.data.data
       commit("UPDATE_CAROUSEL", carousel)
-      Toast.success(res.data.message)
+      toast.success(res.data.message)
     },
 
     async deletePromotion({ commit }, carouselId) {
       const res = await PromotionService.delete(carouselId)
       if (res.data.success) {
         commit("DELETE_CAROUSEL", carouselId)
-        Toast.success(res.data.message)
+        toast.success(res.data.message)
       } else {
-        Toast.error(res.data.message)
+        toast.error(res.data.message)
       }
     },
   },

@@ -1,8 +1,10 @@
 import { defineStore } from "pinia"
 import AuthService from "../api/auth.service"
-import toast from "../utils/toast"
 import router from "@/router"
 import { useLocalStorage } from "@/utils"
+import { useToast } from "vue-toastification"
+
+const toast = useToast()
 
 const storage = useLocalStorage()
 
@@ -45,7 +47,7 @@ export default defineStore("auth", {
       if (response.data.success) {
         storage.remove("user")
         this.user = {}
-        router.replace({ name: "login" })
+        await router.replace({ name: "login" })
         toast.success("用户登出成功")
         return true
       }

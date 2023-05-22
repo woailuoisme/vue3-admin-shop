@@ -1,10 +1,8 @@
 import UserService from "../api/user.service"
-import Toast from "../utils/toast"
-
 import { defineStore } from "pinia"
 import dayjs from "dayjs"
-import { da } from "vuetify/locale"
 
+const toast = useToast()
 /** Config Store */
 export default defineStore("user", {
   // Default Config State
@@ -94,20 +92,20 @@ export default defineStore("user", {
     async loadUser(userId) {
       const res = await UserService.show(userId)
       this.user = res.data.data
-      Toast.success(res.data.message)
+      toast.success(res.data.message)
     },
 
     // async createUser(payload) {
     //   const res = await UserService.create(payload)
     //   this.user = res.data.data
-    //   Toast.success(res.data.message)
+    //   toast.success(res.data.message)
     //   return true
     // },
     //
     // async updateUser(payload) {
     //   const res = await UserService.update(payload)
     //   this.user = res.data.data
-    //   Toast.success(res.data.message)
+    //   toast.success(res.data.message)
     // },
 
     async toggleLottery(payload) {
@@ -116,7 +114,7 @@ export default defineStore("user", {
         const user = res.data.data
         const index = this.users.findIndex((p) => p.id === payload.id)
         this.users[index] = Object.assign({}, user)
-        Toast.success(res.data.message)
+        toast.success(res.data.message)
       }
     },
 
@@ -138,9 +136,9 @@ export default defineStore("user", {
     //   if (res.data.success) {
     //     const index = state.users.findIndex((p) => p.id === userId)
     //     this.users.splice(index, 1)
-    //     Toast.success(res.data.message)
+    //     toast.success(res.data.message)
     //   } else {
-    //     Toast.error(res.data.message)
+    //     toast.error(res.data.message)
     //   }
     // },
   },
