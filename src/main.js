@@ -5,10 +5,10 @@
  */
 // Components
 import App from "./App.vue"
-import { createApp } from "vue"
+import {createApp} from "vue"
 import "@/styles/style.css"
-import { registerPlugins } from "@/plugins"
-import { registerLayouts } from "@/layout/register"
+import {registerPlugins} from "@/plugins"
+import {registerLayouts} from "@/layout/register"
 
 import "virtual:svg-icons-register"
 

@@ -16,6 +16,7 @@ import {FileSystemIconLoader} from "unplugin-icons/loaders";
 import {createSvgIconsPlugin} from 'vite-plugin-svg-icons';
 import zipPack from "vite-plugin-zip-pack";
 import VueMacros from 'unplugin-vue-macros/vite';
+import viteCompression from 'vite-plugin-compression';
 
 export default function unplugin(mode) {
   const {VITE_ICON_PREFIX, VITE_APP_NAME} = loadEnv(mode, process.cwd());
@@ -32,6 +33,7 @@ export default function unplugin(mode) {
     vue({
       template: {transformAssetUrls},
     }),
+    viteCompression(),
     VueSetupExtend(),
     Components({
       dirs: ['src/components', 'src/views/components'],

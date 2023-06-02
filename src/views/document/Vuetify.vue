@@ -4,8 +4,7 @@
   </v-container>
 </template>
 
-<script setup lang="ts">
-import { ref } from "vue"
+<script setup>
 
 const src = ref("https://www.naiveui.com/zh-CN/os-theme/docs/introduction")
 </script>

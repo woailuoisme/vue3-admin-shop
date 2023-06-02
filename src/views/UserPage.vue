@@ -2,27 +2,33 @@
   <v-row>
     <v-col cols="12">
       <v-card>
-        <v-card-title flat>
+        <v-card-title>
           <v-btn variant="flat" color="primary" @click.stop="addItem">新增</v-btn>
-          <v-spacer />
+          <v-spacer/>
         </v-card-title>
+      </v-card>
+    </v-col>
+  </v-row>
+  <v-row>
+    <v-col cols="12">
+      <v-card>
         <easy-data-table
+          v-bind="dataTableAttr"
+          :theme-color="tableColor"
+          :table-class-name="tableClass"
+          :hide-footer="isHideFooter"
           v-model:server-options="requestParams"
-          buttons-pagination
-          alternating
-          header-text-direction="center"
-          body-text-direction="center"
-          :server-items-length="serverItemsLength"
+          :server-items-length="total"
           :loading="loading"
           :headers="headers"
-          :items="users"
+          :items="managers"
         >
           <template #item-name="{ name }">
             <v-chip color="primary" small tile>{{ name }}</v-chip>
           </template>
 
           <template #item-avatar="{ avatar }">
-            <table-image :image="avatar" />
+            <table-image :image="avatar"/>
           </template>
 
           <template #item-role="{ role }">
@@ -30,42 +36,43 @@
           </template>
 
           <template #item-operation="item">
-            <v-btn class="ml-1" icon="mdi-pencil" color="warning" size="small" tile @click.stop="editItem(item)" />
-            <v-btn class="ml-1" icon="mdi-delete" color="error" size="small" tile @click.stop="deleteItem(item)" />
+            <v-icon icon="mdi-square-edit-outline" color="primary" size="large" class="mx-1"
+                    @click.stop="editItem(item)"></v-icon>
+            <v-icon icon="mdi-trash-can-outline" color="error" size="large" @click.stop="deleteItem(item)"></v-icon>
           </template>
         </easy-data-table>
       </v-card>
     </v-col>
   </v-row>
   <v-dialog v-model="dialogDelete" max-width="300px">
-    <dialog-confirm @close="closeDelete" @confirm="deleteItemConfirm" />
+    <dialog-confirm @close="closeDelete" @confirm="deleteItemConfirm"/>
   </v-dialog>
   <v-dialog v-model="dialogEntity" max-width="500px">
-    <entity-form :item="editedItem" :is-new="isNew" @close="dialogEntity = false" @save="save" />
+    <entity-form :item="editedItem" :is-new="isNew" @close="dialogEntity = false" @save="save"/>
   </v-dialog>
 </template>
 
 <script setup>
 import TableImage from "@/components/table/TableImage"
-import DialogConfirm from "./components/common/DialogConfirm"
-import EntityForm from "./components/user/UserEntityForm"
-import { computed, nextTick, onMounted, ref, watch } from "vue"
-import { useAdminUser, useBreadcrumb, useGlobal, useTableHeader } from "@/stores"
-import { roleLabel } from "@/filters"
+import DialogConfirm from "@/views/components/common/DialogConfirm"
+import EntityForm from "@/views/components/user/UserEntityForm"
+import {useAdminUser, useBreadcrumb, useGlobal, useTableHeader} from "@/stores"
+import {roleLabel} from "@/filters"
+import {dataTableAttr} from "@/utils";
 
 const adminUserStore = useAdminUser()
 const globalStore = useGlobal()
 const breadcrumbStore = useBreadcrumb()
 const tableHeaderStore = useTableHeader()
+const vuetifyTheme = useTheme()
 
 const headers = computed(() => tableHeaderStore.adminUsers)
 const breadcrumbs = computed(() => breadcrumbStore.adminUser)
-const users = computed(() => adminUserStore.getUsers)
-const serverItemsLength = computed(() => adminUserStore.total)
 const loading = computed(() => globalStore.isLoading)
-const isNew = computed(() => adminUserStore.isNew)
-const editedItem = computed(() => adminUserStore.getEditedItem)
-const editedIndex = computed(() => adminUserStore.getEditedIndex)
+
+const {managers, total, isNew, editedItem, editedIndex, isHideFooter} = storeToRefs(adminUserStore)
+const tableClass = computed(() => (vuetifyTheme.current.value.dark ? "customize-table-dark" : "customize-table"))
+const tableColor = computed(() => vuetifyTheme.current.value.colors.primary)
 const content = ref("")
 
 const dialogEntity = ref(false)
@@ -84,7 +91,7 @@ watch(
   (value) => {
     adminUserStore.loadAllUsers(requestParams)
   },
-  { deep: true },
+  {deep: true},
 )
 watch(dialogEntity, (val) => {
   console.log(val)

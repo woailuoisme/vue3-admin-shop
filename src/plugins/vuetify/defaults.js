@@ -42,7 +42,7 @@ export default {
   VList: {
     nav: true,
     VListItem: {
-      activeColor: "primary",
+      color: "primary",
     },
   },
   VCheckbox: {

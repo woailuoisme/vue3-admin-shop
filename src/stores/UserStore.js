@@ -1,5 +1,5 @@
 import UserService from "../api/user.service"
-import { defineStore } from "pinia"
+import {defineStore} from "pinia"
 import dayjs from "dayjs"
 
 const toast = useToast()
@@ -67,13 +67,13 @@ export default defineStore("user", {
       return [...state.users]
     },
     getUser(state) {
-      return { ...state.userInfo }
+      return {...state.userInfo}
     },
     findByOrderId: (state) => (id) => {
       return state.users.find((user) => user.id === id)
     },
     getMeta(state) {
-      return { ...state.meta }
+      return {...state.meta}
     },
     isDisplayPagination(state) {
       return !!(state.meta && state.meta.last_page && state.meta.last_page > 1)
@@ -113,7 +113,8 @@ export default defineStore("user", {
       if (res.data.data) {
         const user = res.data.data
         const index = this.users.findIndex((p) => p.id === payload.id)
-        this.users[index] = Object.assign({}, user)
+        // this.users[index] = Object.assign({}, user)
+        this.users[index].is_active_lottery = user.is_active_lottery
         toast.success(res.data.message)
       }
     },
@@ -121,7 +122,7 @@ export default defineStore("user", {
     async downloadExcel() {
       try {
         const res = await UserService.downloadExcel()
-        let blob = new Blob([res.data], { type: "application/xlsx" })
+        let blob = new Blob([res.data], {type: "application/xlsx"})
         let link = document.createElement("a")
         link.href = window.URL.createObjectURL(blob)
         link.download = `user_excel_${dayjs().format("YYYY-MM-DD HH:mm:ss")}.xlsx`
@@ -130,6 +131,11 @@ export default defineStore("user", {
         console.log(e)
       }
     },
+
+    async uploadExcel() {
+
+    }
+
 
     // async deleteUser(userId) {
     //   const res = await UserService.delete(userId)

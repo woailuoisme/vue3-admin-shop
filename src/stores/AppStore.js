@@ -1,5 +1,6 @@
-import { nextTick } from "vue"
-import { defineStore } from "pinia"
+import {defineStore} from "pinia"
+import {nextTick} from "vue"
+
 export default defineStore("app-store", {
   state: () => ({
     contentFull: false,
@@ -25,7 +26,7 @@ export default defineStore("app-store", {
         this.reloadFlag = true
       }
       setTimeout(() => {
-        document.documentElement.scrollTo({ left: 0, top: 0 })
+        document.documentElement.scrollTo({left: 0, top: 0})
       }, 100)
     },
     /** 打开设置抽屉 */

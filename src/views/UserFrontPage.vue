@@ -2,35 +2,47 @@
   <v-row>
     <v-col cols="12">
       <v-card>
-        <v-toolbar flat>
+        <v-card-title class="d-flex align-center">
           <v-toolbar-title>前台用户管理</v-toolbar-title>
-          <v-spacer />
-          <v-btn variant="flat" :loading="loading" :disabled="loading" color="info" @click="downloadFile">
-            Download Excel
+          <v-spacer/>
+          <v-btn prepend-icon="mdi-calendar-import-outline" variant="outlined" :loading="loading" :disabled="loading"
+                 @click="downloadFile">导入
             <template #loader>
-              <span>Loading...</span>
+              <span>处理中...</span>
             </template>
           </v-btn>
-        </v-toolbar>
+          <v-divider class="mx-2" vertical thickness="0"></v-divider>
+          <v-btn prepend-icon="mdi-calendar-export-outline" variant="outlined" :loading="loading" :disabled="loading"
+                 @click="downloadFile">导出
+            <template #loader>
+              <span>处理中...</span>
+            </template>
+          </v-btn>
+        </v-card-title>
       </v-card>
     </v-col>
   </v-row>
+
   <v-row>
     <v-col cols="12">
       <v-card :loading="loading" :disabled="loading">
         <easy-data-table
+          v-bind="dataTableAttr"
+          :theme-color="tableColor"
+          :table-class-name="tableClass"
+          :hide-footer="isHideFooter"
           v-model:server-options="requestParams"
-          :server-items-length="serverItemsLength"
-          :loading="loading"
+          :server-items-length="total"
           :headers="headers"
           :items="users"
+          :loading="loading"
         >
           <template #item-name="{ name }">
             <v-chip color="primary" small tile>{{ name }}</v-chip>
           </template>
 
           <template #item-avatar="{ avatar }">
-            <table-image :image="avatar" />
+            <table-image :image="avatar"/>
           </template>
 
           <template #item-is_active_lottery="item">
@@ -48,45 +60,41 @@
           </template>
         </easy-data-table>
       </v-card>
-      <v-dialog v-model="dialogDetail" max-width="800" />
+      <v-dialog v-model="dialogDetail" max-width="800"/>
     </v-col>
   </v-row>
 </template>
 
 <script setup>
 import TableImage from "@/components/table/TableImage"
-import Breadcrumb from "@/components/shared/Breadcrumb"
-import { computed, nextTick, onMounted, ref, watch } from "vue"
-import { useBreadcrumb, useGlobal, useUser, useProductCategory, useTableHeader } from "@/stores"
+import {useBreadcrumb, useGlobal, useUser, useTableHeader} from "@/stores"
+import {dataTableAttr} from "@/utils";
 
-const userStore = useUser()
+const vuetifyTheme = useTheme()
 const globalStore = useGlobal()
+const userStore = useUser()
 const breadcrumbStore = useBreadcrumb()
 const tableHeaderStore = useTableHeader()
 
 const headers = computed(() => tableHeaderStore.users)
 const breadcrumbs = computed(() => breadcrumbStore.user)
-const users = computed(() => userStore.getUsers)
-const serverItemsLength = computed(() => userStore.total)
 const loading = computed(() => globalStore.isLoading)
-const isNew = computed(() => userStore.isNew)
-const editedItem = computed(() => userStore.getEditedItem)
-const editedIndex = computed(() => userStore.getEditedIndex)
-// const findProduct = computed(() => productStore.findById)
+const {users, total, isNew, editedItem, editedIndex, isHideFooter} = storeToRefs(userStore)
+const tableClass = computed(() => (vuetifyTheme.current.value.dark ? "customize-table-dark" : "customize-table"))
+const tableColor = computed(() => vuetifyTheme.current.value.colors.primary)
 
 const dialogDetail = ref(false)
 const requestParams = ref({
   page: 1,
   rowsPerPage: 20,
 })
-let mapProduct
 
 watch(
   requestParams,
   (value) => {
     userStore.loadAllUsers(requestParams.value._rawValue)
   },
-  { deep: true },
+  {deep: true},
 )
 
 onMounted(() => {

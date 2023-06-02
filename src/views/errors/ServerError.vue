@@ -3,7 +3,7 @@
     <v-container fluid class="fill-height">
       <v-layout class="align-center justify-center">
         <div class="mr-3 hidden-sm-and-down">
-          <img :src="auth500" />
+          <img :src="auth500"/>
         </div>
         <div class="text-md-center">
           <h1>500</h1>
@@ -18,11 +18,11 @@
 </template>
 
 <script setup>
-// import router from "@/router"
-// import { auth500 } from "@/assets"
+import router from "@/router"
+import {auth500} from "@/assets"
 
 function goHome() {
-  router.push({ path: "/" })
+  router.push({path: "/"})
 }
 </script>
 

@@ -2,7 +2,7 @@ import ProductService from "../api/product.service"
 
 const toast = useToast()
 
-import { defineStore } from "pinia"
+import {defineStore} from "pinia"
 
 /** Config Store */
 export default defineStore("product", {
@@ -52,7 +52,7 @@ export default defineStore("product", {
       return !!state.products.length
     },
     getProduct(state) {
-      return { ...state.productInfo }
+      return {...state.productInfo}
     },
     findByProductId: (state) => (id) => {
       return state.products.find((product) => product.id === id)
@@ -165,7 +165,7 @@ export default defineStore("product", {
       if (res.data.data) {
         const product = res.data.data
         const index = this.products.findIndex((p) => p.id === payload.id)
-        this.products[index] = Object.assign({}, product)
+        this.products[index].is_sale = product.is_sale
         toast.success(res.data.message)
       }
     },

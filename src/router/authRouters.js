@@ -9,6 +9,16 @@ export const authModule = [
     },
     component: () => import("@/views/auth/LoginPage.vue"),
   },
+
+  {
+    path: "/login-new",
+    name: "login-new",
+    meta: {
+      title: "用户登录",
+      requiredAuth: false,
+    },
+    component: () => import("@/views/auth/LoginPageNew.vue"),
+  },
   {
     path: "/register",
     name: "register",

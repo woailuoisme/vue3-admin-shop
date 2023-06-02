@@ -1,76 +1,56 @@
-/* fade */
-.fade-enter-active,
-.fade-leave-active {
-  transition: opacity 0.3s ease-in-out;
-}
-.fade-enter-from,
-.fade-leave-to {
-  opacity: 0;
+/*animation: spin 1s linear infinite;*/
+.animate-spin {
+  animation-name: spin;
+  animation-duration: 1s;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
 }
 
-/* fade-slide */
-.fade-slide-leave-active,
-.fade-slide-enter-active {
-  transition: all 0.3s;
-}
-.fade-slide-enter-from {
-  opacity: 0;
-  transform: translateX(-30px);
-}
-.fade-slide-leave-to {
-  opacity: 0;
-  transform: translateX(30px);
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
-/* fade-bottom */
-.fade-bottom-enter-active,
-.fade-bottom-leave-active {
-  transition: opacity 0.25s, transform 0.3s;
-}
-.fade-bottom-enter-from {
-  opacity: 0;
-  transform: translateY(-10%);
-}
-.fade-bottom-leave-to {
-  opacity: 0;
-  transform: translateY(10%);
+.animate-ping {
+  animation: ping 1s cubic-bezier(0, 0, 0.2, 1) infinite;
 }
 
-/* fade-scale */
-.fade-scale-leave-active,
-.fade-scale-enter-active {
-  transition: all 0.28s;
+@keyframes ping {
+  75%,
+  100% {
+    transform: scale(2);
+    opacity: 0;
+  }
 }
-.fade-scale-enter-from {
-  opacity: 0;
-  transform: scale(1.2);
-}
-.fade-scale-leave-to {
-  opacity: 0;
-  transform: scale(0.8);
+.animate-pulse {
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
 }
 
-/* zoom-fade */
-.zoom-fade-enter-active,
-.zoom-fade-leave-active {
-  transition: transform 0.2s, opacity 0.3s ease-out;
-}
-.zoom-fade-enter-from {
-  opacity: 0;
-  transform: scale(0.92);
-}
-.zoom-fade-leave-to {
-  opacity: 0;
-  transform: scale(1.06);
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
 }
 
-/* zoom-out */
-.zoom-out-enter-active,
-.zoom-out-leave-active {
-  transition: opacity 0.1s ease-in-out, transform 0.15s ease-out;
+.animate-bounce {
+  animation: bounce 1s infinite;
 }
-.zoom-out-enter-from,
-.zoom-out-leave-to {
-  opacity: 0;
-  transform: scale(0);
+@keyframes bounce {
+  0%,
+  100% {
+    transform: translateY(-25%);
+    animation-timing-function: cubic-bezier(0.8, 0, 1, 1);
+  }
+  50% {
+    transform: translateY(0);
+    animation-timing-function: cubic-bezier(0, 0, 0.2, 1);
+  }
 }

@@ -14,7 +14,6 @@
       <slot />
     </v-container>
     <back-to-top />
-    <v-scroll-progress></v-scroll-progress>
   </v-main>
 </template>
 
@@ -23,7 +22,6 @@ import AppHeader from "@/layout/application/AppHeader.vue"
 import BackToTop from "@/components/shared/BackToTop.vue"
 import globalRouter from "@/router"
 // import AppFab from "@/layout/application/AppFab"
-import VScrollProgress from "@/components/VScrollProgress"
 
 defineOptions({
   name: "MenuLayout",

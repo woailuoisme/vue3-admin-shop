@@ -1,7 +1,8 @@
 <script setup>
 import VueApexCharts from "vue3-apexcharts"
-import { useTheme } from "vuetify"
-import { computed } from "vue"
+import {useTheme} from "vuetify"
+import {computed} from "vue"
+
 const vuetifyTheme = useTheme()
 const currentTheme = computed(() => {
   return vuetifyTheme.current.value.colors
@@ -20,7 +21,7 @@ const chartOptions = computed(() => {
       type: "bar",
       stacked: false,
       parentHeightOffset: 0,
-      toolbar: { show: false },
+      toolbar: {show: false},
     },
     grid: {
       show: false,
@@ -52,15 +53,15 @@ const chartOptions = computed(() => {
         },
       },
     },
-    legend: { show: false },
-    dataLabels: { enabled: false },
+    legend: {show: false},
+    dataLabels: {enabled: false},
     xaxis: {
-      labels: { show: false },
-      axisBorder: { show: false },
-      axisTicks: { show: false },
+      labels: {show: false},
+      axisBorder: {show: false},
+      axisTicks: {show: false},
     },
-    yaxis: { show: false },
-    tooltip: { enabled: false },
+    yaxis: {show: false},
+    tooltip: {enabled: false},
   }
 })
 </script>
@@ -69,9 +70,7 @@ const chartOptions = computed(() => {
   <v-card>
     <v-card-text>
       <h6 class="text-h6">2,856</h6>
-
-      <vue-apex-charts :options="chartOptions" :series="series" :height="95" />
-
+      <vue-apex-charts :options="chartOptions" :series="series" :height="95"/>
       <p class="text-center font-weight-semibold mb-0">Sessions</p>
     </v-card-text>
   </v-card>

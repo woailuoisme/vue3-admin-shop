@@ -2,7 +2,6 @@
   <v-card>
     <v-card-title>
       <div>{{ $t("dashboard.activity") }}</div>
-      <v-spacer></v-spacer>
       <v-menu offset-y left transition="slide-y-transition">
         <template #activator="{ props }">
           <v-btn icon v-bind="props" flat>
@@ -37,12 +36,12 @@
   </v-card>
 </template>
 
-<script lang="ts" setup>
-import { reactive } from "vue"
+<script setup>
+import {reactive} from "vue"
 
 const menu = reactive([
-  { icon: "mdi-refresh", text: "Refresh" },
-  { icon: "mdi-delete-outline", text: "Clear" },
+  {icon: "mdi-refresh", text: "Refresh"},
+  {icon: "mdi-delete-outline", text: "Clear"},
 ])
 
 const activity = reactive([

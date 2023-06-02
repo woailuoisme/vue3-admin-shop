@@ -4,10 +4,9 @@
 
 ```
 # yarn dev
-yarn serve_dev
+yarn serve:dev
 yarn pre
 yarn gv
-
 
 ```
 

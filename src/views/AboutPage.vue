@@ -9,10 +9,10 @@
 </template>
 
 <script setup>
-import { reactive } from "vue"
-import { chunk, flatten } from "lodash-es"
+import {reactive} from "vue"
 import packageJson from "../../package.json"
-const pageData = reactive({ info: {}, dependencies: {}, devDependencies: {} })
+
+const pageData = reactive({info: {}, dependencies: {}, devDependencies: {}})
 
 const primary = ref("rgb(var(--v-theme-primary))")
 const secondary = ref("rgb(var(--v-theme-secondary))")

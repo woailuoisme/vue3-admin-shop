@@ -1,7 +1,6 @@
 import NProgress from "nprogress"
 import "nprogress/nprogress.css"
 
-//全局进度条的配置
 NProgress.configure({
   easing: "ease", // 动画方式
   speed: 1000, // 递增进度条的速度

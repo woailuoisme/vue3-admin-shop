@@ -17,9 +17,6 @@
 </template>
 
 <script setup>
-// import '' from ''
-import { defineProps, defineEmits, ref } from "vue"
-
 const otpInput = ref(null)
 
 function handleOnChange(value) {

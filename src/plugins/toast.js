@@ -11,8 +11,7 @@ export const toastOptions = {
   draggablePercent: 0.6,
   showCloseButtonOnHover: false,
   hideProgressBar: true,
-  closeButton: "button",
   icon: true,
   rtl: false,
 }
-export default { toastOptions }
+export default {toastOptions}

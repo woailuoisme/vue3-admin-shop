@@ -1,29 +1,22 @@
-import { useNameCase } from "../util.mjs"
+import {useNameCase} from "../util.mjs"
 
 export const viewContent = (model) => {
-  const result = useNameCase(model)
-  const camelName = result.camelName
-  const pascalName = result.pascalName
-  const pluralCamelName = result.pluralCamelName
-  const pluralPascalName = result.pluralPascalName
-
-  return `
+    const result = useNameCase(model)
+    const camelName = result.camelName
+    const pascalName = result.pascalName
+    const pluralCamelName = result.pluralCamelName
+    const pluralPascalName = result.pluralPascalName
+    return `
   <template>
   <v-container fluid>
-    <v-row>
-      <v-col cols="12">
-        <v-card>
-          <breadcrumb :items="breadcrumbs" />
-        </v-card>
-      </v-col>
-    </v-row>
-    <v-row>
-      <v-col cols="12">
-        <v-toolbar :elevation="2" flat>
+  <v-row>
+    <v-col cols="12">
+      <v-card>
+        <v-card-title class="d-flex align-center">
           <v-btn variant="flat" color="primary" @click.stop="addItem">
-            {{ $t('table.operation.add') }}
+            {{ $t("table.operation.add") }}
           </v-btn>
-          <v-spacer />
+          <v-spacer/>
           <v-text-field
             v-model="requestParams.keyword"
             variant="outlined"
@@ -32,13 +25,26 @@ export const viewContent = (model) => {
             single-line
             hide-details
           />
-        </v-toolbar>
-      </v-col>
-    </v-row>
+          <v-divider vertical thickness="2" color="primary" class="mx-2"></v-divider>
+          <v-btn
+            class="ma-4"
+            variant="flat"
+            icon="mdi-refresh"
+            :class="{ 'animate-spin': isLoading }"
+            color="info"
+            size="medium"
+            @click="reload"
+          ></v-btn>
+        </v-card-title>
+      </v-card>
+    </v-col>
+  </v-row>
+    
     <v-row>
       <v-col cols="12">
         <v-card :loading="isLoading" :disabled="isLoading">
           <easy-data-table
+            v-bind="dataTableAttr"
             v-model:server-options="requestParams"
             :server-items-length="total"
             :loading="isLoading"
@@ -67,13 +73,9 @@ export const viewContent = (model) => {
 
 <script setup>
 import Breadcrumb from '@/components/shared/Breadcrumb'
-import DialogConfirm from './components/common/DialogConfirm'
 import Entity from './components/${camelName}/Entity'
-import { computed, nextTick, onMounted, ref, unref, watch } from 'vue'
-import { storeToRefs } from 'pinia'
 import { useBreadcrumb, useGlobal, use${pascalName}, useTableHeader } from '@/stores'
-const { debounce } = require('lodash-es')
-import { useTheme } from 'vuetify'
+import {dataTableAttr} from "@/utils";
 
 const ${camelName}Store = use${pascalName}()
 const globalStore = useGlobal()
@@ -106,14 +108,9 @@ watch(
   { deep: true }
 )
 
-watch(
-  [dialogEntity, dialogDelete, requestParams],
-  ([newEntry, newDelete, newRequestParams]) => {
-    newEntry || close()
-    newDelete || closeDelete()
-  },
-  { deep: true }
-)
+function reload() {
+  search(unref(requestParams))
+}
 
 function addItem() {
   dialogEntity.value = true

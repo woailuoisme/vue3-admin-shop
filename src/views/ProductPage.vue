@@ -11,7 +11,7 @@
           <v-fade-transition>
             <batch v-if="isNotEmpty"></batch>
           </v-fade-transition>
-          <v-spacer />
+          <v-spacer/>
           <v-text-field
             v-model="requestParams.keyword"
             :placeholder="$t('table.search.keyword')"
@@ -53,13 +53,13 @@
           :rows-items="[10, 20, 40]"
         >
           <template #[`item-category.second_name`]="item">
-            <v-chip color="primary" variant="outlined">{{ item.category.second_name }}</v-chip>
+            <v-chip color="primary" variant="outlined">{{ item.category.second_name ?? '' }}</v-chip>
           </template>
           <template #item-thumbnail="item">
-            <table-image :image="item.thumbnail" :max-height="50" :max-width="50" />
+            <table-image :image="item.thumbnail" :max-height="50" :max-width="50"/>
           </template>
           <template #item-description="item">
-            <text-tooltip :text="item.description" />
+            <text-tooltip :text="item.description"/>
           </template>
           <template #item-created_at="item">
             {{ item.created_at }}
@@ -80,21 +80,23 @@
 
           <template #item-operation="item">
             <v-icon class="ml-1" color="info" icon="mdi-eye-outline" size="large" @click.stop="viewItem(item)"></v-icon>
-            <v-icon class="ml-1" color="primary" icon="mdi-square-edit-outline" size="large" @click.stop="editItem(item)"></v-icon>
-            <v-icon class="ml-1" color="error" icon="mdi-trash-can-outline" size="large" @click.stop="deleteItem(item)"></v-icon>
+            <v-icon class="ml-1" color="primary" icon="mdi-square-edit-outline" size="large"
+                    @click.stop="editItem(item)"></v-icon>
+            <v-icon class="ml-1" color="error" icon="mdi-trash-can-outline" size="large"
+                    @click.stop="deleteItem(item)"></v-icon>
           </template>
         </easy-data-table>
       </v-card>
     </v-col>
   </v-row>
   <v-dialog v-model="dialogDelete" max-width="300px">
-    <dialog-confirm @close="closeDelete" @confirm="deleteItemConfirm" />
+    <dialog-confirm @close="closeDelete" @confirm="deleteItemConfirm"/>
   </v-dialog>
   <v-dialog v-model="dialogEntity" max-width="1300px">
-    <entity :is-new="isNew" :item="editedItem" @close="dialogEntity = false" @save="save" />
+    <entity :is-new="isNew" :item="editedItem" @close="dialogEntity = false" @save="save"/>
   </v-dialog>
   <v-dialog v-model="dialogDetail" max-width="1300px">
-    <details :product="mapProduct" @close="dialogDetail = false" />
+    <details :product="mapProduct" @close="dialogDetail = false"/>
   </v-dialog>
 </template>
 
@@ -104,13 +106,13 @@ import TextTooltip from "@/components/table/TextTooltip"
 import DialogConfirm from "./components/common/DialogConfirm"
 import Entity from "./components/product/ProductEntity"
 import Details from "./components/product/ProductDetails"
-import { useBreadcrumb, useGlobal, useProduct, useProductCategory, useTableHeader } from "@/stores"
-import { storeToRefs } from "pinia"
-import { debounce } from "lodash-es"
+import {useBreadcrumb, useGlobal, useProduct, useProductCategory, useTableHeader} from "@/stores"
+import {storeToRefs} from "pinia"
+import {debounce} from "lodash-es"
 import ProductFilter from "@/views/components/product/ProductFilter"
 import Batch from "@/views/components/product/ProductBatch"
-import { dataTableAttr } from "@/utils"
-import { useTheme } from "vuetify"
+import {dataTableAttr} from "@/utils"
+import {useTheme} from "vuetify"
 
 const productStore = useProduct()
 const globalStore = useGlobal()
@@ -119,11 +121,11 @@ const tableHeaderStore = useTableHeader()
 const categoryStore = useProductCategory()
 const vuetifyTheme = useTheme()
 
-const { categories } = storeToRefs(categoryStore)
-const { products: headers } = storeToRefs(tableHeaderStore)
-const { product: breadcrumbs } = storeToRefs(breadcrumbStore)
-const { isLoading } = storeToRefs(globalStore)
-const { products, total, isNew, editedIndex, editedItem, isHideFooter } = storeToRefs(productStore)
+const {categories} = storeToRefs(categoryStore)
+const {products: headers} = storeToRefs(tableHeaderStore)
+const {product: breadcrumbs} = storeToRefs(breadcrumbStore)
+const {isLoading} = storeToRefs(globalStore)
+const {products, total, isNew, editedIndex, editedItem, isHideFooter} = storeToRefs(productStore)
 const tableClass = computed(() => (vuetifyTheme.current.value.dark ? "customize-table-dark" : "customize-table"))
 const tableColor = computed(() => vuetifyTheme.current.value.colors.primary)
 
@@ -153,7 +155,7 @@ watch(
   (value) => {
     search(unref(requestParams))
   },
-  { deep: true },
+  {deep: true},
 )
 
 function reload() {

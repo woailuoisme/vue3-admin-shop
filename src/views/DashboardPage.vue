@@ -1,5 +1,5 @@
 <template>
-  <v-row>
+  <v-row class="match-height">
     <v-col xm="12" sm="6" md="3" class="pa-2">
       <v-card class="elevation-2">
         <v-card-title>
@@ -95,7 +95,7 @@
       </v-card>
     </v-col>
   </v-row>
-  <v-row>
+  <v-row class="match-height">
     <v-col cols="12" sm="12" md="6">
       <v-card>
         <v-card-text>

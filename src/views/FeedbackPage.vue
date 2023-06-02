@@ -4,8 +4,9 @@
       <v-card>
         <v-toolbar flat>
           <v-toolbar-title>用户反馈</v-toolbar-title>
-          <v-spacer />
-          <v-text-field v-model="requestParams.keyword" append-icon="mdi-magnify" placeholder="ID/姓名" single-line hide-details solo />
+          <v-spacer/>
+          <v-text-field v-model="requestParams.keyword" append-icon="mdi-magnify" placeholder="ID/姓名" single-line
+                        hide-details solo/>
         </v-toolbar>
       </v-card>
     </v-col>
@@ -21,7 +22,7 @@
           :items="feedback"
         >
           <template #item-content="{ content }">
-            <text-tooltip :text="content" />
+            <text-tooltip :text="content"/>
           </template>
 
           <template #item-operation="item">
@@ -30,18 +31,16 @@
         </easy-data-table>
       </v-card>
       <v-dialog v-model="dialogDetail" max-width="800">
-        <details :feedback="mapFeedback" @close="dialogDetail = false" />
+        <details :feedback="mapFeedback" @close="dialogDetail = false"/>
       </v-dialog>
     </v-col>
   </v-row>
 </template>
 
 <script setup>
-import Breadcrumb from "@/components/shared/Breadcrumb"
 import TextTooltip from "@/components/table/TextTooltip"
 import Details from "./components/feedback/FeedbackDetails"
-import { computed, onMounted, ref, toRaw } from "vue"
-import { useBreadcrumb, useFeedback, useGlobal, useTableHeader } from "@/stores"
+import {useBreadcrumb, useFeedback, useGlobal, useTableHeader} from "@/stores"
 
 const feedbackStore = useFeedback()
 const globalStore = useGlobal()

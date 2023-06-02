@@ -1,6 +1,6 @@
-import { errorModule } from "./errorRouters"
-import { menuModule } from "./menuRouters"
-import { authModule } from "./authRouters"
+import {errorModule} from "./errorRouters"
+import {menuModule} from "./menuRouters"
+import {authModule} from "./authRouters"
 
 const personModule = [
   {
@@ -18,8 +18,8 @@ const personModule = [
           requiredAuth: true,
           permission: "home",
           breads: [
-            { text: "主页", disabled: false, href: "/dashboard" },
-            { text: "个人信息", disabled: true, href: "/user/profile" },
+            {text: "主页", disabled: false, href: "/dashboard"},
+            {text: "个人信息", disabled: true, href: "/user/profile"},
           ],
         },
       },
@@ -33,11 +33,11 @@ const testModule = [
     name: "drag",
     component: () => import("@/components/shared/DragSorted.vue"),
   },
-  {
-    path: "/menu",
-    name: "menu",
-    component: () => import("@/views/menu/MenuView.vue"),
-  },
+  // {
+  //   path: "/menu",
+  //   name: "menu",
+  //   component: () => import("@/views/menu/MenuView.vue"),
+  // },
   // {
   //   path: "/tree",
   //   name: "tree",
@@ -62,7 +62,7 @@ const testModule = [
       layout: "menu",
       requiredAuth: true,
       permission: "home",
-      breads: [{ text: "仪表盘", disabled: true, href: "/dashboard" }],
+      breads: [{text: "仪表盘", disabled: true, href: "/dashboard"}],
     },
     component: () => import("@/views/card/CardView.vue"),
   },

@@ -1,15 +1,15 @@
-import { useNameCase } from "../util.mjs"
+import {useNameCase} from "../util.mjs"
 
 export const storeContent = (model) => {
-  const result = useNameCase(model)
-  const camelName = result.camelName
-  const pascalName = result.pascalName
-  const pluralCamelName = result.pluralCamelName
-  const pluralPascalName = result.pluralPascalName
-  const kebabName = result.kebabName
-  const dotName = result.dotName
+    const result = useNameCase(model)
+    const camelName = result.camelName
+    const pascalName = result.pascalName
+    const pluralCamelName = result.pluralCamelName
+    const pluralPascalName = result.pluralPascalName
+    const kebabName = result.kebabName
+    const dotName = result.dotName
 
-  return `
+    return `
 import ${pascalName}Service from '@/api/${dotName}.service'
 import Toast from '@/utils/toast'
 import { defineStore } from 'pinia'

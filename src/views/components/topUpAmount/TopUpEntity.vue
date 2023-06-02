@@ -4,7 +4,7 @@
       <v-card-title class="text-center">
         <span class="text-h5 text-primary">{{ isNew ? $t("form.title.add") : $t("form.title.edit") }}</span>
       </v-card-title>
-      <v-divider />
+      <v-divider/>
       <v-card-text>
         <v-container>
           <v-row>
@@ -31,20 +31,23 @@
           </v-row>
         </v-container>
       </v-card-text>
-      <v-divider :thickness="2" />
+      <v-divider/>
       <v-card-actions class="py-4">
-        <v-spacer />
+        <v-spacer/>
         <v-btn color="info" size="large" variant="outlined" @click="close">{{ $t("form.cancel") }}</v-btn>
-        <v-spacer />
-        <v-btn :disabled="!meta.valid" color="primary" size="large" type="submit" variant="elevated">{{ $t("form.save") }}</v-btn>
-        <v-spacer />
+        <v-spacer/>
+        <v-btn :disabled="!meta.valid" color="primary" size="large" type="submit" variant="elevated">{{
+            $t("form.save")
+          }}
+        </v-btn>
+        <v-spacer/>
       </v-card-actions>
     </v-card>
   </v-form>
 </template>
 
 <script setup>
-import { useField, useForm } from "vee-validate"
+import {useField, useForm} from "vee-validate"
 import yup from "@/utils/validation"
 
 const props = defineProps({
@@ -71,11 +74,11 @@ const validationSchema = yup.object({
   integral: yup.number().integer().required().min(1).label("积分"),
 })
 
-const { handleSubmit, meta } = useForm({
+const {handleSubmit, meta} = useForm({
   validationSchema,
   initialValues: {
-    amount: props.item?.amount ?? 1,
-    integral: props.item?.integral ?? 1,
+    amount: props.item.amount ?? 1,
+    integral: props.item.integral ?? 1,
   },
   validateOnMount: true,
 })

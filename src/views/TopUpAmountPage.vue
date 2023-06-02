@@ -6,7 +6,7 @@
           <v-btn variant="flat" color="primary" @click.stop="addItem">
             {{ $t("table.operation.add") }}
           </v-btn>
-          <v-spacer />
+          <v-spacer/>
           <v-text-field
             v-model="requestParams.keyword"
             variant="outlined"
@@ -45,7 +45,8 @@
           :hide-footer="isHideFooter"
         >
           <template #item-operation="item">
-            <v-icon icon="mdi-square-edit-outline" color="primary" size="large" class="mx-1" @click.stop="editItem(item)"></v-icon>
+            <v-icon icon="mdi-square-edit-outline" color="primary" size="large" class="mx-1"
+                    @click.stop="editItem(item)"></v-icon>
             <v-icon icon="mdi-trash-can-outline" color="error" size="large" @click.stop="deleteItem(item)"></v-icon>
           </template>
         </easy-data-table>
@@ -53,18 +54,18 @@
     </v-col>
   </v-row>
   <v-dialog v-model="dialogEntity" max-width="500px" persistent>
-    <entity :item="editedItem" :is-new="isNew" @close="close" @save="save" />
+    <entity :item="editedItem" :is-new="isNew" @close="close" @save="save"/>
   </v-dialog>
   <v-dialog v-model="dialogDelete" max-width="500px">
-    <dialog-confirm @close="closeDelete" @confirm="deleteItemConfirm" />
+    <dialog-confirm @close="closeDelete" @confirm="deleteItemConfirm"/>
   </v-dialog>
 </template>
 
 <script setup>
 import DialogConfirm from "./components/common/DialogConfirm"
 import Entity from "./components/topUpAmount/TopUpEntity"
-import { useBreadcrumb, useGlobal, useTableHeader, useTopUpAmount } from "@/stores"
-// import {dataTableAttr} from "@/utils"
+import {useBreadcrumb, useGlobal, useTableHeader, useTopUpAmount} from "@/stores"
+import {dataTableAttr} from "@/utils";
 
 const amountStore = useTopUpAmount()
 const globalStore = useGlobal()
@@ -72,8 +73,8 @@ const breadcrumbStore = useBreadcrumb()
 const tableHeaderStore = useTableHeader()
 const headers = computed(() => tableHeaderStore.topUpAmount)
 
-const { amounts, total, isNew, editedItem, editedIndex, isHideFooter } = storeToRefs(amountStore)
-const { isLoading } = storeToRefs(globalStore)
+const {amounts, total, isNew, editedItem, editedIndex, isHideFooter} = storeToRefs(amountStore)
+const {isLoading} = storeToRefs(globalStore)
 const vuetifyTheme = useTheme()
 const tableClass = computed(() => (vuetifyTheme.current.value.dark ? "customize-table-dark" : "customize-table"))
 const tableColor = computed(() => vuetifyTheme.current.value.colors.primary)
@@ -90,13 +91,14 @@ const search = debounce((value) => amountStore.loadAllAmount(value), 800)
 onMounted(() => {
   amountStore.loadAllAmount(unref(requestParams))
 })
+
 watch(
   requestParams,
   (value) => {
     debugger
     search(unref(value))
   },
-  { deep: true },
+  {deep: true},
 )
 
 function reload() {
@@ -141,7 +143,7 @@ function closeDelete() {
 
 function save(values) {
   if (editedIndex.value > -1) {
-    const entity = { id: editedItem.value?.id, ...values }
+    const entity = {id: editedItem.value?.id, ...values}
     amountStore.updateAmount(entity)
   } else {
     amountStore.createAmount(values)

@@ -1,10 +1,9 @@
 <template>
-  <v-card class="d-flex flex-grow-1 bg-primary-darken-4" theme="dark">
+  <v-card class="d-flex flex-grow-1">
     <!-- loading spinner -->
     <div v-if="loading" class="d-flex flex-grow-1 align-center justify-center">
       <v-progress-circular indeterminate color="primary"></v-progress-circular>
     </div>
-
     <!-- information -->
     <div v-else class="d-flex flex-column flex-grow-1">
       <v-card-title class="d-flex">
@@ -20,9 +19,7 @@
           </div>
           <div class="text-primary-lighten-1 mt-1">{{ formatCurrency(7123.21) }} {{ $t("dashboard.lastweek") }}</div>
         </div>
-
         <v-spacer></v-spacer>
-
         <div class="px-2 pb-2">
           <div class="title mb-1">{{ $t("dashboard.weeklySales") }}</div>
           <div class="d-flex align-center">
@@ -32,7 +29,7 @@
             <v-spacer></v-spacer>
             <div class="d-flex flex-column text-right">
               <div class="font-weight-bold">
-                <trend-percent :value="percentage" />
+                <trend-percent :value="percentage"/>
               </div>
               <div class="text-caption">{{ percentageLabel }}</div>
             </div>
@@ -46,10 +43,10 @@
 </template>
 
 <script setup>
-import { computed } from "vue"
-import { useTheme } from "vuetify"
-import { formatCurrency } from "@/filters"
+import {useTheme} from "vuetify"
+import {formatCurrency} from "@/filters"
 import dayjs from "dayjs"
+
 const props = defineProps({
   value: {
     type: Number,
@@ -101,11 +98,10 @@ const emit = defineEmits(["actionClicked"])
 const formatDate = (date) => {
   return date ? dayjs(date).format("DD MM") : ""
 }
-const { themes, current } = useTheme()
+const {themes, current} = useTheme()
 
 const chartOptions = computed(() => {
   const primaryColor = current.value.dark ? themes.value["dark"].colors.primary : themes.value["light"].colors.primary
-
   return {
     chart: {
       height: 120,
@@ -132,9 +128,8 @@ const chartOptions = computed(() => {
     tooltip: {
       followCursor: true,
       theme: "dark",
-      custom: function ({ ctx, series, seriesIndex, dataPointIndex, w }) {
+      custom: function ({ctx, series, seriesIndex, dataPointIndex, w}) {
         const seriesName = w.config.series[seriesIndex].name
-
         return `<div class="rounded-lg pa-1 text-caption">
               <div class="font-weight-bold">${formatDate(w.globals.categoryLabels[dataPointIndex])}</div>
               <div>${series[seriesIndex][dataPointIndex]} ${seriesName}</div>

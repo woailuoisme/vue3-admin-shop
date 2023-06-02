@@ -1,16 +1,30 @@
 <script setup>
-// interface Props {
-//   title: string
-//   color?: string
-//   icon: string
-//   stats: string
-//   change: number
-//   subtitle: string
-// }
-
 const props = defineProps({
-  color: String,
-  default: () => "primary",
+  title: {
+    type: String,
+    required: true,
+  },
+  color: {
+    type: String,
+    required: false,
+    default: "primary",
+  },
+  icon: {
+    type: String,
+    required: true,
+  },
+  stats: {
+    type: String,
+    required: true,
+  },
+  change: {
+    type: Number,
+    required: true,
+  },
+  subtitle: {
+    type: String,
+    required: true,
+  },
 })
 
 const isPositive = controlledComputed(

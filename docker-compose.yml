@@ -14,3 +14,10 @@ services:
     restart: always
     networks:
       - frontend
+
+  local:
+    build:
+      context: .
+      dockerfile: local.Dockerfile
+    image: ailuoga/admin:latest
+

@@ -3,8 +3,6 @@ export * from "./regex"
 export * from "./storage"
 export * from "./string"
 export * from "./toast"
-export * from "./typeof"
-export * from "./updates"
 export * from "./urls"
 export * from "./util"
 export * from "./validation"
@@ -16,4 +14,5 @@ export * from "./nporgress"
 export * from "./config"
 
 import i18n from "@/plugins/i18n"
+
 export const t = i18n.global.t

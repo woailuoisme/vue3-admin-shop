@@ -1,12 +1,12 @@
-import { useNameCase } from "../util.mjs"
+import {useNameCase} from "../util.mjs"
 
 export const apiContent = (model, withImage = false) => {
-  const result = useNameCase(model)
-  const camelName = result.camelName
-  const pascalName = result.pascalName
-  const snakeName = result.snakeName
+    const result = useNameCase(model)
+    const camelName = result.camelName
+    const pascalName = result.pascalName
+    const snakeName = result.snakeName
 
-  const withImageFile = `
+    const withImageFile = `
 import client from './http.client'
 
 class ${pascalName}lService {
@@ -62,7 +62,7 @@ class ${pascalName}lService {
 export default new ${pascalName}Service()
   `
 
-  const crudFile = `
+    const crudFile = `
 import request from './http.client'
 
 class ${pascalName}Service {
@@ -109,5 +109,5 @@ class ${pascalName}Service {
 
 export default new ${pascalName}Service()
   `
-  return withImage ? withImageFile : crudFile
+    return withImage ? withImageFile : crudFile
 }

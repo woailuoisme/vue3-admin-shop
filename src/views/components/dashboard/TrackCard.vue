@@ -15,15 +15,13 @@
             <v-spacer></v-spacer>
             <div class="d-flex flex-column text-right">
               <div class="font-weight-bold">
-                <trend-percent :value="percentage" />
+                <trend-percent :value="percentage"/>
               </div>
               <div class="text-caption">{{ percentageLabel }}</div>
             </div>
           </div>
         </div>
-
         <v-spacer></v-spacer>
-
         <apexchart type="area" height="60" :options="chartOptions" :series="series"></apexchart>
       </div>
     </div>
@@ -31,7 +29,7 @@
 </template>
 
 <script setup>
-import { computed } from "vue"
+import {computed} from "vue"
 import dayjs from "dayjs"
 
 const props = defineProps({
@@ -106,7 +104,7 @@ const chartOptions = computed(() => {
     tooltip: {
       followCursor: true,
       theme: "dark", //this.$vuetify.theme.isDark ? 'light' : 'dark',
-      custom: function ({ ctx, series, seriesIndex, dataPointIndex, w }) {
+      custom: function ({ctx, series, seriesIndex, dataPointIndex, w}) {
         const seriesName = w.config.series[seriesIndex].name
         const dataPoint = w.config.series[seriesIndex].data[dataPointIndex]
 

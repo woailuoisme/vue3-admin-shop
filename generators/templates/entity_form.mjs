@@ -1,11 +1,10 @@
-import { useNameCase } from "../util.mjs"
-import { trim } from "lodash-es"
+import {useNameCase} from "../util.mjs"
 
 export const entityFormContent = (model) => {
-  const result = useNameCase(model)
-  const camelName = result.camelName
+    const result = useNameCase(model)
+    const camelName = result.camelName
 
-  return `
+    return `
 <template>
   <v-form @submit.prevent="submit">
     <v-card>
